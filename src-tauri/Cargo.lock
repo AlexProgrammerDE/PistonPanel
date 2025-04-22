@@ -3860,6 +3860,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "pistonpanel"
+version = "1.10.6"
+dependencies = [
+ "async-std",
+ "discord-presence",
+ "flate2",
+ "hex",
+ "log",
+ "mdns-sd",
+ "openssl",
+ "reqwest",
+ "rust_cast",
+ "serde",
+ "serde_json",
+ "sha2 0.11.0-pre.5",
+ "strip-ansi-escapes",
+ "tar",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-clipboard-manager",
+ "tauri-plugin-deep-link",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "tauri-plugin-log",
+ "tauri-plugin-opener",
+ "tauri-plugin-os",
+ "tauri-plugin-process",
+ "tauri-plugin-shell",
+ "tauri-plugin-single-instance",
+ "tauri-plugin-updater",
+ "tauri-plugin-window-state",
+ "thiserror 2.0.12",
+ "zip",
+]
+
+[[package]]
 name = "pkg-config"
 version = "0.3.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5062,42 +5098,6 @@ dependencies = [
  "wasm-bindgen",
  "web-sys",
  "windows-sys 0.59.0",
-]
-
-[[package]]
-name = "pistonpanel"
-version = "1.10.6"
-dependencies = [
- "async-std",
- "discord-presence",
- "flate2",
- "hex",
- "log",
- "mdns-sd",
- "openssl",
- "reqwest",
- "rust_cast",
- "serde",
- "serde_json",
- "sha2 0.11.0-pre.5",
- "strip-ansi-escapes",
- "tar",
- "tauri",
- "tauri-build",
- "tauri-plugin-clipboard-manager",
- "tauri-plugin-deep-link",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "tauri-plugin-log",
- "tauri-plugin-opener",
- "tauri-plugin-os",
- "tauri-plugin-process",
- "tauri-plugin-shell",
- "tauri-plugin-single-instance",
- "tauri-plugin-updater",
- "tauri-plugin-window-state",
- "thiserror 2.0.12",
- "zip",
 ]
 
 [[package]]
