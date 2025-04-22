@@ -21,34 +21,17 @@ import {
 } from '@/components/ui/form.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import { use, useCallback, useEffect, useState } from 'react';
+import { use, useCallback, useState } from 'react';
 import {
-  FlaskConicalIcon,
   HeartHandshakeIcon,
-  InfoIcon,
-  LaptopMinimalIcon,
   LoaderCircleIcon,
-  RotateCcwIcon,
   SatelliteDishIcon,
-  ServerIcon,
 } from 'lucide-react';
-import { emit, listen } from '@tauri-apps/api/event';
 import { getEnumKeyByValue, SFServerType } from '@/lib/types.ts';
 import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
-import { invoke } from '@tauri-apps/api/core';
-import {
-  cancellablePromiseDefault,
-  getLanguageName,
-  isDemo,
-  languageEmoji,
-} from '@/lib/utils.tsx';
+import { getLanguageName, languageEmoji } from '@/lib/utils.tsx';
 import { ScrollArea } from '@/components/ui/scroll-area.tsx';
 import { toast } from 'sonner';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import Logo from 'public/logo.png';
 import { Trans, useTranslation } from 'react-i18next';
 import {
@@ -80,8 +63,6 @@ import { ExternalLink } from '@/components/external-link.tsx';
 const LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY = 'form-server-address';
 const LOCAL_STORAGE_FORM_SERVER_TOKEN_KEY = 'form-server-token';
 const LOCAL_STORAGE_FORM_SERVER_EMAIL_KEY = 'form-server-email';
-const LOCAL_STORAGE_FORM_INTEGRATED_SERVER_JVM_ARGS =
-  'form-integrated-server-jvm-args';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -117,14 +98,7 @@ const tokenFormSchema = z.object({
 type EmailFormSchemaType = z.infer<typeof emailFormSchema>;
 type TokenFormSchemaType = z.infer<typeof tokenFormSchema>;
 
-const integratedServerFormSchema = z.object({
-  jvmArgs: z.string(),
-});
-type IntegratedServerFormSchemaType = z.infer<
-  typeof integratedServerFormSchema
->;
-
-type LoginType = 'INTEGRATED' | 'DEDICATED' | 'EMAIL_CODE' | null;
+type LoginType = 'DEDICATED' | 'EMAIL_CODE' | null;
 
 type TargetRedirectFunction = () => Promise<void>;
 type LoginFunction = (
@@ -139,26 +113,12 @@ type AuthFlowData = {
   address: string;
 };
 
-const DEFAULT_JVM_ARGS = [
-  '-XX:+EnableDynamicAgentLoading',
-  '-XX:+UnlockExperimentalVMOptions',
-  '-XX:+UseZGC',
-  '-XX:+ZGenerational',
-  '-XX:+AlwaysActAsServerClassMachine',
-  '-XX:+UseNUMA',
-  '-XX:+UseFastUnorderedTimeStamps',
-  '-XX:+UseVectorCmov',
-  '-XX:+UseCriticalJavaThreadPriority',
-  '-Dsf.flags.v1=true',
-];
-const DEFAULT_JVM_ARGS_STRING = DEFAULT_JVM_ARGS.join(' ');
-
 function Index() {
   const { t, i18n } = useTranslation('login');
   const navigate = useNavigate();
   const searchParams: Record<string, string> = Route.useSearch();
   const [authFlowData, setAuthFlowData] = useState<AuthFlowData | null>(null);
-  const [loginType, setLoginType] = useState<LoginType>(null);
+  const [loginType, setLoginType] = useState<LoginType>('DEDICATED');
   const systemInfo = use(SystemInfoContext);
 
   const targetRedirect: TargetRedirectFunction = useCallback(async () => {
@@ -177,36 +137,6 @@ function Index() {
     [targetRedirect],
   );
 
-  const startIntegratedServer = () => {
-    toast.promise(
-      (async () => {
-        await emit('kill-integrated-server', {});
-        const args = localStorage.getItem(
-          LOCAL_STORAGE_FORM_INTEGRATED_SERVER_JVM_ARGS,
-        );
-        const payload = await invoke('run_integrated_server', {
-          jvmArgs:
-            args === null
-              ? DEFAULT_JVM_ARGS
-              : args.split(' ').filter((str) => str !== ''),
-        });
-        const payloadString = payload as string;
-        const split = payloadString.split('\n');
-
-        await redirectWithCredentials('integrated', split[0], split[1]);
-      })(),
-      {
-        loading: t('integrated.toast.loading'),
-        success: t('integrated.toast.success'),
-        error: (e) => {
-          setLoginType(null);
-          console.error(e);
-          return t('integrated.toast.error');
-        },
-      },
-    );
-  };
-
   return (
     <ScrollArea className="bg-muted h-dvh w-full px-4">
       <main className="flex min-h-dvh w-full flex-col">
@@ -221,19 +151,6 @@ function Index() {
             />
             <p className="font-medium tracking-wide">{t('header.title')}</p>
           </div>
-          {loginType === null && (
-            <DefaultMenu
-              setLoginType={setLoginType}
-              demoLogin={targetRedirect}
-            />
-          )}
-          {loginType === 'INTEGRATED' && (
-            <IntegratedMenu
-              setLoginType={setLoginType}
-              redirectWithCredentials={redirectWithCredentials}
-              startIntegratedServer={startIntegratedServer}
-            />
-          )}
           {loginType === 'DEDICATED' && (
             <DedicatedMenu
               setAuthFlowData={setAuthFlowData}
@@ -336,257 +253,6 @@ function LoginCardTitle() {
       <SatelliteDishIcon />
       {t('connect.title')}
     </CardTitle>
-  );
-}
-
-function DefaultMenu(props: {
-  setLoginType: (type: LoginType) => void;
-  demoLogin: TargetRedirectFunction;
-}) {
-  const { t } = useTranslation('login');
-  const systemInfo = use(SystemInfoContext);
-  return (
-    <Card>
-      <CardHeader className="text-center">
-        <LoginCardTitle />
-        <CardDescription>{t('connect.description')}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        <div className="flex flex-row gap-2">
-          <Button
-            disabled={isDemo() || !systemInfo}
-            className="w-full"
-            variant="outline"
-            onClick={() => {
-              props.setLoginType('INTEGRATED');
-            }}
-          >
-            <LaptopMinimalIcon className="size-5" />
-            {t('connect.integrated.title')}
-          </Button>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button className="w-fit" variant="outline">
-                <InfoIcon className="size-5" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              {t('connect.integrated.description')}
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className="flex flex-row gap-2">
-          <Button
-            disabled={isDemo()}
-            className="w-full"
-            variant="outline"
-            onClick={() => props.setLoginType('DEDICATED')}
-          >
-            <ServerIcon className="size-5" />
-            {t('connect.dedicated.title')}
-          </Button>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button className="w-fit" variant="outline">
-                <InfoIcon className="size-5" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              {t('connect.dedicated.description')}
-            </PopoverContent>
-          </Popover>
-        </div>
-        {isDemo() && (
-          <div className="flex flex-row gap-2">
-            <Button
-              className="w-full"
-              variant="outline"
-              onClick={() => {
-                void props.demoLogin();
-              }}
-            >
-              <FlaskConicalIcon className="size-5" />
-              {t('connect.demo.title')}
-            </Button>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button className="w-fit" variant="outline">
-                  <InfoIcon className="size-5" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>{t('connect.demo.description')}</PopoverContent>
-            </Popover>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-
-type IntegratedState = 'configure' | 'loading';
-
-function IntegratedMenu({
-  redirectWithCredentials,
-  setLoginType,
-  startIntegratedServer,
-}: {
-  redirectWithCredentials: LoginFunction;
-  setLoginType: (type: LoginType) => void;
-  startIntegratedServer: () => void;
-}) {
-  const [integratedState, setIntegratedState] =
-    useState<IntegratedState>('configure');
-
-  switch (integratedState) {
-    case 'configure':
-      return (
-        <IntegratedConfigureMenu
-          setLoginType={setLoginType}
-          setIntegratedState={setIntegratedState}
-          startIntegratedServer={startIntegratedServer}
-        />
-      );
-    case 'loading':
-      return (
-        <IntegratedLoadingMenu
-          redirectWithCredentials={redirectWithCredentials}
-        />
-      );
-  }
-}
-
-function IntegratedConfigureMenu({
-  setLoginType,
-  setIntegratedState,
-  startIntegratedServer,
-}: {
-  setLoginType: (type: LoginType) => void;
-  setIntegratedState: (state: IntegratedState) => void;
-  startIntegratedServer: () => void;
-}) {
-  const { t } = useTranslation('login');
-  const form = useForm<IntegratedServerFormSchemaType>({
-    resolver: zodResolver(integratedServerFormSchema),
-    defaultValues: {
-      jvmArgs:
-        localStorage.getItem(LOCAL_STORAGE_FORM_INTEGRATED_SERVER_JVM_ARGS) ??
-        DEFAULT_JVM_ARGS_STRING,
-    },
-  });
-
-  function onSubmit(values: IntegratedServerFormSchemaType) {
-    const jvmArgs = values.jvmArgs.trim();
-    localStorage.setItem(
-      LOCAL_STORAGE_FORM_INTEGRATED_SERVER_JVM_ARGS,
-      jvmArgs,
-    );
-
-    setIntegratedState('loading');
-    startIntegratedServer();
-  }
-
-  return (
-    <Card>
-      <CardHeader className="text-center">
-        <LoginCardTitle />
-        <CardDescription>{t('integrated.description')}</CardDescription>
-      </CardHeader>
-      <Form {...form}>
-        <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
-          <CardContent className="flex flex-col gap-4">
-            <FormField
-              control={form.control}
-              name="jvmArgs"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('integrated.form.jvmArgs.title')}</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-row gap-2">
-                      <Input
-                        type="text"
-                        inputMode="text"
-                        placeholder={t('integrated.form.jvmArgs.placeholder')}
-                        {...field}
-                      />
-                      <Button
-                        variant="secondary"
-                        disabled={
-                          form.getValues().jvmArgs === DEFAULT_JVM_ARGS_STRING
-                        }
-                        onClick={() => {
-                          form.setValue('jvmArgs', DEFAULT_JVM_ARGS_STRING);
-                          localStorage.setItem(
-                            LOCAL_STORAGE_FORM_INTEGRATED_SERVER_JVM_ARGS,
-                            DEFAULT_JVM_ARGS_STRING,
-                          );
-                        }}
-                      >
-                        <RotateCcwIcon />
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormDescription>
-                    <Trans
-                      i18nKey="login:integrated.form.jvmArgs.description"
-                      components={{ bold: <strong className="text-nowrap" /> }}
-                    />
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button
-              variant="outline"
-              onClick={(e) => {
-                e.preventDefault();
-                setLoginType(null);
-              }}
-              type="button"
-            >
-              {t('integrated.form.back')}
-            </Button>
-            <Button type="submit">{t('integrated.form.start')}</Button>
-          </CardFooter>
-        </form>
-      </Form>
-    </Card>
-  );
-}
-
-function IntegratedLoadingMenu({
-  redirectWithCredentials,
-}: {
-  redirectWithCredentials: LoginFunction;
-}) {
-  const { t } = useTranslation('login');
-  const [latestLog, setLatestLog] = useState<string>(t('integrated.preparing'));
-
-  // Hook for loading the integrated server
-  useEffect(() => {
-    const cancel = cancellablePromiseDefault(
-      listen('integrated-server-start-log', (event) => {
-        setLatestLog(event.payload as string);
-      }),
-    );
-    return () => {
-      cancel();
-    };
-  }, [redirectWithCredentials, t]);
-
-  return (
-    <Card>
-      <CardHeader className="text-center">
-        <LoginCardTitle />
-        <CardDescription className="truncate break-all whitespace-pre-wrap">
-          {latestLog}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex h-32 w-full">
-        <LoaderCircleIcon className="m-auto h-12 w-12 animate-spin" />
-      </CardContent>
-    </Card>
   );
 }
 
