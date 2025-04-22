@@ -3,11 +3,11 @@ import { TerminalComponent } from '@/components/terminal.tsx';
 import CommandInput from '@/components/command-input.tsx';
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { useMemo } from 'react';
-import { CommandScope } from '@/generated/soulfire/command.ts';
-import { LogScope } from '@/generated/soulfire/logs.ts';
+import { CommandScope } from '@/generated/pistonpanel/command.ts';
+import { LogScope } from '@/generated/pistonpanel/logs.ts';
 import { useTranslation } from 'react-i18next';
 import { hasGlobalPermission } from '@/lib/utils.tsx';
-import { GlobalPermission } from '@/generated/soulfire/common.ts';
+import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/user/admin/console')({

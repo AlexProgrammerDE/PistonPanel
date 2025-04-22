@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "Logo SoulFire"
+      "alt": "Logo PistonPanel"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "Połącz z serwerem SoulFire",
-    "description": "Wybierz typ serwera SoulFire, z którym chcesz się połączyć.",
+    "title": "Połącz z serwerem PistonPanel",
+    "description": "Wybierz typ serwera PistonPanel, z którym chcesz się połączyć.",
     "integrated": {
       "title": "Serwer zintegrowany (lokalny)",
-      "description": "Uruchamia serwer SoulFire na twoim komputerze. Konfiguracja jest automatyczna i nie wymaga ingerencji użytkownika. (Wymaga aplikacji)"
+      "description": "Uruchamia serwer PistonPanel na twoim komputerze. Konfiguracja jest automatyczna i nie wymaga ingerencji użytkownika. (Wymaga aplikacji)"
     },
     "dedicated": {
       "title": "Serwer dedykowany (zdalny)",
-      "description": "Łączy się ze zdalną instancją serwera SoulFire. Będziesz musiał podać adres i token serwera."
+      "description": "Łączy się ze zdalną instancją serwera PistonPanel. Będziesz musiał podać adres i token serwera."
     },
     "demo": {
       "title": "Serwer demonstracyjny",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Umieść adres i token serwera SoulFire, z którym chcesz się połączyć.",
+    "description": "Umieść adres i token serwera PistonPanel, z którym chcesz się połączyć.",
     "toast": {
       "loading": "Łączenie z serwerem...",
       "success": "Połączono z serwerem",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "Adres",
-        "description": "Adres twojego serwera SoulFire.",
+        "description": "Adres twojego serwera PistonPanel.",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "E-mail",
-        "placeholder": "root@soulfiremc.com",
-        "description": "E-mail twojego konta SoulFire."
+        "placeholder": "root@pistonpanelmc.com",
+        "description": "E-mail twojego konta PistonPanel."
       },
       "back": "Wróć",
       "useToken": "Użyj tokena",
@@ -78,7 +78,7 @@
     "back": "Wróć"
   },
   "footer": {
-    "version": "Klient SoulFire {{version}} - {{environment}}",
+    "version": "Klient PistonPanel {{version}} - {{environment}}",
     "preview": "Szukasz podglądu?",
     "production": "Szukasz wersji produkcyjnej?",
     "helpTranslate": ""

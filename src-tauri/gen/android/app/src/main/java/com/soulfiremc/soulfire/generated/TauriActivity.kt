@@ -4,7 +4,7 @@
 
 /* THIS FILE IS AUTO-GENERATED. DO NOT MODIFY!! */
 
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
 import android.os.Bundle
 import android.content.Intent

@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "SoulFire logo"
+      "alt": "PistonPanel logo"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "Подключение к серверу SoulFire",
-    "description": "Выберите тип подключения к SoulFire серверу.",
+    "title": "Подключение к серверу PistonPanel",
+    "description": "Выберите тип подключения к PistonPanel серверу.",
     "integrated": {
       "title": "Встроенный сервер (локально)",
-      "description": "Запускает сервер SoulFire на вашем компьютере. Установка автоматическая и не требует настройки. (Требуется настольное приложение)"
+      "description": "Запускает сервер PistonPanel на вашем компьютере. Установка автоматическая и не требует настройки. (Требуется настольное приложение)"
     },
     "dedicated": {
       "title": "Выделенный сервер (удаленный)",
-      "description": "Подключение к удаленному экземпляру сервера SoulFire. Вам нужно будет указать адрес и токен сервера."
+      "description": "Подключение к удаленному экземпляру сервера PistonPanel. Вам нужно будет указать адрес и токен сервера."
     },
     "demo": {
       "title": "Демонстративный сервер",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Введите адрес и токен сервера SoulFire, к которому хотите подключиться.",
+    "description": "Введите адрес и токен сервера PistonPanel, к которому хотите подключиться.",
     "toast": {
       "loading": "Подключение к серверу...",
       "success": "Подключен к серверу",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "Адрес",
-        "description": "Адрес вашего сервера SoulFire.",
+        "description": "Адрес вашего сервера PistonPanel.",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "E-mail",
-        "placeholder": "root@soulfiremc.com",
-        "description": "Email вашего аккаунта SoulFire."
+        "placeholder": "root@pistonpanelmc.com",
+        "description": "Email вашего аккаунта PistonPanel."
       },
       "back": "Назад",
       "useToken": "Использовать токен",
@@ -78,7 +78,7 @@
     "back": "Назад"
   },
   "footer": {
-    "version": "SoulFire Client {{version}} - {{environment}}",
+    "version": "PistonPanel Client {{version}} - {{environment}}",
     "preview": "Ищете предпросмотр будущей версии?",
     "production": "Ищете релиз версию?",
     "helpTranslate": ""

@@ -1,15 +1,15 @@
 [package]
-name = "soulfire"
+name = "pistonpanel"
 version = "1.10.6"
-description = "Frontend client for SoulFire."
+description = "Frontend client for PistonPanel."
 authors = ["Pistonmaster"]
 license = "GPL-3.0"
-repository = "https://github.com/AlexProgrammerDE/SoulFireClient"
+repository = "https://github.com/AlexProgrammerDE/PistonPanel"
 edition = "2024"
 rust-version = "1.85"
 
 [lib]
-name = "soulfire_lib"
+name = "pistonpanel_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

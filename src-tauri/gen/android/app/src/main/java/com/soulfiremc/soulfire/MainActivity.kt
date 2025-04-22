@@ -1,3 +1,3 @@
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
 class MainActivity : TauriActivity()

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.soulfiremc.soulfire</id>
+  <id>com.pistonpanelmc.pistonpanel</id>
 
-  <name>SoulFire</name>
+  <name>PistonPanel</name>
   <summary>Advanced Minecraft Server-Stresser Tool</summary>
 
   <metadata_license>FSFAP</metadata_license>
@@ -26,16 +26,16 @@
 
   <content_rating type="oars-1.1" />
 
-  <url type="homepage">https://soulfiremc.com</url>
-  <url type="help">https://soulfiremc.com/docs</url>
-  <url type="bugtracker">https://github.com/AlexProgrammerDE/SoulFireClient/issues</url>
+  <url type="homepage">https://pistonpanelmc.com</url>
+  <url type="help">https://pistonpanelmc.com/docs</url>
+  <url type="bugtracker">https://github.com/AlexProgrammerDE/PistonPanel/issues</url>
   <url type="donation">https://ko-fi.com/alexprogrammerde</url>
-  <url type="translate">https://crowdin.com/project/soulfireclient</url>
-  <url type="contact">https://soulfiremc.com/discord</url>
-  <url type="contribute">https://github.com/AlexProgrammerDE/SoulFireClient</url>
-  <url type="vcs-browser">https://github.com/AlexProgrammerDE/SoulFireClient</url>
+  <url type="translate">https://crowdin.com/project/pistonpanel</url>
+  <url type="contact">https://pistonpanelmc.com/discord</url>
+  <url type="contribute">https://github.com/AlexProgrammerDE/PistonPanel</url>
+  <url type="vcs-browser">https://github.com/AlexProgrammerDE/PistonPanel</url>
 
-  <launchable type="desktop-id">com.soulfiremc.soulfire.desktop</launchable>
+  <launchable type="desktop-id">com.pistonpanelmc.pistonpanel.desktop</launchable>
 
   <branding>
     <color type="primary" scheme_preference="light">#F4F4F5</color>
@@ -44,18 +44,18 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/AlexProgrammerDE/SoulFireClient/blob/main/images/controls.png?raw=true</image>
-      <caption>SoulFire instance controls</caption>
+      <image>https://github.com/AlexProgrammerDE/PistonPanel/blob/main/images/controls.png?raw=true</image>
+      <caption>PistonPanel instance controls</caption>
     </screenshot>
     <screenshot>
-      <image>https://github.com/AlexProgrammerDE/SoulFireClient/blob/main/images/instances.png?raw=true</image>
-      <caption>SoulFire instance overview</caption>
+      <image>https://github.com/AlexProgrammerDE/PistonPanel/blob/main/images/instances.png?raw=true</image>
+      <caption>PistonPanel instance overview</caption>
     </screenshot>
   </screenshots>
 
   <releases>
     <release version="1.10.6" date="2025-04-17">
-      <url type="details">https://github.com/AlexProgrammerDE/SoulFireClient/releases/tag/1.10.6</url>
+      <url type="details">https://github.com/AlexProgrammerDE/PistonPanel/releases/tag/1.10.6</url>
     </release>
     <release version="1.10.5" date="2025-04-16"/>
     <release version="1.10.4" date="2025-04-15"/>

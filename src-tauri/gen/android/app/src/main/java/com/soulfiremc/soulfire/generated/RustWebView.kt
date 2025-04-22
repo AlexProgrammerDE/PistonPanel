@@ -6,7 +6,7 @@
 
 @file:Suppress("unused", "SetJavaScriptEnabled")
 
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
 import android.annotation.SuppressLint
 import android.webkit.*

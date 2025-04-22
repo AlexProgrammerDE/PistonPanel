@@ -24,7 +24,7 @@ import {
 import { Input } from '@/components/ui/input.tsx';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import { toast } from 'sonner';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { createContext, ReactNode, use, useState } from 'react';

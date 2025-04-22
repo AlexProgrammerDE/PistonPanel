@@ -60,11 +60,11 @@ jobs:
 
       - name: 'Add to metainfo'
         run: |
-          if ! grep -q "<release version=\"${{ inputs.version }}\"" com.soulfiremc.soulfire.metainfo.xml; then
+          if ! grep -q "<release version=\"${{ inputs.version }}\"" com.pistonpanelmc.pistonpanel.metainfo.xml; then
             sed -i "/<releases>/a\\
               <release version=\"${{ inputs.version }}\" date=\"$(date +"%Y-%m-%d")\">\\
-                <url type=\"details\">https://github.com/AlexProgrammerDE/SoulFireClient/releases/tag/${{ inputs.version }}</url>\\
-              </release>" com.soulfiremc.soulfire.metainfo.xml
+                <url type=\"details\">https://github.com/AlexProgrammerDE/PistonPanel/releases/tag/${{ inputs.version }}</url>\\
+              </release>" com.pistonpanelmc.pistonpanel.metainfo.xml
             echo "Added release ${{ inputs.version }} to metainfo file"
           else
             echo "Release version ${{ inputs.version }} already exists in metainfo file, skipping addition"

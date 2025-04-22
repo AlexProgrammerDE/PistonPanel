@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
 import android.net.Uri
 import android.webkit.*
@@ -92,7 +92,7 @@ class RustWebViewClient(context: Context): WebViewClient() {
 
     companion object {
         init {
-            System.loadLibrary("soulfire_lib")
+            System.loadLibrary("pistonpanel_lib")
         }
     }
 

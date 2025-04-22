@@ -3,7 +3,7 @@ import { isDemo } from '@/lib/utils.tsx';
 import i18n from '@/lib/i18n.ts';
 import { SFServerType } from '@/lib/types.ts';
 import { AuthType, createClient, WebDAVClient } from 'webdav';
-import { ClientDataResponse } from '@/generated/soulfire/client.ts';
+import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
 
 const LOCAL_STORAGE_SERVER_TYPE_KEY = 'server-type';
 const LOCAL_STORAGE_SERVER_ADDRESS_KEY = 'server-address';

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { DataTable } from '@/components/data-table.tsx';
 import { ColumnDef, Row, Table as ReactTable } from '@tanstack/react-table';
 import { getEnumKeyByValue } from '@/lib/types.ts';
-import { UserRole } from '@/generated/soulfire/common.ts';
+import { UserRole } from '@/generated/pistonpanel/common.ts';
 import { toast } from 'sonner';
 import {
   LogOutIcon,
@@ -26,8 +26,8 @@ import {
   SelectRowHeader,
 } from '@/components/data-table-selects.tsx';
 import { startImpersonation } from '@/lib/web-rpc.ts';
-import { UserListResponse_User } from '@/generated/soulfire/user.ts';
-import { UserServiceClient } from '@/generated/soulfire/user.client.ts';
+import { UserListResponse_User } from '@/generated/pistonpanel/user.ts';
+import { UserServiceClient } from '@/generated/pistonpanel/user.client.ts';
 import UserPageLayout from '@/components/nav/user-page-layout.tsx';
 import { UserAvatar } from '@/components/user-avatar.tsx';
 import { ManageUserDialog } from '@/components/dialog/manage-user-dialog.tsx';

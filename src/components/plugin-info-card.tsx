@@ -22,7 +22,7 @@ import { JsonValue } from '@protobuf-ts/runtime';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
 import DynamicIcon from './dynamic-icon';
 import { Link, useRouteContext } from '@tanstack/react-router';
-import { SettingsPage } from '@/generated/soulfire/common.ts';
+import { SettingsPage } from '@/generated/pistonpanel/common.ts';
 import { ExternalLink } from '@/components/external-link.tsx';
 
 export function PluginInfoCard(props: { settingsEntry: SettingsPage }) {

@@ -25,8 +25,8 @@ pub fn load_discord_rpc() -> Result<(), SFAnyError> {
         a.state("Idling")
             .details("Professional bot tool")
             .timestamps(|timestamps| timestamps.start(epoch_secs))
-            .assets(|assets| assets.large_image("logo").large_text("SoulFire 🧙"))
-            .append_buttons(|button| button.label("Learn more").url("https://soulfiremc.com"))
+            .assets(|assets| assets.large_image("logo").large_text("PistonPanel 🧙"))
+            .append_buttons(|button| button.label("Learn more").url("https://pistonpanelmc.com"))
     }) {
         error!("Failed to set presence: {}", why);
     }

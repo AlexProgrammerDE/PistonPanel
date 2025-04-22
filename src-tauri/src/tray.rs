@@ -50,8 +50,8 @@ fn handle_tray_event<R: Runtime>(
 }
 
 pub fn create_tray<R: Runtime>(app: &AppHandle<R>) -> Result<(), SFAnyError> {
-    let open_i = MenuItem::with_id(app, "open", "Open SoulFire", true, None::<&str>)?;
-    let quit_i = MenuItem::with_id(app, "quit", "Quit SoulFire", true, None::<&str>)?;
+    let open_i = MenuItem::with_id(app, "open", "Open PistonPanel", true, None::<&str>)?;
+    let quit_i = MenuItem::with_id(app, "quit", "Quit PistonPanel", true, None::<&str>)?;
     let menu = Menu::with_items(app, &[&open_i, &quit_i])?;
 
     let _ = TrayIconBuilder::with_id("tray")

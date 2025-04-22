@@ -4,13 +4,13 @@ import {
   GlobalPermission,
   InstancePermission,
   SettingEntry,
-} from '@/generated/soulfire/common.ts';
-import { ClientDataResponse } from '@/generated/soulfire/client.ts';
+} from '@/generated/pistonpanel/common.ts';
+import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
 import {
   InstanceInfoResponse,
   InstanceListResponse,
   InstanceListResponse_Instance,
-} from '@/generated/soulfire/instance.ts';
+} from '@/generated/pistonpanel/instance.ts';
 import { sha256 } from 'js-sha256';
 import * as Flags from 'country-flag-icons/react/3x2';
 import { type FlagComponent } from 'country-flag-icons/react/1x1';
@@ -24,12 +24,12 @@ import {
   ServerInfoQueryData,
 } from '@/lib/types.ts';
 import { JsonValue } from '@protobuf-ts/runtime';
-import { ServerServiceClient } from '@/generated/soulfire/server.client.ts';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+import { ServerServiceClient } from '@/generated/pistonpanel/server.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import { RpcTransport } from '@protobuf-ts/runtime-rpc';
 import { QueryClient, QueryKey } from '@tanstack/react-query';
 import { Timestamp } from '@/generated/google/protobuf/timestamp.ts';
-import { ClientServiceClient } from '@/generated/soulfire/client.client.ts';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
 
 export const ROOT_USER_ID = '00000000-0000-0000-0000-000000000000';
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
@@ -62,7 +62,7 @@ export function isTauri() {
 }
 
 export function isDemo() {
-  return document.location.host === 'demo.soulfiremc.com';
+  return document.location.host === 'demo.pistonpanelmc.com';
 }
 
 export function cancellablePromiseDefault<T extends () => void>(

@@ -25,7 +25,7 @@ export function NavSecondary({
   const items: NavLinks = [
     {
       title: t('sidebar.documentation'),
-      url: 'https://soulfiremc.com/docs',
+      url: 'https://pistonpanelmc.com/docs',
       icon: BookOpenTextIcon,
     },
     {
@@ -35,7 +35,7 @@ export function NavSecondary({
     },
     {
       title: t('sidebar.discord'),
-      url: 'https://soulfiremc.com/discord',
+      url: 'https://pistonpanelmc.com/discord',
       icon: SiDiscord,
     },
   ];

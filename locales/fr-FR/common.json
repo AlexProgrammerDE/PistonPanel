@@ -9,7 +9,7 @@
       "logOut": "Déconnexion",
       "reloadPage": "Recharger la page"
     },
-    "connectionFailed": "Échec de la connexion au serveur SoulFire.."
+    "connectionFailed": "Échec de la connexion au serveur PistonPanel.."
   },
   "notFound": {
     "page": {
@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "A propos de SoulFire",
-      "description": "Vous utilisez la version {{version}} de SoulFire client.",
+      "title": "A propos de PistonPanel",
+      "description": "Vous utilisez la version {{version}} de PistonPanel client.",
       "type": "Type",
       "value": "Valeur",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "Le chargement à partir d'une URL oblige le serveur SoulFire à effectuer une requête GET auprès du serveur cible et à utiliser la réponse comme données.",
+        "description": "Le chargement à partir d'une URL oblige le serveur PistonPanel à effectuer une requête GET auprès du serveur cible et à utiliser la réponse comme données.",
         "form": {
           "url": {
             "placeholder": "Entrez l'URL ici...",
@@ -152,9 +152,9 @@
   "terminal": {
     "noLogs": "🧙 On dirait qu'il n'y a pas de logs à afficher ; essayez d'exécuter quelques commandes !",
     "demo-1": "Bienvenue dans le mode démo ! 🧪",
-    "demo-2": "Il s'agit d'une instance de SoulFire en lecture seule",
-    "demo-3": "Découvrez tous les menus et toutes les fonctionnalités avant d'installer SoulFire :D",
-    "demo-4": "N’hésitez pas à rejoindre notre serveur Discord si vous souhaitez nous joindre : https://soulfiremc.com/discord"
+    "demo-2": "Il s'agit d'une instance de PistonPanel en lecture seule",
+    "demo-3": "Découvrez tous les menus et toutes les fonctionnalités avant d'installer PistonPanel :D",
+    "demo-4": "N’hésitez pas à rejoindre notre serveur Discord si vous souhaitez nous joindre : https://pistonpanelmc.com/discord"
   },
   "uiBreadcrumb": {
     "more": "Plus"
@@ -253,7 +253,7 @@
     },
     "exit": "Quitter",
     "stopImpersonating": "Arrêter d'usurper l'identité",
-    "helpTranslate": "Traduire SoulFire"
+    "helpTranslate": "Traduire PistonPanel"
   },
   "sidebar": {
     "documentation": "Documentation",
@@ -285,15 +285,15 @@
   "access": {
     "webdav": {
       "title": "Accès WebDAV",
-      "description": "SoulFire vous permet d'accéder à des instances, des scripts et d'autres fichiers en utilisant le protocole WebDAV.",
+      "description": "PistonPanel vous permet d'accéder à des instances, des scripts et d'autres fichiers en utilisant le protocole WebDAV.",
       "publicAddress": "Adresse WebDAV publique",
       "personalToken": "Token WebDAV personnel",
-      "securityWarning": "Votre jeton WebDAV personnel est très important. Ne le partagez avec personne. Il est utilisé pour vous authentifier lorsque vous accédez à vos fichiers. Utilisez-le comme mot de passe WebDAV lors de la connexion. Le nom d'utilisateur n'est pas obligatoire, si vous y êtes invité, vous pouvez utiliser n'importe quelle valeur que vous voulez. (par exemple 'soulfire')",
+      "securityWarning": "Votre jeton WebDAV personnel est très important. Ne le partagez avec personne. Il est utilisé pour vous authentifier lorsque vous accédez à vos fichiers. Utilisez-le comme mot de passe WebDAV lors de la connexion. Le nom d'utilisateur n'est pas obligatoire, si vous y êtes invité, vous pouvez utiliser n'importe quelle valeur que vous voulez. (par exemple 'pistonpanel')",
       "addressDescription": "Il s'agit de l'adresse que vous devez utiliser pour accéder a vos fichiers. Parfois vous devez utiliser dav:// ou davs:// a la place de http(s)://."
     },
     "api": {
       "title": "Accès à l'API",
-      "description": "L'API HTTP gRPC de SoulFire vous permet d'interagir avec vos instances par programmation en utilisant des requêtes web.",
+      "description": "L'API HTTP gRPC de PistonPanel vous permet d'interagir avec vos instances par programmation en utilisant des requêtes web.",
       "publicAddress": "Adresse API publique",
       "personalToken": "Token d'API personnel",
       "securityWarning": "Votre token d'API personnel est très important. Ne le partagez avec personne. Il est utilisé pour vous authentifier lors de l'accès à l'API.",
@@ -355,7 +355,7 @@
     },
     "addScriptDialog": {
       "title": "Ajouter un nouveau script",
-      "description": "Les scripts sont de petits programmes qui s'exécutent sur le serveur SoulFire. Ils peuvent être utilisés pour automatiser les tâches, créer des comportements personnalisés, et plus encore.",
+      "description": "Les scripts sont de petits programmes qui s'exécutent sur le serveur PistonPanel. Ils peuvent être utilisés pour automatiser les tâches, créer des comportements personnalisés, et plus encore.",
       "form": {
         "cancel": "Annuler",
         "add": "Ajouter"

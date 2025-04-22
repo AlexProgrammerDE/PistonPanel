@@ -13,7 +13,7 @@ import {
   AccountTypeCredentials,
   AccountTypeDeviceCode,
   MinecraftAccountProto_AccountTypeProto,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import { PlusIcon, TrashIcon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -25,9 +25,9 @@ import {
 } from '@/components/ui/dropdown-menu.tsx';
 import { ExternalToast, toast } from 'sonner';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { MCAuthServiceClient } from '@/generated/soulfire/mc-auth.client.ts';
+import { MCAuthServiceClient } from '@/generated/pistonpanel/mc-auth.client.ts';
 import ImportDialog from '@/components/dialog/import-dialog.tsx';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import {
   useMutation,
   useQueryClient,
@@ -473,7 +473,7 @@ function AccountSettings() {
         },
       ]}
       pageName={t('pageName.accountSettings')}
-      documentationLink="https://soulfiremc.com/docs/usage/accounts"
+      documentationLink="https://pistonpanelmc.com/docs/usage/accounts"
     >
       <Content />
     </InstancePageLayout>

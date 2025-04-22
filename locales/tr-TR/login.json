@@ -3,18 +3,18 @@
     "image": {
       "alt": "Soul Fire ikonu"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "SoulFire Sunucusuna Bağlan",
-    "description": "Hangi tür SoulFire sunucusuna bağlanmak istiyorsanız onu seçin.",
+    "title": "PistonPanel Sunucusuna Bağlan",
+    "description": "Hangi tür PistonPanel sunucusuna bağlanmak istiyorsanız onu seçin.",
     "integrated": {
       "title": "Yerel Sunucu (ev)",
-      "description": "Bilgisayarınızda bir SoulFire sunucusu çalıştırır. Kurulum otomatiktir ve yapılandırma gerektirmez. (Masaüstü uygulaması gerektirir)"
+      "description": "Bilgisayarınızda bir PistonPanel sunucusu çalıştırır. Kurulum otomatiktir ve yapılandırma gerektirmez. (Masaüstü uygulaması gerektirir)"
     },
     "dedicated": {
       "title": "Dedicated Sunucu (uzaktan bağlantı)",
-      "description": "SoulFire sunucusunun uzak bir örneğine bağlanır. Bağlanmak için sunucu adresini ve token bilgilerini sağlamanız gerekmektedir."
+      "description": "PistonPanel sunucusunun uzak bir örneğine bağlanır. Bağlanmak için sunucu adresini ve token bilgilerini sağlamanız gerekmektedir."
     },
     "demo": {
       "title": "Örnek Sunucu",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "\"Bağlanmak istediğiniz SoulFire sunucusunun adresini ve token bilgilerini girin.",
+    "description": "\"Bağlanmak istediğiniz PistonPanel sunucusunun adresini ve token bilgilerini girin.",
     "toast": {
       "loading": "Sunucuya bağlanılıyor...",
       "success": "Sunucuya bağlanıldı",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "Adres",
-        "description": "SoulFire sunucunuzun adresi.",
+        "description": "PistonPanel sunucunuzun adresi.",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "Mail Adresi",
-        "placeholder": "soulfiremc@tooble.xyz",
-        "description": "SoulFire hesabınızın e-posta adresi."
+        "placeholder": "pistonpanelmc@tooble.xyz",
+        "description": "PistonPanel hesabınızın e-posta adresi."
       },
       "back": "Geri Dön",
       "useToken": "Tokeni Kullan",
@@ -78,7 +78,7 @@
     "back": "Geri Dön"
   },
   "footer": {
-    "version": "SoulFireMc Client {{version}} - {{environment}}",
+    "version": "PistonPanelMc Client {{version}} - {{environment}}",
     "preview": "Ön izleme mi arıyorsunuz?",
     "production": "Prodüksiyon mu arıyorsunuz?",
     "helpTranslate": ""

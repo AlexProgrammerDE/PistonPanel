@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "Logo de SoulFire"
+      "alt": "Logo de PistonPanel"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "Connexion à un serveur SoulFire",
-    "description": "Sélectionnez le type de serveur SoulFire auquel se connecter.",
+    "title": "Connexion à un serveur PistonPanel",
+    "description": "Sélectionnez le type de serveur PistonPanel auquel se connecter.",
     "integrated": {
       "title": "Serveur intégré (local)",
-      "description": "Exécute un serveur SoulFire sur votre ordinateur. La configuration est automatique et ne nécessite aucune configuration. (nécessite l'application de bureau)"
+      "description": "Exécute un serveur PistonPanel sur votre ordinateur. La configuration est automatique et ne nécessite aucune configuration. (nécessite l'application de bureau)"
     },
     "dedicated": {
       "title": "Serveur dédié (distant)",
-      "description": "Se connecte à une instance distante du serveur SoulFire. Vous devrez fournir l'adresse et le token du serveur."
+      "description": "Se connecte à une instance distante du serveur PistonPanel. Vous devrez fournir l'adresse et le token du serveur."
     },
     "demo": {
       "title": "Serveur de démonstration",
@@ -32,7 +32,7 @@
     "form": {
       "jvmArgs": {
         "title": "Arguments de la JVM",
-        "description": "Les arguments de la VM SoulFire Java. Pour utiliser 4Go de RAM, ajoutez <bold>-Xmx4G</bold>. La valeur par défaut est 25% de votre RAM.",
+        "description": "Les arguments de la VM PistonPanel Java. Pour utiliser 4Go de RAM, ajoutez <bold>-Xmx4G</bold>. La valeur par défaut est 25% de votre RAM.",
         "placeholder": "Vos arguments JVM ici"
       },
       "back": "Retour",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Mettez l'adresse et le token du serveur SoulFire auquel vous souhaitez vous connecter.",
+    "description": "Mettez l'adresse et le token du serveur PistonPanel auquel vous souhaitez vous connecter.",
     "toast": {
       "loading": "Connexion au serveur...",
       "success": "Connecté au serveur",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "Adresse",
-        "description": "Adresse de votre serveur SoulFire.",
+        "description": "Adresse de votre serveur PistonPanel.",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "Email",
-        "placeholder": "root@soulfiremc.com",
-        "description": "Adresse mail de votre compte SoulFire."
+        "placeholder": "root@pistonpanelmc.com",
+        "description": "Adresse mail de votre compte PistonPanel."
       },
       "back": "Retour",
       "useToken": "Utiliser un token",
@@ -78,9 +78,9 @@
     "back": "Retour"
   },
   "footer": {
-    "version": "Client SoulFire {{version}} - {{environment}}",
+    "version": "Client PistonPanel {{version}} - {{environment}}",
     "preview": "Vous cherchez la démonstration ?",
     "production": "Vous cherchez la production ?",
-    "helpTranslate": "Traduire SoulFire"
+    "helpTranslate": "Traduire PistonPanel"
   }
 }

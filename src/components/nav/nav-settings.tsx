@@ -16,7 +16,7 @@ import {
   WaypointsIcon,
 } from 'lucide-react';
 import { hasInstancePermission } from '@/lib/utils.tsx';
-import { InstancePermission } from '@/generated/soulfire/common.ts';
+import { InstancePermission } from '@/generated/pistonpanel/common.ts';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 type NavLink = {

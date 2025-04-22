@@ -10,7 +10,7 @@ import {
   ProfileProxy,
   ProfileRoot,
 } from '@/lib/types.ts';
-import { ProxyProto_Type } from '@/generated/soulfire/common.ts';
+import { ProxyProto_Type } from '@/generated/pistonpanel/common.ts';
 import { ExternalToast, toast } from 'sonner';
 import {
   DropdownMenu,
@@ -24,14 +24,14 @@ import { PlusIcon, TrashIcon, Wand2Icon } from 'lucide-react';
 import ImportDialog from '@/components/dialog/import-dialog.tsx';
 import URI from 'urijs';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { ProxyCheckServiceClient } from '@/generated/soulfire/proxy-check.client.ts';
+import { ProxyCheckServiceClient } from '@/generated/pistonpanel/proxy-check.client.ts';
 import { Trans, useTranslation } from 'react-i18next';
 import {
   SelectAllHeader,
@@ -446,7 +446,7 @@ function ProxySettings() {
         },
       ]}
       pageName={t('pageName.proxySettings')}
-      documentationLink="https://soulfiremc.com/docs/usage/proxies"
+      documentationLink="https://pistonpanelmc.com/docs/usage/proxies"
     >
       <Content />
     </InstancePageLayout>

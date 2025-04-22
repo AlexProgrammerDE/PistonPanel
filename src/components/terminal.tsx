@@ -1,12 +1,12 @@
 import React, { CSSProperties, use, useEffect, useRef, useState } from 'react';
-import { LogsServiceClient } from '@/generated/soulfire/logs.client.ts';
+import { LogsServiceClient } from '@/generated/pistonpanel/logs.client.ts';
 import { TransportContext } from './providers/transport-context.tsx';
 import { ScrollArea } from './ui/scroll-area.tsx';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context.tsx';
 import { flavorEntries } from '@catppuccin/palette';
 import { AnsiHtml } from 'fancy-ansi/react';
 import { isDemo } from '@/lib/utils.tsx';
-import { LogScope } from '@/generated/soulfire/logs.ts';
+import { LogScope } from '@/generated/pistonpanel/logs.ts';
 import { stripAnsi } from 'fancy-ansi';
 import { useTranslation } from 'react-i18next';
 

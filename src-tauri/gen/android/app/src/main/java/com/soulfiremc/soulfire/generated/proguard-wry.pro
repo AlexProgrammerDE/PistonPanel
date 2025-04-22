@@ -4,25 +4,25 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
--keep class com.soulfiremc.soulfire.* {
+-keep class com.pistonpanelmc.pistonpanel.* {
   native <methods>;
 }
 
--keep class com.soulfiremc.soulfire.WryActivity {
+-keep class com.pistonpanelmc.pistonpanel.WryActivity {
   public <init>(...);
 
-  void setWebView(com.soulfiremc.soulfire.RustWebView);
+  void setWebView(com.pistonpanelmc.pistonpanel.RustWebView);
   java.lang.Class getAppClass(...);
   java.lang.String getVersion();
 }
 
--keep class com.soulfiremc.soulfire.Ipc {
+-keep class com.pistonpanelmc.pistonpanel.Ipc {
   public <init>(...);
 
   @android.webkit.JavascriptInterface public <methods>;
 }
 
--keep class com.soulfiremc.soulfire.RustWebView {
+-keep class com.pistonpanelmc.pistonpanel.RustWebView {
   public <init>(...);
 
   void loadUrlMainThread(...);
@@ -32,6 +32,6 @@
   void evalScript(...);
 }
 
--keep class com.soulfiremc.soulfire.RustWebChromeClient,com.soulfiremc.soulfire.RustWebViewClient {
+-keep class com.pistonpanelmc.pistonpanel.RustWebChromeClient,com.pistonpanelmc.pistonpanel.RustWebViewClient {
   public <init>(...);
 }

@@ -21,7 +21,7 @@ import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { hasGlobalPermission } from '@/lib/utils.tsx';
-import { GlobalPermission } from '@/generated/soulfire/common.ts';
+import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
 
 type NavLinks = {
   title: string;

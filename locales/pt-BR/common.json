@@ -9,7 +9,7 @@
       "logOut": "Sair",
       "reloadPage": "Recarregar página"
     },
-    "connectionFailed": "A conexão com o servidor SoulFire falhou."
+    "connectionFailed": "A conexão com o servidor PistonPanel falhou."
   },
   "notFound": {
     "page": {
@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "Sobre SoulFire",
-      "description": "Você está executando a versão {{version}} do cliente SoulFire.",
+      "title": "Sobre PistonPanel",
+      "description": "Você está executando a versão {{version}} do cliente PistonPanel.",
       "type": "Tipo",
       "value": "Valor",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "Carregar a partir da URL fará com que o servidor SoulFire faça uma solicitação GET para o servidor de destino e use a resposta como dados.",
+        "description": "Carregar a partir da URL fará com que o servidor PistonPanel faça uma solicitação GET para o servidor de destino e use a resposta como dados.",
         "form": {
           "url": {
             "placeholder": "Coloque a URL aqui...",
@@ -152,9 +152,9 @@
   "terminal": {
     "noLogs": "🧙 Parece que não há logs para exibir; tente executar alguns comandos!",
     "demo-1": "Bem-vindo ao modo de demonstração! 🧪",
-    "demo-2": "Esta é uma instância somente leitura de SoulFire",
-    "demo-3": "Confira todos os menus e recursos antes de decidir instalar o SoulFire :D",
-    "demo-4": "Sinta-se à vontade para entrar no nosso servidor do Discord se quiser falar conosco: https://soulfiremc.com/discord"
+    "demo-2": "Esta é uma instância somente leitura de PistonPanel",
+    "demo-3": "Confira todos os menus e recursos antes de decidir instalar o PistonPanel :D",
+    "demo-4": "Sinta-se à vontade para entrar no nosso servidor do Discord se quiser falar conosco: https://pistonpanelmc.com/discord"
   },
   "uiBreadcrumb": {
     "more": "Mais"

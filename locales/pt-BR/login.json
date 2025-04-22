@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "Logo SoulFire"
+      "alt": "Logo PistonPanel"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "Conecte-se a um servidor SoulFire",
-    "description": "Selecione o tipo de servidor do SoulFire para se conectar.",
+    "title": "Conecte-se a um servidor PistonPanel",
+    "description": "Selecione o tipo de servidor do PistonPanel para se conectar.",
     "integrated": {
       "title": "Servidor integrado (local)",
-      "description": "Executa um servidor de SoulFire no seu computador. A configuração é automática e não requer configuração. (Necessita o aplicativo de desktop)"
+      "description": "Executa um servidor de PistonPanel no seu computador. A configuração é automática e não requer configuração. (Necessita o aplicativo de desktop)"
     },
     "dedicated": {
       "title": "Servidor dedicado (remoto)",
-      "description": "Conecta-se a uma instância remota do servidor SoulFire. Você precisará fornecer o endereço e o token do servidor."
+      "description": "Conecta-se a uma instância remota do servidor PistonPanel. Você precisará fornecer o endereço e o token do servidor."
     },
     "demo": {
       "title": "Servidor de demonstração",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Coloque o endereço e o token do servidor SoulFire que você deseja se conectar.",
+    "description": "Coloque o endereço e o token do servidor PistonPanel que você deseja se conectar.",
     "toast": {
       "loading": "",
       "success": "",
@@ -78,7 +78,7 @@
     "back": "Voltar"
   },
   "footer": {
-    "version": "Cliente SoulFire {{version}} - {{environment}}",
+    "version": "Cliente PistonPanel {{version}} - {{environment}}",
     "preview": "Procurando uma visualização?",
     "production": "Procurando produção?",
     "helpTranslate": ""

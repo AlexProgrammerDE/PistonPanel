@@ -1,6 +1,6 @@
 {
-  "name": "SoulFire",
-  "short_name": "SoulFire",
+  "name": "PistonPanel",
+  "short_name": "PistonPanel",
   "icons": [
     {
       "src": "/icons/web-app-manifest-192x192.png",

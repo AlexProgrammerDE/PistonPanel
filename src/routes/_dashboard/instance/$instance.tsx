@@ -1,13 +1,13 @@
 import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
 import { createTransport } from '@/lib/web-rpc.ts';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
-import { InstanceState } from '@/generated/soulfire/instance.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { InstanceState } from '@/generated/pistonpanel/instance.ts';
 import { queryClientInstance } from '@/lib/query.ts';
 import { queryOptions } from '@tanstack/react-query';
 import {
   MinecraftAccountProto_AccountTypeProto,
   ProxyProto_Type,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar.tsx';
 import { InstanceSidebar } from '@/components/nav/instance-sidebar.tsx';
 import { TooltipProvider } from '@/components/ui/tooltip.tsx';

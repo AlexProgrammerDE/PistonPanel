@@ -11,8 +11,8 @@ import {
   InstanceAuditLogResponse,
   InstanceAuditLogResponse_AuditLogEntry,
   InstanceAuditLogResponse_AuditLogEntryType,
-} from '@/generated/soulfire/instance.ts';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+} from '@/generated/pistonpanel/instance.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
 import { cn, timestampToDate } from '@/lib/utils.tsx';
 import i18n from '@/lib/i18n.ts';

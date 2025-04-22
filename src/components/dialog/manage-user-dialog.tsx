@@ -27,8 +27,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { use } from 'react';
 import { TransportContext } from '../providers/transport-context.tsx';
-import { UserRole } from '@/generated/soulfire/common.ts';
-import { UserServiceClient } from '@/generated/soulfire/user.client.ts';
+import { UserRole } from '@/generated/pistonpanel/common.ts';
+import { UserServiceClient } from '@/generated/pistonpanel/user.client.ts';
 import {
   Select,
   SelectContent,
@@ -38,7 +38,7 @@ import {
 } from '@/components/ui/select.tsx';
 import { getEnumEntries } from '@/lib/types.ts';
 import { useRouteContext } from '@tanstack/react-router';
-import { UserListResponse_User } from '@/generated/soulfire/user.ts';
+import { UserListResponse_User } from '@/generated/pistonpanel/user.ts';
 
 export type FormType = {
   username: string;

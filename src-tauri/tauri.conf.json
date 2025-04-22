@@ -6,16 +6,16 @@
     "frontendDist": "../dist",
     "devUrl": "http://localhost:3000"
   },
-  "productName": "SoulFire",
-  "mainBinaryName": "soulfire",
-  "identifier": "com.soulfiremc.soulfire",
+  "productName": "PistonPanel",
+  "mainBinaryName": "pistonpanel",
+  "identifier": "com.pistonpanelmc.pistonpanel",
   "app": {
     "enableGTKAppId": true,
     "macOSPrivateApi": true,
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "SoulFire",
+        "title": "PistonPanel",
         "label": "main",
         "fullscreen": false,
         "width": 1200,
@@ -35,9 +35,9 @@
     "active": true,
     "category": "DeveloperTool",
     "copyright": "AlexProgrammerDE Ⓒ 2024",
-    "publisher": "SoulFireMC",
+    "publisher": "PistonPanelMC",
     "targets": ["deb", "appimage", "nsis", "app", "dmg"],
-    "homepage": "https://soulfiremc.com",
+    "homepage": "https://pistonpanelmc.com",
     "license": "GPL-3.0",
     "licenseFile": "../LICENSE",
     "externalBin": [],
@@ -71,7 +71,7 @@
       "deb": {
         "depends": [],
         "files": {
-          "/usr/share/metainfo/com.soulfiremc.soulfire.metainfo.xml": "../com.soulfiremc.soulfire.metainfo.xml"
+          "/usr/share/metainfo/com.pistonpanelmc.pistonpanel.metainfo.xml": "../com.pistonpanelmc.pistonpanel.metainfo.xml"
         }
       }
     },
@@ -93,11 +93,11 @@
     "deep-link": {
       "mobile": [
         {
-          "host": "app.soulfiremc.com"
+          "host": "app.pistonpanelmc.com"
         }
       ],
       "desktop": {
-        "schemes": ["soulfire"]
+        "schemes": ["pistonpanel"]
       }
     }
   }

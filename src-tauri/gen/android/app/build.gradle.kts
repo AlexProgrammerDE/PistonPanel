@@ -16,10 +16,10 @@ val tauriProperties = Properties().apply {
 
 android {
     compileSdk = 34
-    namespace = "com.soulfiremc.soulfire"
+    namespace = "com.pistonpanelmc.pistonpanel"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.soulfiremc.soulfire"
+        applicationId = "com.pistonpanelmc.pistonpanel"
         minSdk = 24
         targetSdk = 34
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()

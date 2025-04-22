@@ -1,9 +1,9 @@
 {
   "header": {
     "image": {
-      "alt": "SoulFire loog"
+      "alt": "PistonPanel loog"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
     "title": "Connect 2 SoulFier servr",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Put in teh addres an token ov teh SoulFire servr u wantz 2 connect 2.",
+    "description": "Put in teh addres an token ov teh PistonPanel servr u wantz 2 connect 2.",
     "toast": {
       "loading": "",
       "success": "",
@@ -78,7 +78,7 @@
     "back": "Bak"
   },
   "footer": {
-    "version": "SoulFire Client {{version}} - {{environment}}",
+    "version": "PistonPanel Client {{version}} - {{environment}}",
     "preview": "Lukingz 4 preview?",
     "production": "Lukingz 4 producshun?",
     "helpTranslate": ""

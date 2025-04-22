@@ -4,9 +4,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
-import com.soulfiremc.soulfire.RustWebView
+import com.pistonpanelmc.pistonpanel.RustWebView
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -117,7 +117,7 @@ abstract class WryActivity : AppCompatActivity() {
 
     companion object {
         init {
-            System.loadLibrary("soulfire_lib")
+            System.loadLibrary("pistonpanel_lib")
         }
     }
 

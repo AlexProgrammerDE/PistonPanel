@@ -19,7 +19,7 @@ import { getAllIconTags } from '@/components/dynamic-icon.tsx';
 import {
   InstancePermission,
   StringSetting_InputType,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/meta')({

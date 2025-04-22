@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "Über SoulFire",
-      "description": "Du verwendest Version {{version}} des SoulFire Clients.",
+      "title": "Über PistonPanel",
+      "description": "Du verwendest Version {{version}} des PistonPanel Clients.",
       "type": "Typ",
       "value": "Wert",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "Beim Laden von URL wird der SoulFire Server eine GET-Anfrage an den Zielserver senden und die Antwort als die Daten verwenden.",
+        "description": "Beim Laden von URL wird der PistonPanel Server eine GET-Anfrage an den Zielserver senden und die Antwort als die Daten verwenden.",
         "form": {
           "url": {
             "placeholder": "URL hier eingeben...",
@@ -152,9 +152,9 @@
   "terminal": {
     "noLogs": "🧙 Es sieht so aus, als gäbe es keine Logs zum Anzeigen; Versuche ein paar Befehle auszuführen!",
     "demo-1": "Willkommen im Demo Modus! 🧪",
-    "demo-2": "Dies ist eine schreibgeschützte Instanz von SoulFire",
-    "demo-3": "Schau dir alle Menüs und Funktionen an, bevor du SoulFire installierst :D",
-    "demo-4": "Du kannst unserem Discord Server beitreten, wenn du uns anschreiben möchtest: https://soulfiremc.com/discord"
+    "demo-2": "Dies ist eine schreibgeschützte Instanz von PistonPanel",
+    "demo-3": "Schau dir alle Menüs und Funktionen an, bevor du PistonPanel installierst :D",
+    "demo-4": "Du kannst unserem Discord Server beitreten, wenn du uns anschreiben möchtest: https://pistonpanelmc.com/discord"
   },
   "uiBreadcrumb": {
     "more": "Mehr"

@@ -9,7 +9,7 @@
       "logOut": "退出登录",
       "reloadPage": "重新载入页面"
     },
-    "connectionFailed": "连接 SoulFire 服务器失败。"
+    "connectionFailed": "连接 PistonPanel 服务器失败。"
   },
   "notFound": {
     "page": {
@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "关于 SoulFire",
-      "description": "正在运行 {{version}} 版本的 SoulFire 客户端",
+      "title": "关于 PistonPanel",
+      "description": "正在运行 {{version}} 版本的 PistonPanel 客户端",
       "type": "类型",
       "value": "值",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "从 URL 加载将使 SoulFire 服务器向目标服务器发出GET 请求，并使用响应作为数据。",
+        "description": "从 URL 加载将使 PistonPanel 服务器向目标服务器发出GET 请求，并使用响应作为数据。",
         "form": {
           "url": {
             "placeholder": "将 URL 放在这里...",
@@ -152,9 +152,9 @@
   "terminal": {
     "noLogs": "🧙 看起来没有日志可以显示，尝试运行一些命令!",
     "demo-1": "欢迎来到演示模式！🧪",
-    "demo-2": "这是一个只读的 SoulFire 实例",
-    "demo-3": "在决定安装 SoulFire 之前，请先查看所有菜单和功能",
-    "demo-4": "如果您想要加入我们的Discord服务器，请访问： https://soulfiremc.com/discord"
+    "demo-2": "这是一个只读的 PistonPanel 实例",
+    "demo-3": "在决定安装 PistonPanel 之前，请先查看所有菜单和功能",
+    "demo-4": "如果您想要加入我们的Discord服务器，请访问： https://pistonpanelmc.com/discord"
   },
   "uiBreadcrumb": {
     "more": "更多"

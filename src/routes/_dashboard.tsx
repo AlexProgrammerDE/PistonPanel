@@ -5,7 +5,7 @@ import {
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import { ClientServiceClient } from '@/generated/soulfire/client.client.ts';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
 import {
   createTransport,
   isAuthenticated,
@@ -13,15 +13,15 @@ import {
   logOut,
 } from '@/lib/web-rpc.ts';
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
-import { ClientDataResponse } from '@/generated/soulfire/client.ts';
+import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
 import { isTauri } from '@/lib/utils.tsx';
 import { emit } from '@tauri-apps/api/event';
 import { demoData } from '@/demo-data.ts';
 import {
   InstanceListResponse,
   InstanceState,
-} from '@/generated/soulfire/instance.ts';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+} from '@/generated/pistonpanel/instance.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import { queryClientInstance } from '@/lib/query.ts';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';

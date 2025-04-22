@@ -24,7 +24,7 @@ const CAST_MODEL_NAME: &str = "md";
 const CAST_FRIENDLY_NAME: &str = "fn";
 const CAST_ID: &str = "id";
 const CAST_APP_ID: &str = "3F768D1D";
-const CAST_APP_NAMESPACE: &str = "urn:x-cast:com.soulfiremc";
+const CAST_APP_NAMESPACE: &str = "urn:x-cast:com.pistonpanelmc";
 
 pub struct DiscoveredCast {
     pub id: String,

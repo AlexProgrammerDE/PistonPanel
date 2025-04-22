@@ -10,7 +10,7 @@ import {
   StringListSetting,
   StringSetting,
   StringSetting_InputType,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import { Button } from '@/components/ui/button.tsx';
 import {
   Popover,

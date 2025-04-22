@@ -32,12 +32,12 @@ import {
 import { toast } from 'sonner';
 import { use } from 'react';
 import { TransportContext } from '../providers/transport-context.tsx';
-import { GlobalPermission } from '@/generated/soulfire/common.ts';
-import { ScriptServiceClient } from '@/generated/soulfire/script.client.ts';
+import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
+import { ScriptServiceClient } from '@/generated/pistonpanel/script.client.ts';
 import {
   ScriptListResponse_Script,
   ScriptScope,
-} from '@/generated/soulfire/script.ts';
+} from '@/generated/pistonpanel/script.ts';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { hasGlobalPermission } from '@/lib/utils.tsx';
 import { useRouteContext } from '@tanstack/react-router';

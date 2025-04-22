@@ -249,7 +249,7 @@ export function NavAccount() {
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                       <DropdownMenuItem asChild>
-                        <ExternalLink href="https://translate.soulfiremc.com">
+                        <ExternalLink href="https://translate.pistonpanelmc.com">
                           <HeartHandshakeIcon />
                           {t('userSidebar.helpTranslate')}
                         </ExternalLink>

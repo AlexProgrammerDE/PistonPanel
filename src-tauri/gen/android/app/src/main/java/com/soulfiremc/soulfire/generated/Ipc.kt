@@ -6,7 +6,7 @@
 
 @file:Suppress("unused")
 
-package com.soulfiremc.soulfire
+package com.pistonpanelmc.pistonpanel
 
 import android.webkit.*
 
@@ -23,7 +23,7 @@ class Ipc(val webViewClient: RustWebViewClient) {
 
     companion object {
         init {
-            System.loadLibrary("soulfire_lib")
+            System.loadLibrary("pistonpanel_lib")
         }
     }
 

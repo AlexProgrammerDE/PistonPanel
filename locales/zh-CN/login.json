@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "SoulFire 图标"
+      "alt": "PistonPanel 图标"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "连接到一个 SoulFire 服务器",
-    "description": "选择连接到哪种类型的 SoulFire 服务器",
+    "title": "连接到一个 PistonPanel 服务器",
+    "description": "选择连接到哪种类型的 PistonPanel 服务器",
     "integrated": {
       "title": "内置集成服务器 (本地)",
-      "description": "在您的计算机上运行一个 SoulFire 服务器。设置过程是自动的无需手动配置。(需要桌面应用)"
+      "description": "在您的计算机上运行一个 PistonPanel 服务器。设置过程是自动的无需手动配置。(需要桌面应用)"
     },
     "dedicated": {
       "title": "专用服务器 (远程)",
-      "description": "要连接到一个 SoulFire 服务器的远程实例。您需要提供服务器的地址和令牌。"
+      "description": "要连接到一个 PistonPanel 服务器的远程实例。您需要提供服务器的地址和令牌。"
     },
     "demo": {
       "title": "演示服务器",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "放入您要连接的 SoulFire 服务器的地址和令牌。",
+    "description": "放入您要连接的 PistonPanel 服务器的地址和令牌。",
     "toast": {
       "loading": "正在连接到服务器…",
       "success": "已连接到服务器",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "地址",
-        "description": "您的 SoulFire 服务器的地址。",
+        "description": "您的 PistonPanel 服务器的地址。",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "电子邮箱",
-        "placeholder": "root@soulfiremc.com",
-        "description": "您的 SoulFire 账户的电子邮箱。"
+        "placeholder": "root@pistonpanelmc.com",
+        "description": "您的 PistonPanel 账户的电子邮箱。"
       },
       "back": "返回",
       "useToken": "使用令牌",
@@ -78,7 +78,7 @@
     "back": "返回"
   },
   "footer": {
-    "version": "SoulFire 客户端 {{version}} - {{environment}}",
+    "version": "PistonPanel 客户端 {{version}} - {{environment}}",
     "preview": "正在寻找预览吗？",
     "production": "正在寻找产品吗？",
     "helpTranslate": ""

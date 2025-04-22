@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { UserListResponse } from '@/generated/soulfire/user.ts';
+import { UserListResponse } from '@/generated/pistonpanel/user.ts';
 import * as React from 'react';
 import { useMemo } from 'react';
 import { Label, Pie, PieChart } from 'recharts';
@@ -11,12 +11,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { UserRole } from '@/generated/soulfire/common.ts';
+import { UserRole } from '@/generated/pistonpanel/common.ts';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   InstanceListResponse,
   InstanceState,
-} from '@/generated/soulfire/instance.ts';
+} from '@/generated/pistonpanel/instance.ts';
 import UserPageLayout from '@/components/nav/user-page-layout.tsx';
 import { Trans, useTranslation } from 'react-i18next';
 

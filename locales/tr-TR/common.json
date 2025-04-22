@@ -9,7 +9,7 @@
       "logOut": "Çıkış Yap",
       "reloadPage": ""
     },
-    "connectionFailed": "SoulFire sunucusuna bağlantı başarısız oldu."
+    "connectionFailed": "PistonPanel sunucusuna bağlantı başarısız oldu."
   },
   "notFound": {
     "page": {
@@ -25,7 +25,7 @@
   "dialog": {
     "about": {
       "title": "",
-      "description": "SoulFire clientinin {{version}} sürümünü kullanıyorsunuz.",
+      "description": "PistonPanel clientinin {{version}} sürümünü kullanıyorsunuz.",
       "type": "Tip",
       "value": "Değer",
       "fields": {

@@ -14,7 +14,7 @@ import {
 import {
   GlobalPermission,
   StringSetting_InputType,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
 import {
   hasGlobalPermission,
@@ -140,7 +140,7 @@ function Content() {
               description: 'Your email is used for login and notifications.',
               def: '',
               inputType: StringSetting_InputType.EMAIL,
-              placeholder: 'root@soulfiremc.com',
+              placeholder: 'root@pistonpanelmc.com',
               minLength: 3,
               maxLength: 255,
               pattern: '.*',

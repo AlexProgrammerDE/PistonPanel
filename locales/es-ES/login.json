@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "SoulFire imagen logotipo"
+      "alt": "PistonPanel imagen logotipo"
     },
     "title": ""
   },
   "connect": {
-    "title": "Conectarse a un servidor SoulFire",
-    "description": "Seleccione el tipo de servidor de SoulFire al que conectar.",
+    "title": "Conectarse a un servidor PistonPanel",
+    "description": "Seleccione el tipo de servidor de PistonPanel al que conectar.",
     "integrated": {
       "title": "Servidor integrado (local)",
-      "description": "Ejecuta un servidor de SoulFire en tu equipo. La initialización es automática y no requiere configuración. (Requiere la aplicación de escritorio)"
+      "description": "Ejecuta un servidor de PistonPanel en tu equipo. La initialización es automática y no requiere configuración. (Requiere la aplicación de escritorio)"
     },
     "dedicated": {
       "title": "Servidor dedicado (remoto)",
-      "description": "Se conecta a una instancia remota de un servidor de SoulFire. Necesitarás proporcionar la dirección de conexión y el token del servidor."
+      "description": "Se conecta a una instancia remota de un servidor de PistonPanel. Necesitarás proporcionar la dirección de conexión y el token del servidor."
     },
     "demo": {
       "title": "Servidor de demostración",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Introduzca la dirección de conexión y el token del servidor de SoulFire al que desea conectarse.",
+    "description": "Introduzca la dirección de conexión y el token del servidor de PistonPanel al que desea conectarse.",
     "toast": {
       "loading": "",
       "success": "",
@@ -55,7 +55,7 @@
       "token": {
         "title": "",
         "placeholder": "Token secreto",
-        "description": "Token de autenticación con el servidor de SoulFire."
+        "description": "Token de autenticación con el servidor de PistonPanel."
       },
       "email": {
         "title": "",
@@ -78,7 +78,7 @@
     "back": "Volver"
   },
   "footer": {
-    "version": "Cliente SoulFire {{version}} - {{environment}}",
+    "version": "Cliente PistonPanel {{version}} - {{environment}}",
     "preview": "¿En busca de una vista de prueba?",
     "production": "",
     "helpTranslate": ""

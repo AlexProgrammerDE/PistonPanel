@@ -5065,7 +5065,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "soulfire"
+name = "pistonpanel"
 version = "1.10.6"
 dependencies = [
  "async-std",

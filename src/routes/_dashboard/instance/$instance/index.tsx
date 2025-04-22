@@ -6,11 +6,11 @@ import { useMemo } from 'react';
 import { translateInstanceState } from '@/lib/types.ts';
 import { Badge } from '@/components/ui/badge';
 import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { LogScope } from '@/generated/soulfire/logs.ts';
-import { CommandScope } from '@/generated/soulfire/command.ts';
+import { LogScope } from '@/generated/pistonpanel/logs.ts';
+import { CommandScope } from '@/generated/pistonpanel/command.ts';
 import { useTranslation } from 'react-i18next';
 import { hasInstancePermission } from '@/lib/utils.tsx';
-import { InstancePermission } from '@/generated/soulfire/common.ts';
+import { InstancePermission } from '@/generated/pistonpanel/common.ts';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/')({

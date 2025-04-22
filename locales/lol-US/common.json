@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "Who SoulFire",
-      "description": "I zee vawiant {{version}} of SoulFire cwient.",
+      "title": "Who PistonPanel",
+      "description": "I zee vawiant {{version}} of PistonPanel cwient.",
       "type": "Tyep",
       "value": "Value",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "Loadin frum URL will mak teh SoulFire servr mak git request 2 teh target servr an ues teh respones as teh daat.",
+        "description": "Loadin frum URL will mak teh PistonPanel servr mak git request 2 teh target servr an ues teh respones as teh daat.",
         "form": {
           "url": {
             "placeholder": "Put URL hah...",

@@ -9,7 +9,7 @@
       "logOut": "Wyloguj się",
       "reloadPage": "Odśwież stronę"
     },
-    "connectionFailed": "Połączenie do serwera SoulFire nieudane."
+    "connectionFailed": "Połączenie do serwera PistonPanel nieudane."
   },
   "notFound": {
     "page": {
@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "O SoulFire",
-      "description": "Używasz wersji {{version}} klienta SoulFire.",
+      "title": "O PistonPanel",
+      "description": "Używasz wersji {{version}} klienta PistonPanel.",
       "type": "Typ",
       "value": "Wartość",
       "fields": {
@@ -71,7 +71,7 @@
         }
       },
       "url": {
-        "description": "Ładowanie z adresu URL sprawi, że serwer SoulFire wyśle żądanie GET do serwera docelowego i użyje odpowiedzi jako danych.",
+        "description": "Ładowanie z adresu URL sprawi, że serwer PistonPanel wyśle żądanie GET do serwera docelowego i użyje odpowiedzi jako danych.",
         "form": {
           "url": {
             "placeholder": "Umieść tutaj adres URL...",
@@ -152,9 +152,9 @@
   "terminal": {
     "noLogs": "🧙 Wygląda na to, że nie ma nic do wyświetlenia; spróbuj użyć komend!",
     "demo-1": "Witamy w trybie demonstracyjnym! 🧪",
-    "demo-2": "To jest instancja SoulFire tylko do odczytu",
-    "demo-3": "Sprawdź wszystkie menu i funkcje przed podjęciem decyzji o instalacji SoulFire :D",
-    "demo-4": "Dołącz do naszego serwera Discord, jeśli chcesz się skontaktować: https://soulfiremc.com/discord"
+    "demo-2": "To jest instancja PistonPanel tylko do odczytu",
+    "demo-3": "Sprawdź wszystkie menu i funkcje przed podjęciem decyzji o instalacji PistonPanel :D",
+    "demo-4": "Dołącz do naszego serwera Discord, jeśli chcesz się skontaktować: https://pistonpanelmc.com/discord"
   },
   "uiBreadcrumb": {
     "more": "Więcej"

@@ -15,5 +15,5 @@ export const queryClientInstance = new QueryClient({
 
 broadcastQueryClient({
   queryClient: queryClientInstance,
-  broadcastChannel: 'soulfire',
+  broadcastChannel: 'pistonpanel',
 });

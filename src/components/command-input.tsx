@@ -1,11 +1,11 @@
 import { Input } from '@/components/ui/input.tsx';
 import { KeyboardEventHandler, use, useEffect, useRef, useState } from 'react';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { CommandServiceClient } from '@/generated/soulfire/command.client.ts';
+import { CommandServiceClient } from '@/generated/pistonpanel/command.client.ts';
 import {
   CommandCompletion,
   CommandScope,
-} from '@/generated/soulfire/command.ts';
+} from '@/generated/pistonpanel/command.ts';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

@@ -13,7 +13,7 @@ import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import * as React from 'react';
 import { ReactNode, use } from 'react';
 import { hasGlobalPermission } from '@/lib/utils.tsx';
-import { GlobalPermission } from '@/generated/soulfire/common.ts';
+import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog.tsx';

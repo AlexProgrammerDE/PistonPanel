@@ -12,14 +12,14 @@ on:
 
 jobs:
   set-server-version:
-    uses: AlexProgrammerDE/SoulFireClient/.github/workflows/set-server-version.yml@main
+    uses: AlexProgrammerDE/PistonPanel/.github/workflows/set-server-version.yml@main
     with:
       version: ${{ inputs.server-version }}
     secrets: inherit
 
   set-version:
     needs: set-server-version
-    uses: AlexProgrammerDE/SoulFireClient/.github/workflows/set-version.yml@main
+    uses: AlexProgrammerDE/PistonPanel/.github/workflows/set-version.yml@main
     with:
       version: ${{ inputs.app-version }}
     secrets: inherit
@@ -226,7 +226,7 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.ADMIN_WEBHOOK_URL }}
-          content: <@864603174899941376> Permit the signing request for SoulFireClient ${{ inputs.app-version }} on ${{ matrix.type }} https://app.signpath.io/Web/e091b552-3623-4d9d-83d7-059d8f32978b/SigningRequests
+          content: <@864603174899941376> Permit the signing request for PistonPanel ${{ inputs.app-version }} on ${{ matrix.type }} https://app.signpath.io/Web/e091b552-3623-4d9d-83d7-059d8f32978b/SigningRequests
 
       - name: 'Windows AMD64/AArch64: Submit signing request'
         if: matrix.type == 'windows-amd64' || matrix.type == 'windows-aarch64'
@@ -234,7 +234,7 @@ jobs:
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
           organization-id: 'e091b552-3623-4d9d-83d7-059d8f32978b'
-          project-slug: 'SoulFireClient'
+          project-slug: 'PistonPanel'
           signing-policy-slug: 'release-signing'
           github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
           wait-for-completion: true
@@ -320,27 +320,27 @@ jobs:
             "platforms": {
               "windows-x86_64": {
                 "signature": "$(cat "$windowsAmd64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$windowsAmd64File")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$windowsAmd64File")"
               },
               "windows-aarch64": {
                 "signature": "$(cat "$windowsAarch64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$windowsAarch64File")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$windowsAarch64File")"
               },
               "darwin-aarch64": {
                 "signature": "$(cat "$macosAarch64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$macosAarch64File")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$macosAarch64File")"
               },
               "darwin-x86_64": {
                 "signature": "$(cat "$macosAmd64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$macosAmd64File")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$macosAmd64File")"
               },
               "linux-x86_64": {
                 "signature": "$(cat "$linuxAmd64AppImageSigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$linuxAmd64AppImageFile")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$linuxAmd64AppImageFile")"
               },
               "linux-aarch64": {
                 "signature": "$(cat "$linuxAarch64AppImageSigFile")",
-                "url": "https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/$(basename "$linuxAarch64AppImageFile")"
+                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$linuxAarch64AppImageFile")"
               }
             }
           }
@@ -359,7 +359,7 @@ jobs:
           configurationJson: |
             {
               "template": "#{{CHANGELOG}}",
-              "commit_template": "- [`#{{SHORT_MERGE_SHA}}`](https://github.com/AlexProgrammerDE/SoulFireClient/commit/#{{MERGE_SHA}}) #{{TITLE}} by @#{{AUTHOR}}",
+              "commit_template": "- [`#{{SHORT_MERGE_SHA}}`](https://github.com/AlexProgrammerDE/PistonPanel/commit/#{{MERGE_SHA}}) #{{TITLE}} by @#{{AUTHOR}}",
               "categories": [
                 {
                     "title": "## 🚀 Features",
@@ -432,12 +432,12 @@ jobs:
 
             | Platform              | Download Link |
             |-----------------------|---------------|
-            | Windows (x86_64)      | [Download](https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAmd64File }}) |
-            | Windows (AArch64)     | [Download](https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAarch64File }}) |
-            | macOS (Intel)         | [Download](https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAmd64DmgFile }}) |
-            | macOS (Apple Silicon) | [Download](https://github.com/AlexProgrammerDE/SoulFireClient/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAarch64DmgFile }}) |
-            | Linux (x86_64)        | [Download](https://flathub.org/apps/com.soulfiremc.soulfire) |
-            | Linux (AArch64)       | [Download](https://flathub.org/apps/com.soulfiremc.soulfire) |
+            | Windows (x86_64)      | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAmd64File }}) |
+            | Windows (AArch64)     | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAarch64File }}) |
+            | macOS (Intel)         | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAmd64DmgFile }}) |
+            | macOS (Apple Silicon) | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAarch64DmgFile }}) |
+            | Linux (x86_64)        | [Download](https://flathub.org/apps/com.pistonpanelmc.pistonpanel) |
+            | Linux (AArch64)       | [Download](https://flathub.org/apps/com.pistonpanelmc.pistonpanel) |
 
             > [!TIP]
             > x86_64 means Intel and AMD CPUs; AArch64 means ARM CPUs like Qualcomm Snapdragon, which are used in some laptops.
@@ -447,7 +447,7 @@ jobs:
           generate_release_notes: false
           target_commitish: main
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: SoulFireClient ${{ inputs.app-version }}
+          name: PistonPanel ${{ inputs.app-version }}
           files: |
             release-artifacts/**/*.exe
             release-artifacts/**/*.AppImage
@@ -460,8 +460,8 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: <@&850705047938793503> New SoulFireClient version released!
-          embed-title: SoulFireClient ${{ inputs.app-version }}
-          embed-description: SoulFireClient ${{ inputs.app-version }} has been released! Changelog and download can be found at https://github.com/AlexProgrammerDE/SoulFireClient/releases/tag/${{ inputs.app-version }}
+          content: <@&850705047938793503> New PistonPanel version released!
+          embed-title: PistonPanel ${{ inputs.app-version }}
+          embed-description: PistonPanel ${{ inputs.app-version }} has been released! Changelog and download can be found at https://github.com/AlexProgrammerDE/PistonPanel/releases/tag/${{ inputs.app-version }}
           embed-color: 3312063
-          embed-thumbnail-url: https://soulfiremc.com/logo.png
+          embed-thumbnail-url: https://pistonpanelmc.com/logo.png

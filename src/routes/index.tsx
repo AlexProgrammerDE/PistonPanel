@@ -69,8 +69,8 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { NextAuthFlowResponse_Failure_Reason } from '@/generated/soulfire/login.ts';
-import { LoginServiceClient } from '@/generated/soulfire/login.client.ts';
+import { NextAuthFlowResponse_Failure_Reason } from '@/generated/pistonpanel/login.ts';
+import { LoginServiceClient } from '@/generated/pistonpanel/login.client.ts';
 import {
   createAddressOnlyTransport,
   setAuthentication,
@@ -261,7 +261,7 @@ function Index() {
                   {APP_ENVIRONMENT === 'production' && (
                     <a
                       className="text-blue-500"
-                      href="https://preview.soulfiremc.com"
+                      href="https://preview.pistonpanelmc.com"
                     >
                       {t('footer.preview')}
                     </a>
@@ -269,7 +269,7 @@ function Index() {
                   {APP_ENVIRONMENT === 'preview' && (
                     <a
                       className="text-blue-500"
-                      href="https://app.soulfiremc.com"
+                      href="https://app.pistonpanelmc.com"
                     >
                       {t('footer.production')}
                     </a>
@@ -313,7 +313,7 @@ function Index() {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                      <ExternalLink href="https://translate.soulfiremc.com">
+                      <ExternalLink href="https://translate.pistonpanelmc.com">
                         <HeartHandshakeIcon />
                         {t('footer.helpTranslate')}
                       </ExternalLink>

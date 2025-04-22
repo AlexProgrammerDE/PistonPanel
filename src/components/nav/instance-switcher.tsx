@@ -47,7 +47,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
 import { toast } from 'sonner';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
 import { mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
@@ -58,7 +58,7 @@ import { SystemInfoContext } from '@/components/providers/system-info-context.ts
 import {
   GlobalPermission,
   InstancePermission,
-} from '@/generated/soulfire/common.ts';
+} from '@/generated/pistonpanel/common.ts';
 import DynamicIcon from '@/components/dynamic-icon.tsx';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
@@ -261,7 +261,7 @@ function InstanceActionButtons() {
                         ? undefined
                         : [
                             {
-                              name: 'SoulFire JSON Profile',
+                              name: 'PistonPanel JSON Profile',
                               extensions: ['json'],
                             },
                           ],
@@ -362,7 +362,7 @@ function InstanceActionButtons() {
                 title: t('instanceSidebar.saveProfile'),
                 filters: [
                   {
-                    name: 'SoulFire JSON Profile',
+                    name: 'PistonPanel JSON Profile',
                     extensions: ['json'],
                   },
                 ],

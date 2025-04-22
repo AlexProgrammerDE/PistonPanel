@@ -152,14 +152,14 @@ pub async fn run_integrated_server(
     }
 
     let soul_fire_version_file =
-        jars_dir.join(format!("SoulFireDedicated-{}.jar", SOULFIRE_VERSION));
+        jars_dir.join(format!("PistonPanelDedicated-{}.jar", SOULFIRE_VERSION));
     if !soul_fire_version_file.exists() {
-        send_log(&app_handle, "Fetching SoulFire data...")?;
+        send_log(&app_handle, "Fetching PistonPanel data...")?;
         let soul_fire_url = format!(
-            "https://github.com/AlexProgrammerDE/SoulFire/releases/download/{}/SoulFireDedicated-{}.jar",
+            "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/{}/PistonPanelDedicated-{}.jar",
             SOULFIRE_VERSION, SOULFIRE_VERSION
         );
-        info!("SoulFire URL: {}", soul_fire_url);
+        info!("PistonPanel URL: {}", soul_fire_url);
 
         let last_sent_progress = std::sync::atomic::AtomicU64::new(0);
         let send_download_progress =
@@ -172,7 +172,7 @@ pub async fn run_integrated_server(
                 last_sent_progress.store(percent, std::sync::atomic::Ordering::Relaxed);
                 send_log(
                     app_handle,
-                    format!("Downloading SoulFire... {}%", progress * 100 / total),
+                    format!("Downloading PistonPanel... {}%", progress * 100 / total),
                 )
             };
 
@@ -193,26 +193,26 @@ pub async fn run_integrated_server(
             send_download_progress(&app_handle, downloaded_size, total_size)?;
         }
 
-        send_log(&app_handle, "Saving SoulFire...")?;
+        send_log(&app_handle, "Saving PistonPanel...")?;
         std::fs::write(&soul_fire_version_file, &content)?;
-        send_log(&app_handle, "Downloaded SoulFire")?;
+        send_log(&app_handle, "Downloaded PistonPanel")?;
     } else {
-        send_log(&app_handle, "SoulFire already downloaded")?;
+        send_log(&app_handle, "PistonPanel already downloaded")?;
     }
 
     info!(
-        "Integrated Server SoulFire Jar: {}",
+        "Integrated Server PistonPanel Jar: {}",
         soul_fire_version_file
             .to_str()
             .ok_or(SFError::PathCouldNotBeConverted)?
     );
 
-    let soul_fire_rundir = app_local_data_dir.join("soulfire");
+    let soul_fire_rundir = app_local_data_dir.join("pistonpanel");
     if !soul_fire_rundir.exists() {
         std::fs::create_dir_all(&soul_fire_rundir)?;
     }
 
-    send_log(&app_handle, "Starting SoulFire server...")?;
+    send_log(&app_handle, "Starting PistonPanel server...")?;
 
     let java_home_dir = get_java_home_dir(jvm_dir);
     let java_exec_name = get_java_exec_name();

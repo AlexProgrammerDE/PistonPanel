@@ -24,8 +24,8 @@
   },
   "dialog": {
     "about": {
-      "title": "Acerca de SoulFire",
-      "description": "Estás ejecutando la versión {{version}} del cliente de SoulFire.",
+      "title": "Acerca de PistonPanel",
+      "description": "Estás ejecutando la versión {{version}} del cliente de PistonPanel.",
       "type": "Tipo",
       "value": "Valor",
       "fields": {

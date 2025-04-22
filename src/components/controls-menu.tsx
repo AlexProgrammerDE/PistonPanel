@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button.tsx';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
 import { convertToInstanceProto } from '@/lib/types.ts';
 import { toast } from 'sonner';
-import { InstanceServiceClient } from '@/generated/soulfire/instance.client.ts';
-import { InstanceState } from '@/generated/soulfire/instance.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { InstanceState } from '@/generated/pistonpanel/instance.ts';
 import {
   useMutation,
   useQueryClient,

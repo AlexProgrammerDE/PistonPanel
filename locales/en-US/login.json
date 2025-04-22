@@ -1,20 +1,20 @@
 {
   "header": {
     "image": {
-      "alt": "SoulFire logo"
+      "alt": "PistonPanel logo"
     },
-    "title": "SoulFire"
+    "title": "PistonPanel"
   },
   "connect": {
-    "title": "Connect to a SoulFire server",
-    "description": "Select which type of SoulFire server to connect to.",
+    "title": "Connect to a PistonPanel server",
+    "description": "Select which type of PistonPanel server to connect to.",
     "integrated": {
       "title": "Integrated server (local)",
-      "description": "Runs a SoulFire server on your computer. The setup is automatic and requires no configuration. (Requires the desktop app)"
+      "description": "Runs a PistonPanel server on your computer. The setup is automatic and requires no configuration. (Requires the desktop app)"
     },
     "dedicated": {
       "title": "Dedicated server (remote)",
-      "description": "Connects to a remote instance of the SoulFire server. You will need to provide the address and token of the server."
+      "description": "Connects to a remote instance of the PistonPanel server. You will need to provide the address and token of the server."
     },
     "demo": {
       "title": "Demo server",
@@ -32,7 +32,7 @@
     "form": {
       "jvmArgs": {
         "title": "JVM arguments",
-        "description": "The SoulFire Java VM arguments. To use 4GB of RAM, add <bold>-Xmx4G</bold>. Default is 25% of your RAM.",
+        "description": "The PistonPanel Java VM arguments. To use 4GB of RAM, add <bold>-Xmx4G</bold>. Default is 25% of your RAM.",
         "placeholder": "Your JVM arguments here"
       },
       "back": "Back",
@@ -40,7 +40,7 @@
     }
   },
   "dedicated": {
-    "description": "Put in the address and token of the SoulFire server you want to connect to.",
+    "description": "Put in the address and token of the PistonPanel server you want to connect to.",
     "toast": {
       "loading": "Connecting to server...",
       "success": "Connected to server",
@@ -49,7 +49,7 @@
     "form": {
       "address": {
         "title": "Address",
-        "description": "Address of your SoulFire server.",
+        "description": "Address of your PistonPanel server.",
         "placeholder": "http://localhost:38765"
       },
       "token": {
@@ -59,8 +59,8 @@
       },
       "email": {
         "title": "Email",
-        "placeholder": "root@soulfiremc.com",
-        "description": "Email of your SoulFire account."
+        "placeholder": "root@pistonpanelmc.com",
+        "description": "Email of your PistonPanel account."
       },
       "back": "Back",
       "useToken": "Use token",
@@ -78,9 +78,9 @@
     "back": "Back"
   },
   "footer": {
-    "version": "SoulFire Client {{version}} - {{environment}}",
+    "version": "PistonPanel Client {{version}} - {{environment}}",
     "preview": "Looking for preview?",
     "production": "Looking for production?",
-    "helpTranslate": "Translate SoulFire"
+    "helpTranslate": "Translate PistonPanel"
   }
 }

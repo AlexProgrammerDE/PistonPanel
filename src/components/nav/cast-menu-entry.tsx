@@ -174,7 +174,7 @@ export default function CastMenuEntry() {
                 toast.promise(
                   emit('cast-global-message', {
                     type: 'DISPLAY_LOGS',
-                    logs: ['Hello from SoulFire!'],
+                    logs: ['Hello from PistonPanel!'],
                   }),
                   {
                     loading: t('castMenu.broadcastToast.loading'),

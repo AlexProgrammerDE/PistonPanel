@@ -22,7 +22,7 @@ import {
 import { ExternalLink } from '@/components/external-link.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { ClientServiceClient } from '@/generated/soulfire/client.client.ts';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
 import { toast } from 'sonner';
 import { isTauri } from '@/lib/utils.tsx';
 import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
@@ -147,7 +147,7 @@ function Content() {
             <span>{t('access.token.generate')}</span>
           </Button>
           <Button variant="secondary" asChild>
-            <ExternalLink href="https://soulfiremc.com/docs/guides/webdav">
+            <ExternalLink href="https://pistonpanelmc.com/docs/guides/webdav">
               <BookOpenTextIcon />
               <span>{t('access.howToConnect')}</span>
             </ExternalLink>

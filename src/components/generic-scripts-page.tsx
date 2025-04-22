@@ -4,7 +4,7 @@ import {
   ScriptListResponse,
   ScriptListResponse_Script,
   ScriptScope,
-} from '@/generated/soulfire/script.ts';
+} from '@/generated/pistonpanel/script.ts';
 import {
   SelectAllHeader,
   SelectRowHeader,
@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { PencilIcon, PlusIcon, RotateCcwIcon, TrashIcon } from 'lucide-react';
 import { ManageScriptDialog } from '@/components/dialog/manage-script-dialog.tsx';
 import { createTransport } from '@/lib/web-rpc.ts';
-import { ScriptServiceClient } from '@/generated/soulfire/script.client.ts';
+import { ScriptServiceClient } from '@/generated/pistonpanel/script.client.ts';
 import { toast } from 'sonner';
 import { Table as ReactTable } from '@tanstack/table-core';
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';

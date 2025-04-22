@@ -1,10 +1,10 @@
-import { ClientDataResponse } from '@/generated/soulfire/client.ts';
+import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
 
 export const demoData: ClientDataResponse = {
   id: 'f8030fa8-3be6-45c8-93f9-476ca39d42d5',
   username: 'root',
   role: 0,
-  email: 'root@soulfiremc.com',
+  email: 'root@pistonpanelmc.com',
   serverPermissions: [
     { globalPermission: 0, granted: true },
     {

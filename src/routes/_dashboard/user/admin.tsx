@@ -2,10 +2,10 @@ import { createFileRoute } from '@tanstack/react-router';
 import { createTransport } from '@/lib/web-rpc.ts';
 import { queryClientInstance } from '@/lib/query.ts';
 import { queryOptions } from '@tanstack/react-query';
-import { ServerServiceClient } from '@/generated/soulfire/server.client.ts';
-import { UserListResponse } from '@/generated/soulfire/user.ts';
-import { UserRole } from '@/generated/soulfire/common.ts';
-import { UserServiceClient } from '@/generated/soulfire/user.client.ts';
+import { ServerServiceClient } from '@/generated/pistonpanel/server.client.ts';
+import { UserListResponse } from '@/generated/pistonpanel/user.ts';
+import { UserRole } from '@/generated/pistonpanel/common.ts';
+import { UserServiceClient } from '@/generated/pistonpanel/user.client.ts';
 import { convertFromServerProto, ServerInfoQueryData } from '@/lib/types.ts';
 
 export const Route = createFileRoute('/_dashboard/user/admin')({
@@ -51,7 +51,7 @@ export const Route = createFileRoute('/_dashboard/user/admin')({
               {
                 id: 'root',
                 username: 'root',
-                email: 'root@soulfiremc.com',
+                email: 'root@pistonpanelmc.com',
                 role: UserRole.ADMIN,
               },
             ],
