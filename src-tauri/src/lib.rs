@@ -1,8 +1,6 @@
 #![feature(let_chains)]
 
-use crate::cast::{CastRunningState, connect_cast, discover_casts, get_casts};
 use crate::discord::load_discord_rpc;
-use crate::sf_loader::{IntegratedServerState, run_integrated_server};
 use crate::utils::kill_child_process;
 use log::{error, info};
 use std::ops::Deref;
@@ -14,11 +12,7 @@ use tauri::{Emitter, Listener, Manager};
 use tauri_plugin_log::fern::colors::Color;
 #[cfg(desktop)]
 use tauri_plugin_updater;
-
-mod cast;
 mod discord;
-mod sf_loader;
-mod sf_version_constant;
 #[cfg(desktop)]
 mod tray;
 #[cfg(desktop)]
@@ -77,20 +71,6 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
-        .manage(CastRunningState {
-            running: AtomicBool::new(false),
-            announced_devices: Mutex::new(Vec::new()),
-        })
-        .manage(IntegratedServerState {
-            starting: Arc::new(AtomicBool::new(false)),
-            child_process: Arc::new(Mutex::new(None)),
-        })
-        .invoke_handler(tauri::generate_handler![
-            run_integrated_server,
-            discover_casts,
-            connect_cast,
-            get_casts
-        ])
         .setup(|app| {
             std::panic::set_hook(Box::new(|panic_info| {
                 error!("{}", format!("{}", panic_info).replace('\n', " "));
