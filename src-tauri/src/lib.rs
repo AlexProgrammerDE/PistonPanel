@@ -1,7 +1,6 @@
 #![feature(let_chains)]
 
 use crate::discord::load_discord_rpc;
-use crate::utils::kill_child_process;
 use log::{error, info};
 use std::ops::Deref;
 use std::sync::Arc;
@@ -120,21 +119,7 @@ pub fn run() {
                 });
             }
 
-            let app_handle = app.handle().clone();
-            app.listen("kill-integrated-server", move |_event| {
-                info!("Got request to kill integrated server");
-                kill_child_process(app_handle.state::<IntegratedServerState>().deref());
-                if let Err(error) = app_handle.emit("integrated-server-killed", ()) {
-                    error!("An emit error occurred! {error}");
-                }
-            });
-
             Ok(())
-        })
-        .on_window_event(move |window, event| {
-            if let tauri::WindowEvent::CloseRequested { .. } = event {
-                kill_child_process(window.state::<IntegratedServerState>().deref());
-            }
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
