@@ -4,13 +4,13 @@ import {
   GlobalPermission,
   InstancePermission,
   SettingEntry,
-} from '@/generated/pistonpanel/common.ts';
-import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
+} from '@/generated/pistonpanel/common';
+import { ClientDataResponse } from '@/generated/pistonpanel/client';
 import {
   InstanceInfoResponse,
   InstanceListResponse,
   InstanceListResponse_Instance,
-} from '@/generated/pistonpanel/instance.ts';
+} from '@/generated/pistonpanel/instance';
 import { sha256 } from 'js-sha256';
 import * as Flags from 'country-flag-icons/react/3x2';
 import { type FlagComponent } from 'country-flag-icons/react/1x1';
@@ -22,14 +22,14 @@ import {
   InstanceInfoQueryData,
   ProfileRoot,
   ServerInfoQueryData,
-} from '@/lib/types.ts';
+} from '@/lib/types';
 import { JsonValue } from '@protobuf-ts/runtime';
-import { ServerServiceClient } from '@/generated/pistonpanel/server.client.ts';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { ServerServiceClient } from '@/generated/pistonpanel/server.client';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { RpcTransport } from '@protobuf-ts/runtime-rpc';
 import { QueryClient, QueryKey } from '@tanstack/react-query';
-import { Timestamp } from '@/generated/google/protobuf/timestamp.ts';
-import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
+import { Timestamp } from '@/generated/google/protobuf/timestamp';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 
 export const ROOT_USER_ID = '00000000-0000-0000-0000-000000000000';
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
@@ -57,12 +57,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function isTauri() {
-  return (window as never)['__TAURI__'] !== undefined;
-}
-
-export function isDemo() {
-  return document.location.host === 'demo.pistonpanelmc.com';
+export function isTauri(): false {
+  return false;
 }
 
 export function cancellablePromiseDefault<T extends () => void>(
@@ -97,10 +93,6 @@ export function hasGlobalPermission(
   clientData: ClientDataResponse,
   permission: GlobalPermission,
 ) {
-  if (isDemo()) {
-    return true;
-  }
-
   return clientData.serverPermissions
     .filter((p) => p.granted)
     .map((p) => p.globalPermission)
@@ -111,10 +103,6 @@ export function hasInstancePermission(
   instanceInfo: InstanceInfoResponse | InstanceListResponse_Instance,
   permission: InstancePermission,
 ) {
-  if (isDemo()) {
-    return true;
-  }
-
   return instanceInfo.instancePermissions
     .filter((p) => p.granted)
     .map((p) => p.instancePermission)

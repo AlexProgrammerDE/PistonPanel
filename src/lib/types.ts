@@ -2,18 +2,18 @@ import {
   MinecraftAccountProto,
   MinecraftAccountProto_AccountTypeProto,
   ProxyProto_Type,
-} from '@/generated/pistonpanel/common.ts';
-import { Value } from '@/generated/google/protobuf/struct.ts';
+} from '@/generated/pistonpanel/common';
+import { Value } from '@/generated/google/protobuf/struct';
 import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
 import {
   InstanceConfig,
   InstanceInfoResponse,
   InstanceState,
-} from '@/generated/pistonpanel/instance.ts';
+} from '@/generated/pistonpanel/instance';
 import {
   ServerConfig,
   ServerInfoResponse,
-} from '@/generated/pistonpanel/server.ts';
+} from '@/generated/pistonpanel/server';
 import { i18n } from 'i18next';
 
 export type SFServerType = 'integrated' | 'dedicated';

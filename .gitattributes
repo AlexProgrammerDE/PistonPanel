@@ -1,4 +1,0 @@
-*.rs       text eol=lf
-src-tauri/Cargo.toml text eol=lf
-src-tauri/Cargo.lock text eol=lf
-.gitignore text eol=lf

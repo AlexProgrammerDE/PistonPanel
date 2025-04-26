@@ -5,8 +5,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select.tsx';
-import { Button } from '@/components/ui/button.tsx';
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,

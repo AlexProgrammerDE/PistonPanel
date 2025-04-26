@@ -24,239 +24,40 @@ jobs:
       version: ${{ inputs.app-version }}
     secrets: inherit
 
-  push-branch:
+  build:
     needs: set-version
-    name: Push Release Branch
-
+    name: Build and Test
     permissions:
       contents: write
 
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-          fetch-depth: 0
-
-      - name: 'Push to release branch'
-        uses: ad-m/github-push-action@master
-        with:
-          branch: 'release'
-
-      - name: 'Push to demo branch'
-        uses: ad-m/github-push-action@master
-        with:
-          branch: 'demo'
-
-  build-tauri:
-    needs: set-version
-    name: Build ${{ matrix.name }}
-    permissions:
-      contents: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: 'macos-15'
-            args: '--target aarch64-apple-darwin'
-            target-path: '/aarch64-apple-darwin'
-            name: 'macOS 15 (AArch64)'
-            rust-targets: 'aarch64-apple-darwin'
-            type: 'macos-aarch64'
-          - platform: 'macos-13'
-            args: '--target x86_64-apple-darwin'
-            target-path: '/x86_64-apple-darwin'
-            name: 'macOS 13 (AMD64)'
-            rust-targets: 'x86_64-apple-darwin'
-            type: 'macos-amd64'
-          - platform: 'ubuntu-22.04'
-            args: ''
-            target-path: ''
-            name: 'Ubuntu 22.04 (AMD64)'
-            rust-targets: ''
-            type: 'linux-amd64'
-          - platform: 'ubuntu-22.04-arm'
-            args: ''
-            target-path: ''
-            name: 'Ubuntu 22.04 (AArch64)'
-            rust-targets: ''
-            type: 'linux-aarch64'
-          - platform: 'windows-2025'
-            args: ''
-            target-path: ''
-            name: 'Windows Server 2025 (AMD64)'
-            rust-targets: ''
-            type: 'windows-amd64'
-          - platform: 'windows-11-arm'
-            args: '--target aarch64-pc-windows-msvc'
-            target-path: '/aarch64-pc-windows-msvc'
-            name: 'Windows 11 (AArch64)'
-            rust-targets: 'aarch64-pc-windows-msvc'
-            type: 'windows-aarch64'
-
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - name: 'Shared: Checkout Repository'
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
           persist-credentials: false
 
-      - name: 'Shared: Set up nasm'
-        uses: ilammy/setup-nasm@v1
-
-      - name: 'Shared: Setup node'
+      - name: 'Setup node'
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: 'Shared: Install pnpm'
+      - name: 'Install pnpm'
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: 'Windows AArch64: Install rustup'
-        if: matrix.type == 'windows-aarch64'
+      - name: 'Install pnpm packages'
         run: |
-          curl -sSf -o rustup-init.exe https://win.rustup.rs/aarch64
-          .\rustup-init.exe -y --default-toolchain none
-          $env:CARGO_HOME = "$env:USERPROFILE\.cargo"
-          echo "CARGO_HOME=$env:CARGO_HOME" >> $env:GITHUB_ENV
-          echo "$env:CARGO_HOME\bin" >> $env:GITHUB_PATH
+          pnpm install --prefer-offline --frozen-lockfile
 
-      - name: 'Shared: Install Rust toolchain'
-        uses: dtolnay/rust-toolchain@nightly
-        with:
-          targets: ${{ matrix.rust-targets }}
-
-      - name: 'Desktop: Cache dependencies'
-        uses: Swatinem/rust-cache@v2
-        with:
-          save-if: ${{ github.ref == 'refs/heads/main' }}
-          workspaces: src-tauri
-          cache-on-failure: true
-          cache-all-crates: true
-          cache-targets: false
-
-      - name: 'Ubuntu AMD64: Install dependencies'
-        if: matrix.type == 'linux-amd64'
+      - name: 'Build pnpm packages'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf jq xdg-utils
-
-      - name: 'Ubuntu AArch64: Install dependencies'
-        if: matrix.type == 'linux-aarch64'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf jq xdg-utils
-
-      - name: 'Shared: Install frontend dependencies'
-        run: pnpm install
-
-      - name: 'Desktop: Build tauri project'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
-        with:
-          includeDebug: false
-          includeRelease: true
-          args: ${{ matrix.args }}
-
-      - name: 'Desktop: Create output dir'
-        shell: bash
-        run: |
-          mkdir artifact-output
-
-      - name: 'Desktop: Put linux AMD64 files in artifact-output'
-        if: matrix.type == 'linux-amd64'
-        shell: bash
-        run: |
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/appimage/*.AppImage ./artifact-output/
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/appimage/*.AppImage.sig ./artifact-output/
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/deb/*.deb ./artifact-output/
-
-      - name: 'Desktop: Put linux AArch64 files in artifact-output'
-        if: matrix.type == 'linux-aarch64'
-        shell: bash
-        run: |
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/appimage/*.AppImage ./artifact-output/
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/appimage/*.AppImage.sig ./artifact-output/
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/deb/*.deb ./artifact-output/
-
-      - name: 'Desktop: Put macOS AMD64 files in artifact-output'
-        if: matrix.type == 'macos-amd64'
-        shell: bash
-        run: |
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/dmg/*.dmg ./artifact-output/
-          appZipFile=$(ls ./src-tauri/target${{ matrix.target-path }}/release/bundle/macos/*.app.tar.gz)
-          appZipSigFile=$(ls ./src-tauri/target${{ matrix.target-path }}/release/bundle/macos/*.app.tar.gz.sig)
-          appZipFileBasename=$(basename "$appZipFile")
-          appZipSigFileBasename=$(basename "$appZipSigFile")
-          mv "$appZipFile" "./artifact-output/${appZipFileBasename%.app.tar.gz}_x64.app.tar.gz"
-          mv "$appZipSigFile" "./artifact-output/${appZipSigFileBasename%.app.tar.gz.sig}_x64.app.tar.gz.sig"
-
-      - name: 'Desktop: Put macOS AArch64 files in artifact-output'
-        if: matrix.type == 'macos-aarch64'
-        shell: bash
-        run: |
-          mv ./src-tauri/target${{ matrix.target-path }}/release/bundle/dmg/*.dmg ./artifact-output/
-          appZipFile=$(ls ./src-tauri/target${{ matrix.target-path }}/release/bundle/macos/*.app.tar.gz)
-          appZipSigFile=$(ls ./src-tauri/target${{ matrix.target-path }}/release/bundle/macos/*.app.tar.gz.sig)
-          appZipFileBasename=$(basename "$appZipFile")
-          appZipSigFileBasename=$(basename "$appZipSigFile")
-          mv "$appZipFile" "./artifact-output/${appZipFileBasename%.app.tar.gz}_aarch64.app.tar.gz"
-          mv "$appZipSigFile" "./artifact-output/${appZipSigFileBasename%.app.tar.gz.sig}_aarch64.app.tar.gz.sig"
-
-      - name: 'Windows AMD64/AArch64: Upload unsigned artifact'
-        id: upload-unsigned-artifact
-        if: matrix.type == 'windows-amd64' || matrix.type == 'windows-aarch64'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.type }}-unsigned
-          path: |
-            ./src-tauri/target${{ matrix.target-path }}/release/bundle/nsis/*.exe
-          if-no-files-found: error
-
-      - name: 'Windows AMD64/AArch64: Notify Admin'
-        if: matrix.type == 'windows-amd64' || matrix.type == 'windows-aarch64'
-        uses: tsickert/discord-webhook@v7.0.0
-        with:
-          webhook-url: ${{ secrets.ADMIN_WEBHOOK_URL }}
-          content: <@864603174899941376> Permit the signing request for PistonPanel ${{ inputs.app-version }} on ${{ matrix.type }} https://app.signpath.io/Web/e091b552-3623-4d9d-83d7-059d8f32978b/SigningRequests
-
-      - name: 'Windows AMD64/AArch64: Submit signing request'
-        if: matrix.type == 'windows-amd64' || matrix.type == 'windows-aarch64'
-        uses: signpath/github-action-submit-signing-request@v1.1
-        with:
-          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-          organization-id: 'e091b552-3623-4d9d-83d7-059d8f32978b'
-          project-slug: 'PistonPanel'
-          signing-policy-slug: 'release-signing'
-          github-artifact-id: '${{ steps.upload-unsigned-artifact.outputs.artifact-id }}'
-          wait-for-completion: true
-          output-artifact-directory: '/artifact-output'
-
-      - name: 'Windows AMD64/AArch64: Prepare signed artifact'
-        if: matrix.type == 'windows-amd64' || matrix.type == 'windows-aarch64'
-        shell: bash
-        run: |
-          fileName=$(ls artifact-output/*.exe)
-          pnpm tauri signer sign -k "${{ secrets.TAURI_PRIVATE_KEY }}" -p "${{ secrets.TAURI_KEY_PASSWORD }}" $fileName
-
-      - name: 'Desktop: Upload artifacts'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.type }}
-          path: |
-            ./artifact-output/*
-          if-no-files-found: error
+          pnpm build
 
   publish-release:
-    needs: build-tauri
+    needs: build
     name: Publish Release
 
     permissions:
@@ -264,92 +65,6 @@ jobs:
 
     runs-on: ubuntu-24.04
     steps:
-      - name: Download linux-amd64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: linux-amd64
-          path: release-artifacts/linux-amd64
-      - name: Download linux-aarch64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: linux-aarch64
-          path: release-artifacts/linux-aarch64
-      - name: Download macos-aarch64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: macos-aarch64
-          path: release-artifacts/macos-aarch64
-      - name: Download macos-amd64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: macos-amd64
-          path: release-artifacts/macos-amd64
-      - name: Download windows-amd64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: windows-amd64
-          path: release-artifacts/windows-amd64
-      - name: Download windows-aarch64 artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: windows-aarch64
-          path: release-artifacts/windows-aarch64
-      - name: Create latest.json
-        id: create-latest-json
-        run: |
-          linuxAmd64AppImageFile=$(ls release-artifacts/linux-amd64/*.AppImage)
-          linuxAmd64AppImageSigFile=$(ls release-artifacts/linux-amd64/*.AppImage.sig)
-          linuxAarch64AppImageFile=$(ls release-artifacts/linux-aarch64/*.AppImage)
-          linuxAarch64AppImageSigFile=$(ls release-artifacts/linux-aarch64/*.AppImage.sig)
-          macosAarch64File=$(ls release-artifacts/macos-aarch64/*.app.tar.gz)
-          macosAarch64SigFile=$(ls release-artifacts/macos-aarch64/*.app.tar.gz.sig)
-          macosAarch64DmgFile=$(ls release-artifacts/macos-aarch64/*.dmg)
-          macosAmd64File=$(ls release-artifacts/macos-amd64/*.app.tar.gz)
-          macosAmd64SigFile=$(ls release-artifacts/macos-amd64/*.app.tar.gz.sig)
-          macosAmd64DmgFile=$(ls release-artifacts/macos-amd64/*.dmg)
-          windowsAmd64File=$(ls release-artifacts/windows-amd64/*.exe)
-          windowsAmd64SigFile=$(ls release-artifacts/windows-amd64/*.exe.sig)
-          windowsAarch64File=$(ls release-artifacts/windows-aarch64/*.exe)
-          windowsAarch64SigFile=$(ls release-artifacts/windows-aarch64/*.exe.sig)
-          currentDate=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
-          cat << EOF > 'release-artifacts/latest.json'
-          {
-            "version": "${{ inputs.app-version }}",
-            "notes": "See the assets to download this version and install.",
-            "pub_date": "$currentDate",
-            "platforms": {
-              "windows-x86_64": {
-                "signature": "$(cat "$windowsAmd64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$windowsAmd64File")"
-              },
-              "windows-aarch64": {
-                "signature": "$(cat "$windowsAarch64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$windowsAarch64File")"
-              },
-              "darwin-aarch64": {
-                "signature": "$(cat "$macosAarch64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$macosAarch64File")"
-              },
-              "darwin-x86_64": {
-                "signature": "$(cat "$macosAmd64SigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$macosAmd64File")"
-              },
-              "linux-x86_64": {
-                "signature": "$(cat "$linuxAmd64AppImageSigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$linuxAmd64AppImageFile")"
-              },
-              "linux-aarch64": {
-                "signature": "$(cat "$linuxAarch64AppImageSigFile")",
-                "url": "https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/$(basename "$linuxAarch64AppImageFile")"
-              }
-            }
-          }
-          EOF
-          echo "macosAarch64DmgFile=$(basename "$macosAarch64DmgFile")" >> $GITHUB_OUTPUT
-          echo "macosAmd64DmgFile=$(basename "$macosAmd64DmgFile")" >> $GITHUB_OUTPUT
-          echo "windowsAmd64File=$(basename "$windowsAmd64File")" >> $GITHUB_OUTPUT
-          echo "windowsAarch64File=$(basename "$windowsAarch64File")" >> $GITHUB_OUTPUT
-
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v5
@@ -428,33 +143,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body: |
-            ## Download Links
-
-            | Platform              | Download Link |
-            |-----------------------|---------------|
-            | Windows (x86_64)      | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAmd64File }}) |
-            | Windows (AArch64)     | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.windowsAarch64File }}) |
-            | macOS (Intel)         | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAmd64DmgFile }}) |
-            | macOS (Apple Silicon) | [Download](https://github.com/AlexProgrammerDE/PistonPanel/releases/download/${{ inputs.app-version }}/${{ steps.create-latest-json.outputs.macosAarch64DmgFile }}) |
-            | Linux (x86_64)        | [Download](https://flathub.org/apps/com.pistonpanelmc.pistonpanel) |
-            | Linux (AArch64)       | [Download](https://flathub.org/apps/com.pistonpanelmc.pistonpanel) |
-
-            > [!TIP]
-            > x86_64 means Intel and AMD CPUs; AArch64 means ARM CPUs like Qualcomm Snapdragon, which are used in some laptops.
-
             ${{ steps.github_release.outputs.changelog }}
           tag_name: ${{ inputs.app-version }}
           generate_release_notes: false
           target_commitish: main
           token: ${{ secrets.GITHUB_TOKEN }}
           name: PistonPanel ${{ inputs.app-version }}
-          files: |
-            release-artifacts/**/*.exe
-            release-artifacts/**/*.AppImage
-            release-artifacts/**/*.deb
-            release-artifacts/**/*.app.tar.gz
-            release-artifacts/**/*.dmg
-            release-artifacts/latest.json
 
       - name: Discord Webhook Action
         uses: tsickert/discord-webhook@v7.0.0
@@ -464,4 +158,4 @@ jobs:
           embed-title: PistonPanel ${{ inputs.app-version }}
           embed-description: PistonPanel ${{ inputs.app-version }} has been released! Changelog and download can be found at https://github.com/AlexProgrammerDE/PistonPanel/releases/tag/${{ inputs.app-version }}
           embed-color: 3312063
-          embed-thumbnail-url: https://pistonpanelmc.com/logo.png
+          embed-thumbnail-url: https://pistonpanel.com/logo.png

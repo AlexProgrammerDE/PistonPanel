@@ -1,83 +1,125 @@
 import {
   createRootRoute,
-  deepEqual,
+  HeadContent,
   Outlet,
+  Scripts,
   useLocation,
 } from '@tanstack/react-router';
 import '../App.css';
-import { ThemeProvider } from '@/components/providers/theme-provider.tsx';
-import { Toaster } from '@/components/ui/sonner.tsx';
-import { TailwindIndicator } from '@/components/tailwind-indicator.tsx';
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClientInstance } from '@/lib/query';
-import { memo, useEffect, useState } from 'react';
-import {
-  SystemInfo,
-  SystemInfoContext,
-} from '@/components/providers/system-info-context.tsx';
-import { getTerminalTheme, isTauri } from '@/lib/utils.tsx';
-import { appConfigDir, BaseDirectory, resolve } from '@tauri-apps/api/path';
-import { mkdir, readDir, watch } from '@tauri-apps/plugin-fs';
-import { arch, locale, platform, type, version } from '@tauri-apps/plugin-os';
-import { getCurrentWebviewWindow } from '@tauri-apps/api/webviewWindow';
+import { memo, ReactNode, useEffect, useState } from 'react';
+import { getTerminalTheme } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import { attachConsole } from '@tauri-apps/plugin-log';
 import { AptabaseProvider, useAptabase } from '@aptabase/react';
-import { emit } from '@tauri-apps/api/event';
-import { useTheme } from 'next-themes';
-import { AboutProvider } from '@/components/dialog/about-dialog.tsx';
-
-async function getAvailableProfiles() {
-  const profileDir = await resolve(
-    await resolve(await appConfigDir(), 'profile'),
-  );
-  await mkdir(profileDir, { recursive: true });
-
-  return (await readDir(profileDir))
-    .filter((file) => file.isFile)
-    .filter((file) => file.name)
-    .map((file) => file.name)
-    .filter((file) => file.endsWith('.json'));
-}
-
-function isMobile() {
-  const osType = type();
-  return osType === 'android' || osType === 'ios';
-}
-
-async function createSystemInfo() {
-  const osType = type();
-  const [availableProfiles, osLocale] = await Promise.all([
-    getAvailableProfiles(),
-    locale(),
-  ]);
-  return {
-    availableProfiles,
-    osType,
-    osVersion: version(),
-    platformName: platform(),
-    osLocale,
-    archName: arch(),
-    mobile: isMobile(),
-  };
-}
+import { AboutProvider } from '@/components/dialog/about-dialog';
 
 export const Route = createRootRoute({
-  loader: async () => {
-    let systemInfo: SystemInfo | null;
-    if (isTauri()) {
-      void attachConsole();
-      systemInfo = await createSystemInfo();
-    } else {
-      systemInfo = null;
-    }
-
-    return {
-      systemInfo,
-    };
-  },
-  component: RootLayout,
+  head: () => ({
+    meta: [
+      {
+        charSet: 'utf-8',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        title: 'PistonPanel',
+      },
+      {
+        name: 'theme-color',
+        content: '#3289BF',
+      },
+      {
+        name: 'description',
+        content: 'Frontend client for PistonPanel.',
+      },
+      {
+        name: 'application-name',
+        content: 'PistonPanel',
+      },
+      {
+        name: 'format-detection',
+        content: 'telephone=no, date=no, address=no, email=no, url=no',
+      },
+      {
+        property: 'og:title',
+        content: 'PistonPanel',
+      },
+      {
+        property: 'og:description',
+        content: 'Frontend client for PistonPanel.',
+      },
+      {
+        property: 'og:url',
+        content: 'https://app.pistonpanel.com',
+      },
+      {
+        property: 'og:locale',
+        content: 'en_US',
+      },
+      {
+        property: 'og:image',
+        content: '/logo.png',
+      },
+      {
+        property: 'og:image:width',
+        content: '512',
+      },
+      {
+        property: 'og:image:height',
+        content: '512',
+      },
+      {
+        property: 'og:image:alt',
+        content: 'PistonPanel Logo',
+      },
+      {
+        property: 'og:type',
+        content: 'website',
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary',
+      },
+      {
+        name: 'twitter:title',
+        content: 'PistonPanel',
+      },
+      {
+        name: 'twitter:description',
+        content: 'Frontend client for PistonPanel.',
+      },
+      {
+        name: 'twitter:image',
+        content: '/logo.png',
+      },
+      {
+        name: 'twitter:image:width',
+        content: '512',
+      },
+      {
+        name: 'twitter:image:height',
+        content: '512',
+      },
+      {
+        name: 'twitter:image:alt',
+        content: 'PistonPanel Logo',
+      },
+      {
+        rel: 'icon',
+        href: '/favicon.ico',
+        type: 'image/x-icon',
+        sizes: '256x256',
+      },
+    ],
+  }),
+  component: RootComponent,
   // To make pendingComponent work on root route
   wrapInSuspense: true,
   pendingComponent: RootPending,
@@ -85,15 +127,16 @@ export const Route = createRootRoute({
 
 function RootPending() {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <WindowThemeSyncer />
-      <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
-    </ThemeProvider>
+    <RootDocument>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
+      </ThemeProvider>
+    </RootDocument>
   );
 }
 
@@ -118,80 +161,17 @@ const AppStartedEvent = memo(() => {
     if (!appLoaded) {
       void trackEvent('app_loaded');
       setAppLoaded(true);
-
-      if (isTauri()) {
-        void emit('app-loaded', {});
-      }
     }
   }, [appLoaded, trackEvent]);
 
   return null;
 });
 
-function WindowThemeSyncer() {
-  const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    if (isTauri()) {
-      if (resolvedTheme === 'dark') {
-        void getCurrentWebviewWindow().setTheme('dark');
-      } else if (resolvedTheme === 'light') {
-        void getCurrentWebviewWindow().setTheme('light');
-      }
-    }
-  }, [resolvedTheme]);
-
-  return null;
-}
-
-function RootLayout() {
-  const { systemInfo } = Route.useLoaderData();
-  const [systemInfoState, setSystemInfoState] = useState<SystemInfo | null>(
-    systemInfo,
-  );
+function RootComponent() {
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
 
-  useEffect(() => {
-    if (isTauri()) {
-      let didUnmount = false;
-      let unwatch: null | (() => void) = null;
-      void watch(
-        'profile',
-        () => {
-          void createSystemInfo().then((newSystemInfo) => {
-            setSystemInfoState((oldSystemInfo) => {
-              if (deepEqual(oldSystemInfo, newSystemInfo)) {
-                return oldSystemInfo;
-              } else {
-                return newSystemInfo;
-              }
-            });
-          });
-        },
-        {
-          baseDir: BaseDirectory.AppConfig,
-          delayMs: 500,
-          recursive: true,
-        },
-      ).then((unwatchFn) => {
-        if (didUnmount) {
-          unwatchFn();
-        } else {
-          unwatch = unwatchFn;
-        }
-      });
-
-      return () => {
-        didUnmount = true;
-        if (unwatch) {
-          unwatch();
-        }
-      };
-    }
-  }, []);
-
   return (
-    <>
+    <RootDocument>
       <AptabaseProvider
         appKey="A-SH-6467566517"
         options={{
@@ -207,32 +187,44 @@ function RootLayout() {
             enableSystem
             disableTransitionOnChange
           >
-            <WindowThemeSyncer />
             <TooltipProvider delayDuration={500}>
-              <SystemInfoContext value={systemInfoState}>
-                <TerminalThemeContext
-                  value={{
-                    value: terminalTheme,
-                    setter: setTerminalTheme,
-                  }}
+              <TerminalThemeContext
+                value={{
+                  value: terminalTheme,
+                  setter: setTerminalTheme,
+                }}
+              >
+                <div
+                  vaul-drawer-wrapper=""
+                  className="flex h-dvh w-dvw flex-col"
                 >
-                  <div
-                    vaul-drawer-wrapper=""
-                    className="flex h-dvh w-dvw flex-col"
-                  >
-                    <PointerReset />
-                    <AboutProvider>
-                      <Outlet />
-                    </AboutProvider>
-                  </div>
-                </TerminalThemeContext>
-              </SystemInfoContext>
+                  <PointerReset />
+                  <AboutProvider>
+                    <Outlet />
+                  </AboutProvider>
+                </div>
+              </TerminalThemeContext>
               <Toaster richColors />
             </TooltipProvider>
           </ThemeProvider>
           <TailwindIndicator />
         </QueryClientProvider>
       </AptabaseProvider>
-    </>
+    </RootDocument>
+  );
+}
+
+function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  // noinspection HtmlRequiredTitleElement
+  return (
+    <html>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
   );
 }

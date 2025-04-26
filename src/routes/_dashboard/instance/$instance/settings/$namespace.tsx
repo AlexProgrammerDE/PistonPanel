@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { InstanceSettingsPageComponent } from '@/components/settings-page.tsx';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { PluginInfoCard } from '@/components/plugin-info-card.tsx';
+import { InstanceSettingsPageComponent } from '@/components/settings-page';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
+import { PluginInfoCard } from '@/components/plugin-info-card';
 import { useTranslation } from 'react-i18next';
-import { NotFoundComponent } from '@/components/not-found-component.tsx';
+import { NotFoundComponent } from '@/components/not-found-component';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Skeleton } from '@/components/ui/skeleton.tsx';
-import { LoadingComponent } from '@/components/loading-component.tsx';
+import { Skeleton } from '@/components/ui/skeleton';
+import { LoadingComponent } from '@/components/loading-component';
 import { Suspense } from 'react';
 
 export const Route = createFileRoute(

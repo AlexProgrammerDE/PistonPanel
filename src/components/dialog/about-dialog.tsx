@@ -7,9 +7,9 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from '../ui/credenza.tsx';
-import { Button } from '@/components/ui/button.tsx';
-import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
+} from '../ui/credenza';
+import { Button } from '@/components/ui/button';
+import { SystemInfoContext } from '@/components/providers/system-info-context';
 import { createContext, ReactNode, use, useState } from 'react';
 import {
   Table,
@@ -18,7 +18,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../ui/table.tsx';
+} from '../ui/table';
 import { useTranslation } from 'react-i18next';
 
 export const AboutContext = createContext<{

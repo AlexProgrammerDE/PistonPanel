@@ -4,28 +4,28 @@ import {
   ScriptListResponse,
   ScriptListResponse_Script,
   ScriptScope,
-} from '@/generated/pistonpanel/script.ts';
+} from '@/generated/pistonpanel/script';
 import {
   SelectAllHeader,
   SelectRowHeader,
-} from '@/components/data-table-selects.tsx';
+} from '@/components/data-table-selects';
 import { Trans, useTranslation } from 'react-i18next';
-import { CopyInfoButton } from '@/components/info-buttons.tsx';
-import { getEnumKeyByValue } from '@/lib/types.ts';
-import { timestampToDate } from '@/lib/utils.tsx';
-import { SFTimeAgo } from '@/components/sf-timeago.tsx';
+import { CopyInfoButton } from '@/components/info-buttons';
+import { getEnumKeyByValue } from '@/lib/types';
+import { timestampToDate } from '@/lib/utils';
+import { SFTimeAgo } from '@/components/sf-timeago';
 import * as React from 'react';
 import { createContext, use, useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
+import { Button } from '@/components/ui/button';
 import { PencilIcon, PlusIcon, RotateCcwIcon, TrashIcon } from 'lucide-react';
-import { ManageScriptDialog } from '@/components/dialog/manage-script-dialog.tsx';
-import { createTransport } from '@/lib/web-rpc.ts';
-import { ScriptServiceClient } from '@/generated/pistonpanel/script.client.ts';
+import { ManageScriptDialog } from '@/components/dialog/manage-script-dialog';
+import { createTransport } from '@/lib/web-rpc';
+import { ScriptServiceClient } from '@/generated/pistonpanel/script.client';
 import { toast } from 'sonner';
 import { Table as ReactTable } from '@tanstack/table-core';
 import { QueryKey, useMutation, useQueryClient } from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { DataTable } from '@/components/data-table.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
+import { DataTable } from '@/components/data-table';
 
 export type ScriptsProps = {
   queryKey: QueryKey;

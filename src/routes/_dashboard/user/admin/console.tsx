@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { TerminalComponent } from '@/components/terminal.tsx';
-import CommandInput from '@/components/command-input.tsx';
+import { TerminalComponent } from '@/components/terminal';
+import CommandInput from '@/components/command-input';
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { useMemo } from 'react';
-import { CommandScope } from '@/generated/pistonpanel/command.ts';
-import { LogScope } from '@/generated/pistonpanel/logs.ts';
+import { CommandScope } from '@/generated/pistonpanel/command';
+import { LogScope } from '@/generated/pistonpanel/logs';
 import { useTranslation } from 'react-i18next';
-import { hasGlobalPermission } from '@/lib/utils.tsx';
-import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
+import { hasGlobalPermission } from '@/lib/utils';
+import { GlobalPermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/user/admin/console')({

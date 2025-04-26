@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { Suspense } from 'react';
 
-import { NavControls } from '@/components/nav/nav-controls.tsx';
-import { NavSettings } from '@/components/nav/nav-settings.tsx';
-import { NavAccount } from '@/components/nav/nav-account.tsx';
+import { NavControls } from '@/components/nav/nav-controls';
+import { NavSettings } from '@/components/nav/nav-settings';
+import { NavAccount } from '@/components/nav/nav-account';
 import { NavPlugins } from '@/components/nav/nav-plugins';
-import { InstanceSwitcher } from '@/components/nav/instance-switcher.tsx';
+import { InstanceSwitcher } from '@/components/nav/instance-switcher';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from '@/components/ui/sidebar.tsx';
-import { NavSecondary } from '@/components/nav/nav-secondary.tsx';
-import { ScrollArea } from '@/components/ui/scroll-area.tsx';
-import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton.tsx';
+} from '@/components/ui/sidebar';
+import { NavSecondary } from '@/components/nav/nav-secondary';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
 
 export function InstanceSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (

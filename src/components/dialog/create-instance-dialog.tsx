@@ -7,8 +7,8 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from '../ui/credenza.tsx';
-import { Button } from '@/components/ui/button.tsx';
+} from '../ui/credenza';
+import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,15 +20,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form.tsx';
-import { Input } from '@/components/ui/input.tsx';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { toast } from 'sonner';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { createContext, ReactNode, use, useState } from 'react';
-import { TransportContext } from '../providers/transport-context.tsx';
+import { TransportContext } from '../providers/transport-context';
 
 export const CreateInstanceContext = createContext<{
   openCreateInstance: () => void;

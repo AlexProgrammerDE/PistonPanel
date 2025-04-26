@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card.tsx';
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -18,19 +18,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form.tsx';
-import { Input } from '@/components/ui/input.tsx';
-import { Button } from '@/components/ui/button.tsx';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { use, useCallback, useState } from 'react';
 import {
   HeartHandshakeIcon,
   LoaderCircleIcon,
   SatelliteDishIcon,
 } from 'lucide-react';
-import { getEnumKeyByValue, SFServerType } from '@/lib/types.ts';
-import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
-import { getLanguageName, languageEmoji } from '@/lib/utils.tsx';
-import { ScrollArea } from '@/components/ui/scroll-area.tsx';
+import { getEnumKeyByValue, SFServerType } from '@/lib/types';
+import { SystemInfoContext } from '@/components/providers/system-info-context';
+import { getLanguageName, languageEmoji } from '@/lib/utils';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 import Logo from 'public/logo.png';
 import { Trans, useTranslation } from 'react-i18next';
@@ -52,13 +52,10 @@ import {
   InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { NextAuthFlowResponse_Failure_Reason } from '@/generated/pistonpanel/login.ts';
-import { LoginServiceClient } from '@/generated/pistonpanel/login.client.ts';
-import {
-  createAddressOnlyTransport,
-  setAuthentication,
-} from '@/lib/web-rpc.ts';
-import { ExternalLink } from '@/components/external-link.tsx';
+import { NextAuthFlowResponse_Failure_Reason } from '@/generated/pistonpanel/login';
+import { LoginServiceClient } from '@/generated/pistonpanel/login.client';
+import { createAddressOnlyTransport, setAuthentication } from '@/lib/web-rpc';
+import { ExternalLink } from '@/components/external-link';
 
 const LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY = 'form-server-address';
 const LOCAL_STORAGE_FORM_SERVER_TOKEN_KEY = 'form-server-token';
@@ -178,7 +175,7 @@ function Index() {
                   {APP_ENVIRONMENT === 'production' && (
                     <a
                       className="text-blue-500"
-                      href="https://preview.pistonpanelmc.com"
+                      href="https://preview.pistonpanel.com"
                     >
                       {t('footer.preview')}
                     </a>
@@ -186,7 +183,7 @@ function Index() {
                   {APP_ENVIRONMENT === 'preview' && (
                     <a
                       className="text-blue-500"
-                      href="https://app.pistonpanelmc.com"
+                      href="https://app.pistonpanel.com"
                     >
                       {t('footer.production')}
                     </a>
@@ -230,7 +227,7 @@ function Index() {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                      <ExternalLink href="https://translate.pistonpanelmc.com">
+                      <ExternalLink href="https://translate.pistonpanel.com">
                         <HeartHandshakeIcon />
                         {t('footer.helpTranslate')}
                       </ExternalLink>

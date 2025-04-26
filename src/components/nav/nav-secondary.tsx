@@ -7,9 +7,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import { useTranslation } from 'react-i18next';
-import { ExternalLink } from '@/components/external-link.tsx';
+import { ExternalLink } from '@/components/external-link';
 import { SiDiscord } from '@icons-pack/react-simple-icons';
 
 type NavLinks = {
@@ -25,7 +25,7 @@ export function NavSecondary({
   const items: NavLinks = [
     {
       title: t('sidebar.documentation'),
-      url: 'https://pistonpanelmc.com/docs',
+      url: 'https://pistonpanel.com/docs',
       icon: BookOpenTextIcon,
     },
     {
@@ -35,7 +35,7 @@ export function NavSecondary({
     },
     {
       title: t('sidebar.discord'),
-      url: 'https://pistonpanelmc.com/discord',
+      url: 'https://pistonpanel.com/discord',
       icon: SiDiscord,
     },
   ];

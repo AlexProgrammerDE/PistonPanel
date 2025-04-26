@@ -1,16 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { TerminalComponent } from '@/components/terminal.tsx';
-import ControlsMenu from '@/components/controls-menu.tsx';
-import CommandInput from '@/components/command-input.tsx';
+import { TerminalComponent } from '@/components/terminal';
+import ControlsMenu from '@/components/controls-menu';
+import CommandInput from '@/components/command-input';
 import { useMemo } from 'react';
-import { translateInstanceState } from '@/lib/types.ts';
+import { translateInstanceState } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { LogScope } from '@/generated/pistonpanel/logs.ts';
-import { CommandScope } from '@/generated/pistonpanel/command.ts';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
+import { LogScope } from '@/generated/pistonpanel/logs';
+import { CommandScope } from '@/generated/pistonpanel/command';
 import { useTranslation } from 'react-i18next';
-import { hasInstancePermission } from '@/lib/utils.tsx';
-import { InstancePermission } from '@/generated/pistonpanel/common.ts';
+import { hasInstancePermission } from '@/lib/utils';
+import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/')({

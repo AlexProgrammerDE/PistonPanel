@@ -1,15 +1,15 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import * as React from 'react';
-import { translateInstanceState } from '@/lib/types.ts';
-import UserPageLayout from '@/components/nav/user-page-layout.tsx';
+import { translateInstanceState } from '@/lib/types';
+import UserPageLayout from '@/components/nav/user-page-layout';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card.tsx';
+} from '@/components/ui/card';
 import { SearchXIcon } from 'lucide-react';
-import DynamicIcon from '@/components/dynamic-icon.tsx';
+import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

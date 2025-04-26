@@ -22,18 +22,18 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import {
   convertToInstanceProto,
   ProfileRoot,
   translateInstanceState,
-} from '@/lib/types.ts';
+} from '@/lib/types';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
 import {
   data2blob,
@@ -41,28 +41,28 @@ import {
   hasInstancePermission,
   isTauri,
   runAsync,
-} from '@/lib/utils.tsx';
+} from '@/lib/utils';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { toast } from 'sonner';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import { mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { appConfigDir, resolve } from '@tauri-apps/api/path';
 import { open, save } from '@tauri-apps/plugin-dialog';
 import { saveAs } from 'file-saver';
-import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
+import { SystemInfoContext } from '@/components/providers/system-info-context';
 import {
   GlobalPermission,
   InstancePermission,
-} from '@/generated/pistonpanel/common.ts';
-import DynamicIcon from '@/components/dynamic-icon.tsx';
+} from '@/generated/pistonpanel/common';
+import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
-import { Skeleton } from '@/components/ui/skeleton.tsx';
-import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog.tsx';
+import { Skeleton } from '@/components/ui/skeleton';
+import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
 
 function SidebarInstanceButton() {
   const { i18n } = useTranslation('common');

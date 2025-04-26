@@ -8,11 +8,8 @@ import globals from 'globals';
 export default tseslint.config(
   {
     ignores: [
-      'src/generated',
       'src/routeTree.gen.ts',
-      '**/protobuf',
       'node_modules',
-      'src-tauri',
       'src/components/ui/chart.tsx',
     ],
   },

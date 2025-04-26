@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { createTransport } from '@/lib/web-rpc.ts';
-import { queryClientInstance } from '@/lib/query.ts';
+import { createTransport } from '@/lib/web-rpc';
+import { queryClientInstance } from '@/lib/query';
 import { queryOptions } from '@tanstack/react-query';
-import { ServerServiceClient } from '@/generated/pistonpanel/server.client.ts';
-import { UserListResponse } from '@/generated/pistonpanel/user.ts';
-import { UserRole } from '@/generated/pistonpanel/common.ts';
-import { UserServiceClient } from '@/generated/pistonpanel/user.client.ts';
-import { convertFromServerProto, ServerInfoQueryData } from '@/lib/types.ts';
+import { ServerServiceClient } from '@/generated/pistonpanel/server.client';
+import { UserListResponse } from '@/generated/pistonpanel/user';
+import { UserRole } from '@/generated/pistonpanel/common';
+import { UserServiceClient } from '@/generated/pistonpanel/user.client';
+import { convertFromServerProto, ServerInfoQueryData } from '@/lib/types';
 
 export const Route = createFileRoute('/_dashboard/user/admin')({
   beforeLoad: (props) => {
@@ -51,7 +51,7 @@ export const Route = createFileRoute('/_dashboard/user/admin')({
               {
                 id: 'root',
                 username: 'root',
-                email: 'root@pistonpanelmc.com',
+                email: 'root@pistonpanel.com',
                 role: UserRole.ADMIN,
               },
             ],

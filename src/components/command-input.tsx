@@ -1,11 +1,11 @@
-import { Input } from '@/components/ui/input.tsx';
+import { Input } from '@/components/ui/input';
 import { KeyboardEventHandler, use, useEffect, useRef, useState } from 'react';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { CommandServiceClient } from '@/generated/pistonpanel/command.client.ts';
+import { TransportContext } from '@/components/providers/transport-context';
+import { CommandServiceClient } from '@/generated/pistonpanel/command.client';
 import {
   CommandCompletion,
   CommandScope,
-} from '@/generated/pistonpanel/command.ts';
+} from '@/generated/pistonpanel/command';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

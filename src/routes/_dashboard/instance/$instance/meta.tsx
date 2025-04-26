@@ -1,25 +1,25 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { use } from 'react';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { useTranslation } from 'react-i18next';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import {
   formatIconName,
   hasInstancePermission,
   setInstanceFriendlyName,
   setInstanceIcon,
-} from '@/lib/utils.tsx';
-import { GenericEntryComponent } from '@/components/settings-page.tsx';
-import { getAllIconTags } from '@/components/dynamic-icon.tsx';
+} from '@/lib/utils';
+import { GenericEntryComponent } from '@/components/settings-page';
+import { getAllIconTags } from '@/components/dynamic-icon';
 import {
   InstancePermission,
   StringSetting_InputType,
-} from '@/generated/pistonpanel/common.ts';
+} from '@/generated/pistonpanel/common';
 import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/meta')({

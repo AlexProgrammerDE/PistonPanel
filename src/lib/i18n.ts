@@ -10,7 +10,9 @@ void i18n
   .use(
     resourcesToBackend((lng: string, ns: string) => {
       if (ns === 'zod') {
-        return import(`zod-i18n-map/locales/${lng}/${ns}.json`);
+        return import(
+          `../../node_modules/zod-i18n-map/locales/${lng}/${ns}.json`
+        );
       } else {
         return import(`../../locales/${lng}/${ns}.json`);
       }
@@ -21,7 +23,6 @@ void i18n
   .init({
     defaultNS: 'common',
     fallbackLng: 'en-US',
-    debug: true,
 
     load: 'currentOnly',
     supportedLngs: APP_LOCALES.split(','),

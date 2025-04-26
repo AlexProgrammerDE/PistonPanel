@@ -1,11 +1,11 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import * as React from 'react';
 import { use, useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
-import { DataTable } from '@/components/data-table.tsx';
+import { Button } from '@/components/ui/button';
+import { DataTable } from '@/components/data-table';
 import { ColumnDef, Row, Table as ReactTable } from '@tanstack/react-table';
-import { getEnumKeyByValue } from '@/lib/types.ts';
-import { UserRole } from '@/generated/pistonpanel/common.ts';
+import { getEnumKeyByValue } from '@/lib/types';
+import { UserRole } from '@/generated/pistonpanel/common';
 import { toast } from 'sonner';
 import {
   LogOutIcon,
@@ -14,7 +14,7 @@ import {
   TrashIcon,
   VenetianMaskIcon,
 } from 'lucide-react';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import {
   useMutation,
   useQueryClient,
@@ -24,16 +24,16 @@ import { Trans, useTranslation } from 'react-i18next';
 import {
   SelectAllHeader,
   SelectRowHeader,
-} from '@/components/data-table-selects.tsx';
-import { startImpersonation } from '@/lib/web-rpc.ts';
-import { UserListResponse_User } from '@/generated/pistonpanel/user.ts';
-import { UserServiceClient } from '@/generated/pistonpanel/user.client.ts';
-import UserPageLayout from '@/components/nav/user-page-layout.tsx';
-import { UserAvatar } from '@/components/user-avatar.tsx';
-import { ManageUserDialog } from '@/components/dialog/manage-user-dialog.tsx';
-import { ROOT_USER_ID, runAsync, timestampToDate } from '@/lib/utils.tsx';
-import { SFTimeAgo } from '@/components/sf-timeago.tsx';
-import { CopyInfoButton } from '@/components/info-buttons.tsx';
+} from '@/components/data-table-selects';
+import { startImpersonation } from '@/lib/web-rpc';
+import { UserListResponse_User } from '@/generated/pistonpanel/user';
+import { UserServiceClient } from '@/generated/pistonpanel/user.client';
+import UserPageLayout from '@/components/nav/user-page-layout';
+import { UserAvatar } from '@/components/user-avatar';
+import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
+import { ROOT_USER_ID, runAsync, timestampToDate } from '@/lib/utils';
+import { SFTimeAgo } from '@/components/sf-timeago';
+import { CopyInfoButton } from '@/components/info-buttons';
 
 export const Route = createFileRoute('/_dashboard/user/admin/users')({
   component: Users,

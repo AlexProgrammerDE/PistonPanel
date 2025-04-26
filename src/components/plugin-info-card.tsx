@@ -3,15 +3,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card.tsx';
-import { Badge } from '@/components/ui/badge.tsx';
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { useTranslation } from 'react-i18next';
-import { Switch } from '@/components/ui/switch.tsx';
+import { Switch } from '@/components/ui/switch';
 import {
   getEntryValueByType,
   setInstanceConfig,
   updateEntry,
-} from '@/lib/utils.tsx';
+} from '@/lib/utils';
 import { use, useMemo } from 'react';
 import {
   useMutation,
@@ -19,11 +19,11 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { JsonValue } from '@protobuf-ts/runtime';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import DynamicIcon from './dynamic-icon';
 import { Link, useRouteContext } from '@tanstack/react-router';
-import { SettingsPage } from '@/generated/pistonpanel/common.ts';
-import { ExternalLink } from '@/components/external-link.tsx';
+import { SettingsPage } from '@/generated/pistonpanel/common';
+import { ExternalLink } from '@/components/external-link';
 
 export function PluginInfoCard(props: { settingsEntry: SettingsPage }) {
   const { t } = useTranslation('common');

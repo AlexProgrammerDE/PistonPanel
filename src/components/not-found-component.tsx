@@ -7,17 +7,17 @@ import {
   RotateCwIcon,
   SearchXIcon,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button.tsx';
-import { isTauri, runAsync } from '@/lib/utils.tsx';
+import { Button } from '@/components/ui/button';
+import { isTauri, runAsync } from '@/lib/utils';
 import { emit } from '@tauri-apps/api/event';
-import { logOut } from '@/lib/web-rpc.ts';
+import { logOut } from '@/lib/web-rpc';
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card.tsx';
+} from '@/components/ui/card';
 
 export function NotFoundComponent() {
   const { t } = useTranslation('common');

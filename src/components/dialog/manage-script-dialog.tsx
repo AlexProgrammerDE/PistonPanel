@@ -7,8 +7,8 @@ import {
   CredenzaFooter,
   CredenzaHeader,
   CredenzaTitle,
-} from '../ui/credenza.tsx';
-import { Button } from '@/components/ui/button.tsx';
+} from '../ui/credenza';
+import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,8 +20,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form.tsx';
-import { Input } from '@/components/ui/input.tsx';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
 import {
   QueryKey,
@@ -31,15 +31,15 @@ import {
 } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { use } from 'react';
-import { TransportContext } from '../providers/transport-context.tsx';
-import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
-import { ScriptServiceClient } from '@/generated/pistonpanel/script.client.ts';
+import { TransportContext } from '../providers/transport-context';
+import { GlobalPermission } from '@/generated/pistonpanel/common';
+import { ScriptServiceClient } from '@/generated/pistonpanel/script.client';
 import {
   ScriptListResponse_Script,
   ScriptScope,
-} from '@/generated/pistonpanel/script.ts';
-import { Checkbox } from '@/components/ui/checkbox.tsx';
-import { hasGlobalPermission } from '@/lib/utils.tsx';
+} from '@/generated/pistonpanel/script';
+import { Checkbox } from '@/components/ui/checkbox';
+import { hasGlobalPermission } from '@/lib/utils';
 import { useRouteContext } from '@tanstack/react-router';
 
 export type FormType = {

@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Suspense } from 'react';
-import { NavAccount } from '@/components/nav/nav-account.tsx';
+import { NavAccount } from '@/components/nav/nav-account';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarRail,
-} from '@/components/ui/sidebar.tsx';
-import { NavSecondary } from '@/components/nav/nav-secondary.tsx';
-import { ScrollArea } from '@/components/ui/scroll-area.tsx';
-import { NavUserOptions } from '@/components/nav/nav-user-options.tsx';
-import { NavUserAdmin } from '@/components/nav/nav-user-admin.tsx';
-import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton.tsx';
+} from '@/components/ui/sidebar';
+import { NavSecondary } from '@/components/nav/nav-secondary';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { NavUserOptions } from '@/components/nav/nav-user-options';
+import { NavUserAdmin } from '@/components/nav/nav-user-admin';
+import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
 
 export function UserSidebar({
   ...props

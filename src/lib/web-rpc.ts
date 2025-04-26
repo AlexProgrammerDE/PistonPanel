@@ -1,9 +1,9 @@
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
-import { isDemo } from '@/lib/utils.tsx';
-import i18n from '@/lib/i18n.ts';
-import { SFServerType } from '@/lib/types.ts';
+import { isDemo } from '@/lib/utilsx';
+import i18n from '@/lib/i18n';
+import { SFServerType } from '@/lib/types';
 import { AuthType, createClient, WebDAVClient } from 'webdav';
-import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
+import { ClientDataResponse } from '@/generated/pistonpanel/client';
 
 const LOCAL_STORAGE_SERVER_TYPE_KEY = 'server-type';
 const LOCAL_STORAGE_SERVER_ADDRESS_KEY = 'server-address';

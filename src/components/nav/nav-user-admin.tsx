@@ -14,14 +14,14 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { hasGlobalPermission } from '@/lib/utils.tsx';
-import { GlobalPermission } from '@/generated/pistonpanel/common.ts';
+import { hasGlobalPermission } from '@/lib/utils';
+import { GlobalPermission } from '@/generated/pistonpanel/common';
 
 type NavLinks = {
   title: string;

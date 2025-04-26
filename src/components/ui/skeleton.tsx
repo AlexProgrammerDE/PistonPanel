@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils.tsx';
+import { cn } from '@/lib/utils';
 
 function Skeleton({
   className,

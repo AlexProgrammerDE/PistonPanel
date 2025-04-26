@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { Skeleton } from '@/components/ui/skeleton';
 import * as React from 'react';
 
 function LoadingSkeleton() {

@@ -1,5 +1,5 @@
 import { CellContext, HeaderContext } from '@tanstack/react-table';
-import { Checkbox } from '@/components/ui/checkbox.tsx';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from 'react-i18next';
 
 export function SelectAllHeader<T>({ table }: HeaderContext<T, unknown>) {

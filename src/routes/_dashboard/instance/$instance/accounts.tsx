@@ -1,19 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { use, useCallback, useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
-import { DataTable } from '@/components/data-table.tsx';
+import { Button } from '@/components/ui/button';
+import { DataTable } from '@/components/data-table';
 import { ColumnDef, Table as ReactTable } from '@tanstack/react-table';
 import {
   convertToInstanceProto,
   getEnumKeyByValue,
   ProfileAccount,
   ProfileRoot,
-} from '@/lib/types.ts';
+} from '@/lib/types';
 import {
   AccountTypeCredentials,
   AccountTypeDeviceCode,
   MinecraftAccountProto_AccountTypeProto,
-} from '@/generated/pistonpanel/common.ts';
+} from '@/generated/pistonpanel/common';
 import { PlusIcon, TrashIcon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -22,26 +22,26 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
+} from '@/components/ui/dropdown-menu';
 import { ExternalToast, toast } from 'sonner';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { MCAuthServiceClient } from '@/generated/pistonpanel/mc-auth.client.ts';
-import ImportDialog from '@/components/dialog/import-dialog.tsx';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { TransportContext } from '@/components/providers/transport-context';
+import { MCAuthServiceClient } from '@/generated/pistonpanel/mc-auth.client';
+import ImportDialog from '@/components/dialog/import-dialog';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { isTauri, runAsync } from '@/lib/utils.tsx';
+import { isTauri, runAsync } from '@/lib/utils';
 import { open as shellOpen } from '@tauri-apps/plugin-shell';
-import { InstanceSettingsPageComponent } from '@/components/settings-page.tsx';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
+import { InstanceSettingsPageComponent } from '@/components/settings-page';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { Trans, useTranslation } from 'react-i18next';
 import {
   SelectAllHeader,
   SelectRowHeader,
-} from '@/components/data-table-selects.tsx';
+} from '@/components/data-table-selects';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/accounts')(
   {
@@ -473,7 +473,7 @@ function AccountSettings() {
         },
       ]}
       pageName={t('pageName.accountSettings')}
-      documentationLink="https://pistonpanelmc.com/docs/usage/accounts"
+      documentationLink="https://pistonpanel.com/docs/usage/accounts"
     >
       <Content />
     </InstancePageLayout>

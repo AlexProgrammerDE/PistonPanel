@@ -1,16 +1,16 @@
 import { createFileRoute, deepEqual } from '@tanstack/react-router';
 import { use, useCallback, useState } from 'react';
-import { Button } from '@/components/ui/button.tsx';
-import { InstanceSettingsPageComponent } from '@/components/settings-page.tsx';
-import { DataTable } from '@/components/data-table.tsx';
+import { Button } from '@/components/ui/button';
+import { InstanceSettingsPageComponent } from '@/components/settings-page';
+import { DataTable } from '@/components/data-table';
 import { ColumnDef, Table as ReactTable } from '@tanstack/react-table';
 import {
   convertToInstanceProto,
   getEnumKeyByValue,
   ProfileProxy,
   ProfileRoot,
-} from '@/lib/types.ts';
-import { ProxyProto_Type } from '@/generated/pistonpanel/common.ts';
+} from '@/lib/types';
+import { ProxyProto_Type } from '@/generated/pistonpanel/common';
 import { ExternalToast, toast } from 'sonner';
 import {
   DropdownMenu,
@@ -19,26 +19,26 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
+} from '@/components/ui/dropdown-menu';
 import { PlusIcon, TrashIcon, Wand2Icon } from 'lucide-react';
-import ImportDialog from '@/components/dialog/import-dialog.tsx';
+import ImportDialog from '@/components/dialog/import-dialog';
 import URI from 'urijs';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
+import { TransportContext } from '@/components/providers/transport-context';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { ProxyCheckServiceClient } from '@/generated/pistonpanel/proxy-check.client.ts';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
+import { ProxyCheckServiceClient } from '@/generated/pistonpanel/proxy-check.client';
 import { Trans, useTranslation } from 'react-i18next';
 import {
   SelectAllHeader,
   SelectRowHeader,
-} from '@/components/data-table-selects.tsx';
-import i18n from '@/lib/i18n.ts';
-import { runAsync } from '@/lib/utils.tsx';
+} from '@/components/data-table-selects';
+import i18n from '@/lib/i18n';
+import { runAsync } from '@/lib/utils';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/proxies')({
   component: ProxySettings,
@@ -446,7 +446,7 @@ function ProxySettings() {
         },
       ]}
       pageName={t('pageName.proxySettings')}
-      documentationLink="https://pistonpanelmc.com/docs/usage/proxies"
+      documentationLink="https://pistonpanel.com/docs/usage/proxies"
     >
       <Content />
     </InstancePageLayout>

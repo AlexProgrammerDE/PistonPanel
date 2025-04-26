@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { AdminSettingsPageComponent } from '@/components/settings-page.tsx';
+import { AdminSettingsPageComponent } from '@/components/settings-page';
 import UserPageLayout from '@/components/nav/user-page-layout';
-import { PluginInfoCard } from '@/components/plugin-info-card.tsx';
+import { PluginInfoCard } from '@/components/plugin-info-card';
 import { useTranslation } from 'react-i18next';
-import { NotFoundComponent } from '@/components/not-found-component.tsx';
+import { NotFoundComponent } from '@/components/not-found-component';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { LoadingComponent } from '@/components/loading-component.tsx';
-import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { LoadingComponent } from '@/components/loading-component';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const Route = createFileRoute(
   '/_dashboard/user/admin/settings/$namespace',

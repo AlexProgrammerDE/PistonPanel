@@ -1,9 +1,5 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar.tsx';
-import { cn, getGravatarUrl } from '@/lib/utils.tsx';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn, getGravatarUrl } from '@/lib/utils';
 import * as React from 'react';
 
 const cache = new Map<string, true>();

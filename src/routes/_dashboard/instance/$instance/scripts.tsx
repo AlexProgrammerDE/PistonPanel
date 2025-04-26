@@ -1,10 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { createTransport } from '@/lib/web-rpc.ts';
-import { queryClientInstance } from '@/lib/query.ts';
-import { ScriptListResponse } from '@/generated/pistonpanel/script.ts';
-import { ScriptServiceClient } from '@/generated/pistonpanel/script.client.ts';
-import { GenericScripts } from '@/components/generic-scripts-page.tsx';
+import { createTransport } from '@/lib/web-rpc';
+import { queryClientInstance } from '@/lib/query';
+import { ScriptListResponse } from '@/generated/pistonpanel/script';
+import { ScriptServiceClient } from '@/generated/pistonpanel/script.client';
+import { GenericScripts } from '@/components/generic-scripts-page';
 import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { useTranslation } from 'react-i18next';
 

@@ -29,13 +29,13 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx';
+} from '@/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import { Suspense, use } from 'react';
 import {
   getLanguageName,
@@ -43,25 +43,25 @@ import {
   languageEmoji,
   runAsync,
   setTerminalTheme,
-} from '@/lib/utils.tsx';
+} from '@/lib/utils';
 import { emit } from '@tauri-apps/api/event';
 import { toast } from 'sonner';
 import { exit } from '@tauri-apps/plugin-process';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { flavorEntries } from '@catppuccin/palette';
 import { useTheme } from 'next-themes';
-import { TerminalThemeContext } from '@/components/providers/terminal-theme-context.tsx';
-import CastMenuEntry from '@/components/nav/cast-menu-entry.tsx';
+import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
+import CastMenuEntry from '@/components/nav/cast-menu-entry';
 import { appConfigDir, appLocalDataDir } from '@tauri-apps/api/path';
-import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
-import { AboutContext } from '@/components/dialog/about-dialog.tsx';
+import { SystemInfoContext } from '@/components/providers/system-info-context';
+import { AboutContext } from '@/components/dialog/about-dialog';
 import { useTranslation } from 'react-i18next';
-import { isImpersonating, logOut, stopImpersonation } from '@/lib/web-rpc.ts';
-import { UserAvatar } from '@/components/user-avatar.tsx';
+import { isImpersonating, logOut, stopImpersonation } from '@/lib/web-rpc';
+import { UserAvatar } from '@/components/user-avatar';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { Skeleton } from '@/components/ui/skeleton';
 import { openPath } from '@tauri-apps/plugin-opener';
-import { ExternalLink } from '@/components/external-link.tsx';
+import { ExternalLink } from '@/components/external-link';
 
 function SidebarAccountButton() {
   const clientDataQueryOptions = useRouteContext({
@@ -249,7 +249,7 @@ export function NavAccount() {
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                       <DropdownMenuItem asChild>
-                        <ExternalLink href="https://translate.pistonpanelmc.com">
+                        <ExternalLink href="https://translate.pistonpanel.com">
                           <HeartHandshakeIcon />
                           {t('userSidebar.helpTranslate')}
                         </ExternalLink>

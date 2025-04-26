@@ -1,22 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
-import { DataTable, DateRange } from '@/components/data-table.tsx';
+import { DataTable, DateRange } from '@/components/data-table';
 import { ColumnDef, Table as ReactTable } from '@tanstack/react-table';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Trans, useTranslation } from 'react-i18next';
-import { createTransport } from '@/lib/web-rpc.ts';
-import { queryClientInstance } from '@/lib/query.ts';
-import { UserAvatar } from '@/components/user-avatar.tsx';
+import { createTransport } from '@/lib/web-rpc';
+import { queryClientInstance } from '@/lib/query';
+import { UserAvatar } from '@/components/user-avatar';
 import {
   InstanceAuditLogResponse,
   InstanceAuditLogResponse_AuditLogEntry,
   InstanceAuditLogResponse_AuditLogEntryType,
-} from '@/generated/pistonpanel/instance.ts';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
-import { cn, timestampToDate } from '@/lib/utils.tsx';
-import i18n from '@/lib/i18n.ts';
-import { Button } from '@/components/ui/button.tsx';
+} from '@/generated/pistonpanel/instance';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
+import { cn, timestampToDate } from '@/lib/utils';
+import i18n from '@/lib/i18n';
+import { Button } from '@/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
 import {
   Popover,
@@ -25,8 +25,8 @@ import {
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import { useDateFnsLocale } from '@/hooks/use-date-fns-locale.ts';
-import { SFTimeAgo } from '@/components/sf-timeago.tsx';
+import { useDateFnsLocale } from '@/hooks/use-date-fns-locale';
+import { SFTimeAgo } from '@/components/sf-timeago';
 
 export const Route = createFileRoute(
   '/_dashboard/instance/$instance/audit-log',

@@ -1,10 +1,10 @@
 import { use } from 'react';
-import { Button } from '@/components/ui/button.tsx';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { convertToInstanceProto } from '@/lib/types.ts';
+import { Button } from '@/components/ui/button';
+import { TransportContext } from '@/components/providers/transport-context';
+import { convertToInstanceProto } from '@/lib/types';
 import { toast } from 'sonner';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
-import { InstanceState } from '@/generated/pistonpanel/instance.ts';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
+import { InstanceState } from '@/generated/pistonpanel/instance';
 import {
   useMutation,
   useQueryClient,

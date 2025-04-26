@@ -1,21 +1,18 @@
 import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
-import { createTransport } from '@/lib/web-rpc.ts';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
-import { InstanceState } from '@/generated/pistonpanel/instance.ts';
-import { queryClientInstance } from '@/lib/query.ts';
+import { createTransport } from '@/lib/web-rpc';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
+import { InstanceState } from '@/generated/pistonpanel/instance';
+import { queryClientInstance } from '@/lib/query';
 import { queryOptions } from '@tanstack/react-query';
 import {
   MinecraftAccountProto_AccountTypeProto,
   ProxyProto_Type,
-} from '@/generated/pistonpanel/common.ts';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar.tsx';
-import { InstanceSidebar } from '@/components/nav/instance-sidebar.tsx';
-import { TooltipProvider } from '@/components/ui/tooltip.tsx';
-import { ErrorComponent } from '@/components/error-component.tsx';
-import {
-  convertFromInstanceProto,
-  InstanceInfoQueryData,
-} from '@/lib/types.ts';
+} from '@/generated/pistonpanel/common';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { InstanceSidebar } from '@/components/nav/instance-sidebar';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ErrorComponent } from '@/components/error-component';
+import { convertFromInstanceProto, InstanceInfoQueryData } from '@/lib/types';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance')({
   beforeLoad: (props) => {

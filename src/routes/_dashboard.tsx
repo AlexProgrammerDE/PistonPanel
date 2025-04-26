@@ -1,33 +1,33 @@
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import {
   createFileRoute,
   Outlet,
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 import {
   createTransport,
   isAuthenticated,
   isImpersonating,
   logOut,
-} from '@/lib/web-rpc.ts';
+} from '@/lib/web-rpc';
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
-import { ClientDataResponse } from '@/generated/pistonpanel/client.ts';
-import { isTauri } from '@/lib/utils.tsx';
+import { ClientDataResponse } from '@/generated/pistonpanel/client';
+import { isTauri } from '@/lib/utils';
 import { emit } from '@tauri-apps/api/event';
-import { demoData } from '@/demo-data.ts';
+import { demoData } from '@/demo-data';
 import {
   InstanceListResponse,
   InstanceState,
-} from '@/generated/pistonpanel/instance.ts';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client.ts';
-import { queryClientInstance } from '@/lib/query.ts';
+} from '@/generated/pistonpanel/instance';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
+import { queryClientInstance } from '@/lib/query';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ErrorComponent } from '@/components/error-component.tsx';
-import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog.tsx';
+import { ErrorComponent } from '@/components/error-component';
+import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
 
 export const Route = createFileRoute('/_dashboard')({
   beforeLoad: async (props) => {

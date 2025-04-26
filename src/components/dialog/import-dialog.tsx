@@ -5,24 +5,24 @@ import {
   CredenzaDescription,
   CredenzaHeader,
   CredenzaTitle,
-} from '@/components/ui/credenza.tsx';
-import { Button } from '@/components/ui/button.tsx';
-import { Textarea } from '@/components/ui/textarea.tsx';
+} from '@/components/ui/credenza';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 import { use, useRef, useState } from 'react';
-import { hasInstancePermission, isTauri, runAsync } from '@/lib/utils.tsx';
+import { hasInstancePermission, isTauri, runAsync } from '@/lib/utils';
 import { downloadDir } from '@tauri-apps/api/path';
 import { open } from '@tauri-apps/plugin-dialog';
 import { readTextFile } from '@tauri-apps/plugin-fs';
 import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
 import { ClipboardIcon, FileIcon, GlobeIcon, TextIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/separator.tsx';
-import { Input } from '@/components/ui/input.tsx';
+import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import MimeMatcher from 'mime-matcher';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { DownloadServiceClient } from '@/generated/pistonpanel/download.client.ts';
-import { SystemInfoContext } from '@/components/providers/system-info-context.tsx';
-import { InstancePermission } from '@/generated/pistonpanel/common.ts';
+import { TransportContext } from '@/components/providers/transport-context';
+import { DownloadServiceClient } from '@/generated/pistonpanel/download.client';
+import { SystemInfoContext } from '@/components/providers/system-info-context';
+import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useTranslation } from 'react-i18next';
 import { useRouteContext } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';

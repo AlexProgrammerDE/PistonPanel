@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
 import { use, useState } from 'react';
-import UserPageLayout from '@/components/nav/user-page-layout.tsx';
+import UserPageLayout from '@/components/nav/user-page-layout';
 import { useTranslation } from 'react-i18next';
 import {
   Card,
@@ -10,8 +10,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card.tsx';
-import { Button } from '@/components/ui/button.tsx';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
   BookOpenTextIcon,
   CopyIcon,
@@ -19,12 +19,12 @@ import {
   GlobeIcon,
   PlusIcon,
 } from 'lucide-react';
-import { ExternalLink } from '@/components/external-link.tsx';
-import { Input } from '@/components/ui/input.tsx';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { ClientServiceClient } from '@/generated/pistonpanel/client.client.ts';
+import { ExternalLink } from '@/components/external-link';
+import { Input } from '@/components/ui/input';
+import { TransportContext } from '@/components/providers/transport-context';
+import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 import { toast } from 'sonner';
-import { isTauri } from '@/lib/utils.tsx';
+import { isTauri } from '@/lib/utils';
 import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
@@ -147,7 +147,7 @@ function Content() {
             <span>{t('access.token.generate')}</span>
           </Button>
           <Button variant="secondary" asChild>
-            <ExternalLink href="https://pistonpanelmc.com/docs/guides/webdav">
+            <ExternalLink href="https://pistonpanel.com/docs/guides/webdav">
               <BookOpenTextIcon />
               <span>{t('access.howToConnect')}</span>
             </ExternalLink>

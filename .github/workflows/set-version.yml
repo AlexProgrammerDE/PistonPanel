@@ -21,54 +21,24 @@ jobs:
 
     runs-on: ubuntu-24.04
     steps:
-      - name: 'Shared: Checkout repository'
+      - name: 'Checkout repository'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
-      - name: 'Shared: Setup node'
+      - name: 'Setup node'
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: 'Shared: Install pnpm'
+      - name: 'Install pnpm'
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: 'Shared: Install Rust toolchain'
-        uses: dtolnay/rust-toolchain@nightly
-
-      - name: 'Desktop: Cache dependencies'
-        uses: Swatinem/rust-cache@v2
-        with:
-          prefix-key: set-version
-          save-if: ${{ github.ref == 'refs/heads/main' }}
-          workspaces: src-tauri
-          cache-on-failure: true
-          cache-all-crates: true
-          cache-targets: false
-
       - name: 'Set JS Version'
         run: |
           pnpm version --no-git-tag-version --allow-same-version ${{ inputs.version }}
-
-      - name: 'Set Cargo Version'
-        run: |
-          cargo install cargo-edit
-          cargo set-version ${{ inputs.version }} --manifest-path src-tauri/Cargo.toml
-
-      - name: 'Add to metainfo'
-        run: |
-          if ! grep -q "<release version=\"${{ inputs.version }}\"" com.pistonpanelmc.pistonpanel.metainfo.xml; then
-            sed -i "/<releases>/a\\
-              <release version=\"${{ inputs.version }}\" date=\"$(date +"%Y-%m-%d")\">\\
-                <url type=\"details\">https://github.com/AlexProgrammerDE/PistonPanel/releases/tag/${{ inputs.version }}</url>\\
-              </release>" com.pistonpanelmc.pistonpanel.metainfo.xml
-            echo "Added release ${{ inputs.version }} to metainfo file"
-          else
-            echo "Release version ${{ inputs.version }} already exists in metainfo file, skipping addition"
-          fi
 
       - name: 'Commit Version'
         uses: stefanzweifel/git-auto-commit-action@v5

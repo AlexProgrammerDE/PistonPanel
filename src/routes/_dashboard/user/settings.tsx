@@ -6,25 +6,25 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
 import {
   ComponentTitle,
   GenericEntryComponent,
-} from '@/components/settings-page.tsx';
+} from '@/components/settings-page';
 import {
   GlobalPermission,
   StringSetting_InputType,
-} from '@/generated/pistonpanel/common.ts';
+} from '@/generated/pistonpanel/common';
 import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
 import {
   hasGlobalPermission,
   setSelfEmail,
   setSelfUsername,
-} from '@/lib/utils.tsx';
-import UserPageLayout from '@/components/nav/user-page-layout.tsx';
-import { ExternalLink } from '@/components/external-link.tsx';
-import { UserAvatar } from '@/components/user-avatar.tsx';
-import { Card } from '@/components/ui/card.tsx';
+} from '@/lib/utils';
+import UserPageLayout from '@/components/nav/user-page-layout';
+import { ExternalLink } from '@/components/external-link';
+import { UserAvatar } from '@/components/user-avatar';
+import { Card } from '@/components/ui/card';
 
 export const Route = createFileRoute('/_dashboard/user/settings')({
   component: UserSettings,
@@ -140,7 +140,7 @@ function Content() {
               description: 'Your email is used for login and notifications.',
               def: '',
               inputType: StringSetting_InputType.EMAIL,
-              placeholder: 'root@pistonpanelmc.com',
+              placeholder: 'root@pistonpanel.com',
               minLength: 3,
               maxLength: 255,
               pattern: '.*',

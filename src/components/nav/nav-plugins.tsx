@@ -8,7 +8,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   useSidebar,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import {
   Link,
   LinkProps,
@@ -16,12 +16,12 @@ import {
   useRouteContext,
 } from '@tanstack/react-router';
 import { ReactNode, useState } from 'react';
-import DynamicIcon from '@/components/dynamic-icon.tsx';
+import DynamicIcon from '@/components/dynamic-icon';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible.tsx';
+} from '@/components/ui/collapsible';
 import {
   BlocksIcon,
   ChevronRightIcon,
@@ -29,7 +29,7 @@ import {
   TelescopeIcon,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { getEntryValueByType } from '@/lib/utils.tsx';
+import { getEntryValueByType } from '@/lib/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 type NavLinks = {

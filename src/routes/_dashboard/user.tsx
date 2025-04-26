@@ -1,8 +1,8 @@
 import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar.tsx';
-import { UserSidebar } from '@/components/nav/user-sidebar.tsx';
-import { TooltipProvider } from '@/components/ui/tooltip.tsx';
-import { ErrorComponent } from '@/components/error-component.tsx';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { UserSidebar } from '@/components/nav/user-sidebar';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ErrorComponent } from '@/components/error-component';
 
 export const Route = createFileRoute('/_dashboard/user')({
   component: UserLayout,

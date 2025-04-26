@@ -1,23 +1,23 @@
-import { SidebarTrigger } from '@/components/ui/sidebar.tsx';
-import { Separator } from '@/components/ui/separator.tsx';
+import { SidebarTrigger } from '@/components/ui/sidebar';
+import { Separator } from '@/components/ui/separator';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb.tsx';
-import { ScrollArea } from '@/components/ui/scroll-area.tsx';
+} from '@/components/ui/breadcrumb';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { ReactNode, Suspense } from 'react';
-import { Button } from '@/components/ui/button.tsx';
+import { Button } from '@/components/ui/button';
 import { BookOpenTextIcon, HomeIcon } from 'lucide-react';
 import { CatchBoundary, Link, useRouteContext } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { ErrorComponent } from '@/components/error-component.tsx';
-import { ExternalLink } from '@/components/external-link.tsx';
+import { ErrorComponent } from '@/components/error-component';
+import { ExternalLink } from '@/components/external-link';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { LoadingComponent } from '@/components/loading-component.tsx';
-import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { LoadingComponent } from '@/components/loading-component';
+import { Skeleton } from '@/components/ui/skeleton';
 
 function InstanceCrumb() {
   const instanceInfoQueryOptions = useRouteContext({

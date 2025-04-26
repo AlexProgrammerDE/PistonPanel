@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import InstancePageLayout from '@/components/nav/instance-page-layout.tsx';
+import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { useTranslation } from 'react-i18next';
-import { PluginInfoCard } from '@/components/plugin-info-card.tsx';
+import { PluginInfoCard } from '@/components/plugin-info-card';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/discover')(

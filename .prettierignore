@@ -23,10 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-src/generated
 src/routeTree.gen.ts
-protobuf
-src-tauri
 pnpm-lock.yaml
 shared-modules
 locales

@@ -1,12 +1,12 @@
-import { useDateFnsLocale } from '@/hooks/use-date-fns-locale.ts';
-import { useChangingData } from '@/hooks/use-changing-value.ts';
+import { useDateFnsLocale } from '@/hooks/use-date-fns-locale';
+import { useChangingData } from '@/hooks/use-changing-value';
 import { format, formatDistanceToNow } from 'date-fns';
 import React, { useMemo } from 'react';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover.tsx';
+} from '@/components/ui/popover';
 
 export const SFTimeAgo = React.memo((props: { date: Date }) => {
   const dateFnsLocale = useDateFnsLocale();

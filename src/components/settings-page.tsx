@@ -10,20 +10,20 @@ import {
   StringListSetting,
   StringSetting,
   StringSetting_InputType,
-} from '@/generated/pistonpanel/common.ts';
-import { Button } from '@/components/ui/button.tsx';
+} from '@/generated/pistonpanel/common';
+import { Button } from '@/components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover.tsx';
+} from '@/components/ui/popover';
 import {
   Command,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command.tsx';
+} from '@/components/ui/command';
 import { Check, ChevronsUpDown, PlusIcon, TrashIcon } from 'lucide-react';
 import {
   cn,
@@ -31,7 +31,7 @@ import {
   setInstanceConfig,
   setServerConfig,
   updateEntry,
-} from '@/lib/utils.tsx';
+} from '@/lib/utils';
 import {
   HTMLInputTypeAttribute,
   ReactNode,
@@ -40,27 +40,27 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Input } from '@/components/ui/input.tsx';
-import { Checkbox } from '@/components/ui/checkbox.tsx';
-import { BaseSettings } from '@/lib/types.ts';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { BaseSettings } from '@/lib/types';
 import { JsonValue } from '@protobuf-ts/runtime';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context.tsx';
-import { Card, CardContent, CardHeader } from '@/components/ui/card.tsx';
-import { Textarea } from '@/components/ui/textarea.tsx';
+import { TransportContext } from '@/components/providers/transport-context';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 import { useTranslation } from 'react-i18next';
 import { NumericFormat } from 'react-number-format';
-import { useLocaleNumberFormat } from '@/hooks/use-locale-number-format.tsx';
+import { useLocaleNumberFormat } from '@/hooks/use-locale-number-format';
 import { toast } from 'sonner';
 import { TFunction } from 'i18next';
 import { NumberFormatValues } from 'react-number-format/types/types';
 import { useRouteContext } from '@tanstack/react-router';
-import DynamicIcon from '@/components/dynamic-icon.tsx';
-import { TextInfoButton } from '@/components/info-buttons.tsx';
+import DynamicIcon from '@/components/dynamic-icon';
+import { TextInfoButton } from '@/components/info-buttons';
 
 function isAllowedValidator(
   t: TFunction,

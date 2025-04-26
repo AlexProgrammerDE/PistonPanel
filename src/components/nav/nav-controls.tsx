@@ -7,7 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar.tsx';
+} from '@/components/ui/sidebar';
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';

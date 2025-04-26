@@ -1,12 +1,11 @@
 import React, { CSSProperties, use, useEffect, useRef, useState } from 'react';
-import { LogsServiceClient } from '@/generated/pistonpanel/logs.client.ts';
-import { TransportContext } from './providers/transport-context.tsx';
-import { ScrollArea } from './ui/scroll-area.tsx';
-import { TerminalThemeContext } from '@/components/providers/terminal-theme-context.tsx';
+import { LogsServiceClient } from '@/generated/pistonpanel/logs.client';
+import { TransportContext } from './providers/transport-context';
+import { ScrollArea } from './ui/scroll-area';
+import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 import { flavorEntries } from '@catppuccin/palette';
 import { AnsiHtml } from 'fancy-ansi/react';
-import { isDemo } from '@/lib/utils.tsx';
-import { LogScope } from '@/generated/pistonpanel/logs.ts';
+import { LogScope } from '@/generated/pistonpanel/logs';
 import { stripAnsi } from 'fancy-ansi';
 import { useTranslation } from 'react-i18next';
 
@@ -77,28 +76,7 @@ type TerminalLine = TerminalLineBase & {
 export const TerminalComponent = (props: { scope: LogScope }) => {
   const { t } = useTranslation('common');
   const [gotPrevious, setGotPrevious] = useState(false);
-  const [entries, setEntries] = useState<TerminalLine[]>(
-    isDemo()
-      ? [
-          convertLine({
-            id: 'demo-1',
-            message: t('terminal.demo-1'),
-          }),
-          convertLine({
-            id: 'demo-2',
-            message: t('terminal.demo-2'),
-          }),
-          convertLine({
-            id: 'demo-3',
-            message: t('terminal.demo-3'),
-          }),
-          convertLine({
-            id: 'demo-4',
-            message: t('terminal.demo-4'),
-          }),
-        ]
-      : [],
-  );
+  const [entries, setEntries] = useState<TerminalLine[]>([]);
   const transport = use(TransportContext);
   const terminalTheme = use(TerminalThemeContext);
   const paneRef = useRef<HTMLDivElement>(null);

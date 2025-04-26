@@ -3,13 +3,13 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover.tsx';
+} from '@/components/ui/popover';
 import { ClipboardIcon, InfoIcon } from 'lucide-react';
-import { isTauri } from '@/lib/utils.tsx';
+import { isTauri } from '@/lib/utils';
 import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/button.tsx';
+import { Button } from '@/components/ui/button';
 
 export function TextInfoButton(props: { value: ReactNode }) {
   return (

@@ -59,7 +59,7 @@
       },
       "email": {
         "title": "Email",
-        "placeholder": "root@pistonpanelmc.com",
+        "placeholder": "root@pistonpanel.com",
         "description": "Email of your PistonPanel account."
       },
       "back": "Back",

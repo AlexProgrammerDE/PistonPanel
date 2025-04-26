@@ -23,8 +23,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import React, { useState } from 'react';
-import { Input } from '@/components/ui/input.tsx';
-import { DataTablePagination } from '@/components/data-table-pagination.tsx';
+import { Input } from '@/components/ui/input';
+import { DataTablePagination } from '@/components/data-table-pagination';
 import { useTranslation } from 'react-i18next';
 import {
   compareItems,
