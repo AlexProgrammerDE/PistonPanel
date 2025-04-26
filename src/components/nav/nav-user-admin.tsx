@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  BugIcon,
-  ChartAreaIcon,
-  ScrollTextIcon,
-  ServerIcon,
-  TerminalIcon,
-  UsersIcon,
-} from 'lucide-react';
+import { ChartAreaIcon, TerminalIcon, UsersIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -64,30 +57,6 @@ export function NavUserAdmin() {
       linkProps: {
         to: '/user/admin/users',
         params: {},
-      },
-    },
-    {
-      title: t('userSidebar.adminScripts'),
-      icon: ScrollTextIcon,
-      linkProps: {
-        to: '/user/admin/scripts',
-        params: {},
-      },
-    },
-    {
-      title: t('userSidebar.serverSettings'),
-      icon: ServerIcon,
-      linkProps: {
-        to: '/user/admin/settings/$namespace',
-        params: { namespace: 'server' },
-      },
-    },
-    {
-      title: t('userSidebar.devSettings'),
-      icon: BugIcon,
-      linkProps: {
-        to: '/user/admin/settings/$namespace',
-        params: { namespace: 'dev' },
       },
     },
   ];

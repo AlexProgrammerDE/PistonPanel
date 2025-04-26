@@ -1,26 +1,18 @@
 import * as React from 'react';
-import { Suspense, use, useRef } from 'react';
+import { Suspense, use } from 'react';
 import {
   ChevronsUpDownIcon,
-  DownloadIcon,
-  FileIcon,
-  FolderIcon,
   HomeIcon,
   MinusIcon,
   PlusIcon,
-  UploadIcon,
 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -29,19 +21,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import {
-  convertToInstanceProto,
-  ProfileRoot,
-  translateInstanceState,
-} from '@/lib/types';
+import { translateInstanceState } from '@/lib/types';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
-import {
-  data2blob,
-  hasGlobalPermission,
-  hasInstancePermission,
-  isTauri,
-  runAsync,
-} from '@/lib/utils';
+import { hasGlobalPermission, hasInstancePermission } from '@/lib/utils';
 import {
   useMutation,
   useQueryClient,
@@ -50,11 +32,6 @@ import {
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { toast } from 'sonner';
 import { TransportContext } from '@/components/providers/transport-context';
-import { mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
-import { appConfigDir, resolve } from '@tauri-apps/api/path';
-import { open, save } from '@tauri-apps/plugin-dialog';
-import { saveAs } from 'file-saver';
-import { SystemInfoContext } from '@/components/providers/system-info-context';
 import {
   GlobalPermission,
   InstancePermission,
@@ -152,266 +129,6 @@ function InstanceListSkeleton() {
   );
 }
 
-function InstanceActionButtons() {
-  const { t } = useTranslation('common');
-  const queryClient = useQueryClient();
-  const transport = use(TransportContext);
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
-  });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
-  const { data: profile } = useSuspenseQuery({
-    ...instanceInfoQueryOptions,
-    select: (info) => info.profile,
-  });
-  const systemInfo = use(SystemInfoContext);
-  const instanceProfileInputRef = useRef<HTMLInputElement>(null);
-  const setProfileMutation = useMutation({
-    mutationFn: async (profile: ProfileRoot) => {
-      if (transport === null) {
-        return;
-      }
-
-      const instanceService = new InstanceServiceClient(transport);
-      await instanceService.updateInstanceConfig({
-        id: instanceInfo.id,
-        config: convertToInstanceProto(profile),
-      });
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: instanceInfoQueryOptions.queryKey,
-      });
-    },
-  });
-
-  return (
-    <>
-      <DropdownMenuLabel className="text-muted-foreground max-w-64 truncate text-xs">
-        {instanceInfo.friendlyName}
-      </DropdownMenuLabel>
-      {isTauri() && systemInfo ? (
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="gap-2 p-2">
-            <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-              <UploadIcon className="size-4" />
-            </div>
-            <div className="text-muted-foreground font-medium">
-              {t('instanceSidebar.loadProfile')}
-            </div>
-          </DropdownMenuSubTrigger>
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              {systemInfo.availableProfiles.length > 0 && (
-                <>
-                  {systemInfo.availableProfiles.map((file) => (
-                    <DropdownMenuItem
-                      className="gap-2 p-2"
-                      key={file}
-                      onClick={() => {
-                        const loadProfile = async () => {
-                          const data = await readTextFile(
-                            await resolve(
-                              await resolve(await appConfigDir(), 'profile'),
-                              file,
-                            ),
-                          );
-
-                          await setProfileMutation.mutateAsync(
-                            JSON.parse(data) as ProfileRoot,
-                          );
-                        };
-                        toast.promise(loadProfile(), {
-                          loading: t(
-                            'instanceSidebar.loadProfileToast.loading',
-                          ),
-                          success: t(
-                            'instanceSidebar.loadProfileToast.success',
-                          ),
-                          error: (e) => {
-                            console.error(e);
-                            return t('instanceSidebar.loadProfileToast.error');
-                          },
-                        });
-                      }}
-                    >
-                      <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-                        <FileIcon className="size-4" />
-                      </div>
-                      {file}
-                    </DropdownMenuItem>
-                  ))}
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              <DropdownMenuItem
-                className="gap-2 p-2"
-                onClick={() => {
-                  runAsync(async () => {
-                    const profileDir = await resolve(
-                      await appConfigDir(),
-                      'profile',
-                    );
-                    await mkdir(profileDir, { recursive: true });
-
-                    const selected = await open({
-                      title: t('instanceSidebar.loadProfile'),
-                      filters: systemInfo.mobile
-                        ? undefined
-                        : [
-                            {
-                              name: 'PistonPanel JSON Profile',
-                              extensions: ['json'],
-                            },
-                          ],
-                      defaultPath: profileDir,
-                      multiple: false,
-                      directory: false,
-                    });
-
-                    if (selected) {
-                      const data = await readTextFile(selected);
-                      toast.promise(
-                        (async () => {
-                          await setProfileMutation.mutateAsync(
-                            JSON.parse(data) as ProfileRoot,
-                          );
-                        })(),
-                        {
-                          loading: t(
-                            'instanceSidebar.loadProfileToast.loading',
-                          ),
-                          success: t(
-                            'instanceSidebar.loadProfileToast.success',
-                          ),
-                          error: (e) => {
-                            console.error(e);
-                            return t('instanceSidebar.loadProfileToast.error');
-                          },
-                        },
-                      );
-                    }
-                  });
-                }}
-              >
-                <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-                  <FolderIcon className="size-4" />
-                </div>
-                {t('instanceSidebar.loadFromFile')}
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
-      ) : (
-        <>
-          <input
-            ref={instanceProfileInputRef}
-            type="file"
-            accept=".json"
-            className="hidden"
-            onInput={(e) => {
-              const file = (e.target as HTMLInputElement).files?.item(0);
-              if (!file) return;
-
-              const reader = new FileReader();
-              reader.onload = () => {
-                const data = reader.result as string;
-                toast.promise(
-                  setProfileMutation.mutateAsync(
-                    JSON.parse(data) as ProfileRoot,
-                  ),
-                  {
-                    loading: t('instanceSidebar.loadProfileToast.loading'),
-                    success: t('instanceSidebar.loadProfileToast.success'),
-                    error: (e) => {
-                      console.error(e);
-                      return t('instanceSidebar.loadProfileToast.error');
-                    },
-                  },
-                );
-              };
-              reader.readAsText(file);
-            }}
-          />
-          <DropdownMenuItem
-            className="gap-2 p-2"
-            onClick={() => {
-              instanceProfileInputRef.current?.click();
-            }}
-          >
-            <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-              <UploadIcon className="size-4" />
-            </div>
-            <div className="text-muted-foreground font-medium">
-              {t('instanceSidebar.loadProfile')}
-            </div>
-          </DropdownMenuItem>
-        </>
-      )}
-      <DropdownMenuItem
-        className="gap-2 p-2"
-        onClick={() => {
-          const data = JSON.stringify(profile, null, 2);
-          if (isTauri()) {
-            runAsync(async () => {
-              const profileDir = await resolve(await appConfigDir(), 'profile');
-              await mkdir(profileDir, { recursive: true });
-
-              let selected = await save({
-                title: t('instanceSidebar.saveProfile'),
-                filters: [
-                  {
-                    name: 'PistonPanel JSON Profile',
-                    extensions: ['json'],
-                  },
-                ],
-                defaultPath: profileDir,
-              });
-
-              if (selected) {
-                if (!selected.endsWith('.json')) {
-                  selected += '.json';
-                }
-
-                await writeTextFile(selected, data);
-              }
-            });
-          } else {
-            saveAs(data2blob(data), 'profile.json');
-          }
-
-          toast.success(t('instanceSidebar.profileSaved'));
-        }}
-      >
-        <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-          <DownloadIcon className="size-4" />
-        </div>
-        <div className="text-muted-foreground font-medium">
-          {t('instanceSidebar.saveProfile')}
-        </div>
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-    </>
-  );
-}
-
-function InstanceActionButtonsSkeleton() {
-  return (
-    <>
-      <DropdownMenuLabel className="text-muted-foreground max-w-64 truncate text-xs">
-        <Skeleton className="h-3 w-32" />
-      </DropdownMenuLabel>
-      <DropdownMenuItem className="gap-2 p-2">
-        <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-          <Skeleton className="h-4 w-4" />
-        </div>
-        <Skeleton className="h-3 w-32" />
-      </DropdownMenuItem>
-    </>
-  );
-}
-
 export function InstanceSwitcher() {
   const { t } = useTranslation('common');
   const { isMobile } = useSidebar();
@@ -450,9 +167,6 @@ export function InstanceSwitcher() {
               <CreateInstanceButton />
             </Suspense>
             <DropdownMenuSeparator />
-            <Suspense fallback={<InstanceActionButtonsSkeleton />}>
-              <InstanceActionButtons />
-            </Suspense>
             <Suspense>
               <DeleteInstanceButton />
             </Suspense>

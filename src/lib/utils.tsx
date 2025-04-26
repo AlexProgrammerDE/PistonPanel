@@ -3,7 +3,6 @@ import { twMerge } from 'tailwind-merge';
 import {
   GlobalPermission,
   InstancePermission,
-  SettingEntry,
 } from '@/generated/pistonpanel/common';
 import { ClientDataResponse } from '@/generated/pistonpanel/client';
 import {
@@ -15,16 +14,7 @@ import { sha256 } from 'js-sha256';
 import * as Flags from 'country-flag-icons/react/3x2';
 import { type FlagComponent } from 'country-flag-icons/react/1x1';
 import { ReactNode } from 'react';
-import {
-  BaseSettings,
-  convertToInstanceProto,
-  convertToServerProto,
-  InstanceInfoQueryData,
-  ProfileRoot,
-  ServerInfoQueryData,
-} from '@/lib/types';
-import { JsonValue } from '@protobuf-ts/runtime';
-import { ServerServiceClient } from '@/generated/pistonpanel/server.client';
+import { InstanceInfoQueryData } from '@/lib/types';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { RpcTransport } from '@protobuf-ts/runtime-rpc';
 import { QueryClient, QueryKey } from '@tanstack/react-query';
@@ -55,10 +45,6 @@ export function getTerminalTheme() {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function isTauri(): false {
-  return false;
 }
 
 export function cancellablePromiseDefault<T extends () => void>(
@@ -145,128 +131,6 @@ export function getLanguageName(languageCode: string, displayLanguage: string) {
     type: 'language',
   });
   return displayNames.of(languageCode) ?? languageCode;
-}
-
-export function updateEntry<T extends BaseSettings>(
-  namespace: string,
-  settingKey: string,
-  value: JsonValue,
-  profile: T,
-): T {
-  return {
-    ...profile,
-    settings: {
-      ...profile.settings,
-      [namespace]: {
-        ...(profile.settings[namespace] || {}),
-        [settingKey]: value,
-      },
-    },
-  };
-}
-
-function getEntryValue(
-  namespace: string,
-  settingKey: string,
-  config: BaseSettings,
-  defaultValue: JsonValue,
-): JsonValue {
-  const current = config.settings[namespace]?.[settingKey];
-  if (current === undefined) {
-    return defaultValue;
-  }
-
-  return current;
-}
-
-export function getEntryValueByType(
-  namespace: string,
-  config: BaseSettings,
-  entry: SettingEntry | undefined,
-): JsonValue {
-  switch (entry?.value.oneofKind) {
-    case 'string': {
-      return getEntryValue(
-        namespace,
-        entry.key,
-        config,
-        entry.value.string.def,
-      );
-    }
-    case 'int': {
-      return getEntryValue(namespace, entry.key, config, entry.value.int.def);
-    }
-    case 'bool': {
-      return getEntryValue(namespace, entry.key, config, entry.value.bool.def);
-    }
-    case 'double': {
-      return getEntryValue(
-        namespace,
-        entry.key,
-        config,
-        entry.value.double.def,
-      );
-    }
-    case 'combo': {
-      return getEntryValue(namespace, entry.key, config, entry.value.combo.def);
-    }
-    case 'stringList': {
-      return getEntryValue(
-        namespace,
-        entry.key,
-        config,
-        entry.value.stringList.def,
-      );
-    }
-    case 'minMax': {
-      return getEntryValue(namespace, entry.key, config, {
-        min: entry.value.minMax.minEntry!.def,
-        max: entry.value.minMax.maxEntry!.def,
-      });
-    }
-    case undefined: {
-      return null;
-    }
-  }
-}
-
-export async function setInstanceConfig(
-  jsonProfile: ProfileRoot,
-  instanceInfo: {
-    id: string;
-  },
-  transport: RpcTransport | null,
-  queryClient: QueryClient,
-  instanceInfoQueryKey: QueryKey,
-) {
-  if (transport === null) {
-    return;
-  }
-
-  const targetProfile = convertToInstanceProto(jsonProfile);
-  await queryClient.cancelQueries({
-    queryKey: instanceInfoQueryKey,
-  });
-  queryClient.setQueryData<InstanceInfoQueryData>(
-    instanceInfoQueryKey,
-    (old) => {
-      if (old === undefined) {
-        return;
-      }
-
-      return {
-        ...old,
-        config: targetProfile,
-        profile: jsonProfile,
-      };
-    },
-  );
-
-  const instanceService = new InstanceServiceClient(transport);
-  await instanceService.updateInstanceConfig({
-    id: instanceInfo.id,
-    config: targetProfile,
-  });
 }
 
 export async function setInstanceIcon(
@@ -400,38 +264,6 @@ export async function setInstanceFriendlyName(
       oneofKind: 'friendlyName',
       friendlyName: friendlyName,
     },
-  });
-}
-
-export async function setServerConfig(
-  jsonProfile: BaseSettings,
-  transport: RpcTransport | null,
-  queryClient: QueryClient,
-  serverInfoQueryKey: QueryKey,
-) {
-  if (transport === null) {
-    return;
-  }
-
-  const targetProfile = convertToServerProto(jsonProfile);
-  await queryClient.cancelQueries({
-    queryKey: serverInfoQueryKey,
-  });
-  queryClient.setQueryData<ServerInfoQueryData>(serverInfoQueryKey, (old) => {
-    if (old === undefined) {
-      return;
-    }
-
-    return {
-      ...old,
-      config: targetProfile,
-      profile: jsonProfile,
-    };
-  });
-
-  const serverService = new ServerServiceClient(transport);
-  await serverService.updateServerConfig({
-    config: targetProfile,
   });
 }
 

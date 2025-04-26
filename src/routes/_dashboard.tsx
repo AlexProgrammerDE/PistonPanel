@@ -14,9 +14,6 @@ import {
 } from '@/lib/web-rpc';
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
 import { ClientDataResponse } from '@/generated/pistonpanel/client';
-import { isTauri } from '@/lib/utils';
-import { emit } from '@tauri-apps/api/event';
-import { demoData } from '@/demo-data';
 import {
   InstanceListResponse,
   InstanceState,
@@ -30,7 +27,7 @@ import { ErrorComponent } from '@/components/error-component';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
 
 export const Route = createFileRoute('/_dashboard')({
-  beforeLoad: async (props) => {
+  beforeLoad: (props) => {
     if (isAuthenticated()) {
       const instanceListQueryOptions = queryOptions({
         queryKey: ['instance-list'],
@@ -71,9 +68,6 @@ export const Route = createFileRoute('/_dashboard')({
         queryKey: ['client-data'],
         queryFn: async (props): Promise<ClientDataResponse> => {
           const transport = createTransport();
-          if (transport === null) {
-            return demoData;
-          }
 
           const clientService = new ClientServiceClient(transport);
           const result = await clientService.getClientData(
@@ -96,9 +90,6 @@ export const Route = createFileRoute('/_dashboard')({
         clientDataQueryOptions,
       };
     } else {
-      if (isTauri()) {
-        await emit('kill-integrated-server', {});
-      }
       logOut();
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
@@ -135,11 +126,6 @@ export const Route = createFileRoute('/_dashboard')({
       void queryClientInstance.prefetchQuery(
         props.context.clientDataQueryOptions,
       );
-
-      // We need this as demo data
-      // if (APP_ENVIRONMENT === 'development') {
-      //   console.debug(JSON.stringify(configResult.response));
-      // }
 
       return {
         success: true,

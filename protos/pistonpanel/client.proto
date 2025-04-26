@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option java_package = "com.pistonpanelmc.grpc.generated";
+option java_multiple_files = true;
+
+package pistonpanel.v1;
+
+import "pistonpanel/common.proto";
+
+message ClientDataRequest {
+}
+
+message GlobalPermissionState {
+  GlobalPermission global_permission = 1;
+  bool granted = 2;
+}
+
+message ServerInfo {
+  string version = 1;
+  string commit_hash = 2;
+  string branch_name = 3;
+  string public_api_address = 4;
+  string public_webdav_address = 5;
+  string public_docs_address = 6;
+}
+
+message ClientDataResponse {
+  string id = 6;
+  string username = 1;
+  UserRole role = 7;
+  string email = 8;
+  repeated GlobalPermissionState server_permissions = 2;
+  ServerInfo server_info = 11;
+}
+
+message GenerateWebDAVTokenRequest {
+}
+
+message GenerateWebDAVTokenResponse {
+  string token = 1;
+}
+
+message GenerateAPITokenRequest {
+}
+
+message GenerateAPITokenResponse {
+  string token = 1;
+}
+
+message UpdateSelfUsernameRequest {
+  string username = 1;
+}
+
+message UpdateSelfUsernameResponse {
+}
+
+message UpdateSelfEmailRequest {
+  string email = 1;
+}
+
+message UpdateSelfEmailResponse {
+}
+
+message InvalidateSelfSessionsRequest {
+}
+
+message InvalidateSelfSessionsResponse {
+}
+
+service ClientService {
+  rpc GetClientData (ClientDataRequest) returns (ClientDataResponse) {}
+  rpc GenerateWebDAVToken (GenerateWebDAVTokenRequest) returns (GenerateWebDAVTokenResponse) {}
+  rpc GenerateAPIToken (GenerateAPITokenRequest) returns (GenerateAPITokenResponse) {}
+  rpc UpdateSelfUsername (UpdateSelfUsernameRequest) returns (UpdateSelfUsernameResponse) {}
+  rpc UpdateSelfEmail (UpdateSelfEmailRequest) returns (UpdateSelfEmailResponse) {}
+  rpc InvalidateSelfSessions (InvalidateSelfSessionsRequest) returns (InvalidateSelfSessionsResponse) {}
+}

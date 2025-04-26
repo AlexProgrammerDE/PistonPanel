@@ -1,41 +1,19 @@
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
-import { isDemo } from '@/lib/utilsx';
 import i18n from '@/lib/i18n';
-import { SFServerType } from '@/lib/types';
 import { AuthType, createClient, WebDAVClient } from 'webdav';
 import { ClientDataResponse } from '@/generated/pistonpanel/client';
 
-const LOCAL_STORAGE_SERVER_TYPE_KEY = 'server-type';
-const LOCAL_STORAGE_SERVER_ADDRESS_KEY = 'server-address';
 const LOCAL_STORAGE_SERVER_TOKEN_KEY = 'server-token';
 const LOCAL_STORAGE_SERVER_WEBDAV_TOKEN_KEY = 'server-webdav-token';
 const LOCAL_STORAGE_SERVER_IMPERSONATION_TOKEN_KEY =
   'server-impersonation-token';
 
 export const isAuthenticated = () => {
-  if (isDemo()) return true;
-
-  return (
-    localStorage.getItem(LOCAL_STORAGE_SERVER_TYPE_KEY) !== null &&
-    localStorage.getItem(LOCAL_STORAGE_SERVER_ADDRESS_KEY) !== null &&
-    localStorage.getItem(LOCAL_STORAGE_SERVER_TOKEN_KEY) !== null
-  );
+  return localStorage.getItem(LOCAL_STORAGE_SERVER_TOKEN_KEY) !== null;
 };
 
-export const setAuthentication = (
-  type: SFServerType,
-  address: string,
-  token: string,
-) => {
-  localStorage.setItem(LOCAL_STORAGE_SERVER_TYPE_KEY, type);
-  localStorage.setItem(LOCAL_STORAGE_SERVER_ADDRESS_KEY, address);
+export const setAuthentication = (token: string) => {
   localStorage.setItem(LOCAL_STORAGE_SERVER_TOKEN_KEY, token);
-};
-
-export const getServerType = () => {
-  return localStorage.getItem(
-    LOCAL_STORAGE_SERVER_TYPE_KEY,
-  ) as SFServerType | null;
 };
 
 export const getOrGenerateWebDAVToken = (generator: () => string): string => {
@@ -60,8 +38,6 @@ export function createWebDAVClient(
 }
 
 export const logOut = () => {
-  localStorage.removeItem(LOCAL_STORAGE_SERVER_TYPE_KEY);
-  localStorage.removeItem(LOCAL_STORAGE_SERVER_ADDRESS_KEY);
   localStorage.removeItem(LOCAL_STORAGE_SERVER_TOKEN_KEY);
   localStorage.removeItem(LOCAL_STORAGE_SERVER_WEBDAV_TOKEN_KEY);
   localStorage.removeItem(LOCAL_STORAGE_SERVER_IMPERSONATION_TOKEN_KEY);
@@ -82,14 +58,9 @@ export const isImpersonating = () => {
 };
 
 export const createTransport = () => {
-  if (isDemo()) {
-    return null;
-  }
-
-  const address = localStorage.getItem(LOCAL_STORAGE_SERVER_ADDRESS_KEY);
   let token = localStorage.getItem(LOCAL_STORAGE_SERVER_TOKEN_KEY);
 
-  if (!address || !token) {
+  if (!token) {
     throw new Error(i18n.t('common:error.noAddressOrToken'));
   }
 
@@ -101,15 +72,15 @@ export const createTransport = () => {
   }
 
   return new GrpcWebFetchTransport({
-    baseUrl: address,
+    baseUrl: '/grpc',
     meta: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
 
-export const createAddressOnlyTransport = (address: string) => {
+export const createAddressOnlyTransport = () => {
   return new GrpcWebFetchTransport({
-    baseUrl: address,
+    baseUrl: '/grpc',
   });
 };

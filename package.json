@@ -5,21 +5,24 @@
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "generate-routes": "tsr generate",
-    "watch-routes": "tsr watch",
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
     "lint": "eslint src/",
     "fix": "prettier --write .",
+    "generate-proto": "tsx generate-proto.ts",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
     "@aptabase/react": "^0.4.0",
     "@catppuccin/palette": "^1.7.1",
+    "@grpc/grpc-js": "^1.13.3",
     "@hookform/resolvers": "^5.0.0",
     "@icons-pack/react-simple-icons": "^12.5.0",
+    "@protobuf-ts/grpcweb-transport": "^2.9.6",
+    "@protobuf-ts/runtime": "^2.9.6",
+    "@protobuf-ts/runtime-rpc": "^2.9.6",
     "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-checkbox": "^1.1.4",
     "@radix-ui/react-collapsible": "^1.1.3",
@@ -76,6 +79,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
+    "@protobuf-ts/plugin": "^2.9.6",
     "@tailwindcss/postcss": "^4.0.15",
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/react-router": "^1.114.27",
@@ -119,7 +123,8 @@
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "core-js",
-      "esbuild"
+      "esbuild",
+      "protobufjs"
     ]
   }
 }

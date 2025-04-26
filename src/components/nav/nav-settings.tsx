@@ -8,13 +8,7 @@ import {
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  BoltIcon,
-  BotIcon,
-  SparklesIcon,
-  UsersIcon,
-  WaypointsIcon,
-} from 'lucide-react';
+import { BoltIcon } from 'lucide-react';
 import { hasInstancePermission } from '@/lib/utils';
 import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -34,38 +28,6 @@ export function NavSettings() {
   const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
 
   const navLinks: NavLink[] = [
-    {
-      title: t('instanceSidebar.botSettings'),
-      icon: BotIcon,
-      linkProps: {
-        to: '/instance/$instance/settings/$namespace',
-        params: { instance: instanceInfo.id, namespace: 'bot' },
-      },
-    },
-    {
-      title: t('instanceSidebar.accountSettings'),
-      icon: UsersIcon,
-      linkProps: {
-        to: '/instance/$instance/accounts',
-        params: { instance: instanceInfo.id },
-      },
-    },
-    {
-      title: t('instanceSidebar.proxySettings'),
-      icon: WaypointsIcon,
-      linkProps: {
-        to: '/instance/$instance/proxies',
-        params: { instance: instanceInfo.id },
-      },
-    },
-    {
-      title: t('instanceSidebar.aiSettings'),
-      icon: SparklesIcon,
-      linkProps: {
-        to: '/instance/$instance/settings/$namespace',
-        params: { instance: instanceInfo.id, namespace: 'ai' },
-      },
-    },
     ...(hasInstancePermission(
       instanceInfo,
       InstancePermission.UPDATE_INSTANCE_META,

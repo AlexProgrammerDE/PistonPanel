@@ -24,8 +24,6 @@ import { Input } from '@/components/ui/input';
 import { TransportContext } from '@/components/providers/transport-context';
 import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 import { toast } from 'sonner';
-import { isTauri } from '@/lib/utils';
-import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_dashboard/user/access')({
@@ -51,11 +49,7 @@ function Content() {
   const [apiToken, setApiToken] = useState('');
 
   const handleCopy = (text: string) => {
-    if (isTauri()) {
-      void clipboard.writeText(text);
-    } else {
-      void navigator.clipboard.writeText(text);
-    }
+    void navigator.clipboard.writeText(text);
   };
 
   return (

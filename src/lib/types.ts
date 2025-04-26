@@ -1,39 +1,11 @@
 import {
-  MinecraftAccountProto,
-  MinecraftAccountProto_AccountTypeProto,
-  ProxyProto_Type,
-} from '@/generated/pistonpanel/common';
-import { Value } from '@/generated/google/protobuf/struct';
-import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
-import {
-  InstanceConfig,
   InstanceInfoResponse,
   InstanceState,
 } from '@/generated/pistonpanel/instance';
-import {
-  ServerConfig,
-  ServerInfoResponse,
-} from '@/generated/pistonpanel/server';
 import { i18n } from 'i18next';
-
-export type SFServerType = 'integrated' | 'dedicated';
-
-export type BaseSettings = {
-  settings: Record<string, Record<string, JsonValue>>;
-};
-
-export type ProfileRoot = BaseSettings & {
-  accounts: ProfileAccount[];
-  proxies: ProfileProxy[];
-};
-
-export type ServerInfoQueryData = ServerInfoResponse & {
-  profile: BaseSettings;
-};
 
 export type InstanceInfoQueryData = InstanceInfoResponse & {
   id: string;
-  profile: ProfileRoot;
 };
 
 export function getEnumKeyByValue<E extends object>(
@@ -64,84 +36,4 @@ export function translateInstanceState(
   return i18n.t(
     `instanceState.${getEnumKeyByValue(InstanceState, state).toLowerCase()}`,
   );
-}
-
-export type ProfileAccount = {
-  type: MinecraftAccountProto_AccountTypeProto;
-  profileId: string;
-  lastKnownName: string;
-  accountData: MinecraftAccountProto['accountData'];
-};
-
-export type ProfileProxy = {
-  type: ProxyProto_Type;
-  address: string;
-  username?: string;
-  password?: string;
-};
-
-export function convertToInstanceProto(data: ProfileRoot): InstanceConfig {
-  return {
-    settings: Object.entries(data.settings).map(([key, value]) => ({
-      namespace: key,
-      entries: Object.entries(value).map(([key, value]) => ({
-        key: key,
-        value: Value.fromJson(value),
-      })),
-    })),
-    accounts: data.accounts,
-    proxies: data.proxies,
-  };
-}
-
-export function convertFromInstanceProto(data?: InstanceConfig): ProfileRoot {
-  if (!data) {
-    return {
-      settings: {},
-      accounts: [],
-      proxies: [],
-    };
-  }
-
-  const settings: Record<string, Record<string, JsonValue>> = {};
-  for (const namespace of data.settings) {
-    const entries: Record<string, JsonValue> = {};
-    for (const entry of namespace.entries) {
-      entries[entry.key] = Value.toJson(entry.value as Value);
-    }
-    settings[namespace.namespace] = entries;
-  }
-
-  return {
-    settings: settings,
-    accounts: data.accounts,
-    proxies: data.proxies,
-  };
-}
-
-export function convertToServerProto(data: BaseSettings): ServerConfig {
-  return {
-    settings: Object.entries(data.settings).map(([key, value]) => ({
-      namespace: key,
-      entries: Object.entries(value).map(([key, value]) => ({
-        key: key,
-        value: Value.fromJson(value),
-      })),
-    })),
-  };
-}
-
-export function convertFromServerProto(data: ServerConfig): BaseSettings {
-  const settings: Record<string, Record<string, JsonValue>> = {};
-  for (const namespace of data.settings) {
-    const entries: Record<string, JsonValue> = {};
-    for (const entry of namespace.entries) {
-      entries[entry.key] = Value.toJson(entry.value as Value);
-    }
-    settings[namespace.namespace] = entries;
-  }
-
-  return {
-    settings: settings,
-  };
 }

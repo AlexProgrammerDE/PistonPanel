@@ -1,7 +1,6 @@
 import { use } from 'react';
 import { Button } from '@/components/ui/button';
 import { TransportContext } from '@/components/providers/transport-context';
-import { convertToInstanceProto } from '@/lib/types';
 import { toast } from 'sonner';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { InstanceState } from '@/generated/pistonpanel/instance';
@@ -22,10 +21,6 @@ export default function ControlsMenu() {
   });
   const queryClient = useQueryClient();
   const transport = use(TransportContext);
-  const { data: profile } = useSuspenseQuery({
-    ...instanceInfoQueryOptions,
-    select: (info) => info.profile,
-  });
   const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
   const startMutation = useMutation({
     mutationFn: () => {
@@ -35,16 +30,11 @@ export default function ControlsMenu() {
 
       const client = new InstanceServiceClient(transport);
       const promise = client
-        .updateInstanceConfig({
+        .changeInstanceState({
           id: instanceInfo.id,
-          config: convertToInstanceProto(profile),
+          state: InstanceState.RUNNING,
         })
-        .then(() => {
-          return client.changeInstanceState({
-            id: instanceInfo.id,
-            state: InstanceState.RUNNING,
-          });
-        });
+        .then();
       toast.promise(promise, {
         loading: t('controls.startToast.loading'),
         success: t('controls.startToast.success'),

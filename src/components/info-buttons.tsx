@@ -5,8 +5,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { ClipboardIcon, InfoIcon } from 'lucide-react';
-import { isTauri } from '@/lib/utils';
-import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -31,11 +29,7 @@ export function CopyInfoButton(props: { value: string }) {
             variant="secondary"
             className="shrink-0"
             onClick={() => {
-              if (isTauri()) {
-                void clipboard.writeText(props.value);
-              } else {
-                void navigator.clipboard.writeText(props.value);
-              }
+              void navigator.clipboard.writeText(props.value);
               close();
               toast.success(t('copiedToClipboard'));
             }}

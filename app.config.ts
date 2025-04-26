@@ -1,5 +1,5 @@
 import { defineConfig } from '@tanstack/react-start/config';
-import tsConfigPaths from 'vite-tsconfig-paths';
+import viteTsConfigPaths from 'vite-tsconfig-paths';
 import fs from 'node:fs';
 
 const baseEnv = process.env.VERCEL_ENV ?? process.env.NODE_ENV;
@@ -30,7 +30,7 @@ export default defineConfig({
   },
   vite: {
     plugins: [
-      tsConfigPaths({
+      viteTsConfigPaths({
         projects: ['./tsconfig.json'],
       }),
     ],

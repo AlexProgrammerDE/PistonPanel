@@ -21,18 +21,19 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { use, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   HeartHandshakeIcon,
+  KeyRoundIcon,
   LoaderCircleIcon,
+  LogInIcon,
+  MailIcon,
   SatelliteDishIcon,
 } from 'lucide-react';
-import { getEnumKeyByValue, SFServerType } from '@/lib/types';
-import { SystemInfoContext } from '@/components/providers/system-info-context';
+import { getEnumKeyByValue } from '@/lib/types';
 import { getLanguageName, languageEmoji } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
-import Logo from 'public/logo.png';
 import { Trans, useTranslation } from 'react-i18next';
 import {
   DropdownMenu,
@@ -57,7 +58,6 @@ import { LoginServiceClient } from '@/generated/pistonpanel/login.client';
 import { createAddressOnlyTransport, setAuthentication } from '@/lib/web-rpc';
 import { ExternalLink } from '@/components/external-link';
 
-const LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY = 'form-server-address';
 const LOCAL_STORAGE_FORM_SERVER_TOKEN_KEY = 'form-server-token';
 const LOCAL_STORAGE_FORM_SERVER_EMAIL_KEY = 'form-server-email';
 
@@ -66,11 +66,6 @@ export const Route = createFileRoute('/')({
 });
 
 const emailFormSchema = z.object({
-  address: z
-    .string()
-    .min(1, 'Address is required')
-    .max(255, 'Address is too long')
-    .url('Address must be a valid URL'),
   email: z
     .string()
     .min(1, 'Email is required')
@@ -78,11 +73,6 @@ const emailFormSchema = z.object({
     .email('Email must be a valid'),
 });
 const tokenFormSchema = z.object({
-  address: z
-    .string()
-    .min(1, 'Address is required')
-    .max(255, 'Address is too long')
-    .url('Address must be a valid URL'),
   token: z
     .string()
     .min(1, 'Token is required')
@@ -95,19 +85,14 @@ const tokenFormSchema = z.object({
 type EmailFormSchemaType = z.infer<typeof emailFormSchema>;
 type TokenFormSchemaType = z.infer<typeof tokenFormSchema>;
 
-type LoginType = 'DEDICATED' | 'EMAIL_CODE' | null;
+type LoginType = 'DEDICATED' | 'EMAIL_CODE';
 
 type TargetRedirectFunction = () => Promise<void>;
-type LoginFunction = (
-  type: SFServerType,
-  address: string,
-  token: string,
-) => Promise<void>;
+type LoginFunction = (token: string) => Promise<void>;
 
 type AuthFlowData = {
   email: string;
   flowToken: string;
-  address: string;
 };
 
 function Index() {
@@ -116,7 +101,6 @@ function Index() {
   const searchParams: Record<string, string> = Route.useSearch();
   const [authFlowData, setAuthFlowData] = useState<AuthFlowData | null>(null);
   const [loginType, setLoginType] = useState<LoginType>('DEDICATED');
-  const systemInfo = use(SystemInfoContext);
 
   const targetRedirect: TargetRedirectFunction = useCallback(async () => {
     await navigate({
@@ -126,8 +110,8 @@ function Index() {
   }, [navigate, searchParams.redirect]);
 
   const redirectWithCredentials: LoginFunction = useCallback(
-    async (type: SFServerType, address: string, token: string) => {
-      setAuthentication(type, address.trim(), token.trim());
+    async (token: string) => {
+      setAuthentication(token.trim());
 
       await targetRedirect();
     },
@@ -143,7 +127,7 @@ function Index() {
               className="size-8"
               width={32}
               height={32}
-              src={Logo}
+              src="/logo.png"
               alt={t('header.image.alt')}
             />
             <p className="font-medium tracking-wide">{t('header.title')}</p>
@@ -170,25 +154,18 @@ function Index() {
                   environment: APP_ENVIRONMENT,
                 })}
               </p>
-              {!systemInfo && (
-                <>
-                  {APP_ENVIRONMENT === 'production' && (
-                    <a
-                      className="text-blue-500"
-                      href="https://preview.pistonpanel.com"
-                    >
-                      {t('footer.preview')}
-                    </a>
-                  )}
-                  {APP_ENVIRONMENT === 'preview' && (
-                    <a
-                      className="text-blue-500"
-                      href="https://app.pistonpanel.com"
-                    >
-                      {t('footer.production')}
-                    </a>
-                  )}
-                </>
+              {APP_ENVIRONMENT === 'production' && (
+                <a
+                  className="text-blue-500"
+                  href="https://preview.pistonpanel.com"
+                >
+                  {t('footer.preview')}
+                </a>
+              )}
+              {APP_ENVIRONMENT === 'preview' && (
+                <a className="text-blue-500" href="https://app.pistonpanel.com">
+                  {t('footer.production')}
+                </a>
               )}
             </div>
             <div className="flex flex-row justify-center">
@@ -304,21 +281,14 @@ function EmailForm({
   const form = useForm<EmailFormSchemaType>({
     resolver: zodResolver(emailFormSchema),
     defaultValues: {
-      address:
-        localStorage.getItem(LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY) ?? '',
       email: localStorage.getItem(LOCAL_STORAGE_FORM_SERVER_EMAIL_KEY) ?? '',
     },
   });
 
   function onSubmit(values: EmailFormSchemaType) {
-    const address = values.address.trim();
-    localStorage.setItem(LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY, address);
-
     const email = values.email.trim();
     localStorage.setItem(LOCAL_STORAGE_FORM_SERVER_EMAIL_KEY, email);
-    const loginService = new LoginServiceClient(
-      createAddressOnlyTransport(address),
-    );
+    const loginService = new LoginServiceClient(createAddressOnlyTransport());
     toast.promise(
       loginService
         .login({
@@ -328,7 +298,6 @@ function EmailForm({
           setAuthFlowData({
             email: email,
             flowToken: response.response.authFlowToken,
-            address: address,
           });
           setLoginType('EMAIL_CODE');
         }),
@@ -347,27 +316,6 @@ function EmailForm({
     <Form {...form}>
       <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
         <CardContent className="flex flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('dedicated.form.address.title')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="url"
-                    inputMode="url"
-                    placeholder={t('dedicated.form.address.placeholder')}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  {t('dedicated.form.address.description')}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="email"
@@ -389,17 +337,7 @@ function EmailForm({
             )}
           />
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={(e) => {
-              e.preventDefault();
-              setLoginType(null);
-            }}
-            type="button"
-          >
-            {t('dedicated.form.back')}
-          </Button>
+        <CardFooter className="flex justify-end">
           <div className="flex flex-row gap-2">
             <Button
               variant="outline"
@@ -408,9 +346,13 @@ function EmailForm({
               }}
               type="button"
             >
+              <KeyRoundIcon />
               {t('dedicated.form.useToken')}
             </Button>
-            <Button type="submit">{t('dedicated.form.login')}</Button>
+            <Button type="submit">
+              <LogInIcon />
+              {t('dedicated.form.login')}
+            </Button>
           </div>
         </CardFooter>
       </form>
@@ -431,46 +373,20 @@ function TokenForm({
   const form = useForm<TokenFormSchemaType>({
     resolver: zodResolver(tokenFormSchema),
     defaultValues: {
-      address:
-        localStorage.getItem(LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY) ?? '',
       token: localStorage.getItem(LOCAL_STORAGE_FORM_SERVER_TOKEN_KEY) ?? '',
     },
   });
 
   function onSubmit(values: TokenFormSchemaType) {
-    const address = values.address.trim();
-    localStorage.setItem(LOCAL_STORAGE_FORM_SERVER_ADDRESS_KEY, address);
-
     const token = values.token.trim();
     localStorage.setItem(LOCAL_STORAGE_FORM_SERVER_TOKEN_KEY, token);
-    void redirectWithCredentials('dedicated', address, token);
+    void redirectWithCredentials(token);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}>
         <CardContent className="flex flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('dedicated.form.address.title')}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="url"
-                    inputMode="url"
-                    placeholder={t('dedicated.form.address.placeholder')}
-                    {...field}
-                  />
-                </FormControl>
-                <FormDescription>
-                  {t('dedicated.form.address.description')}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="token"
@@ -492,17 +408,7 @@ function TokenForm({
             )}
           />
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={(e) => {
-              e.preventDefault();
-              setLoginType(null);
-            }}
-            type="button"
-          >
-            {t('dedicated.form.back')}
-          </Button>
+        <CardFooter className="flex justify-end">
           <div className="flex flex-row gap-2">
             <Button
               variant="outline"
@@ -511,9 +417,13 @@ function TokenForm({
               }}
               type="button"
             >
+              <MailIcon />
               {t('dedicated.form.useEmail')}
             </Button>
-            <Button type="submit">{t('dedicated.form.login')}</Button>
+            <Button type="submit">
+              <LogInIcon />
+              {t('dedicated.form.login')}
+            </Button>
           </div>
         </CardFooter>
       </form>
@@ -539,20 +449,14 @@ function EmailCodeMenu(props: {
 
     setInputDisabled(true);
     toast.promise(
-      new LoginServiceClient(
-        createAddressOnlyTransport(props.authFlowData.address),
-      )
+      new LoginServiceClient(createAddressOnlyTransport())
         .emailCode({
           code: code,
           authFlowToken: props.authFlowData.flowToken,
         })
         .then(({ response }) => {
           if (response.next.oneofKind === 'success') {
-            void props.redirectWithCredentials(
-              'dedicated',
-              props.authFlowData.address,
-              response.next.success.token,
-            );
+            void props.redirectWithCredentials(response.next.success.token);
           } else if (response.next.oneofKind === 'failure') {
             setInputDisabled(false);
             setCodeValue('');

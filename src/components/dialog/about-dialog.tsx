@@ -9,7 +9,6 @@ import {
   CredenzaTitle,
 } from '../ui/credenza';
 import { Button } from '@/components/ui/button';
-import { SystemInfoContext } from '@/components/providers/system-info-context';
 import { createContext, ReactNode, use, useState } from 'react';
 import {
   Table,
@@ -52,7 +51,6 @@ function AboutDialog({
   setOpen: (open: boolean) => void;
 }) {
   const { t } = useTranslation('common');
-  const systemInfo = use(SystemInfoContext);
 
   return (
     <Credenza open={open} onOpenChange={setOpen}>
@@ -74,61 +72,20 @@ function AboutDialog({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {systemInfo !== null ? (
-                <>
-                  <TableRow>
-                    <TableCell>
-                      {t('dialog.about.fields.operatingSystem')}
-                    </TableCell>
-                    <TableCell>
-                      {systemInfo.osType} {systemInfo.osVersion}
-                    </TableCell>
-                  </TableRow>
+              <TableRow>
+                <TableCell>{t('dialog.about.fields.browser')}</TableCell>
+                <TableCell>{navigator.userAgent}</TableCell>
+              </TableRow>
 
-                  <TableRow>
-                    <TableCell>{t('dialog.about.fields.platform')}</TableCell>
-                    <TableCell>{systemInfo.platformName}</TableCell>
-                  </TableRow>
+              <TableRow>
+                <TableCell>{t('dialog.about.fields.locale')}</TableCell>
+                <TableCell>{navigator.language}</TableCell>
+              </TableRow>
 
-                  <TableRow>
-                    <TableCell>{t('dialog.about.fields.locale')}</TableCell>
-                    <TableCell>{systemInfo.osLocale ?? 'Unknown'}</TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>
-                      {t('dialog.about.fields.architecture')}
-                    </TableCell>
-                    <TableCell>{systemInfo.archName}</TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>
-                      {t('dialog.about.fields.environment')}
-                    </TableCell>
-                    <TableCell>{APP_ENVIRONMENT}</TableCell>
-                  </TableRow>
-                </>
-              ) : (
-                <>
-                  <TableRow>
-                    <TableCell>{t('dialog.about.fields.browser')}</TableCell>
-                    <TableCell>{navigator.userAgent}</TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>{t('dialog.about.fields.locale')}</TableCell>
-                    <TableCell>{navigator.language}</TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell>
-                      {t('dialog.about.fields.environment')}
-                    </TableCell>
-                    <TableCell>{APP_ENVIRONMENT}</TableCell>
-                  </TableRow>
-                </>
-              )}
+              <TableRow>
+                <TableCell>{t('dialog.about.fields.environment')}</TableCell>
+                <TableCell>{APP_ENVIRONMENT}</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </CredenzaBody>

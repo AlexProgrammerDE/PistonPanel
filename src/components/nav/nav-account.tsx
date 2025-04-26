@@ -37,30 +37,18 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Suspense, use } from 'react';
-import {
-  getLanguageName,
-  isTauri,
-  languageEmoji,
-  runAsync,
-  setTerminalTheme,
-} from '@/lib/utils';
-import { emit } from '@tauri-apps/api/event';
+import { getLanguageName, languageEmoji, setTerminalTheme } from '@/lib/utils';
 import { toast } from 'sonner';
-import { exit } from '@tauri-apps/plugin-process';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { flavorEntries } from '@catppuccin/palette';
 import { useTheme } from 'next-themes';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import CastMenuEntry from '@/components/nav/cast-menu-entry';
-import { appConfigDir, appLocalDataDir } from '@tauri-apps/api/path';
-import { SystemInfoContext } from '@/components/providers/system-info-context';
 import { AboutContext } from '@/components/dialog/about-dialog';
 import { useTranslation } from 'react-i18next';
 import { isImpersonating, logOut, stopImpersonation } from '@/lib/web-rpc';
 import { UserAvatar } from '@/components/user-avatar';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
-import { openPath } from '@tauri-apps/plugin-opener';
 import { ExternalLink } from '@/components/external-link';
 
 function SidebarAccountButton() {
@@ -149,7 +137,6 @@ export function NavAccount() {
   const navigate = useNavigate();
   const terminalTheme = use(TerminalThemeContext);
   const { openAbout } = use(AboutContext);
-  const systemInfo = use(SystemInfoContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
 
@@ -259,35 +246,6 @@ export function NavAccount() {
                 </DropdownMenuPortal>
               </DropdownMenuSub>
             </DropdownMenuGroup>
-            {isTauri() && systemInfo && !systemInfo.mobile && (
-              <>
-                <DropdownMenuSeparator />
-                <CastMenuEntry />
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      runAsync(async () => {
-                        await openPath(await appConfigDir());
-                      });
-                    }}
-                  >
-                    <FolderIcon />
-                    {t('userSidebar.configDir')}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      runAsync(async () => {
-                        await openPath(await appLocalDataDir());
-                      });
-                    }}
-                  >
-                    <FolderIcon />
-                    {t('userSidebar.dataDir')}
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-              </>
-            )}
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={openAbout}>
@@ -315,9 +273,6 @@ export function NavAccount() {
               <DropdownMenuItem
                 onClick={() => {
                   const disconnect = async () => {
-                    if (isTauri()) {
-                      await emit('kill-integrated-server', {});
-                    }
                     logOut();
                     await navigate({
                       to: '/',
@@ -337,16 +292,6 @@ export function NavAccount() {
                 <LogOutIcon />
                 {t('userSidebar.logOut')}
               </DropdownMenuItem>
-              {isTauri() && (
-                <DropdownMenuItem
-                  onClick={() => {
-                    void exit(0);
-                  }}
-                >
-                  <PowerIcon />
-                  {t('userSidebar.exit')}
-                </DropdownMenuItem>
-              )}
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

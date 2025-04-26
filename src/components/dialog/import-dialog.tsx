@@ -9,11 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { use, useRef, useState } from 'react';
-import { hasInstancePermission, isTauri, runAsync } from '@/lib/utils';
-import { downloadDir } from '@tauri-apps/api/path';
-import { open } from '@tauri-apps/plugin-dialog';
-import { readTextFile } from '@tauri-apps/plugin-fs';
-import * as clipboard from '@tauri-apps/plugin-clipboard-manager';
+import { hasInstancePermission, runAsync } from '@/lib/utils';
 import { ClipboardIcon, FileIcon, GlobeIcon, TextIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
@@ -21,7 +17,6 @@ import { toast } from 'sonner';
 import MimeMatcher from 'mime-matcher';
 import { TransportContext } from '@/components/providers/transport-context';
 import { DownloadServiceClient } from '@/generated/pistonpanel/download.client';
-import { SystemInfoContext } from '@/components/providers/system-info-context';
 import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useTranslation } from 'react-i18next';
 import { useRouteContext } from '@tanstack/react-router';
@@ -145,7 +140,6 @@ function MainDialog(
     select: (context) => context.instanceInfoQueryOptions,
   });
   const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
-  const systemInfo = use(SystemInfoContext);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -158,65 +152,38 @@ function MainDialog(
         <CredenzaBody className="pb-4 md:pb-0">
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap justify-between gap-4">
-              {!isTauri() && (
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept={props.filters.map((f) => f.mimeType).join(',')}
-                  multiple={props.allowMultiple}
-                  className="hidden"
-                  onChange={(e) => {
-                    const target = e.target as HTMLInputElement;
-                    if (!target.files) {
-                      return;
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept={props.filters.map((f) => f.mimeType).join(',')}
+                multiple={props.allowMultiple}
+                className="hidden"
+                onChange={(e) => {
+                  const target = e.target as HTMLInputElement;
+                  if (!target.files) {
+                    return;
+                  }
+
+                  for (let i = 0; i < target.files.length; i++) {
+                    const file = target.files.item(i);
+                    if (!file) {
+                      continue;
                     }
 
-                    for (let i = 0; i < target.files.length; i++) {
-                      const file = target.files.item(i);
-                      if (!file) {
-                        continue;
-                      }
-
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        const data = reader.result as string;
-                        props.listener(data);
-                      };
-                      reader.readAsText(file);
-                    }
-                  }}
-                />
-              )}
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      const data = reader.result as string;
+                      props.listener(data);
+                    };
+                    reader.readAsText(file);
+                  }
+                }}
+              />
               <Button
                 variant="secondary"
                 className="flex-auto"
                 onClick={() => {
-                  if (isTauri()) {
-                    runAsync(async () => {
-                      const downloadsDir = await downloadDir();
-                      const input = await open({
-                        title: props.title,
-                        filters: systemInfo?.mobile ? undefined : props.filters,
-                        defaultPath: downloadsDir,
-                        multiple: props.allowMultiple,
-                        directory: false,
-                      });
-                      if (input === null) {
-                        return;
-                      }
-
-                      const toParse: string[] = Array.isArray(input)
-                        ? input
-                        : [input];
-                      for (const file of toParse) {
-                        const data = await readTextFile(file);
-
-                        props.listener(data);
-                      }
-                    });
-                  } else {
-                    fileInputRef.current?.click();
-                  }
+                  fileInputRef.current?.click();
                 }}
               >
                 <FileIcon className="h-4" />
@@ -240,34 +207,28 @@ function MainDialog(
                 className="flex-auto"
                 onClick={() => {
                   runAsync(async () => {
-                    if (isTauri()) {
-                      props.listener((await clipboard.readText()) ?? '');
-                    } else {
-                      const mimeTypes = props.filters.map((f) => f.mimeType);
-                      const matcher = new MimeMatcher(...mimeTypes);
-                      let clipboardEntries = (await navigator.clipboard.read())
-                        .map((item) => ({
-                          item,
-                          firstSupportedType: item.types.find((t) =>
-                            matcher.match(t),
-                          ),
-                        }))
-                        .filter((e) => {
-                          return e.firstSupportedType !== undefined;
-                        });
-                      if (!props.allowMultiple && clipboardEntries.length > 1) {
-                        toast.warning(
-                          t('dialog.import.main.firstClipboardItem'),
-                        );
-                        clipboardEntries = [clipboardEntries[0]];
-                      }
+                    const mimeTypes = props.filters.map((f) => f.mimeType);
+                    const matcher = new MimeMatcher(...mimeTypes);
+                    let clipboardEntries = (await navigator.clipboard.read())
+                      .map((item) => ({
+                        item,
+                        firstSupportedType: item.types.find((t) =>
+                          matcher.match(t),
+                        ),
+                      }))
+                      .filter((e) => {
+                        return e.firstSupportedType !== undefined;
+                      });
+                    if (!props.allowMultiple && clipboardEntries.length > 1) {
+                      toast.warning(t('dialog.import.main.firstClipboardItem'));
+                      clipboardEntries = [clipboardEntries[0]];
+                    }
 
-                      for (const entry of clipboardEntries) {
-                        const blob = await entry.item.getType(
-                          entry.firstSupportedType!,
-                        );
-                        props.listener(await blob.text());
-                      }
+                    for (const entry of clipboardEntries) {
+                      const blob = await entry.item.getType(
+                        entry.firstSupportedType!,
+                      );
+                      props.listener(await blob.text());
                     }
                   });
                 }}

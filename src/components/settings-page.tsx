@@ -6,7 +6,6 @@ import {
   MinMaxSetting,
   MinMaxSetting_Entry,
   SettingEntry,
-  SettingsPage,
   StringListSetting,
   StringSetting,
   StringSetting_InputType,
@@ -25,31 +24,17 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Check, ChevronsUpDown, PlusIcon, TrashIcon } from 'lucide-react';
-import {
-  cn,
-  getEntryValueByType,
-  setInstanceConfig,
-  setServerConfig,
-  updateEntry,
-} from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import {
   HTMLInputTypeAttribute,
   ReactNode,
-  use,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { BaseSettings } from '@/lib/types';
 import { JsonValue } from '@protobuf-ts/runtime';
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useTranslation } from 'react-i18next';
@@ -58,7 +43,6 @@ import { useLocaleNumberFormat } from '@/hooks/use-locale-number-format';
 import { toast } from 'sonner';
 import { TFunction } from 'i18next';
 import { NumberFormatValues } from 'react-number-format/types/types';
-import { useRouteContext } from '@tanstack/react-router';
 import DynamicIcon from '@/components/dynamic-icon';
 import { TextInfoButton } from '@/components/info-buttons';
 
@@ -551,37 +535,6 @@ function MinMaxComponent(props: {
   );
 }
 
-function EntryComponent<T extends BaseSettings>(props: {
-  namespace: string;
-  entry: SettingEntry;
-  invalidateQuery: () => Promise<void>;
-  setConfig: (config: T) => Promise<void>;
-  config: T;
-}) {
-  const value = useMemo(
-    () => getEntryValueByType(props.namespace, props.config, props.entry),
-    [props.config, props.entry, props.namespace],
-  );
-  const setValueMutation = useMutation({
-    mutationFn: async (value: JsonValue) => {
-      await props.setConfig(
-        updateEntry(props.namespace, props.entry.key, value, props.config),
-      );
-    },
-    onSettled: async () => {
-      await props.invalidateQuery();
-    },
-  });
-
-  return (
-    <GenericEntryComponent
-      entry={props.entry.value}
-      value={value}
-      changeCallback={setValueMutation.mutate}
-    />
-  );
-}
-
 export function GenericEntryComponent(props: {
   entry: SettingEntry['value'];
   value: JsonValue;
@@ -725,103 +678,4 @@ export function GenericEntryComponent(props: {
       );
     }
   }
-}
-
-function ClientSettingsPageComponent<T extends BaseSettings>({
-  data,
-  invalidateQuery,
-  setConfig,
-  config,
-}: {
-  data: SettingsPage;
-  invalidateQuery: () => Promise<void>;
-  setConfig: (config: T) => Promise<void>;
-  config: T;
-}) {
-  return (
-    <>
-      {data.entries
-        .filter((entry) => entry.key !== data.enabledKey)
-        .map((page) => (
-          <EntryComponent
-            namespace={data.namespace}
-            key={page.key}
-            entry={page}
-            setConfig={setConfig}
-            invalidateQuery={invalidateQuery}
-            config={config}
-          />
-        ))}
-    </>
-  );
-}
-
-export function InstanceSettingsPageComponent({
-  data,
-}: {
-  data: SettingsPage;
-}) {
-  const queryClient = useQueryClient();
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
-  });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
-  const transport = use(TransportContext);
-  const { data: profile } = useSuspenseQuery({
-    ...instanceInfoQueryOptions,
-    select: (info) => info.profile,
-  });
-  return (
-    <ClientSettingsPageComponent
-      data={data}
-      setConfig={async (jsonProfile) =>
-        await setInstanceConfig(
-          jsonProfile,
-          instanceInfo,
-          transport,
-          queryClient,
-          instanceInfoQueryOptions.queryKey,
-        )
-      }
-      invalidateQuery={async () => {
-        await queryClient.invalidateQueries({
-          queryKey: instanceInfoQueryOptions.queryKey,
-        });
-      }}
-      config={profile}
-    />
-  );
-}
-
-export function AdminSettingsPageComponent({ data }: { data: SettingsPage }) {
-  const queryClient = useQueryClient();
-  const serverInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/user/admin',
-    select: (context) => context.serverInfoQueryOptions,
-  });
-  const { data: serverConfig } = useSuspenseQuery({
-    ...serverInfoQueryOptions,
-    select: (info) => info.profile,
-  });
-  const transport = use(TransportContext);
-  return (
-    <ClientSettingsPageComponent
-      data={data}
-      setConfig={async (jsonProfile) =>
-        await setServerConfig(
-          jsonProfile,
-          transport,
-          queryClient,
-          serverInfoQueryOptions.queryKey,
-        )
-      }
-      invalidateQuery={async () => {
-        await queryClient.invalidateQueries({
-          queryKey: serverInfoQueryOptions.queryKey,
-        });
-      }}
-      config={serverConfig}
-    />
-  );
 }

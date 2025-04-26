@@ -8,8 +8,7 @@ import {
   SearchXIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { isTauri, runAsync } from '@/lib/utils';
-import { emit } from '@tauri-apps/api/event';
+import { runAsync } from '@/lib/utils';
 import { logOut } from '@/lib/web-rpc';
 import {
   Card,
@@ -40,9 +39,6 @@ export function NotFoundComponent() {
             className="w-fit"
             onClick={() => {
               runAsync(async () => {
-                if (isTauri()) {
-                  await emit('kill-integrated-server', {});
-                }
                 logOut();
                 await navigate({
                   to: '/',

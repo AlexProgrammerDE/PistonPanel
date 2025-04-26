@@ -4,15 +4,11 @@ import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { InstanceState } from '@/generated/pistonpanel/instance';
 import { queryClientInstance } from '@/lib/query';
 import { queryOptions } from '@tanstack/react-query';
-import {
-  MinecraftAccountProto_AccountTypeProto,
-  ProxyProto_Type,
-} from '@/generated/pistonpanel/common';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { InstanceSidebar } from '@/components/nav/instance-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
-import { convertFromInstanceProto, InstanceInfoQueryData } from '@/lib/types';
+import { InstanceInfoQueryData } from '@/lib/types';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance')({
   beforeLoad: (props) => {
@@ -24,48 +20,9 @@ export const Route = createFileRoute('/_dashboard/instance/$instance')({
         if (transport === null) {
           return {
             id: instance,
-            profile: {
-              settings: {},
-              accounts: [],
-              proxies: [],
-            },
             friendlyName: 'Demo',
             icon: 'pickaxe',
             instancePermissions: [],
-            config: {
-              settings: [],
-              accounts: [
-                {
-                  type: MinecraftAccountProto_AccountTypeProto.OFFLINE,
-                  profileId: '607d30e7-115b-3838-914a-e4229c2b985d',
-                  lastKnownName: 'Pistonmaster',
-                  accountData: {
-                    oneofKind: 'offlineJavaData',
-                    offlineJavaData: {},
-                  },
-                },
-              ],
-              proxies: [
-                {
-                  type: ProxyProto_Type.HTTP,
-                  address: '127.0.0.1:8080',
-                  username: 'admin',
-                  password: 'admin',
-                },
-                {
-                  type: ProxyProto_Type.SOCKS4,
-                  address: '127.0.0.1:8081',
-                  username: 'admin',
-                },
-                {
-                  type: ProxyProto_Type.SOCKS5,
-                  address: '127.0.0.1:8082',
-                  username: 'admin',
-                  password: 'admin',
-                },
-              ],
-            },
-            instanceSettings: [],
             state: InstanceState.RUNNING,
           };
         }
@@ -82,7 +39,6 @@ export const Route = createFileRoute('/_dashboard/instance/$instance')({
 
         return {
           id: instance,
-          profile: convertFromInstanceProto(result.response.config),
           ...result.response,
         };
       },
