@@ -47,34 +47,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function cancellablePromiseDefault<T extends () => void>(
-  promise: Promise<T>,
-): () => void {
-  return cancellablePromise(promise, (run) => run());
-}
-
-export function cancellablePromise<T>(
-  promise: Promise<T>,
-  cancel: (value: T) => void,
-): () => void {
-  let cancelled = false;
-  let resolvedValue: T | null = null;
-  void promise.then((value) => {
-    if (cancelled) {
-      cancel(value);
-    } else {
-      resolvedValue = value;
-    }
-  });
-
-  return () => {
-    cancelled = true;
-    if (resolvedValue != null) {
-      cancel(resolvedValue);
-    }
-  };
-}
-
 export function hasGlobalPermission(
   clientData: ClientDataResponse,
   permission: GlobalPermission,
@@ -97,15 +69,6 @@ export function hasInstancePermission(
 
 export function getGravatarUrl(email: string) {
   return `https://www.gravatar.com/avatar/${sha256(email)}?d=404`;
-}
-
-export function data2blob(data: string) {
-  const bytes = new Array(data.length);
-  for (let i = 0; i < data.length; i++) {
-    bytes[i] = data.charCodeAt(i);
-  }
-
-  return new Blob([new Uint8Array(bytes)]);
 }
 
 export function languageEmoji(locale: string): ReactNode {
