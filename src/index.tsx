@@ -13,12 +13,18 @@ import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
+import { ConvexProvider } from 'convex/react';
+import { ConvexQueryClient } from '@convex-dev/react-query';
 
-const hashHistory = createHashHistory();
+const convexQueryClient = new ConvexQueryClient(
+  import.meta.env.PUBLIC_CONVEX_URL,
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      queryKeyHashFn: convexQueryClient.hashFn(),
+      queryFn: convexQueryClient.queryFn(),
       // Retries on an initial load failure
       retry: 5,
       structuralSharing: (prev: unknown, next: unknown) =>
@@ -26,6 +32,8 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+convexQueryClient.connect(queryClient);
 
 broadcastQueryClient({
   queryClient,
@@ -35,7 +43,7 @@ broadcastQueryClient({
 // noinspection JSUnusedGlobalSymbols
 const router = createRouter({
   routeTree,
-  history: hashHistory,
+  history: createHashHistory(),
   defaultPreload: 'intent',
   // Since we're using React Query, we don't want loader calls to ever be stale
   // This will ensure that the loader is always called when the route is preloaded or visited
@@ -49,7 +57,11 @@ const router = createRouter({
   context: { queryClient },
   Wrap: ({ children }) => {
     return (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <ConvexProvider client={convexQueryClient.convexClient}>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </ConvexProvider>
     );
   },
 });

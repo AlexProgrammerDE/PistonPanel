@@ -150,11 +150,11 @@ function Index() {
             <div className="text-muted-foreground text-center text-xs text-balance">
               <p className="mb-1">
                 {t('footer.version', {
-                  version: APP_VERSION,
-                  environment: APP_ENVIRONMENT,
+                  version: import.meta.env.APP_VERSION,
+                  environment: import.meta.env.APP_ENVIRONMENT,
                 })}
               </p>
-              {APP_ENVIRONMENT === 'production' && (
+              {import.meta.env.APP_ENVIRONMENT === 'production' && (
                 <a
                   className="text-blue-500"
                   href="https://preview.pistonpanel.com"
@@ -162,7 +162,7 @@ function Index() {
                   {t('footer.preview')}
                 </a>
               )}
-              {APP_ENVIRONMENT === 'preview' && (
+              {import.meta.env.APP_ENVIRONMENT === 'preview' && (
                 <a className="text-blue-500" href="https://app.pistonpanel.com">
                   {t('footer.production')}
                 </a>
@@ -261,7 +261,6 @@ function DedicatedMenu({
         <TokenForm
           redirectWithCredentials={redirectWithCredentials}
           setDedicatedType={setDedicatedType}
-          setLoginType={setLoginType}
         />
       )}
     </Card>
@@ -362,11 +361,9 @@ function EmailForm({
 
 function TokenForm({
   redirectWithCredentials,
-  setLoginType,
   setDedicatedType,
 }: {
   redirectWithCredentials: LoginFunction;
-  setLoginType: (type: LoginType) => void;
   setDedicatedType: (type: DedicatedType) => void;
 }) {
   const { t } = useTranslation('login');

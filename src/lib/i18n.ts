@@ -25,8 +25,8 @@ void i18n
     fallbackLng: 'en-US',
 
     load: 'currentOnly',
-    supportedLngs: APP_LOCALES.split(','),
-    ns: APP_NAMESPACES.split(','),
+    supportedLngs: import.meta.env.APP_LOCALES,
+    ns: import.meta.env.APP_NAMESPACES,
     lowerCaseLng: false,
     nonExplicitSupportedLngs: false,
     returnEmptyString: false,

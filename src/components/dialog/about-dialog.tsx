@@ -9,7 +9,7 @@ import {
   CredenzaTitle,
 } from '../ui/credenza';
 import { Button } from '@/components/ui/button';
-import { createContext, ReactNode, use, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -59,7 +59,7 @@ function AboutDialog({
           <CredenzaTitle>{t('dialog.about.title')}</CredenzaTitle>
           <CredenzaDescription>
             {t('dialog.about.description', {
-              version: APP_VERSION,
+              version: import.meta.env.APP_VERSION,
             })}
           </CredenzaDescription>
         </CredenzaHeader>
@@ -84,7 +84,7 @@ function AboutDialog({
 
               <TableRow>
                 <TableCell>{t('dialog.about.fields.environment')}</TableCell>
-                <TableCell>{APP_ENVIRONMENT}</TableCell>
+                <TableCell>{import.meta.env.APP_ENVIRONMENT}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

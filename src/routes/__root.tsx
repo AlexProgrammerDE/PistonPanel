@@ -1,8 +1,6 @@
 import {
   createRootRouteWithContext,
-  HeadContent,
   Outlet,
-  Scripts,
   useLocation,
 } from '@tanstack/react-router';
 import '../App.css';
@@ -10,7 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { QueryClient } from '@tanstack/react-query';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getTerminalTheme } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
@@ -127,7 +125,7 @@ export const Route = createRootRouteWithContext<{
 
 function RootPending() {
   return (
-    <RootDocument>
+    <>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -136,7 +134,7 @@ function RootPending() {
       >
         <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
       </ThemeProvider>
-    </RootDocument>
+    </>
   );
 }
 
@@ -157,7 +155,7 @@ function RootComponent() {
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
 
   return (
-    <RootDocument>
+    <>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -182,21 +180,6 @@ function RootComponent() {
         </TooltipProvider>
       </ThemeProvider>
       <TailwindIndicator />
-    </RootDocument>
-  );
-}
-
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  // noinspection HtmlRequiredTitleElement
-  return (
-    <html>
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    </>
   );
 }

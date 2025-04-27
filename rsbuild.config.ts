@@ -20,14 +20,12 @@ if (baseEnv === 'production') {
 const locales = fs
   .readdirSync('./locales', { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
-  .map((dirent) => dirent.name)
-  .join(',');
+  .map((dirent) => dirent.name);
 
 const namespaces = fs
   .readdirSync('./locales/en-US', { withFileTypes: true })
   .filter((dirent) => dirent.isFile())
-  .map((dirent) => dirent.name.split('.')[0])
-  .join(',');
+  .map((dirent) => dirent.name.split('.')[0]);
 
 export default defineConfig({
   plugins: [pluginReact(), pluginTypeCheck(), pluginSvgr()],
@@ -59,10 +57,12 @@ export default defineConfig({
   },
   source: {
     define: {
-      APP_VERSION: JSON.stringify(process.env.npm_package_version),
-      APP_ENVIRONMENT: JSON.stringify(appEnv),
-      APP_LOCALES: JSON.stringify(locales),
-      APP_NAMESPACES: JSON.stringify(namespaces),
+      'import.meta.env.APP_VERSION': JSON.stringify(
+        process.env.npm_package_version,
+      ),
+      'import.meta.env.APP_ENVIRONMENT': JSON.stringify(appEnv),
+      'import.meta.env.APP_LOCALES': JSON.stringify(locales),
+      'import.meta.env.APP_NAMESPACES': JSON.stringify(namespaces),
     },
   },
   output: {

@@ -24,16 +24,15 @@ import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 export const ROOT_USER_ID = '00000000-0000-0000-0000-000000000000';
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
 
-const emojiMap = APP_LOCALES.split(',').reduce<Record<string, FlagComponent>>(
-  (acc, locale) => {
-    const countryCode = locale.split('-')[1];
-    if (!countryCode) return acc;
+const emojiMap = import.meta.env.APP_LOCALES.reduce<
+  Record<string, FlagComponent>
+>((acc, locale) => {
+  const countryCode = locale.split('-')[1];
+  if (!countryCode) return acc;
 
-    acc[countryCode] = Flags[countryCode as keyof typeof Flags];
-    return acc;
-  },
-  {},
-);
+  acc[countryCode] = Flags[countryCode as keyof typeof Flags];
+  return acc;
+}, {});
 
 export function setTerminalTheme(theme: string) {
   localStorage.setItem(LOCAL_STORAGE_TERMINAL_THEME_KEY, theme);

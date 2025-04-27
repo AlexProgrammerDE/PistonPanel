@@ -1,8 +1,16 @@
 /// <reference types="@rsbuild/core/types" />
-declare const APP_VERSION: string;
-declare const APP_ENVIRONMENT: 'production' | 'development' | 'preview';
-declare const APP_LOCALES: string;
-declare const APP_NAMESPACES: string;
+
+interface ImportMetaEnv {
+  readonly APP_VERSION: string;
+  readonly APP_ENVIRONMENT: 'production' | 'development' | 'preview';
+  readonly APP_LOCALES: string[];
+  readonly APP_NAMESPACES: string[];
+  readonly PUBLIC_CONVEX_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
 
 declare module '*.svg' {
   const content: string;
