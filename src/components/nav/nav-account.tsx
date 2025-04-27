@@ -53,29 +53,28 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ExternalLink } from '@/components/external-link';
 import { authClient } from '@/lib/auth';
+import { Route } from '@/routes/_dashboard';
 
 function SidebarAccountButton() {
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
-  });
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
+  const { session } = Route.useRouteContext();
 
   return (
     <DropdownMenuTrigger asChild>
       <SidebarMenuButton
         size="lg"
         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        tooltip={`${clientInfo.username} | ${clientInfo.email}`}
+        tooltip={`${session.user.username} | ${session.user.email}`}
       >
         <UserAvatar
-          username={clientInfo.username}
-          email={clientInfo.email}
+          username={session.user.username ?? ''}
+          email={session.user.email}
           className="size-8"
         />
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-semibold">{clientInfo.username}</span>
-          <span className="truncate text-xs">{clientInfo.email}</span>
+          <span className="truncate font-semibold">
+            {session.user.username}
+          </span>
+          <span className="truncate text-xs">{session.user.email}</span>
         </div>
         <ChevronsUpDown className="ml-auto size-4" />
       </SidebarMenuButton>
@@ -102,22 +101,18 @@ function SidebarAccountButtonSkeleton() {
 }
 
 function DropdownAccountHeader() {
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
-  });
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
+  const { session } = Route.useRouteContext();
 
   return (
     <div className="flex items-center gap-2 px-1 py-1.5">
       <UserAvatar
-        username={clientInfo.username}
-        email={clientInfo.email}
+        username={session.user.username ?? ''}
+        email={session.user.email}
         className="size-8"
       />
       <div className="grid flex-1">
-        <span className="truncate font-semibold">{clientInfo.username}</span>
-        <span className="truncate text-xs">{clientInfo.email}</span>
+        <span className="truncate font-semibold">{session.user.username}</span>
+        <span className="truncate text-xs">{session.user.email}</span>
       </div>
     </div>
   );
@@ -142,7 +137,7 @@ export function NavAccount() {
   const { openAbout } = use(AboutContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
-  const { data: session } = authClient.useSession();
+  const { session } = Route.useRouteContext();
 
   return (
     <SidebarMenu>

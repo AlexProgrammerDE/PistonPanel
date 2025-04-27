@@ -1,33 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { use } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from '@tanstack/react-query';
-import { TransportContext } from '@/components/providers/transport-context';
-import {
-  ComponentTitle,
-  GenericEntryComponent,
-} from '@/components/settings-page';
-import {
-  GlobalPermission,
-  StringSetting_InputType,
-} from '@/generated/pistonpanel/common';
-import { JsonValue } from '@protobuf-ts/runtime/build/types/json-typings';
-import {
-  hasGlobalPermission,
-  setSelfEmail,
-  setSelfUsername,
-} from '@/lib/utils';
+import { ComponentTitle } from '@/components/settings-page';
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { ExternalLink } from '@/components/external-link';
 import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';
 import {
   ChangeEmailCard,
-  DeleteAccountCard,
   ProvidersCard,
   SessionsCard,
   TwoFactorCard,
@@ -49,40 +28,7 @@ function UserSettings() {
 }
 
 function Content() {
-  const { clientDataQueryOptions } = Route.useRouteContext();
-  const queryClient = useQueryClient();
-  const transport = use(TransportContext);
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
-  const setUsernameMutation = useMutation({
-    mutationFn: async (value: JsonValue) => {
-      await setSelfUsername(
-        value as string,
-        transport,
-        queryClient,
-        clientDataQueryOptions.queryKey,
-      );
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: clientDataQueryOptions.queryKey,
-      });
-    },
-  });
-  const setEmailMutation = useMutation({
-    mutationFn: async (value: JsonValue) => {
-      await setSelfEmail(
-        value as string,
-        transport,
-        queryClient,
-        clientDataQueryOptions.queryKey,
-      );
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: clientDataQueryOptions.queryKey,
-      });
-    },
-  });
+  const { session } = Route.useRouteContext();
 
   return (
     <div className="flex h-full w-full max-w-4xl grow flex-col gap-4">
@@ -106,15 +52,15 @@ function Content() {
           />
           <Card className="flex w-fit items-center gap-2 p-3 text-left text-base">
             <UserAvatar
-              username={clientInfo.username}
-              email={clientInfo.email}
+              username={session.user.username ?? ''}
+              email={session.user.email}
               className="size-10"
             />
             <div className="grid flex-1 text-left text-base leading-tight">
               <span className="truncate font-semibold">
-                {clientInfo.username}
+                {session.user.username}
               </span>
-              <span className="truncate text-sm">{clientInfo.email}</span>
+              <span className="truncate text-sm">{session.user.email}</span>
             </div>
           </Card>
         </div>

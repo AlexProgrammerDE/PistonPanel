@@ -5,20 +5,10 @@ interface ImportMetaEnv {
   readonly APP_ENVIRONMENT: 'production' | 'development' | 'preview';
   readonly APP_LOCALES: string[];
   readonly APP_NAMESPACES: string[];
-  readonly CONVEX_URL: string;
-  readonly PUBLIC_POSTHOG_KEY: string;
-  readonly PUBLIC_POSTHOG_HOST: string;
+  readonly VITE_POSTHOG_KEY: string;
+  readonly VITE_POSTHOG_HOST: string;
 }
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
-}
-
-declare module '*.svg' {
-  const content: string;
-  export default content;
-}
-declare module '*.svg?react' {
-  const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  export default ReactComponent;
 }

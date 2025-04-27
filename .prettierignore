@@ -27,4 +27,3 @@ src/routeTree.gen.ts
 pnpm-lock.yaml
 shared-modules
 locales
-convex/_generated

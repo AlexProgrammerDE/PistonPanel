@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as DashboardImport } from './routes/_dashboard'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthPathnameImport } from './routes/auth/$pathname'
 import { Route as DashboardUserImport } from './routes/_dashboard/user'
 import { Route as DashboardUserIndexImport } from './routes/_dashboard/user/index'
 import { Route as DashboardUserSettingsImport } from './routes/_dashboard/user/settings'
@@ -35,6 +36,12 @@ const DashboardRoute = DashboardImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthPathnameRoute = AuthPathnameImport.update({
+  id: '/auth/$pathname',
+  path: '/auth/$pathname',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -131,6 +138,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/user'
       preLoaderRoute: typeof DashboardUserImport
       parentRoute: typeof DashboardImport
+    }
+    '/auth/$pathname': {
+      id: '/auth/$pathname'
+      path: '/auth/$pathname'
+      fullPath: '/auth/$pathname'
+      preLoaderRoute: typeof AuthPathnameImport
+      parentRoute: typeof rootRoute
     }
     '/_dashboard/instance/$instance': {
       id: '/_dashboard/instance/$instance'
@@ -275,6 +289,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof DashboardRouteWithChildren
   '/user': typeof DashboardUserRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/instance/$instance': typeof DashboardInstanceInstanceRouteWithChildren
   '/user/admin': typeof DashboardUserAdminRouteWithChildren
   '/user/settings': typeof DashboardUserSettingsRoute
@@ -290,6 +305,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof DashboardRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/user/settings': typeof DashboardUserSettingsRoute
   '/user': typeof DashboardUserIndexRoute
   '/instance/$instance/audit-log': typeof DashboardInstanceInstanceAuditLogRoute
@@ -305,6 +321,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_dashboard': typeof DashboardRouteWithChildren
   '/_dashboard/user': typeof DashboardUserRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/_dashboard/instance/$instance': typeof DashboardInstanceInstanceRouteWithChildren
   '/_dashboard/user/admin': typeof DashboardUserAdminRouteWithChildren
   '/_dashboard/user/settings': typeof DashboardUserSettingsRoute
@@ -323,6 +340,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/user'
+    | '/auth/$pathname'
     | '/instance/$instance'
     | '/user/admin'
     | '/user/settings'
@@ -337,6 +355,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/auth/$pathname'
     | '/user/settings'
     | '/user'
     | '/instance/$instance/audit-log'
@@ -350,6 +369,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_dashboard'
     | '/_dashboard/user'
+    | '/auth/$pathname'
     | '/_dashboard/instance/$instance'
     | '/_dashboard/user/admin'
     | '/_dashboard/user/settings'
@@ -366,11 +386,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  AuthPathnameRoute: typeof AuthPathnameRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  AuthPathnameRoute: AuthPathnameRoute,
 }
 
 export const routeTree = rootRoute
@@ -384,7 +406,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_dashboard"
+        "/_dashboard",
+        "/auth/$pathname"
       ]
     },
     "/": {
@@ -405,6 +428,9 @@ export const routeTree = rootRoute
         "/_dashboard/user/settings",
         "/_dashboard/user/"
       ]
+    },
+    "/auth/$pathname": {
+      "filePath": "auth/$pathname.tsx"
     },
     "/_dashboard/instance/$instance": {
       "filePath": "_dashboard/instance/$instance.tsx",

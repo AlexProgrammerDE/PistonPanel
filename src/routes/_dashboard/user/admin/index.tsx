@@ -251,20 +251,16 @@ function OverviewPage() {
 
 function Content() {
   const { t } = useTranslation('common');
-  const {
-    usersQueryOptions,
-    clientDataQueryOptions,
-    instanceListQueryOptions,
-  } = Route.useRouteContext();
+  const { usersQueryOptions, instanceListQueryOptions, session } =
+    Route.useRouteContext();
   const { data: userList } = useSuspenseQuery(usersQueryOptions);
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
   const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
 
   return (
     <div className="flex h-full w-full grow flex-col gap-2 pl-2">
       <h2 className="text-xl font-semibold">
         {t('admin:overview.welcome', {
-          name: clientInfo.username,
+          name: session.user.username,
         })}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2">

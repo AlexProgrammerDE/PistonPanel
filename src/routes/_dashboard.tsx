@@ -15,11 +15,14 @@ import {
 } from '@/generated/pistonpanel/instance';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ErrorComponent } from '@/components/error-component';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
 import { authClient } from '@/lib/auth';
+import { useAuthenticate } from '@daveyplate/better-auth-ui';
+import { getTerminalTheme } from '@/lib/utils';
+import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 
 export const Route = createFileRoute('/_dashboard')({
   beforeLoad: async (props) => {
@@ -84,6 +87,7 @@ export const Route = createFileRoute('/_dashboard')({
       return {
         instanceListQueryOptions,
         clientDataQueryOptions,
+        session,
       };
     } else {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -164,9 +168,12 @@ function InstanceSwitchKeybinds() {
 }
 
 function DashboardLayout() {
+  useAuthenticate();
+
   const { t } = useTranslation('common');
-  const { data: session } = authClient.useSession();
+  const { session } = Route.useRouteContext();
   const loaderData = Route.useLoaderData();
+  const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
   if (!loaderData.success) {
     return <ErrorComponent error={new Error(t('error.connectionFailed'))} />;
   }
@@ -180,7 +187,14 @@ function DashboardLayout() {
         <div className="border-sidebar-primary pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-30 overflow-hidden border-4" />
       )}
       <CreateInstanceProvider>
-        <Outlet />
+        <TerminalThemeContext
+          value={{
+            value: terminalTheme,
+            setter: setTerminalTheme,
+          }}
+        >
+          <Outlet />
+        </TerminalThemeContext>
       </CreateInstanceProvider>
     </TransportContext>
   );

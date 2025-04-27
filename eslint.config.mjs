@@ -10,7 +10,6 @@ export default tseslint.config(
     ignores: [
       'src/routeTree.gen.ts',
       'node_modules',
-      'convex/_generated',
       'src/components/ui/chart.tsx',
     ],
   },
