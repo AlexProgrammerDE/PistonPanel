@@ -2,7 +2,6 @@ import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
 import { createTransport } from '@/lib/web-rpc';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { InstanceState } from '@/generated/pistonpanel/instance';
-import { queryClientInstance } from '@/lib/query';
 import { queryOptions } from '@tanstack/react-query';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { InstanceSidebar } from '@/components/nav/instance-sidebar';
@@ -45,7 +44,7 @@ export const Route = createFileRoute('/_dashboard/instance/$instance')({
       refetchInterval: 3_000,
     });
     props.abortController.signal.addEventListener('abort', () => {
-      void queryClientInstance.cancelQueries({
+      void props.context.queryClient.cancelQueries({
         queryKey: instanceInfoQueryOptions.queryKey,
       });
     });
@@ -54,7 +53,7 @@ export const Route = createFileRoute('/_dashboard/instance/$instance')({
     };
   },
   loader: (props) => {
-    void queryClientInstance.prefetchQuery(
+    void props.context.queryClient.prefetchQuery(
       props.context.instanceInfoQueryOptions,
     );
   },

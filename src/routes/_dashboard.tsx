@@ -19,7 +19,6 @@ import {
   InstanceState,
 } from '@/generated/pistonpanel/instance';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
-import { queryClientInstance } from '@/lib/query';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -60,7 +59,7 @@ export const Route = createFileRoute('/_dashboard')({
         refetchInterval: 3_000,
       });
       props.abortController.signal.addEventListener('abort', () => {
-        void queryClientInstance.cancelQueries({
+        void props.context.queryClient.cancelQueries({
           queryKey: instanceListQueryOptions.queryKey,
         });
       });
@@ -81,7 +80,7 @@ export const Route = createFileRoute('/_dashboard')({
         },
       });
       props.abortController.signal.addEventListener('abort', () => {
-        void queryClientInstance.cancelQueries({
+        void props.context.queryClient.cancelQueries({
           queryKey: clientDataQueryOptions.queryKey,
         });
       });
@@ -120,10 +119,10 @@ export const Route = createFileRoute('/_dashboard')({
     }
 
     try {
-      void queryClientInstance.prefetchQuery(
+      void props.context.queryClient.prefetchQuery(
         props.context.instanceListQueryOptions,
       );
-      void queryClientInstance.prefetchQuery(
+      void props.context.queryClient.prefetchQuery(
         props.context.clientDataQueryOptions,
       );
 

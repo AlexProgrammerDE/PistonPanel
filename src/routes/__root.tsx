@@ -1,5 +1,5 @@
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
@@ -9,16 +9,16 @@ import '../App.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClientInstance } from '@/lib/query';
-import { memo, ReactNode, useEffect, useState } from 'react';
+import { QueryClient } from '@tanstack/react-query';
+import { ReactNode, useEffect, useState } from 'react';
 import { getTerminalTheme } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import { AptabaseProvider, useAptabase } from '@aptabase/react';
 import { AboutProvider } from '@/components/dialog/about-dialog';
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
   head: () => ({
     meta: [
       {
@@ -153,63 +153,35 @@ function PointerReset() {
   return null;
 }
 
-const AppStartedEvent = memo(() => {
-  const { trackEvent } = useAptabase();
-  const [appLoaded, setAppLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!appLoaded) {
-      void trackEvent('app_loaded');
-      setAppLoaded(true);
-    }
-  }, [appLoaded, trackEvent]);
-
-  return null;
-});
-
 function RootComponent() {
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
 
   return (
     <RootDocument>
-      <AptabaseProvider
-        appKey="A-SH-6467566517"
-        options={{
-          apiUrl: 'https://aptabase.pistonmaster.net/api/v0/event',
-          appVersion: APP_VERSION,
-        }}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        <AppStartedEvent />
-        <QueryClientProvider client={queryClientInstance}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+        <TooltipProvider delayDuration={500}>
+          <TerminalThemeContext
+            value={{
+              value: terminalTheme,
+              setter: setTerminalTheme,
+            }}
           >
-            <TooltipProvider delayDuration={500}>
-              <TerminalThemeContext
-                value={{
-                  value: terminalTheme,
-                  setter: setTerminalTheme,
-                }}
-              >
-                <div
-                  vaul-drawer-wrapper=""
-                  className="flex h-dvh w-dvw flex-col"
-                >
-                  <PointerReset />
-                  <AboutProvider>
-                    <Outlet />
-                  </AboutProvider>
-                </div>
-              </TerminalThemeContext>
-              <Toaster richColors />
-            </TooltipProvider>
-          </ThemeProvider>
-          <TailwindIndicator />
-        </QueryClientProvider>
-      </AptabaseProvider>
+            <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col">
+              <PointerReset />
+              <AboutProvider>
+                <Outlet />
+              </AboutProvider>
+            </div>
+          </TerminalThemeContext>
+          <Toaster richColors />
+        </TooltipProvider>
+      </ThemeProvider>
+      <TailwindIndicator />
     </RootDocument>
   );
 }

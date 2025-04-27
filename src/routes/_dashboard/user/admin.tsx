@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { createTransport } from '@/lib/web-rpc';
-import { queryClientInstance } from '@/lib/query';
 import { queryOptions } from '@tanstack/react-query';
 import { UserListResponse } from '@/generated/pistonpanel/user';
 import { UserRole } from '@/generated/pistonpanel/common';
@@ -38,7 +37,7 @@ export const Route = createFileRoute('/_dashboard/user/admin')({
       refetchInterval: 3_000,
     });
     props.abortController.signal.addEventListener('abort', () => {
-      void queryClientInstance.cancelQueries({
+      void props.context.queryClient.cancelQueries({
         queryKey: usersQueryOptions.queryKey,
       });
     });
@@ -47,6 +46,8 @@ export const Route = createFileRoute('/_dashboard/user/admin')({
     };
   },
   loader: (props) => {
-    void queryClientInstance.prefetchQuery(props.context.usersQueryOptions);
+    void props.context.queryClient.prefetchQuery(
+      props.context.usersQueryOptions,
+    );
   },
 });
