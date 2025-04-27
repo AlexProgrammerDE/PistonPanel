@@ -7,6 +7,7 @@ import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';
 import {
   ChangeEmailCard,
+  PasskeysCard,
   ProvidersCard,
   SessionsCard,
   TwoFactorCard,
@@ -68,6 +69,7 @@ function Content() {
         <ChangeEmailCard />
         <SessionsCard />
         <ProvidersCard />
+        <PasskeysCard />
         <TwoFactorCard />
       </div>
     </div>

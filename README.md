@@ -26,3 +26,9 @@ For installing PistonPanel, please refer to the [installation guide](https://pis
 PistonPanel has a lot of dependencies. You'll need pnpm and latest node installed.
 Take a look at the scripts in `package.json` to see how to run a dev env locally.
 You can also refer to the GitHub actions workflows to see how tests are done.
+
+## Generate better-auth schema
+
+```bash
+npx @better-auth/cli@latest generate --output ./src/db/auth-schema.ts
+```
