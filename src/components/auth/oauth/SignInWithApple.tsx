@@ -11,7 +11,7 @@ export function SignInWithApple() {
       type="button"
       onClick={() => void signIn('apple')}
     >
-      <SiApple className="mr-2 h-4 w-4" /> Apple
+      <SiApple /> Apple
     </Button>
   );
 }

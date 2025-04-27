@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { MailIcon } from 'lucide-react';
 
 export function SignInWithEmailCode({
   handleCodeSent,
@@ -32,9 +33,18 @@ export function SignInWithEmailCode({
       }}
     >
       <label htmlFor="email">Email</label>
-      <Input name="email" id="email" className="mb-4" autoComplete="email" />
+      <Input
+        name="email"
+        id="email"
+        className="mb-4"
+        type="email"
+        autoComplete="email"
+        placeholder={'piston@' + window.location.hostname}
+        required
+      />
       {children}
       <Button type="submit" disabled={submitting}>
+        <MailIcon />
         Send code
       </Button>
     </form>

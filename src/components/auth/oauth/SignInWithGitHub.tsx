@@ -11,7 +11,7 @@ export function SignInWithGitHub() {
       type="button"
       onClick={() => void signIn('github')}
     >
-      <SiGithub className="mr-2 h-4 w-4" /> GitHub
+      <SiGithub /> GitHub
     </Button>
   );
 }

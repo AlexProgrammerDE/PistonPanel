@@ -78,7 +78,7 @@
     "back": "Back"
   },
   "footer": {
-    "version": "PistonPanel Client {{version}} - {{environment}}",
+    "version": "PistonPanel {{version}} - {{environment}}",
     "preview": "Looking for preview?",
     "production": "Looking for production?",
     "helpTranslate": "Translate PistonPanel"

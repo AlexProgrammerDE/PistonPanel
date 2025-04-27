@@ -16,6 +16,7 @@ import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimen
 import { ConvexProvider } from 'convex/react';
 import { ConvexQueryClient } from '@convex-dev/react-query';
 import { ConvexAuthProvider } from '@convex-dev/auth/react';
+import { PostHogProvider } from 'posthog-js/react';
 
 const convexQueryClient = new ConvexQueryClient(import.meta.env.CONVEX_URL);
 
@@ -81,7 +82,14 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <PostHogProvider
+        apiKey={import.meta.env.PUBLIC_POSTHOG_KEY}
+        options={{
+          api_host: import.meta.env.PUBLIC_POSTHOG_HOST,
+        }}
+      >
+        <RouterProvider router={router} />
+      </PostHogProvider>
     </StrictMode>,
   );
 }

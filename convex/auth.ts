@@ -17,4 +17,13 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
     }),
     ResendOTP,
   ],
+  callbacks: {
+    createOrUpdateUser: (ctx, args) => {
+      if (args.existingUserId === null) {
+        throw new Error('User not found');
+      }
+
+      return Promise.resolve(args.existingUserId);
+    },
+  },
 });

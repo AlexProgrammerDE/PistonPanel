@@ -25,7 +25,7 @@
   "dialog": {
     "about": {
       "title": "About PistonPanel",
-      "description": "You are running version {{version}} of the PistonPanel client.",
+      "description": "You are running version {{version}} of PistonPanel.",
       "type": "Type",
       "value": "Value",
       "fields": {

@@ -11,7 +11,7 @@ export function SignInWithGoogle() {
       type="button"
       onClick={() => void signIn('google')}
     >
-      <SiGoogle className="mr-2 h-4 w-4" /> Google
+      <SiGoogle /> Google
     </Button>
   );
 }
