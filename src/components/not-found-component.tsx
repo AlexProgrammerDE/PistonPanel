@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { authClient } from '@/lib/auth';
+import { authClient } from '@/lib/auth-client';
 
 export function NotFoundComponent() {
   const { t } = useTranslation('common');
