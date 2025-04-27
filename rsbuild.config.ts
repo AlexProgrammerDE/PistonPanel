@@ -63,6 +63,7 @@ export default defineConfig({
       'import.meta.env.APP_ENVIRONMENT': JSON.stringify(appEnv),
       'import.meta.env.APP_LOCALES': JSON.stringify(locales),
       'import.meta.env.APP_NAMESPACES': JSON.stringify(namespaces),
+      'import.meta.env.CONVEX_URL': JSON.stringify(process.env.CONVEX_URL),
     },
   },
   output: {

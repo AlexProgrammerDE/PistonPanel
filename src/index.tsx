@@ -15,10 +15,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
 import { ConvexProvider } from 'convex/react';
 import { ConvexQueryClient } from '@convex-dev/react-query';
+import { ConvexAuthProvider } from '@convex-dev/auth/react';
 
-const convexQueryClient = new ConvexQueryClient(
-  import.meta.env.PUBLIC_CONVEX_URL,
-);
+const convexQueryClient = new ConvexQueryClient(import.meta.env.CONVEX_URL);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,9 +57,11 @@ const router = createRouter({
   Wrap: ({ children }) => {
     return (
       <ConvexProvider client={convexQueryClient.convexClient}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <ConvexAuthProvider client={convexQueryClient.convexClient}>
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        </ConvexAuthProvider>
       </ConvexProvider>
     );
   },

@@ -5,7 +5,7 @@ interface ImportMetaEnv {
   readonly APP_ENVIRONMENT: 'production' | 'development' | 'preview';
   readonly APP_LOCALES: string[];
   readonly APP_NAMESPACES: string[];
-  readonly PUBLIC_CONVEX_URL: string;
+  readonly CONVEX_URL: string;
 }
 
 interface ImportMeta {
