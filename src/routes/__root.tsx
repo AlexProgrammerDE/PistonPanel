@@ -19,8 +19,6 @@ import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
 import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
 import { authClient } from '@/lib/auth';
 import { PostHogProvider } from 'posthog-js/react';
-import { useSSR } from 'react-i18next';
-import { i18nStore } from '@/lib/i18n';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;

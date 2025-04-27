@@ -9,6 +9,7 @@ import { ErrorComponent } from '@/components/error-component';
 import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
 import { routerWithQueryClient } from '@tanstack/react-router-with-query';
+import '@/lib/i18n';
 
 export function createRouter() {
   const queryClient = new QueryClient({
