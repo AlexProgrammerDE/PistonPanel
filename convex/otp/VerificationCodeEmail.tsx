@@ -21,8 +21,7 @@ export function VerificationCodeEmail({
         <Head />
         <Container className="container px-20 font-sans">
           <Heading className="mb-4 text-xl font-bold">
-            {/* TODO: Update with your app name */}
-            Sign in to My App
+            Sign in to {process.env.APP_NAME ?? 'PistonPanel'}
           </Heading>
           <Text className="text-sm">
             Please enter the following code on the sign in page.
