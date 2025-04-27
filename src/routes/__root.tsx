@@ -19,7 +19,6 @@ import { AptabaseProvider, useAptabase } from '@aptabase/react';
 import { AboutProvider } from '@/components/dialog/about-dialog';
 
 export const Route = createRootRoute({
-  ssr: false,
   head: () => ({
     meta: [
       {
