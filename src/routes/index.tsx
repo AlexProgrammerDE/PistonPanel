@@ -1,6 +1,5 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import { useCallback } from 'react';
 import { HeartHandshakeIcon } from 'lucide-react';
 import { getLanguageName, languageEmoji } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -16,42 +15,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { setAuthentication } from '@/lib/web-rpc';
 import { ExternalLink } from '@/components/external-link';
-import { SignInFormEmailCode } from '@/components/auth/SignInFormEmailCode';
+import { AuthCard } from '@daveyplate/better-auth-ui';
 
 export const Route = createFileRoute('/')({
   component: Index,
 });
 
-type TargetRedirectFunction = () => Promise<void>;
-type LoginFunction = (token: string) => Promise<void>;
-
 function Index() {
   const { t, i18n } = useTranslation('login');
-  const navigate = useNavigate();
   const searchParams: Record<string, string> = Route.useSearch();
-
-  const targetRedirect: TargetRedirectFunction = useCallback(async () => {
-    await navigate({
-      to: searchParams.redirect ?? '/user',
-      replace: true,
-    });
-  }, [navigate, searchParams.redirect]);
-
-  const redirectWithCredentials: LoginFunction = useCallback(
-    async (token: string) => {
-      setAuthentication(token.trim());
-
-      await targetRedirect();
-    },
-    [targetRedirect],
-  );
 
   return (
     <ScrollArea className="bg-muted h-dvh w-full px-4">
       <main className="flex min-h-dvh w-full flex-col">
-        <div className="m-auto flex w-full max-w-[450px] flex-col gap-6">
+        <div className="m-auto flex w-full max-w-[450px] flex-col items-center gap-6">
           <div className="flex flex-row items-center justify-center gap-2 text-center">
             <img
               className="size-8"
@@ -62,7 +40,10 @@ function Index() {
             />
             <p className="font-medium tracking-wide">{t('header.title')}</p>
           </div>
-          <SignInFormEmailCode />
+          <AuthCard
+            view="signIn"
+            redirectTo={searchParams.redirect ?? '/user'}
+          />
           <div>
             <div className="text-muted-foreground text-center text-xs text-balance">
               <p className="mb-1">

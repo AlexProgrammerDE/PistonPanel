@@ -6,12 +6,7 @@ import {
   useNavigate,
 } from '@tanstack/react-router';
 import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
-import {
-  createTransport,
-  isAuthenticated,
-  isImpersonating,
-  logOut,
-} from '@/lib/web-rpc';
+import { createTransport } from '@/lib/web-rpc';
 import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
 import { ClientDataResponse } from '@/generated/pistonpanel/client';
 import {
@@ -24,10 +19,12 @@ import { Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ErrorComponent } from '@/components/error-component';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
+import { authClient } from '@/lib/auth';
 
 export const Route = createFileRoute('/_dashboard')({
-  beforeLoad: (props) => {
-    if (isAuthenticated()) {
+  beforeLoad: async (props) => {
+    const { data: session } = await authClient.getSession();
+    if (session) {
       const instanceListQueryOptions = queryOptions({
         queryKey: ['instance-list'],
         queryFn: async (props): Promise<InstanceListResponse> => {
@@ -89,7 +86,6 @@ export const Route = createFileRoute('/_dashboard')({
         clientDataQueryOptions,
       };
     } else {
-      logOut();
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
         to: '/',
@@ -169,6 +165,7 @@ function InstanceSwitchKeybinds() {
 
 function DashboardLayout() {
   const { t } = useTranslation('common');
+  const { data: session } = authClient.useSession();
   const loaderData = Route.useLoaderData();
   if (!loaderData.success) {
     return <ErrorComponent error={new Error(t('error.connectionFailed'))} />;
@@ -179,7 +176,7 @@ function DashboardLayout() {
       <Suspense>
         <InstanceSwitchKeybinds />
       </Suspense>
-      {isImpersonating() && (
+      {!!session?.session?.impersonatedBy && (
         <div className="border-sidebar-primary pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-30 overflow-hidden border-4" />
       )}
       <CreateInstanceProvider>

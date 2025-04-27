@@ -35,7 +35,12 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Suspense, use } from 'react';
-import { getLanguageName, languageEmoji, setTerminalTheme } from '@/lib/utils';
+import {
+  getLanguageName,
+  languageEmoji,
+  runAsync,
+  setTerminalTheme,
+} from '@/lib/utils';
 import { toast } from 'sonner';
 import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { flavorEntries } from '@catppuccin/palette';
@@ -43,11 +48,11 @@ import { useTheme } from 'next-themes';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 import { AboutContext } from '@/components/dialog/about-dialog';
 import { useTranslation } from 'react-i18next';
-import { isImpersonating, logOut, stopImpersonation } from '@/lib/web-rpc';
 import { UserAvatar } from '@/components/user-avatar';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ExternalLink } from '@/components/external-link';
+import { authClient } from '@/lib/auth';
 
 function SidebarAccountButton() {
   const clientDataQueryOptions = useRouteContext({
@@ -137,6 +142,7 @@ export function NavAccount() {
   const { openAbout } = use(AboutContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
+  const { data: session } = authClient.useSession();
 
   return (
     <SidebarMenu>
@@ -253,14 +259,21 @@ export function NavAccount() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {isImpersonating() && (
+              {!session?.session?.impersonatedBy && (
                 <DropdownMenuItem
                   onClick={() => {
-                    stopImpersonation();
-                    void navigate({
-                      to: '/user',
-                      replace: true,
-                      reloadDocument: true,
+                    runAsync(async () => {
+                      await authClient.admin.stopImpersonating({
+                        fetchOptions: {
+                          onSuccess: async () => {
+                            await navigate({
+                              to: '/user',
+                              replace: true,
+                              reloadDocument: true,
+                            });
+                          },
+                        },
+                      });
                     });
                   }}
                 >
@@ -271,10 +284,15 @@ export function NavAccount() {
               <DropdownMenuItem
                 onClick={() => {
                   const disconnect = async () => {
-                    logOut();
-                    await navigate({
-                      to: '/',
-                      replace: true,
+                    await authClient.signOut({
+                      fetchOptions: {
+                        onSuccess: async () => {
+                          await navigate({
+                            to: '/',
+                            replace: true,
+                          });
+                        },
+                      },
                     });
                   };
                   toast.promise(disconnect(), {

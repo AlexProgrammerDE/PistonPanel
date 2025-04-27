@@ -45,14 +45,6 @@ export function NavUserOptions() {
       createInstance: true,
     },
     {
-      title: t('userSidebar.access'),
-      icon: ZapIcon,
-      linkProps: {
-        to: '/user/access',
-        params: {},
-      },
-    },
-    {
       title: t('userSidebar.settings'),
       icon: SettingsIcon,
       linkProps: {

@@ -4,7 +4,9 @@ import {
   createHashHistory,
   createRouter,
   deepEqual,
+  Link,
   RouterProvider,
+  useRouter,
 } from '@tanstack/react-router';
 import '@/lib/i18n';
 import { routeTree } from './routeTree.gen';
@@ -13,18 +15,14 @@ import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
-import { ConvexProvider } from 'convex/react';
-import { ConvexQueryClient } from '@convex-dev/react-query';
-import { ConvexAuthProvider } from '@convex-dev/auth/react';
 import { PostHogProvider } from 'posthog-js/react';
-
-const convexQueryClient = new ConvexQueryClient(import.meta.env.CONVEX_URL);
+import { authClient } from '@/lib/auth';
+import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
+import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      queryKeyHashFn: convexQueryClient.hashFn(),
-      queryFn: convexQueryClient.queryFn(),
       // Retries on an initial load failure
       retry: 5,
       structuralSharing: (prev: unknown, next: unknown) =>
@@ -32,8 +30,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-convexQueryClient.connect(queryClient);
 
 broadcastQueryClient({
   queryClient,
@@ -56,14 +52,29 @@ const router = createRouter({
   defaultStructuralSharing: true,
   context: { queryClient },
   Wrap: ({ children }) => {
+    const router = useRouter();
+
     return (
-      <ConvexProvider client={convexQueryClient.convexClient}>
-        <ConvexAuthProvider client={convexQueryClient.convexClient}>
-          <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthQueryProvider>
+          <AuthUIProviderTanstack
+            authClient={authClient}
+            navigate={(href) => void router.navigate({ href })}
+            replace={(href) => void router.navigate({ href, replace: true })}
+            onSessionChange={() => void router.invalidate()}
+            providers={['google', 'microsoft', 'apple']}
+            magicLink
+            passkey
+            credentials={false}
+            signUp={false}
+            twoFactor={['otp', 'totp']}
+            settingsURL="/user/settings"
+            Link={({ href, ...props }) => <Link to={href} {...props} />}
+          >
             {children}
-          </QueryClientProvider>
-        </ConvexAuthProvider>
-      </ConvexProvider>
+          </AuthUIProviderTanstack>
+        </AuthQueryProvider>
+      </QueryClientProvider>
     );
   },
 });

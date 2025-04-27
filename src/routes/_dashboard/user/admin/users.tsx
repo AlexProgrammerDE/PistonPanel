@@ -25,7 +25,6 @@ import {
   SelectAllHeader,
   SelectRowHeader,
 } from '@/components/data-table-selects';
-import { startImpersonation } from '@/lib/web-rpc';
 import { UserListResponse_User } from '@/generated/pistonpanel/user';
 import { UserServiceClient } from '@/generated/pistonpanel/user.client';
 import UserPageLayout from '@/components/nav/user-page-layout';
@@ -34,6 +33,7 @@ import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
 import { ROOT_USER_ID, runAsync, timestampToDate } from '@/lib/utils';
 import { SFTimeAgo } from '@/components/sf-timeago';
 import { CopyInfoButton } from '@/components/info-buttons';
+import { authClient } from '@/lib/auth';
 
 export const Route = createFileRoute('/_dashboard/user/admin/users')({
   component: Users,
@@ -148,15 +148,17 @@ function ImpersonateUserButton(props: { row: Row<UserListResponse_User> }) {
               return;
             }
 
-            const userService = new UserServiceClient(transport);
-            const token = await userService.generateUserAPIToken({
-              id: props.row.original.id,
-            });
-            startImpersonation(token.response.token);
-            await navigate({
-              to: '/user',
-              replace: true,
-              reloadDocument: true,
+            await authClient.admin.impersonateUser({
+              userId: props.row.original.id,
+              fetchOptions: {
+                onSuccess: async () => {
+                  await navigate({
+                    to: '/user',
+                    replace: true,
+                    reloadDocument: true,
+                  });
+                },
+              },
             });
           });
         }}

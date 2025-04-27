@@ -9,7 +9,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { runAsync } from '@/lib/utils';
-import { logOut } from '@/lib/web-rpc';
 import {
   Card,
   CardContent,
@@ -18,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { authClient } from '@/lib/auth';
 
 export function ErrorComponent({ error }: { error: Error }) {
   const { t } = useTranslation('common');
@@ -58,10 +58,15 @@ export function ErrorComponent({ error }: { error: Error }) {
             className="w-fit"
             onClick={() =>
               runAsync(async () => {
-                logOut();
-                await navigate({
-                  to: '/',
-                  replace: true,
+                await authClient.signOut({
+                  fetchOptions: {
+                    onSuccess: async () => {
+                      await navigate({
+                        to: '/',
+                        replace: true,
+                      });
+                    },
+                  },
                 });
               })
             }

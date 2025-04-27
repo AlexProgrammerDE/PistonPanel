@@ -25,6 +25,14 @@ import UserPageLayout from '@/components/nav/user-page-layout';
 import { ExternalLink } from '@/components/external-link';
 import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';
+import {
+  ChangeEmailCard,
+  DeleteAccountCard,
+  ProvidersCard,
+  SessionsCard,
+  TwoFactorCard,
+  UpdateUsernameCard,
+} from '@daveyplate/better-auth-ui';
 
 export const Route = createFileRoute('/_dashboard/user/settings')({
   component: UserSettings,
@@ -110,49 +118,11 @@ function Content() {
             </div>
           </Card>
         </div>
-        <GenericEntryComponent
-          entry={{
-            oneofKind: 'string',
-            string: {
-              uiName: 'Username',
-              description:
-                'Your username is used to identify you in the UI and in logs.',
-              def: '',
-              inputType: StringSetting_InputType.TEXT,
-              placeholder: 'username',
-              minLength: 3,
-              maxLength: 32,
-              pattern: '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?',
-              disabled: !hasGlobalPermission(
-                clientInfo,
-                GlobalPermission.UPDATE_SELF_USERNAME,
-              ),
-            },
-          }}
-          value={clientInfo.username}
-          changeCallback={setUsernameMutation.mutate}
-        />
-        <GenericEntryComponent
-          entry={{
-            oneofKind: 'string',
-            string: {
-              uiName: 'Email',
-              description: 'Your email is used for login and notifications.',
-              def: '',
-              inputType: StringSetting_InputType.EMAIL,
-              placeholder: 'root@pistonpanel.com',
-              minLength: 3,
-              maxLength: 255,
-              pattern: '.*',
-              disabled: !hasGlobalPermission(
-                clientInfo,
-                GlobalPermission.UPDATE_SELF_EMAIL,
-              ),
-            },
-          }}
-          value={clientInfo.email}
-          changeCallback={setEmailMutation.mutate}
-        />
+        <UpdateUsernameCard />
+        <ChangeEmailCard />
+        <SessionsCard />
+        <ProvidersCard />
+        <TwoFactorCard />
       </div>
     </div>
   );
