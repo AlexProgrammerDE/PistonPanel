@@ -11,8 +11,7 @@ import { routeTree } from './routeTree.gen';
 import { ErrorComponent } from '@/components/error-component';
 import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
-import { routerWithQueryClient } from '@tanstack/react-router-with-query';
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
 
 const hashHistory = createHashHistory();
@@ -34,24 +33,26 @@ broadcastQueryClient({
 });
 
 // noinspection JSUnusedGlobalSymbols
-const router = routerWithQueryClient(
-  createRouter({
-    routeTree,
-    history: hashHistory,
-    defaultPreload: 'intent',
-    // Since we're using React Query, we don't want loader calls to ever be stale
-    // This will ensure that the loader is always called when the route is preloaded or visited
-    defaultPreloadStaleTime: 0,
-    scrollRestoration: true,
-    scrollRestorationBehavior: 'auto',
-    defaultErrorComponent: ErrorComponent,
-    defaultPendingComponent: LoadingComponent,
-    defaultNotFoundComponent: NotFoundComponent,
-    defaultStructuralSharing: true,
-    context: { queryClient },
-  }),
-  queryClient,
-);
+const router = createRouter({
+  routeTree,
+  history: hashHistory,
+  defaultPreload: 'intent',
+  // Since we're using React Query, we don't want loader calls to ever be stale
+  // This will ensure that the loader is always called when the route is preloaded or visited
+  defaultPreloadStaleTime: 0,
+  scrollRestoration: true,
+  scrollRestorationBehavior: 'auto',
+  defaultErrorComponent: ErrorComponent,
+  defaultPendingComponent: LoadingComponent,
+  defaultNotFoundComponent: NotFoundComponent,
+  defaultStructuralSharing: true,
+  context: { queryClient },
+  Wrap: ({ children }) => {
+    return (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+  },
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
