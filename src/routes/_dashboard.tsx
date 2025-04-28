@@ -19,7 +19,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ErrorComponent } from '@/components/error-component';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/auth/auth-client';
 import { useAuthenticate } from '@daveyplate/better-auth-ui';
 import { getTerminalTheme } from '@/lib/utils';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';

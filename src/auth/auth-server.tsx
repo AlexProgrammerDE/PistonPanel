@@ -12,17 +12,19 @@ import {
 } from 'better-auth/plugins';
 import { passkey } from 'better-auth/plugins/passkey';
 import { reactStartCookies } from 'better-auth/react-start';
-import { db } from '@/server/db';
+import { db } from '@/db';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { EmailTemplate } from '@daveyplate/better-auth-ui';
-import { sendEmail } from '@/server/email/backend';
-import * as authSchema from '@/server/db/auth-schema';
-import * as schema from '@/server/db/schema';
+import { sendEmail } from '@/email/backend';
+import * as authSchema from '@/db/auth-schema';
+import * as schema from '@/db/schema';
+import { globalAc, globalAdmin, globalUser } from '@/auth/permissions';
 
 const siteName = 'PistonPanel';
 const siteBaseUrl = 'https://pistonpanel.com';
 const disableSignUp = true;
 const emailAndPasswordEnabled = false;
+
 export const auth = betterAuth({
   appName: siteName,
   database: drizzleAdapter(db, {
@@ -32,6 +34,11 @@ export const auth = betterAuth({
       ...schema,
     },
   }),
+  account: {
+    accountLinking: {
+      enabled: true,
+    },
+  },
   socialProviders: {},
   emailAndPassword: {
     enabled: emailAndPasswordEnabled,
@@ -255,7 +262,13 @@ export const auth = betterAuth({
       },
     }),
     passkey(),
-    admin(),
+    admin({
+      ac: globalAc,
+      roles: {
+        admin: globalAdmin,
+        user: globalUser,
+      },
+    }),
     apiKey(),
     organization({
       allowUserToCreateOrganization: true,

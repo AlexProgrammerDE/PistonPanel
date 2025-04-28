@@ -33,7 +33,7 @@ import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
 import { ROOT_USER_ID, runAsync, timestampToDate } from '@/lib/utils';
 import { SFTimeAgo } from '@/components/sf-timeago';
 import { CopyInfoButton } from '@/components/info-buttons';
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/auth/auth-client';
 
 export const Route = createFileRoute('/_dashboard/user/admin/users')({
   component: Users,

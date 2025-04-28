@@ -9,6 +9,15 @@ import {
   usernameClient,
 } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
+import {
+  globalAc,
+  globalAdmin,
+  globalUser,
+  orgAc,
+  orgAdmin,
+  orgMember,
+  orgOwner,
+} from '@/auth/permissions';
 
 export const authClient = createAuthClient({
   plugins: [
@@ -16,9 +25,22 @@ export const authClient = createAuthClient({
     usernameClient(),
     emailOTPClient(),
     passkeyClient(),
-    adminClient(),
+    adminClient({
+      ac: globalAc,
+      roles: {
+        admin: globalAdmin,
+        user: globalUser,
+      },
+    }),
     apiKeyClient(),
-    organizationClient(),
+    organizationClient({
+      ac: orgAc,
+      roles: {
+        owner: orgOwner,
+        admin: orgAdmin,
+        member: orgMember,
+      },
+    }),
     oneTimeTokenClient(),
   ],
 });

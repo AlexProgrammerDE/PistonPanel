@@ -17,7 +17,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { AboutProvider } from '@/components/dialog/about-dialog';
 import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
 import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/auth/auth-client';
 import { PostHogProvider } from 'posthog-js/react';
 
 export const Route = createRootRouteWithContext<{

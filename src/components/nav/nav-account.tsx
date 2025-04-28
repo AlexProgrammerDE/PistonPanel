@@ -49,10 +49,9 @@ import { TerminalThemeContext } from '@/components/providers/terminal-theme-cont
 import { AboutContext } from '@/components/dialog/about-dialog';
 import { useTranslation } from 'react-i18next';
 import { UserAvatar } from '@/components/user-avatar';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ExternalLink } from '@/components/external-link';
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/auth/auth-client';
 import { Route } from '@/routes/_dashboard';
 
 function SidebarAccountButton() {

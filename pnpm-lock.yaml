@@ -7603,7 +7603,7 @@ snapshots:
   '@daveyplate/better-auth-ui@1.5.5(fabc7c6053c70ae2ef7d73d19fb67379)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.74.7)(@tanstack/react-query@5.74.7(react@19.1.0))(better-auth@1.2.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.74.7)(@tanstack/react-query@5.74.7(react@19.1.0))(better-authServer@1.2.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.0.1(react-hook-form@7.56.1(react@19.1.0))
       '@instantdb/react': 0.18.9(react@19.1.0)
       '@radix-ui/react-avatar': 1.1.7(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
