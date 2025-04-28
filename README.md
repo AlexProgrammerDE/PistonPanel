@@ -30,5 +30,5 @@ You can also refer to the GitHub actions workflows to see how tests are done.
 ## Generate better-auth schema
 
 ```bash
-npx @better-auth/cli@latest generate --output ./src/db/auth-schema.ts
+npx @better-auth/cli@latest generate --config ./src/server/auth.tsx  --output ./src/server/db/auth-schema.ts
 ```
