@@ -20,6 +20,7 @@ import { sendEmail } from '@/server/email/backend';
 const siteName = 'PistonPanel';
 const siteBaseUrl = 'https://pistonpanel.com';
 const disableSignUp = true;
+const emailAndPasswordEnabled = false;
 export const auth = betterAuth({
   appName: siteName,
   database: drizzleAdapter(db, {
@@ -27,8 +28,9 @@ export const auth = betterAuth({
   }),
   socialProviders: {},
   emailAndPassword: {
-    enabled: false,
+    enabled: emailAndPasswordEnabled,
     disableSignUp,
+    requireEmailVerification: true,
     async sendResetPassword({ user, url }) {
       const name = user.name || user.email.split('@')[0];
       await sendEmail(
@@ -53,6 +55,7 @@ export const auth = betterAuth({
         }),
       );
     },
+    autoSignIn: true,
   },
   emailVerification: {
     async sendVerificationEmail({ user, url }) {
@@ -186,6 +189,7 @@ export const auth = betterAuth({
     }),
     emailOTP({
       disableSignUp,
+      sendVerificationOnSignUp: true,
       async sendVerificationOTP({ email, otp, type }) {
         if (type === 'sign-in') {
           await sendEmail(
@@ -248,6 +252,7 @@ export const auth = betterAuth({
     admin(),
     apiKey(),
     organization({
+      allowUserToCreateOrganization: true,
       cancelPendingInvitationsOnReInvite: true,
       async sendInvitationEmail({ id, role, email, inviter, organization }) {
         await sendEmail(
