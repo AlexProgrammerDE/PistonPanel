@@ -169,9 +169,15 @@ function RootComponent() {
           replace={(href) => void router.navigate({ href, replace: true })}
           providers={['google', 'microsoft', 'apple']}
           magicLink
+          emailVerification
+          changeEmail
           passkey
+          username
+          deleteAccountVerification
+          deleteUser
           credentials={false}
           signUp={false}
+          nameRequired
           twoFactor={['otp', 'totp']}
           settingsURL="/user/settings"
           Link={({ href, ...props }) => <Link to={href} {...props} />}

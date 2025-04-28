@@ -5,15 +5,7 @@ import UserPageLayout from '@/components/nav/user-page-layout';
 import { ExternalLink } from '@/components/external-link';
 import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';
-import {
-  ChangeEmailCard,
-  DeleteAccountCard,
-  PasskeysCard,
-  ProvidersCard,
-  SessionsCard,
-  TwoFactorCard,
-  UpdateUsernameCard,
-} from '@daveyplate/better-auth-ui';
+import { SettingsCards } from '@daveyplate/better-auth-ui';
 
 export const Route = createFileRoute('/_dashboard/user/settings')({
   component: UserSettings,
@@ -66,13 +58,7 @@ function Content() {
             </div>
           </Card>
         </div>
-        <UpdateUsernameCard />
-        <ChangeEmailCard />
-        <SessionsCard />
-        <ProvidersCard />
-        <PasskeysCard />
-        <TwoFactorCard />
-        <DeleteAccountCard />
+        <SettingsCards />
       </div>
     </div>
   );
