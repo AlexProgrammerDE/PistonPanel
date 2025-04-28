@@ -32,3 +32,9 @@ You can also refer to the GitHub actions workflows to see how tests are done.
 ```bash
 npx @better-auth/cli@latest generate --config ./src/server/auth.tsx  --output ./src/server/db/auth-schema.ts
 ```
+
+## Local Postgres
+
+```bash
+docker run --name dev-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+```

@@ -16,6 +16,8 @@ import { db } from '@/server/db';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { EmailTemplate } from '@daveyplate/better-auth-ui';
 import { sendEmail } from '@/server/email/backend';
+import * as authSchema from '@/server/db/auth-schema';
+import * as schema from '@/server/db/schema';
 
 const siteName = 'PistonPanel';
 const siteBaseUrl = 'https://pistonpanel.com';
@@ -25,6 +27,10 @@ export const auth = betterAuth({
   appName: siteName,
   database: drizzleAdapter(db, {
     provider: 'pg',
+    schema: {
+      ...authSchema,
+      ...schema,
+    },
   }),
   socialProviders: {},
   emailAndPassword: {
