@@ -24,10 +24,6 @@ Unique features of PistonPanel:
 - Auth - With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
 - Fully customizable - If you know React and Typescript, you can modify the panel code to your liking.
 
-## Installation
-
-For installing PistonPanel, please refer to the [installation guide](https://pistonpanel.com/docs/installation).
-
 ## Building
 
 PistonPanel has a lot of dependencies. You'll need pnpm and latest node installed.
