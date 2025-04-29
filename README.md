@@ -22,7 +22,7 @@ Unique features of PistonPanel:
 - Organisations - Manage multiple servers in one place. Invite members to your organisation to collaborate.
 - Kubernetes - While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node features like no other panel can.
 - Auth - With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
-- Fully customnizable - If you know React and Typescript, you can modify the panel code to your liking.
+- Fully customizable - If you know React and Typescript, you can modify the panel code to your liking.
 
 ## Installation
 
