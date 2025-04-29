@@ -1,14 +1,10 @@
-import { TransportContext } from '@/components/providers/transport-context';
 import {
   createFileRoute,
   Outlet,
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 import { createTransport } from '@/lib/web-rpc';
-import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
-import { ClientDataResponse } from '@/generated/pistonpanel/client';
 import {
   InstanceListResponse,
   InstanceState,
@@ -16,8 +12,6 @@ import {
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ErrorComponent } from '@/components/error-component';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
 import { authClient } from '@/auth/auth-client';
 import { useAuthenticate } from '@daveyplate/better-auth-ui';
@@ -65,18 +59,12 @@ export const Route = createFileRoute('/_dashboard')({
       });
       const clientDataQueryOptions = queryOptions({
         queryKey: ['client-data'],
-        queryFn: async (props): Promise<ClientDataResponse> => {
-          const transport = createTransport();
-
-          const clientService = new ClientServiceClient(transport);
-          const result = await clientService.getClientData(
-            {},
-            {
-              abort: props.signal,
+        queryFn: async () => {
+          return await authClient.getSession({
+            fetchOptions: {
+              throw: true,
             },
-          );
-
-          return result.response;
+          });
         },
       });
       props.abortController.signal.addEventListener('abort', () => {
@@ -87,7 +75,6 @@ export const Route = createFileRoute('/_dashboard')({
       return {
         instanceListQueryOptions,
         clientDataQueryOptions,
-        session,
       };
     } else {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
@@ -99,47 +86,7 @@ export const Route = createFileRoute('/_dashboard')({
       });
     }
   },
-  loader: (
-    props,
-  ):
-    | {
-        success: true;
-        transport: GrpcWebFetchTransport | null;
-      }
-    | {
-        success: false;
-        connectionError: object;
-      } => {
-    const transport = createTransport();
-    if (transport === null) {
-      return {
-        success: true,
-        transport,
-      };
-    }
-
-    try {
-      void props.context.queryClient.prefetchQuery(
-        props.context.instanceListQueryOptions,
-      );
-      void props.context.queryClient.prefetchQuery(
-        props.context.clientDataQueryOptions,
-      );
-
-      return {
-        success: true,
-        transport,
-      };
-    } catch (e) {
-      return {
-        success: false,
-        connectionError: e as object,
-      };
-    }
-  },
   component: DashboardLayout,
-  // Ensure we show the pending component when needed
-  wrapInSuspense: true,
 });
 
 function InstanceSwitchKeybinds() {
@@ -170,20 +117,16 @@ function InstanceSwitchKeybinds() {
 function DashboardLayout() {
   useAuthenticate();
 
-  const { t } = useTranslation('common');
-  const { session } = Route.useRouteContext();
-  const loaderData = Route.useLoaderData();
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
-  if (!loaderData.success) {
-    return <ErrorComponent error={new Error(t('error.connectionFailed'))} />;
-  }
 
   return (
-    <TransportContext value={loaderData.transport}>
+    <>
       <Suspense>
         <InstanceSwitchKeybinds />
       </Suspense>
-      {!!session?.session?.impersonatedBy && (
+      {session.session.impersonatedBy && (
         <div className="border-sidebar-primary pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-30 overflow-hidden border-4" />
       )}
       <CreateInstanceProvider>
@@ -196,6 +139,6 @@ function DashboardLayout() {
           <Outlet />
         </TerminalThemeContext>
       </CreateInstanceProvider>
-    </TransportContext>
+    </>
   );
 }

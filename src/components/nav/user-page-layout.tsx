@@ -17,12 +17,14 @@ import { ErrorComponent } from '@/components/error-component';
 import { ExternalLink } from '@/components/external-link';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 function UserCrumb() {
-  const session = useRouteContext({
+  const clientDataQueryOptions = useRouteContext({
     from: '/_dashboard',
-    select: (context) => context.session,
+    select: (context) => context.clientDataQueryOptions,
   });
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
   return session.user.username;
 }
 

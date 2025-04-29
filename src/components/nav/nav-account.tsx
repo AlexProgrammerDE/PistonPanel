@@ -42,7 +42,7 @@ import {
   setTerminalTheme,
 } from '@/lib/utils';
 import { toast } from 'sonner';
-import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { flavorEntries } from '@catppuccin/palette';
 import { useTheme } from 'next-themes';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
@@ -53,9 +53,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ExternalLink } from '@/components/external-link';
 import { authClient } from '@/auth/auth-client';
 import { Route } from '@/routes/_dashboard';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 function SidebarAccountButton() {
-  const { session } = Route.useRouteContext();
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <DropdownMenuTrigger asChild>
@@ -100,7 +102,8 @@ function SidebarAccountButtonSkeleton() {
 }
 
 function DropdownAccountHeader() {
-  const { session } = Route.useRouteContext();
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <div className="flex items-center gap-2 px-1 py-1.5">
@@ -136,7 +139,8 @@ export function NavAccount() {
   const { openAbout } = use(AboutContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
-  const { session } = Route.useRouteContext();
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <SidebarMenu>
@@ -253,7 +257,7 @@ export function NavAccount() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {!session?.session?.impersonatedBy && (
+              {session.session.impersonatedBy && (
                 <DropdownMenuItem
                   onClick={() => {
                     runAsync(async () => {

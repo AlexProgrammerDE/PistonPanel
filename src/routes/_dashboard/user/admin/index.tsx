@@ -251,8 +251,12 @@ function OverviewPage() {
 
 function Content() {
   const { t } = useTranslation('common');
-  const { usersQueryOptions, instanceListQueryOptions, session } =
-    Route.useRouteContext();
+  const {
+    usersQueryOptions,
+    instanceListQueryOptions,
+    clientDataQueryOptions,
+  } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
   const { data: userList } = useSuspenseQuery(usersQueryOptions);
   const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
 

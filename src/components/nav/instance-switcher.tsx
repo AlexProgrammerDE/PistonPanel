@@ -40,6 +40,7 @@ import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
+import { authClient } from '@/auth/auth-client';
 
 function SidebarInstanceButton() {
   const { i18n } = useTranslation('common');
