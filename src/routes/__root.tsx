@@ -115,11 +115,28 @@ export const Route = createRootRouteWithContext<{
         name: 'twitter:image:alt',
         content: 'PistonPanel Logo',
       },
+    ],
+    links: [
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
       {
         rel: 'icon',
-        href: '/favicon.ico',
-        type: 'image/x-icon',
-        sizes: '256x256',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/icons/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/icons/favicon-16x16.png',
+      },
+      {
+        rel: 'manifest',
+        href: '/manifest.json',
       },
     ],
   }),
