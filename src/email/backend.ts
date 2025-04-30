@@ -8,7 +8,7 @@ export async function sendEmail(
 ) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
-    from: process.env.EMAIL_FROM!,
+    from: 'PistonPanel <system@transactional.pistonpanel.com>',
     to,
     subject,
     react: content,

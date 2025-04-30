@@ -18,11 +18,6 @@ import {
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { Trans, useTranslation } from 'react-i18next';
 import { AppUser } from '@/auth/auth-client';
-import {
-  clientDataQueryOptions,
-  instanceListQueryOptions,
-  usersQueryOptions,
-} from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/_user/admin/')({
   component: OverviewPage,
@@ -255,9 +250,14 @@ function OverviewPage() {
 
 function Content() {
   const { t } = useTranslation('common');
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
-  const { data: userList } = useSuspenseQuery(usersQueryOptions());
-  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions());
+  const {
+    usersQueryOptions,
+    instanceListQueryOptions,
+    clientDataQueryOptions,
+  } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+  const { data: userList } = useSuspenseQuery(usersQueryOptions);
+  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
 
   return (
     <div className="flex h-full w-full grow flex-col gap-2 pl-2">

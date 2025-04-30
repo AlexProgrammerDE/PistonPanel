@@ -50,33 +50,3 @@ docker run --name dev-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d pos
 ```bash
 docker start dev-postgres
 ```
-
-## Drizzle
-
-https://orm.drizzle.team/docs/kit-overview
-
-### Create migration
-
-```bash
-pnpm drizzle-kit generate
-```
-
-### Run migrations
-
-```bash
-pnpm drizzle-kit migrate
-```
-
-### Push schema to db
-
-```bash
-pnpm drizzle-kit push
-```
-
-### Open Studio
-
-URL: https://local.drizzle.studio
-
-```bash
-pnpm drizzle-kit studio
-```

@@ -52,11 +52,12 @@ import { UserAvatar } from '@/components/user-avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ExternalLink } from '@/components/external-link';
 import { authClient } from '@/auth/auth-client';
+import { Route } from '@/routes/_dashboard';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { clientDataQueryOptions } from '@/lib/queries';
 
 function SidebarAccountButton() {
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <DropdownMenuTrigger asChild>
@@ -101,7 +102,8 @@ function SidebarAccountButtonSkeleton() {
 }
 
 function DropdownAccountHeader() {
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <div className="flex items-center gap-2 px-1 py-1.5">
@@ -137,7 +139,8 @@ export function NavAccount() {
   const { openAbout } = use(AboutContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <SidebarMenu>
@@ -283,10 +286,7 @@ export function NavAccount() {
                       fetchOptions: {
                         onSuccess: async () => {
                           await navigate({
-                            to: '/auth/$pathname',
-                            params: {
-                              pathname: 'sign-in',
-                            },
+                            to: '/',
                             replace: true,
                           });
                         },

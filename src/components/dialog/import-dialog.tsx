@@ -19,9 +19,8 @@ import { TransportContext } from '@/components/providers/transport-context';
 import { DownloadServiceClient } from '@/generated/pistonpanel/download.client';
 import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useTranslation } from 'react-i18next';
-import { useParams } from '@tanstack/react-router';
+import { useRouteContext } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { instanceInfoQueryOptions } from '@/lib/queries';
 
 export type TextInput = {
   defaultValue: string;
@@ -57,12 +56,11 @@ export default function ImportDialog(props: ImportDialogProps) {
 function UrlDialog(props: ImportDialogProps) {
   const { t } = useTranslation('common');
   const transport = use(TransportContext);
-  const { instance } = useParams({
+  const instanceInfoQueryOptions = useRouteContext({
     from: '/_dashboard/instance/$instance',
+    select: (context) => context.instanceInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(
-    instanceInfoQueryOptions(instance),
-  );
+  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
   const [inputText, setInputText] = useState('');
 
   return (
@@ -137,12 +135,11 @@ function MainDialog(
   },
 ) {
   const { t } = useTranslation('common');
-  const { instance } = useParams({
+  const instanceInfoQueryOptions = useRouteContext({
     from: '/_dashboard/instance/$instance',
+    select: (context) => context.instanceInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(
-    instanceInfoQueryOptions(instance),
-  );
+  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (

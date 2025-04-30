@@ -12,7 +12,6 @@ import { SearchXIcon } from 'lucide-react';
 import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { instanceListQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/_user/')({
   component: InstanceSelectPage,
@@ -30,7 +29,8 @@ function InstanceSelectPage() {
 
 function Content() {
   const { t, i18n } = useTranslation('common');
-  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions());
+  const { instanceListQueryOptions } = Route.useRouteContext();
+  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
   return (
     <>
       {instanceList.instances.length == 0 ? (

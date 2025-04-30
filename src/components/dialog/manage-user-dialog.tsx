@@ -32,13 +32,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useRouteContext } from '@tanstack/react-router';
 import {
   AppGlobalRole,
   appGlobalRoles,
   AppUser,
   authClient,
 } from '@/auth/auth-client';
-import { usersQueryOptions } from '@/lib/queries';
 
 export type FormType = {
   name: string;
@@ -56,6 +56,10 @@ export function ManageUserDialog({
   open: boolean;
   setOpen: (open: boolean) => void;
 } & ({ mode: 'edit'; user: AppUser } | { mode: 'add' })) {
+  const usersQueryOptions = useRouteContext({
+    from: '/_dashboard/user/admin/users',
+    select: (context) => context.usersQueryOptions,
+  });
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
   const formSchema = z.object({
@@ -126,7 +130,7 @@ export function ManageUserDialog({
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: usersQueryOptions().queryKey,
+        queryKey: usersQueryOptions.queryKey,
       });
     },
   });

@@ -26,10 +26,9 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { toast } from 'sonner';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useRouteContext } from '@tanstack/react-router';
 import { createContext, ReactNode, use, useState } from 'react';
 import { TransportContext } from '../providers/transport-context';
-import { instanceListQueryOptions } from '@/lib/queries';
 
 export const CreateInstanceContext = createContext<{
   openCreateInstance: () => void;
@@ -65,6 +64,10 @@ function CreateInstanceDialog({
   open: boolean;
   setOpen: (open: boolean) => void;
 }) {
+  const instanceListQueryOptions = useRouteContext({
+    from: '/_dashboard',
+    select: (context) => context.instanceListQueryOptions,
+  });
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const transport = use(TransportContext);
@@ -117,7 +120,7 @@ function CreateInstanceDialog({
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: instanceListQueryOptions().queryKey,
+        queryKey: instanceListQueryOptions.queryKey,
       });
     },
   });

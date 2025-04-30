@@ -4,45 +4,87 @@ import {
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { createTransport } from '@/lib/web-rpc';
+import {
+  InstanceListResponse,
+  InstanceState,
+} from '@/generated/pistonpanel/instance';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
+import { authClient } from '@/auth/auth-client';
 import { useAuthenticate } from '@daveyplate/better-auth-ui';
 import { getTerminalTheme } from '@/lib/utils';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import { createServerFn } from '@tanstack/react-start';
-import { auth } from '@/auth/auth-server';
-import { getWebRequest } from 'vinxi/http';
-import {
-  clientDataQueryOptions,
-  instanceListQueryOptions,
-} from '@/lib/queries';
-
-const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
-  return await auth.api.getSession({
-    headers: getWebRequest().headers,
-  });
-});
 
 export const Route = createFileRoute('/_dashboard')({
   beforeLoad: async (props) => {
-    const user = await fetchUser();
-    if (!user) {
+    const { data: session } = await authClient.getSession();
+    if (session) {
+      const instanceListQueryOptions = queryOptions({
+        queryKey: ['instance-list'],
+        queryFn: async (props): Promise<InstanceListResponse> => {
+          const transport = createTransport();
+          if (transport === null) {
+            return {
+              instances: [
+                {
+                  id: 'demo',
+                  friendlyName: 'Demo',
+                  icon: 'pickaxe',
+                  state: InstanceState.RUNNING,
+                  instancePermissions: [],
+                },
+              ],
+            };
+          }
+
+          const instanceService = new InstanceServiceClient(transport);
+          const result = await instanceService.listInstances(
+            {},
+            {
+              abort: props.signal,
+            },
+          );
+
+          return result.response;
+        },
+        refetchInterval: 3_000,
+      });
+      props.abortController.signal.addEventListener('abort', () => {
+        void props.context.queryClient.cancelQueries({
+          queryKey: instanceListQueryOptions.queryKey,
+        });
+      });
+      const clientDataQueryOptions = queryOptions({
+        queryKey: ['client-data'],
+        queryFn: async () => {
+          return await authClient.getSession({
+            fetchOptions: {
+              throw: true,
+            },
+          });
+        },
+      });
+      props.abortController.signal.addEventListener('abort', () => {
+        void props.context.queryClient.cancelQueries({
+          queryKey: clientDataQueryOptions.queryKey,
+        });
+      });
+      return {
+        instanceListQueryOptions,
+        clientDataQueryOptions,
+      };
+    } else {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: '/auth/$pathname',
-        params: {
-          pathname: 'sign-in',
-        },
+        to: '/',
         search: {
           redirect: props.location.href,
         },
       });
     }
-  },
-  loader: async (props) => {
-    await props.context.queryClient.ensureQueryData(instanceListQueryOptions());
-    await props.context.queryClient.ensureQueryData(clientDataQueryOptions());
   },
   // To make pendingComponent work on root route
   wrapInSuspense: true,
@@ -51,7 +93,8 @@ export const Route = createFileRoute('/_dashboard')({
 
 function InstanceSwitchKeybinds() {
   const navigate = useNavigate();
-  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions());
+  const { instanceListQueryOptions } = Route.useRouteContext();
+  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -76,7 +119,8 @@ function InstanceSwitchKeybinds() {
 function DashboardLayout() {
   useAuthenticate();
 
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
 
   return (

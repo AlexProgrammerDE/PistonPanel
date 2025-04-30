@@ -1,6 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { InstancePermission } from '@/generated/pistonpanel/common';
+import {
+  GlobalPermission,
+  InstancePermission,
+} from '@/generated/pistonpanel/common';
 import { ClientDataResponse } from '@/generated/pistonpanel/client';
 import {
   InstanceInfoResponse,

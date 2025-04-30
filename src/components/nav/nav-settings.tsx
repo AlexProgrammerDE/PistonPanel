@@ -5,19 +5,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import {
-  Link,
-  LinkProps,
-  useParams,
-  useRouteContext,
-} from '@tanstack/react-router';
+import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BoltIcon } from 'lucide-react';
 import { hasInstancePermission } from '@/lib/utils';
 import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { instanceInfoQueryOptions } from '@/lib/queries';
 
 type NavLink = {
   title: string;
@@ -27,12 +21,11 @@ type NavLink = {
 
 export function NavSettings() {
   const { t } = useTranslation('common');
-  const { instance } = useParams({
+  const instanceInfoQueryOptions = useRouteContext({
     from: '/_dashboard/instance/$instance',
+    select: (context) => context.instanceInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(
-    instanceInfoQueryOptions(instance),
-  );
+  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
 
   const navLinks: NavLink[] = [
     ...(hasInstancePermission(

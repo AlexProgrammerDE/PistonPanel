@@ -22,7 +22,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { translateInstanceState } from '@/lib/types';
-import { Link, useNavigate, useParams } from '@tanstack/react-router';
+import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
 import { hasInstancePermission } from '@/lib/utils';
 import {
   useMutation,
@@ -38,19 +38,14 @@ import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
 import { useGlobalPermission } from '@/hooks/use-global-permission';
-import {
-  instanceInfoQueryOptions,
-  instanceListQueryOptions,
-} from '@/lib/queries';
 
 function SidebarInstanceButton() {
   const { i18n } = useTranslation('common');
-  const { instance } = useParams({
+  const instanceInfoQueryOptions = useRouteContext({
     from: '/_dashboard/instance/$instance',
+    select: (context) => context.instanceInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(
-    instanceInfoQueryOptions(instance),
-  );
+  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
 
   const capitalizedState = translateInstanceState(i18n, instanceInfo.state);
   return (
@@ -94,7 +89,11 @@ function SidebarInstanceButtonSkeleton() {
 }
 
 function InstanceList() {
-  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions());
+  const instanceListQueryOptions = useRouteContext({
+    from: '/_dashboard',
+    select: (context) => context.instanceListQueryOptions,
+  });
+  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
 
   return (
     <>
@@ -203,13 +202,16 @@ function CreateInstanceButton() {
 
 function DeleteInstanceButton() {
   const { t } = useTranslation('common');
-  const transport = use(TransportContext);
-  const { instance } = useParams({
-    from: '/_dashboard/instance/$instance',
+  const instanceListQueryOptions = useRouteContext({
+    from: '/_dashboard',
+    select: (context) => context.instanceListQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(
-    instanceInfoQueryOptions(instance),
-  );
+  const instanceInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/instance/$instance',
+    select: (context) => context.instanceInfoQueryOptions,
+  });
+  const transport = use(TransportContext);
+  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
@@ -237,7 +239,7 @@ function DeleteInstanceButton() {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: instanceListQueryOptions().queryKey,
+        queryKey: instanceListQueryOptions.queryKey,
       });
     },
   });

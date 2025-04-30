@@ -2,13 +2,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
 import { DataTable, DateRange } from '@/components/data-table';
 import { ColumnDef, Table as ReactTable } from '@tanstack/react-table';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Trans, useTranslation } from 'react-i18next';
+import { createTransport } from '@/lib/web-rpc';
 import { UserAvatar } from '@/components/user-avatar';
 import {
+  InstanceAuditLogResponse,
   InstanceAuditLogResponse_AuditLogEntry,
   InstanceAuditLogResponse_AuditLogEntryType,
 } from '@/generated/pistonpanel/instance';
+import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { cn, timestampToDate } from '@/lib/utils';
 import i18n from '@/lib/i18n';
@@ -23,14 +26,48 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { useDateFnsLocale } from '@/hooks/use-date-fns-locale';
 import { SFTimeAgo } from '@/components/sf-timeago';
-import { auditLogQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute(
   '/_dashboard/instance/$instance/audit-log',
 )({
-  loader: async (props) => {
-    await props.context.queryClient.ensureQueryData(
-      auditLogQueryOptions(props.params.instance),
+  beforeLoad: (props) => {
+    const { instance } = props.params;
+    const auditLogQueryOptions = queryOptions({
+      queryKey: ['instance-audit-log', instance],
+      queryFn: async (props): Promise<InstanceAuditLogResponse> => {
+        const transport = createTransport();
+        if (transport === null) {
+          return {
+            entry: [],
+          };
+        }
+
+        const instanceService = new InstanceServiceClient(transport);
+        const result = await instanceService.getAuditLog(
+          {
+            id: instance,
+          },
+          {
+            abort: props.signal,
+          },
+        );
+
+        return result.response;
+      },
+      refetchInterval: 3_000,
+    });
+    props.abortController.signal.addEventListener('abort', () => {
+      void props.context.queryClient.cancelQueries({
+        queryKey: auditLogQueryOptions.queryKey,
+      });
+    });
+    return {
+      auditLogQueryOptions,
+    };
+  },
+  loader: (props) => {
+    void props.context.queryClient.prefetchQuery(
+      props.context.auditLogQueryOptions,
     );
   },
   component: AuditLog,
@@ -197,8 +234,8 @@ function AuditLog() {
 
 function Content() {
   const { t } = useTranslation('common');
-  const { instance } = Route.useParams();
-  const { data: auditLog } = useSuspenseQuery(auditLogQueryOptions(instance));
+  const { auditLogQueryOptions } = Route.useRouteContext();
+  const { data: auditLog } = useSuspenseQuery(auditLogQueryOptions);
 
   return (
     <div className="flex h-full w-full max-w-4xl grow flex-col gap-4">

@@ -22,7 +22,7 @@ import { globalAc, globalAdmin, globalUser } from '@/auth/permissions';
 
 const siteName = 'PistonPanel';
 const siteBaseUrl = 'https://pistonpanel.com';
-const disableSignUp = false;
+const disableSignUp = true;
 const emailAndPasswordEnabled = false;
 
 export const auth = betterAuth({
@@ -271,18 +271,7 @@ export const auth = betterAuth({
     }),
     apiKey(),
     organization({
-      allowUserToCreateOrganization: async (user): Promise<boolean> => {
-        return (
-          await auth.api.userHasPermission({
-            body: {
-              userId: user.id,
-              permissions: {
-                organization: ['create'],
-              },
-            },
-          })
-        ).success;
-      },
+      allowUserToCreateOrganization: true,
       cancelPendingInvitationsOnReInvite: true,
       async sendInvitationEmail({ id, role, email, inviter, organization }) {
         await sendEmail(

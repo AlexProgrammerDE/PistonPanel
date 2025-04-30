@@ -62,10 +62,7 @@ export function ErrorComponent({ error }: { error: Error }) {
                   fetchOptions: {
                     onSuccess: async () => {
                       await navigate({
-                        to: '/auth/$pathname',
-                        params: {
-                          pathname: 'sign-in',
-                        },
+                        to: '/',
                         replace: true,
                       });
                     },
