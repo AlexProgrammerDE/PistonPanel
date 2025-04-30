@@ -9,7 +9,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { TextInfoButton } from '@/components/info-buttons';
 import { clientDataQueryOptions } from '@/lib/queries';
 
-export const Route = createFileRoute('/_dashboard/user/settings')({
+export const Route = createFileRoute('/_dashboard/_user/settings')({
   component: UserSettings,
 });
 

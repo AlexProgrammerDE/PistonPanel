@@ -31,7 +31,7 @@ import { CopyInfoButton } from '@/components/info-buttons';
 import { AppUser, authClient } from '@/auth/auth-client';
 import { clientDataQueryOptions, usersQueryOptions } from '@/lib/queries';
 
-export const Route = createFileRoute('/_dashboard/user/admin/users')({
+export const Route = createFileRoute('/_dashboard/_user/admin/users')({
   component: Users,
 });
 

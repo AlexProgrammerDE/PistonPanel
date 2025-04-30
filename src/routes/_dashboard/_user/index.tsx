@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { instanceListQueryOptions } from '@/lib/queries';
 
-export const Route = createFileRoute('/_dashboard/user/')({
+export const Route = createFileRoute('/_dashboard/_user/')({
   component: InstanceSelectPage,
 });
 

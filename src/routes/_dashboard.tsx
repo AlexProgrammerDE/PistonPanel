@@ -19,16 +19,6 @@ import {
 } from '@/lib/queries';
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
-  console.log(
-    await auth.api.userHasPermission({
-      body: {
-        userId: '0jPVjfTHAJW8xfQpABpcexB1e4ilJwag',
-        permissions: {
-          organization: ['create'],
-        },
-      },
-    }),
-  );
   return await auth.api.getSession({
     headers: getWebRequest().headers,
   });
@@ -54,6 +44,8 @@ export const Route = createFileRoute('/_dashboard')({
     await props.context.queryClient.ensureQueryData(instanceListQueryOptions());
     await props.context.queryClient.ensureQueryData(clientDataQueryOptions());
   },
+  // To make pendingComponent work on root route
+  wrapInSuspense: true,
   component: DashboardLayout,
 });
 

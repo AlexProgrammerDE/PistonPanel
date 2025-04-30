@@ -24,7 +24,7 @@ import {
   usersQueryOptions,
 } from '@/lib/queries';
 
-export const Route = createFileRoute('/_dashboard/user/admin/')({
+export const Route = createFileRoute('/_dashboard/_user/admin/')({
   component: OverviewPage,
 });
 

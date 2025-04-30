@@ -4,7 +4,7 @@ import { UserSidebar } from '@/components/nav/user-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
 
-export const Route = createFileRoute('/_dashboard/user')({
+export const Route = createFileRoute('/_dashboard/_user')({
   component: UserLayout,
 });
 
