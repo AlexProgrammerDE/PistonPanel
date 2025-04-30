@@ -6,6 +6,7 @@ import { createOpenApiFetchHandler } from 'trpc-to-openapi';
 import { appRouter } from '~/api/trpc';
 import { swaggerUI } from '@hono/swagger-ui';
 import { openApiDocument } from '~/api/openapi';
+import { createContext } from '~/api/trpc-context';
 
 const app = new Hono();
 
@@ -25,6 +26,7 @@ app.use('/api/trpc/*', async (e) => {
     req: e.req.raw,
     endpoint: '/api/trpc',
     router: appRouter,
+    createContext: () => createContext(e.req.raw),
   });
 });
 
