@@ -7,7 +7,7 @@ import {
   useLocation,
   useRouter,
 } from '@tanstack/react-router';
-import '../App.css';
+import appCss from '@/styles/app.css?url';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
@@ -118,6 +118,7 @@ export const Route = createRootRouteWithContext<{
       },
     ],
     links: [
+      { rel: 'stylesheet', href: appCss },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
