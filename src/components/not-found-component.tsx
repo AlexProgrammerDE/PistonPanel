@@ -43,7 +43,10 @@ export function NotFoundComponent() {
                   fetchOptions: {
                     onSuccess: async () => {
                       await navigate({
-                        to: '/',
+                        to: '/auth/$pathname',
+                        params: {
+                          pathname: 'sign-in',
+                        },
                         replace: true,
                       });
                     },

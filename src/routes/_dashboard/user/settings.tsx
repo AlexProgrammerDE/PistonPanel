@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { SettingsCards } from '@daveyplate/better-auth-ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { TextInfoButton } from '@/components/info-buttons';
+import { clientDataQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/user/settings')({
   component: UserSettings,
@@ -23,8 +24,7 @@ function UserSettings() {
 }
 
 function Content() {
-  const { clientDataQueryOptions } = Route.useRouteContext();
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
 
   return (
     <div className="flex h-full w-full max-w-4xl grow flex-col gap-4">

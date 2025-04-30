@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useParams } from '@tanstack/react-router';
 import { TerminalComponent } from '@/components/terminal';
 import ControlsMenu from '@/components/controls-menu';
 import CommandInput from '@/components/command-input';
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { hasInstancePermission } from '@/lib/utils';
 import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { instanceInfoQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance/')({
   component: Console,
@@ -37,8 +38,12 @@ function Console() {
 
 function Content() {
   const { i18n } = useTranslation('common');
-  const { instanceInfoQueryOptions } = Route.useRouteContext();
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { instance } = useParams({
+    from: '/_dashboard/instance/$instance',
+  });
+  const { data: instanceInfo } = useSuspenseQuery(
+    instanceInfoQueryOptions(instance),
+  );
   const logScope = useMemo<LogScope>(
     () => ({
       scope: {

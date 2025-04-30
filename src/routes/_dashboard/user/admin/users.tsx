@@ -29,6 +29,7 @@ import { runAsync } from '@/lib/utils';
 import { SFTimeAgo } from '@/components/sf-timeago';
 import { CopyInfoButton } from '@/components/info-buttons';
 import { AppUser, authClient } from '@/auth/auth-client';
+import { clientDataQueryOptions, usersQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/user/admin/users')({
   component: Users,
@@ -150,7 +151,6 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
   const { t } = useTranslation('admin');
   const queryClient = useQueryClient();
   const [createOpen, setCreateOpen] = useState(false);
-  const { usersQueryOptions } = Route.useRouteContext();
   const { mutateAsync: deleteUsersMutation } = useMutation({
     mutationFn: async (user: AppUser[]) => {
       for (const u of user) {
@@ -161,7 +161,7 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: usersQueryOptions.queryKey,
+        queryKey: usersQueryOptions().queryKey,
       });
     },
   });
@@ -175,7 +175,7 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: usersQueryOptions.queryKey,
+        queryKey: usersQueryOptions().queryKey,
       });
     },
   });
@@ -251,9 +251,8 @@ function Users() {
 
 function Content() {
   const { t } = useTranslation('common');
-  const { usersQueryOptions, clientDataQueryOptions } = Route.useRouteContext();
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
-  const { data: userList } = useSuspenseQuery(usersQueryOptions);
+  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions());
+  const { data: userList } = useSuspenseQuery(usersQueryOptions());
 
   return (
     <div className="flex h-full w-full max-w-4xl grow flex-col gap-4">

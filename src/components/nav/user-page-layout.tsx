@@ -12,19 +12,16 @@ import { ReactNode, Suspense } from 'react';
 import { BookOpenTextIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { CatchBoundary, useRouteContext } from '@tanstack/react-router';
+import { CatchBoundary } from '@tanstack/react-router';
 import { ErrorComponent } from '@/components/error-component';
 import { ExternalLink } from '@/components/external-link';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { clientDataQueryOptions } from '@/lib/queries';
 
 function UserCrumb() {
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
-  });
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions());
   return session.user.username;
 }
 

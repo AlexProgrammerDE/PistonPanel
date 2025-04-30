@@ -11,17 +11,19 @@ import {
 } from '@tanstack/react-query';
 import { PlayIcon, SquareIcon, TimerIcon, TimerOffIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useRouteContext } from '@tanstack/react-router';
+import { useParams } from '@tanstack/react-router';
+import { instanceInfoQueryOptions } from '@/lib/queries';
 
 export default function ControlsMenu() {
   const { t } = useTranslation('common');
-  const instanceInfoQueryOptions = useRouteContext({
+  const { instance } = useParams({
     from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
   });
   const queryClient = useQueryClient();
   const transport = use(TransportContext);
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: instanceInfo } = useSuspenseQuery(
+    instanceInfoQueryOptions(instance),
+  );
   const startMutation = useMutation({
     mutationFn: () => {
       if (transport === null) {
@@ -48,7 +50,7 @@ export default function ControlsMenu() {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: instanceInfoQueryOptions.queryKey,
+        queryKey: instanceInfoQueryOptions(instance).queryKey,
       });
     },
   });
@@ -93,7 +95,7 @@ export default function ControlsMenu() {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: instanceInfoQueryOptions.queryKey,
+        queryKey: instanceInfoQueryOptions(instance).queryKey,
       });
     },
   });
@@ -123,7 +125,7 @@ export default function ControlsMenu() {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
-        queryKey: instanceInfoQueryOptions.queryKey,
+        queryKey: instanceInfoQueryOptions(instance).queryKey,
       });
     },
   });

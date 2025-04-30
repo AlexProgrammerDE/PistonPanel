@@ -11,20 +11,27 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { ReactNode, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { BookOpenTextIcon, HomeIcon } from 'lucide-react';
-import { CatchBoundary, Link, useRouteContext } from '@tanstack/react-router';
+import {
+  CatchBoundary,
+  Link,
+  useParams,
+  useRouteContext,
+} from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { ErrorComponent } from '@/components/error-component';
 import { ExternalLink } from '@/components/external-link';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
+import { instanceInfoQueryOptions } from '@/lib/queries';
 
 function InstanceCrumb() {
-  const instanceInfoQueryOptions = useRouteContext({
+  const { instance } = useParams({
     from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: instanceInfo } = useSuspenseQuery(
+    instanceInfoQueryOptions(instance),
+  );
   return <>{instanceInfo.friendlyName}</>;
 }
 
