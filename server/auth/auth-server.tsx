@@ -24,9 +24,14 @@ const siteBaseUrl = 'https://pistonpanel.com';
 const disableSignUp = true;
 const emailAndPasswordEnabled = false;
 
+const trustedOrigins = [];
+if (process.env.NODE_ENV === 'development') {
+  trustedOrigins.push('http://localhost:3000');
+}
+
 export const auth = betterAuth({
   appName: siteName,
-  trustedOrigins: ['http://localhost:3000'],
+  trustedOrigins: trustedOrigins,
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema: {
