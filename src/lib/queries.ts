@@ -74,7 +74,7 @@ export const instanceInfoQueryOptions = (instance: string) =>
 export const auditLogQueryOptions = (instance: string) =>
   queryOptions({
     queryKey: ['instance-audit-log', instance],
-    queryFn: (props): InstanceAuditLogResponse => {
+    queryFn: (): InstanceAuditLogResponse => {
       return {
         entry: [],
       };

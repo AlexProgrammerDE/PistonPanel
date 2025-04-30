@@ -37,7 +37,7 @@ export function NavUserAdmin() {
       title: t('userSidebar.adminOverview'),
       icon: ChartAreaIcon,
       linkProps: {
-        to: '/user/admin',
+        to: '/admin',
         params: {},
       },
     },
@@ -45,7 +45,7 @@ export function NavUserAdmin() {
       title: t('userSidebar.users'),
       icon: UsersIcon,
       linkProps: {
-        to: '/user/admin/users',
+        to: '/admin/users',
         params: {},
       },
     },

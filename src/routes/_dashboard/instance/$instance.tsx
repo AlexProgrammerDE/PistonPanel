@@ -7,7 +7,7 @@ import { instanceInfoQueryOptions } from '@/lib/queries';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance')({
   loader: async (props) => {
-    await props.context.queryClient.prefetchQuery(
+    await props.context.queryClient.ensureQueryData(
       instanceInfoQueryOptions(props.params.instance),
     );
   },

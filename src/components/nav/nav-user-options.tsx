@@ -37,7 +37,7 @@ export function NavUserOptions() {
       title: t('userSidebar.instances'),
       icon: Grid2x2Icon,
       linkProps: {
-        to: '/user',
+        to: '/',
         params: {},
       },
       createInstance: true,
@@ -46,7 +46,7 @@ export function NavUserOptions() {
       title: t('userSidebar.settings'),
       icon: SettingsIcon,
       linkProps: {
-        to: '/user/settings',
+        to: '/settings',
         params: {},
       },
     },

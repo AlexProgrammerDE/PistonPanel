@@ -131,7 +131,7 @@ function ImpersonateUserButton(props: { row: Row<AppUser> }) {
               fetchOptions: {
                 onSuccess: async () => {
                   await navigate({
-                    to: '/user',
+                    to: '/',
                     replace: true,
                     reloadDocument: true,
                   });

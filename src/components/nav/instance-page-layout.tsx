@@ -61,7 +61,7 @@ export default function InstancePageLayout(props: {
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="h-4" />
           <Button variant="ghost" size="icon" className="h-7 w-7" asChild>
-            <Link to="/user">
+            <Link to="/">
               <HomeIcon />
               <span className="sr-only">
                 {t('instanceSidebar.backToDashboard')}

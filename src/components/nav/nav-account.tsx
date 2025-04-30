@@ -262,7 +262,7 @@ export function NavAccount() {
                         fetchOptions: {
                           onSuccess: async () => {
                             await navigate({
-                              to: '/user',
+                              to: '/',
                               replace: true,
                               reloadDocument: true,
                             });

@@ -153,7 +153,7 @@ export function InstanceSwitcher() {
             </Suspense>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild className="gap-2 p-2">
-              <Link to="/user">
+              <Link to="/">
                 <div className="bg-background flex size-6 items-center justify-center rounded-md border">
                   <HomeIcon className="size-4" />
                 </div>
@@ -253,7 +253,7 @@ function DeleteInstanceButton() {
       onClick={() => {
         deleteMutation.mutate(instanceInfo.id);
         void navigate({
-          to: '/user',
+          to: '/',
         });
       }}
       className="gap-2 p-2"
