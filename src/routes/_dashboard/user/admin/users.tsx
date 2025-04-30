@@ -1,11 +1,9 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import * as React from 'react';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/data-table';
 import { ColumnDef, Row, Table as ReactTable } from '@tanstack/react-table';
-import { getEnumKeyByValue } from '@/lib/types';
-import { UserRole } from '@/generated/pistonpanel/common';
 import { toast } from 'sonner';
 import {
   LogOutIcon,
@@ -14,7 +12,6 @@ import {
   TrashIcon,
   VenetianMaskIcon,
 } from 'lucide-react';
-import { TransportContext } from '@/components/providers/transport-context';
 import {
   useMutation,
   useQueryClient,
@@ -25,21 +22,19 @@ import {
   SelectAllHeader,
   SelectRowHeader,
 } from '@/components/data-table-selects';
-import { UserListResponse_User } from '@/generated/pistonpanel/user';
-import { UserServiceClient } from '@/generated/pistonpanel/user.client';
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { UserAvatar } from '@/components/user-avatar';
 import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
-import { ROOT_USER_ID, runAsync, timestampToDate } from '@/lib/utils';
+import { runAsync } from '@/lib/utils';
 import { SFTimeAgo } from '@/components/sf-timeago';
 import { CopyInfoButton } from '@/components/info-buttons';
-import { authClient } from '@/auth/auth-client';
+import { AppUser, authClient } from '@/auth/auth-client';
 
 export const Route = createFileRoute('/_dashboard/user/admin/users')({
   component: Users,
 });
 
-const columns: ColumnDef<UserListResponse_User>[] = [
+const columns: ColumnDef<AppUser>[] = [
   {
     id: 'select',
     header: SelectAllHeader,
@@ -53,7 +48,7 @@ const columns: ColumnDef<UserListResponse_User>[] = [
     cell: ({ row }) => (
       <div className="flex flex-row items-center justify-start gap-2">
         <UserAvatar
-          username={row.original.username}
+          username={row.original.username ?? ''}
           email={row.original.email}
           className="size-8"
         />
@@ -69,29 +64,16 @@ const columns: ColumnDef<UserListResponse_User>[] = [
     sortingFn: 'fuzzySort',
   },
   {
-    accessorFn: (row) => getEnumKeyByValue(UserRole, row.role),
+    accessorFn: (row) => row.role,
     accessorKey: 'role',
     header: () => <Trans i18nKey="admin:users.table.role" />,
     sortingFn: 'fuzzySort',
   },
   {
-    accessorFn: (row) => timestampToDate(row.createdAt!),
+    accessorFn: (row) => row.createdAt,
     accessorKey: 'createdAt',
     header: () => <Trans i18nKey="admin:users.table.createdAt" />,
-    cell: ({ row }) => (
-      <SFTimeAgo date={timestampToDate(row.original.createdAt!)} />
-    ),
-    enableGlobalFilter: false,
-    sortingFn: 'datetime',
-    filterFn: 'isWithinRange',
-  },
-  {
-    accessorFn: (row) => timestampToDate(row.minIssuedAt!),
-    accessorKey: 'minIssuedAt',
-    header: () => <Trans i18nKey="admin:users.table.minIssuedAt" />,
-    cell: ({ row }) => (
-      <SFTimeAgo date={timestampToDate(row.original.minIssuedAt!)} />
-    ),
+    cell: ({ row }) => <SFTimeAgo date={row.original.createdAt} />,
     enableGlobalFilter: false,
     sortingFn: 'datetime',
     filterFn: 'isWithinRange',
@@ -110,7 +92,7 @@ const columns: ColumnDef<UserListResponse_User>[] = [
   },
 ];
 
-function UpdateUserButton(props: { row: Row<UserListResponse_User> }) {
+function UpdateUserButton(props: { row: Row<AppUser> }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -133,8 +115,7 @@ function UpdateUserButton(props: { row: Row<UserListResponse_User> }) {
   );
 }
 
-function ImpersonateUserButton(props: { row: Row<UserListResponse_User> }) {
-  const transport = use(TransportContext);
+function ImpersonateUserButton(props: { row: Row<AppUser> }) {
   const navigate = useNavigate();
   return (
     <>
@@ -144,10 +125,6 @@ function ImpersonateUserButton(props: { row: Row<UserListResponse_User> }) {
         size="sm"
         onClick={() => {
           runAsync(async () => {
-            if (transport === null) {
-              return;
-            }
-
             await authClient.admin.impersonateUser({
               userId: props.row.original.id,
               fetchOptions: {
@@ -169,22 +146,16 @@ function ImpersonateUserButton(props: { row: Row<UserListResponse_User> }) {
   );
 }
 
-function ExtraHeader(props: { table: ReactTable<UserListResponse_User> }) {
+function ExtraHeader(props: { table: ReactTable<AppUser> }) {
   const { t } = useTranslation('admin');
   const queryClient = useQueryClient();
-  const transport = use(TransportContext);
   const [createOpen, setCreateOpen] = useState(false);
   const { usersQueryOptions } = Route.useRouteContext();
   const { mutateAsync: deleteUsersMutation } = useMutation({
-    mutationFn: async (user: UserListResponse_User[]) => {
-      if (transport === null) {
-        return;
-      }
-
-      const userService = new UserServiceClient(transport);
+    mutationFn: async (user: AppUser[]) => {
       for (const u of user) {
-        await userService.deleteUser({
-          id: u.id,
+        await authClient.admin.removeUser({
+          userId: u.id,
         });
       }
     },
@@ -195,15 +166,10 @@ function ExtraHeader(props: { table: ReactTable<UserListResponse_User> }) {
     },
   });
   const { mutateAsync: invalidateUsersMutation } = useMutation({
-    mutationFn: async (user: UserListResponse_User[]) => {
-      if (transport === null) {
-        return;
-      }
-
-      const userService = new UserServiceClient(transport);
+    mutationFn: async (user: AppUser[]) => {
       for (const u of user) {
-        await userService.invalidateSessions({
-          id: u.id,
+        await authClient.admin.revokeUserSessions({
+          userId: u.id,
         });
       }
     },
@@ -294,11 +260,9 @@ function Content() {
       <DataTable
         filterPlaceholder={t('admin:users.filterPlaceholder')}
         columns={columns}
-        data={userList.users}
+        data={userList}
         extraHeader={ExtraHeader}
-        enableRowSelection={(row) =>
-          row.original.id !== ROOT_USER_ID && row.original.id !== clientInfo.id
-        }
+        enableRowSelection={(row) => row.original.id !== clientInfo.user.id}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { ChartAreaIcon, TerminalIcon, UsersIcon } from 'lucide-react';
+import { ChartAreaIcon, UsersIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -8,13 +8,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { hasGlobalPermission } from '@/lib/utils';
-import { GlobalPermission } from '@/generated/pistonpanel/common';
+import { useGlobalPermission } from '@/hooks/use-global-permission';
 
 type NavLinks = {
   title: string;
@@ -24,13 +22,13 @@ type NavLinks = {
 
 export function NavUserAdmin() {
   const { t } = useTranslation('common');
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
+  const listUsersPermission = useGlobalPermission({
+    permissions: {
+      user: ['list'],
+    },
   });
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
 
-  if (!hasGlobalPermission(clientInfo, GlobalPermission.READ_SERVER_CONFIG)) {
+  if (!listUsersPermission) {
     return null;
   }
 
@@ -40,14 +38,6 @@ export function NavUserAdmin() {
       icon: ChartAreaIcon,
       linkProps: {
         to: '/user/admin',
-        params: {},
-      },
-    },
-    {
-      title: t('userSidebar.adminConsole'),
-      icon: TerminalIcon,
-      linkProps: {
-        to: '/user/admin/console',
         params: {},
       },
     },

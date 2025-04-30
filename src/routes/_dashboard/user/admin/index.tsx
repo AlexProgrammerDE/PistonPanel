@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { UserListResponse } from '@/generated/pistonpanel/user';
 import * as React from 'react';
 import { useMemo } from 'react';
 import { Label, Pie, PieChart } from 'recharts';
@@ -11,7 +10,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { UserRole } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   InstanceListResponse,
@@ -19,6 +17,7 @@ import {
 } from '@/generated/pistonpanel/instance';
 import UserPageLayout from '@/components/nav/user-page-layout';
 import { Trans, useTranslation } from 'react-i18next';
+import { AppUser } from '@/auth/auth-client';
 
 export const Route = createFileRoute('/_dashboard/user/admin/')({
   component: OverviewPage,
@@ -42,22 +41,22 @@ const usersChartConfig = {
   },
 } satisfies ChartConfig;
 
-function forType(userList: UserListResponse, type: UserRole) {
-  return userList.users.filter((user) => user.role === type).length;
+function forType(userList: AppUser[], type: AppUser['role']) {
+  return userList.filter((user) => user.role === type).length;
 }
 
-export function UsersChart(props: { userList: UserListResponse }) {
+export function UsersChart(props: { userList: AppUser[] }) {
   const { t } = useTranslation('admin');
   const chartData = useMemo(
     () => [
       {
         role: 'admin',
-        users: forType(props.userList, UserRole.ADMIN),
+        users: forType(props.userList, 'admin'),
         fill: 'var(--color-admin)',
       },
       {
         role: 'user',
-        users: forType(props.userList, UserRole.USER),
+        users: forType(props.userList, 'user'),
         fill: 'var(--color-user)',
       },
     ],

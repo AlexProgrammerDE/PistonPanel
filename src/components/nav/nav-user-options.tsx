@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid2x2Icon, PlusIcon, SettingsIcon, ZapIcon } from 'lucide-react';
+import { Grid2x2Icon, PlusIcon, SettingsIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -9,14 +9,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
 import * as React from 'react';
 import { ReactNode, use } from 'react';
-import { hasGlobalPermission } from '@/lib/utils';
-import { GlobalPermission } from '@/generated/pistonpanel/common';
 import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
+import { useGlobalPermission } from '@/hooks/use-global-permission';
 
 type NavLinks = {
   title: string;
@@ -27,12 +25,12 @@ type NavLinks = {
 
 export function NavUserOptions() {
   const { t } = useTranslation('common');
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
-  });
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
   const { openCreateInstance } = use(CreateInstanceContext);
+  const createInstancePermission = useGlobalPermission({
+    permissions: {
+      organization: ['create'],
+    },
+  });
 
   const navLinks: NavLinks = [
     {
@@ -72,20 +70,16 @@ export function NavUserOptions() {
                 <span>{item.title}</span>
               </Link>
             </SidebarMenuButton>
-            {item.createInstance &&
-              hasGlobalPermission(
-                clientInfo,
-                GlobalPermission.CREATE_INSTANCE,
-              ) && (
-                <>
-                  <SidebarMenuAction
-                    onClick={openCreateInstance}
-                    title={t('userSidebar.createInstance')}
-                  >
-                    <PlusIcon />
-                  </SidebarMenuAction>
-                </>
-              )}
+            {item.createInstance && createInstancePermission && (
+              <>
+                <SidebarMenuAction
+                  onClick={openCreateInstance}
+                  title={t('userSidebar.createInstance')}
+                >
+                  <PlusIcon />
+                </SidebarMenuAction>
+              </>
+            )}
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

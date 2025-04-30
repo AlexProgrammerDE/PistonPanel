@@ -18,8 +18,18 @@ import {
   orgMember,
   orgOwner,
 } from '@/auth/permissions';
+import { InferUserFromClient } from 'better-auth/types';
 
-export const authClient = createAuthClient({
+const globalRoleConfig = {
+  admin: globalAdmin,
+  user: globalUser,
+};
+const orgRoleConfig = {
+  owner: orgOwner,
+  admin: orgAdmin,
+  member: orgMember,
+};
+const clientOptions = {
   plugins: [
     twoFactorClient(),
     usernameClient(),
@@ -27,20 +37,25 @@ export const authClient = createAuthClient({
     passkeyClient(),
     adminClient({
       ac: globalAc,
-      roles: {
-        admin: globalAdmin,
-        user: globalUser,
-      },
+      roles: globalRoleConfig,
     }),
     apiKeyClient(),
     organizationClient({
       ac: orgAc,
-      roles: {
-        owner: orgOwner,
-        admin: orgAdmin,
-        member: orgMember,
-      },
+      roles: orgRoleConfig,
     }),
     oneTimeTokenClient(),
   ],
-});
+};
+export const authClient = createAuthClient(clientOptions);
+export type AppUser = InferUserFromClient<typeof clientOptions>;
+export type AppGlobalRole = keyof typeof globalRoleConfig;
+export type AppOrgRole = keyof typeof orgRoleConfig;
+export const appGlobalRoles = Object.keys(globalRoleConfig) as [
+  AppGlobalRole,
+  ...AppGlobalRole[],
+];
+export const appOrgRoles = Object.keys(orgRoleConfig) as [
+  AppOrgRole,
+  ...AppOrgRole[],
+];

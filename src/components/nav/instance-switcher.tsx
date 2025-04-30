@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/sidebar';
 import { translateInstanceState } from '@/lib/types';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
-import { hasGlobalPermission, hasInstancePermission } from '@/lib/utils';
+import { hasInstancePermission } from '@/lib/utils';
 import {
   useMutation,
   useQueryClient,
@@ -32,15 +32,12 @@ import {
 import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { toast } from 'sonner';
 import { TransportContext } from '@/components/providers/transport-context';
-import {
-  GlobalPermission,
-  InstancePermission,
-} from '@/generated/pistonpanel/common';
+import { InstancePermission } from '@/generated/pistonpanel/common';
 import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
-import { authClient } from '@/auth/auth-client';
+import { useGlobalPermission } from '@/hooks/use-global-permission';
 
 function SidebarInstanceButton() {
   const { i18n } = useTranslation('common');
@@ -180,14 +177,14 @@ export function InstanceSwitcher() {
 
 function CreateInstanceButton() {
   const { t } = useTranslation('common');
-  const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.clientDataQueryOptions,
-  });
-  const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
   const { openCreateInstance } = use(CreateInstanceContext);
+  const createInstancePermission = useGlobalPermission({
+    permissions: {
+      organization: ['create'],
+    },
+  });
 
-  if (!hasGlobalPermission(clientInfo, GlobalPermission.CREATE_INSTANCE)) {
+  if (!createInstancePermission) {
     return null;
   }
 

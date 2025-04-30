@@ -13,7 +13,7 @@ import {
 
 export const globalAc = createAccessControl({
   ...defaultGlobalStatements,
-  instance: ['create'],
+  organization: ['create'],
 });
 
 export const globalAdmin = globalAc.newRole({

@@ -21,7 +21,6 @@ import { QueryClient, QueryKey } from '@tanstack/react-query';
 import { Timestamp } from '@/generated/google/protobuf/timestamp';
 import { ClientServiceClient } from '@/generated/pistonpanel/client.client';
 
-export const ROOT_USER_ID = '00000000-0000-0000-0000-000000000000';
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
 
 const emojiMap = import.meta.env.APP_LOCALES.reduce<
@@ -72,16 +71,6 @@ export function cancellablePromise<T>(
       cancel(resolvedValue);
     }
   };
-}
-
-export function hasGlobalPermission(
-  clientData: ClientDataResponse,
-  permission: GlobalPermission,
-) {
-  return clientData.serverPermissions
-    .filter((p) => p.granted)
-    .map((p) => p.globalPermission)
-    .includes(permission);
 }
 
 export function hasInstancePermission(

@@ -22,7 +22,6 @@ import { Route as DashboardInstanceInstanceImport } from './routes/_dashboard/in
 import { Route as DashboardUserAdminIndexImport } from './routes/_dashboard/user/admin/index'
 import { Route as DashboardInstanceInstanceIndexImport } from './routes/_dashboard/instance/$instance/index'
 import { Route as DashboardUserAdminUsersImport } from './routes/_dashboard/user/admin/users'
-import { Route as DashboardUserAdminConsoleImport } from './routes/_dashboard/user/admin/console'
 import { Route as DashboardInstanceInstanceMetaImport } from './routes/_dashboard/instance/$instance/meta'
 import { Route as DashboardInstanceInstanceAuditLogImport } from './routes/_dashboard/instance/$instance/audit-log'
 
@@ -91,12 +90,6 @@ const DashboardInstanceInstanceIndexRoute =
 const DashboardUserAdminUsersRoute = DashboardUserAdminUsersImport.update({
   id: '/users',
   path: '/users',
-  getParentRoute: () => DashboardUserAdminRoute,
-} as any)
-
-const DashboardUserAdminConsoleRoute = DashboardUserAdminConsoleImport.update({
-  id: '/console',
-  path: '/console',
   getParentRoute: () => DashboardUserAdminRoute,
 } as any)
 
@@ -188,13 +181,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardInstanceInstanceMetaImport
       parentRoute: typeof DashboardInstanceInstanceImport
     }
-    '/_dashboard/user/admin/console': {
-      id: '/_dashboard/user/admin/console'
-      path: '/console'
-      fullPath: '/user/admin/console'
-      preLoaderRoute: typeof DashboardUserAdminConsoleImport
-      parentRoute: typeof DashboardUserAdminImport
-    }
     '/_dashboard/user/admin/users': {
       id: '/_dashboard/user/admin/users'
       path: '/users'
@@ -222,13 +208,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardUserAdminRouteChildren {
-  DashboardUserAdminConsoleRoute: typeof DashboardUserAdminConsoleRoute
   DashboardUserAdminUsersRoute: typeof DashboardUserAdminUsersRoute
   DashboardUserAdminIndexRoute: typeof DashboardUserAdminIndexRoute
 }
 
 const DashboardUserAdminRouteChildren: DashboardUserAdminRouteChildren = {
-  DashboardUserAdminConsoleRoute: DashboardUserAdminConsoleRoute,
   DashboardUserAdminUsersRoute: DashboardUserAdminUsersRoute,
   DashboardUserAdminIndexRoute: DashboardUserAdminIndexRoute,
 }
@@ -296,7 +280,6 @@ export interface FileRoutesByFullPath {
   '/user/': typeof DashboardUserIndexRoute
   '/instance/$instance/audit-log': typeof DashboardInstanceInstanceAuditLogRoute
   '/instance/$instance/meta': typeof DashboardInstanceInstanceMetaRoute
-  '/user/admin/console': typeof DashboardUserAdminConsoleRoute
   '/user/admin/users': typeof DashboardUserAdminUsersRoute
   '/instance/$instance/': typeof DashboardInstanceInstanceIndexRoute
   '/user/admin/': typeof DashboardUserAdminIndexRoute
@@ -310,7 +293,6 @@ export interface FileRoutesByTo {
   '/user': typeof DashboardUserIndexRoute
   '/instance/$instance/audit-log': typeof DashboardInstanceInstanceAuditLogRoute
   '/instance/$instance/meta': typeof DashboardInstanceInstanceMetaRoute
-  '/user/admin/console': typeof DashboardUserAdminConsoleRoute
   '/user/admin/users': typeof DashboardUserAdminUsersRoute
   '/instance/$instance': typeof DashboardInstanceInstanceIndexRoute
   '/user/admin': typeof DashboardUserAdminIndexRoute
@@ -328,7 +310,6 @@ export interface FileRoutesById {
   '/_dashboard/user/': typeof DashboardUserIndexRoute
   '/_dashboard/instance/$instance/audit-log': typeof DashboardInstanceInstanceAuditLogRoute
   '/_dashboard/instance/$instance/meta': typeof DashboardInstanceInstanceMetaRoute
-  '/_dashboard/user/admin/console': typeof DashboardUserAdminConsoleRoute
   '/_dashboard/user/admin/users': typeof DashboardUserAdminUsersRoute
   '/_dashboard/instance/$instance/': typeof DashboardInstanceInstanceIndexRoute
   '/_dashboard/user/admin/': typeof DashboardUserAdminIndexRoute
@@ -347,7 +328,6 @@ export interface FileRouteTypes {
     | '/user/'
     | '/instance/$instance/audit-log'
     | '/instance/$instance/meta'
-    | '/user/admin/console'
     | '/user/admin/users'
     | '/instance/$instance/'
     | '/user/admin/'
@@ -360,7 +340,6 @@ export interface FileRouteTypes {
     | '/user'
     | '/instance/$instance/audit-log'
     | '/instance/$instance/meta'
-    | '/user/admin/console'
     | '/user/admin/users'
     | '/instance/$instance'
     | '/user/admin'
@@ -376,7 +355,6 @@ export interface FileRouteTypes {
     | '/_dashboard/user/'
     | '/_dashboard/instance/$instance/audit-log'
     | '/_dashboard/instance/$instance/meta'
-    | '/_dashboard/user/admin/console'
     | '/_dashboard/user/admin/users'
     | '/_dashboard/instance/$instance/'
     | '/_dashboard/user/admin/'
@@ -445,7 +423,6 @@ export const routeTree = rootRoute
       "filePath": "_dashboard/user/admin.tsx",
       "parent": "/_dashboard/user",
       "children": [
-        "/_dashboard/user/admin/console",
         "/_dashboard/user/admin/users",
         "/_dashboard/user/admin/"
       ]
@@ -465,10 +442,6 @@ export const routeTree = rootRoute
     "/_dashboard/instance/$instance/meta": {
       "filePath": "_dashboard/instance/$instance/meta.tsx",
       "parent": "/_dashboard/instance/$instance"
-    },
-    "/_dashboard/user/admin/console": {
-      "filePath": "_dashboard/user/admin/console.tsx",
-      "parent": "/_dashboard/user/admin"
     },
     "/_dashboard/user/admin/users": {
       "filePath": "_dashboard/user/admin/users.tsx",

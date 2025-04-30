@@ -25,10 +25,7 @@ import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { use } from 'react';
-import { TransportContext } from '../providers/transport-context';
 import { UserRole } from '@/generated/pistonpanel/common';
-import { UserServiceClient } from '@/generated/pistonpanel/user.client';
 import {
   Select,
   SelectContent,
@@ -38,12 +35,18 @@ import {
 } from '@/components/ui/select';
 import { getEnumEntries } from '@/lib/types';
 import { useRouteContext } from '@tanstack/react-router';
-import { UserListResponse_User } from '@/generated/pistonpanel/user';
+import {
+  AppGlobalRole,
+  appGlobalRoles,
+  AppUser,
+  authClient,
+} from '@/auth/auth-client';
 
 export type FormType = {
+  name: string;
   username: string;
   email: string;
-  role: UserRole;
+  role: AppGlobalRole;
 };
 
 export function ManageUserDialog({
@@ -53,58 +56,48 @@ export function ManageUserDialog({
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-} & ({ mode: 'edit'; user: UserListResponse_User } | { mode: 'add' })) {
+} & ({ mode: 'edit'; user: AppUser } | { mode: 'add' })) {
   const usersQueryOptions = useRouteContext({
     from: '/_dashboard/user/admin/users',
     select: (context) => context.usersQueryOptions,
   });
   const queryClient = useQueryClient();
-  const transport = use(TransportContext);
   const { t } = useTranslation('admin');
   const formSchema = z.object({
-    username: z
-      .string()
-      .min(3, t('users.baseUserDialog.form.username.min'))
-      .max(32, t('users.baseUserDialog.form.username.max'))
-      .regex(
-        /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
-        t('users.baseUserDialog.form.username.regex'),
-      ),
+    name: z.string(),
+    username: z.string(),
     email: z.string().email(),
-    role: z.nativeEnum(UserRole),
+    role: z.enum(appGlobalRoles),
   });
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: props.mode === 'edit' ? props.user.username : '',
+      name: props.mode === 'edit' ? props.user.name : '',
+      username: props.mode === 'edit' ? (props.user.username ?? '') : '',
       email: props.mode === 'edit' ? props.user.email : '',
-      role: props.mode === 'edit' ? props.user.role : UserRole.USER,
+      role:
+        props.mode === 'edit'
+          ? ((props.user.role ?? 'user') as AppGlobalRole)
+          : 'user',
     },
   });
   const submitMutation = useMutation({
     mutationFn: async (values: FormType) => {
-      if (transport === null) {
-        return;
-      }
-
-      const userService = new UserServiceClient(transport);
       const promise =
         props.mode === 'add'
-          ? userService
-              .createUser({
+          ? authClient.admin.createUser({
+              name: values.name,
+              email: values.email,
+              role: values.role,
+              password: '',
+              data: {
                 username: values.username,
-                email: values.email,
-                role: values.role,
-              })
-              .then((r) => r.response)
-          : userService
-              .updateUser({
-                id: props.user.id,
-                username: values.username,
-                email: values.email,
-                role: values.role,
-              })
-              .then((r) => r.response);
+              },
+            })
+          : authClient.admin.setRole({
+              userId: props.user.id,
+              role: values.role,
+            });
       toast.promise(promise, {
         loading:
           props.mode === 'add'
