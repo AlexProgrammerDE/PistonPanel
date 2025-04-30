@@ -8,9 +8,9 @@ import globals from 'globals';
 export default tseslint.config(
   {
     ignores: [
-      'src/routeTree.gen.ts',
+      'app/routeTree.gen.ts',
       'node_modules',
-      'src/components/ui/chart.tsx',
+      'app/components/ui/chart.tsx',
     ],
   },
   {

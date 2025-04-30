@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
-import * as authSchema from '@/db/auth-schema';
-import * as schema from '@/db/schema';
+import * as authSchema from '~/db/auth-schema';
+import * as schema from '~/db/schema';
 import { Pool } from 'pg';
 import 'dotenv-flow/config';
 

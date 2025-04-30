@@ -11,13 +11,12 @@ import {
   username,
 } from 'better-auth/plugins';
 import { passkey } from 'better-auth/plugins/passkey';
-import { reactStartCookies } from 'better-auth/react-start';
-import { db } from '@/db';
+import { db } from '~/db';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { EmailTemplate } from '@daveyplate/better-auth-ui';
-import { sendEmail } from '@/email/backend';
-import * as authSchema from '@/db/auth-schema';
-import * as schema from '@/db/schema';
+import { sendEmail } from '~/email/backend';
+import * as authSchema from '~/db/auth-schema';
+import * as schema from '~/db/schema';
 import { globalAc, globalAdmin, globalUser } from '@/auth/permissions';
 
 const siteName = 'PistonPanel';
@@ -27,6 +26,7 @@ const emailAndPasswordEnabled = false;
 
 export const auth = betterAuth({
   appName: siteName,
+  trustedOrigins: ['http://localhost:3000'],
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema: {
@@ -302,6 +302,5 @@ export const auth = betterAuth({
     }),
     oneTimeToken(),
     openAPI(),
-    reactStartCookies(),
   ],
 });

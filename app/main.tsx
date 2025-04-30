@@ -1,15 +1,17 @@
 import {
   createRouter as createTanStackRouter,
   deepEqual,
+  RouterProvider,
 } from '@tanstack/react-router';
+import ReactDOM from 'react-dom/client';
 import { routeTree } from './routeTree.gen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
 import { ErrorComponent } from '@/components/error-component';
 import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
-import { routerWithQueryClient } from '@tanstack/react-router-with-query';
 import '@/lib/i18n';
+import { StrictMode } from 'react';
 
 export function createRouter() {
   const queryClient = new QueryClient({
@@ -29,33 +31,41 @@ export function createRouter() {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  return routerWithQueryClient(
-    createTanStackRouter({
-      routeTree,
-      defaultPreload: 'intent',
-      // Since we're using React Query, we don't want loader calls to ever be stale
-      // This will ensure that the loader is always called when the route is preloaded or visited
-      defaultPreloadStaleTime: 0,
-      scrollRestoration: true,
-      scrollRestorationBehavior: 'auto',
-      defaultErrorComponent: ErrorComponent,
-      defaultPendingComponent: LoadingComponent,
-      defaultNotFoundComponent: NotFoundComponent,
-      defaultStructuralSharing: true,
-      context: { queryClient },
-      Wrap: ({ children }) => (
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      ),
-    }),
-    queryClient,
-  );
+  return createTanStackRouter({
+    routeTree,
+    defaultPreload: 'intent',
+    // Since we're using React Query, we don't want loader calls to ever be stale
+    // This will ensure that the loader is always called when the route is preloaded or visited
+    defaultPreloadStaleTime: 0,
+    scrollRestoration: true,
+    scrollRestorationBehavior: 'auto',
+    defaultErrorComponent: ErrorComponent,
+    defaultPendingComponent: LoadingComponent,
+    defaultNotFoundComponent: NotFoundComponent,
+    defaultStructuralSharing: true,
+    context: { queryClient },
+    Wrap: ({ children }) => (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    ),
+  });
 }
+
+const router = createRouter();
 
 declare module '@tanstack/react-router' {
   // noinspection JSUnusedGlobalSymbols
   interface Register {
     router: ReturnType<typeof createRouter>;
   }
+}
+
+// Render the app
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  );
 }

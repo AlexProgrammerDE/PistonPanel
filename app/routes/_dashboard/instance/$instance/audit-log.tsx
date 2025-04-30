@@ -35,24 +35,9 @@ export const Route = createFileRoute(
     const auditLogQueryOptions = queryOptions({
       queryKey: ['instance-audit-log', instance],
       queryFn: async (props): Promise<InstanceAuditLogResponse> => {
-        const transport = createTransport();
-        if (transport === null) {
-          return {
-            entry: [],
-          };
-        }
-
-        const instanceService = new InstanceServiceClient(transport);
-        const result = await instanceService.getAuditLog(
-          {
-            id: instance,
-          },
-          {
-            abort: props.signal,
-          },
-        );
-
-        return result.response;
+        return {
+          entry: [],
+        };
       },
       refetchInterval: 3_000,
     });

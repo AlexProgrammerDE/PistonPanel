@@ -34,7 +34,7 @@ You can also refer to the GitHub actions workflows to see how tests are done.
 ## Generate better-auth schema
 
 ```bash
-npx @better-auth/cli@latest generate --config ./src/auth/auth-server.tsx  --output ./src/db/auth-schema.ts
+npx @better-auth/cli@latest generate --config ./server/auth/auth-server.tsx  --output ./server/db/auth-schema.ts
 ```
 
 ## Local Postgres

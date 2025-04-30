@@ -1,147 +1,26 @@
 import {
   createRootRouteWithContext,
-  HeadContent,
   Link,
   Outlet,
-  Scripts,
   useLocation,
   useRouter,
 } from '@tanstack/react-router';
-import appCss from '@/styles/app.css?url';
+import '@/styles/app.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { QueryClient } from '@tanstack/react-query';
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AboutProvider } from '@/components/dialog/about-dialog';
 import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
 import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
 import { authClient } from '@/auth/auth-client';
 import { PostHogProvider } from 'posthog-js/react';
-import { useTranslation } from 'react-i18next';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
-  head: () => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'PistonPanel',
-      },
-      {
-        name: 'theme-color',
-        content: '#3289BF',
-      },
-      {
-        name: 'description',
-        content: 'Frontend client for PistonPanel.',
-      },
-      {
-        name: 'application-name',
-        content: 'PistonPanel',
-      },
-      {
-        name: 'format-detection',
-        content: 'telephone=no, date=no, address=no, email=no, url=no',
-      },
-      {
-        property: 'og:title',
-        content: 'PistonPanel',
-      },
-      {
-        property: 'og:description',
-        content: 'Frontend client for PistonPanel.',
-      },
-      {
-        property: 'og:url',
-        content: 'https://app.pistonpanel.com',
-      },
-      {
-        property: 'og:locale',
-        content: 'en_US',
-      },
-      {
-        property: 'og:image',
-        content: '/logo.png',
-      },
-      {
-        property: 'og:image:width',
-        content: '512',
-      },
-      {
-        property: 'og:image:height',
-        content: '512',
-      },
-      {
-        property: 'og:image:alt',
-        content: 'PistonPanel Logo',
-      },
-      {
-        property: 'og:type',
-        content: 'website',
-      },
-      {
-        name: 'twitter:card',
-        content: 'summary',
-      },
-      {
-        name: 'twitter:title',
-        content: 'PistonPanel',
-      },
-      {
-        name: 'twitter:description',
-        content: 'Frontend client for PistonPanel.',
-      },
-      {
-        name: 'twitter:image',
-        content: '/logo.png',
-      },
-      {
-        name: 'twitter:image:width',
-        content: '512',
-      },
-      {
-        name: 'twitter:image:height',
-        content: '512',
-      },
-      {
-        name: 'twitter:image:alt',
-        content: 'PistonPanel Logo',
-      },
-    ],
-    links: [
-      { rel: 'stylesheet', href: appCss },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: '/apple-touch-icon.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        href: '/icons/favicon-32x32.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: '/icons/favicon-16x16.png',
-      },
-      {
-        rel: 'manifest',
-        href: '/manifest.json',
-      },
-    ],
-  }),
   component: RootComponent,
   // To make pendingComponent work on root route
   wrapInSuspense: true,
@@ -150,7 +29,7 @@ export const Route = createRootRouteWithContext<{
 
 function RootPending() {
   return (
-    <RootDocument>
+    <>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -159,7 +38,7 @@ function RootPending() {
       >
         <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
       </ThemeProvider>
-    </RootDocument>
+    </>
   );
 }
 
@@ -180,7 +59,7 @@ function RootComponent() {
   const router = useRouter();
 
   return (
-    <RootDocument>
+    <>
       <AuthQueryProvider>
         <ThemeProvider
           attribute="class"
@@ -230,26 +109,6 @@ function RootComponent() {
           </AuthUIProviderTanstack>
         </ThemeProvider>
       </AuthQueryProvider>
-    </RootDocument>
-  );
-}
-
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const { i18n } = useTranslation();
-
-  // noinspection HtmlRequiredTitleElement
-  return (
-    <html
-      suppressHydrationWarning
-      lang={i18n.resolvedLanguage ?? i18n.language ?? 'en'}
-    >
-      <head suppressHydrationWarning>
-        <HeadContent />
-      </head>
-      <body suppressHydrationWarning>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    </>
   );
 }

@@ -25,30 +25,17 @@ export const Route = createFileRoute('/_dashboard')({
       const instanceListQueryOptions = queryOptions({
         queryKey: ['instance-list'],
         queryFn: async (props): Promise<InstanceListResponse> => {
-          const transport = createTransport();
-          if (transport === null) {
-            return {
-              instances: [
-                {
-                  id: 'demo',
-                  friendlyName: 'Demo',
-                  icon: 'pickaxe',
-                  state: InstanceState.RUNNING,
-                  instancePermissions: [],
-                },
-              ],
-            };
-          }
-
-          const instanceService = new InstanceServiceClient(transport);
-          const result = await instanceService.listInstances(
-            {},
-            {
-              abort: props.signal,
-            },
-          );
-
-          return result.response;
+          return {
+            instances: [
+              {
+                id: 'demo',
+                friendlyName: 'Demo',
+                icon: 'pickaxe',
+                state: InstanceState.RUNNING,
+                instancePermissions: [],
+              },
+            ],
+          };
         },
         refetchInterval: 3_000,
       });
@@ -79,7 +66,10 @@ export const Route = createFileRoute('/_dashboard')({
     } else {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: '/',
+        to: '/auth/$pathname',
+        params: {
+          pathname: 'sign-in',
+        },
         search: {
           redirect: props.location.href,
         },
