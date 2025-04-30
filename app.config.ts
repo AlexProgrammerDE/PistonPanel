@@ -1,6 +1,7 @@
 import { defineConfig } from '@tanstack/react-start/config';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import fs from 'node:fs';
+import tailwindcss from '@tailwindcss/vite';
 
 const baseEnv = process.env.VERCEL_ENV ?? process.env.NODE_ENV;
 let appEnv: string;
@@ -31,6 +32,7 @@ export default defineConfig({
       tsConfigPaths({
         projects: ['./tsconfig.json'],
       }),
+      tailwindcss(),
     ],
     define: {
       'import.meta.env.APP_VERSION': JSON.stringify(
