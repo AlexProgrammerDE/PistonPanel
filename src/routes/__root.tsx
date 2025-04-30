@@ -182,36 +182,36 @@ function RootComponent() {
   return (
     <RootDocument>
       <AuthQueryProvider>
-        <AuthUIProviderTanstack
-          authClient={authClient}
-          navigate={(href) => void router.navigate({ href })}
-          replace={(href) => void router.navigate({ href, replace: true })}
-          providers={['google', 'microsoft', 'apple']}
-          magicLink
-          emailVerification
-          changeEmail
-          passkey
-          username
-          deleteAccountVerification
-          deleteUser
-          credentials={false}
-          signUp={false}
-          nameRequired
-          twoFactor={['otp', 'totp']}
-          settingsURL="/user/settings"
-          Link={({ href, ...props }) => <Link to={href} {...props} />}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <PostHogProvider
-            apiKey={import.meta.env.VITE_POSTHOG_KEY}
-            options={{
-              api_host: import.meta.env.VITE_POSTHOG_HOST,
-            }}
+          <AuthUIProviderTanstack
+            authClient={authClient}
+            navigate={(href) => void router.navigate({ href })}
+            replace={(href) => void router.navigate({ href, replace: true })}
+            providers={['google', 'microsoft', 'apple']}
+            magicLink
+            emailVerification
+            changeEmail
+            passkey
+            username
+            deleteAccountVerification
+            deleteUser
+            credentials={false}
+            signUp={false}
+            nameRequired
+            twoFactor={['otp', 'totp']}
+            settingsURL="/user/settings"
+            Link={({ href, ...props }) => <Link to={href} {...props} />}
           >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
+            <PostHogProvider
+              apiKey={import.meta.env.VITE_POSTHOG_KEY}
+              options={{
+                api_host: import.meta.env.VITE_POSTHOG_HOST,
+              }}
             >
               <TooltipProvider delayDuration={500}>
                 <div
@@ -225,10 +225,10 @@ function RootComponent() {
                 </div>
                 <Toaster richColors />
               </TooltipProvider>
-            </ThemeProvider>
-            <TailwindIndicator />
-          </PostHogProvider>
-        </AuthUIProviderTanstack>
+              <TailwindIndicator />
+            </PostHogProvider>
+          </AuthUIProviderTanstack>
+        </ThemeProvider>
       </AuthQueryProvider>
     </RootDocument>
   );
