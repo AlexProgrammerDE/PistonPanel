@@ -1,3 +1,6 @@
+// Must be first
+import 'dotenv-flow/config';
+
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import { auth } from './auth/auth-server';
@@ -7,7 +10,6 @@ import { appRouter } from '~/api/trpc';
 import { swaggerUI } from '@hono/swagger-ui';
 import { openApiDocument } from '~/api/openapi';
 import { createContext } from '~/api/trpc-context';
-import 'dotenv-flow/config';
 
 const app = new Hono();
 
