@@ -12,8 +12,18 @@ import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
 import '@/lib/i18n';
 import { StrictMode } from 'react';
+import { httpBatchStreamLink } from '@trpc/client';
+import { trpc } from '@/lib/trpc';
 
 export function createRouter() {
+  const trpcClient = trpc.createClient({
+    links: [
+      httpBatchStreamLink({
+        url: '/api/trpc',
+      }),
+    ],
+  });
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -45,7 +55,11 @@ export function createRouter() {
     defaultStructuralSharing: true,
     context: { queryClient },
     Wrap: ({ children }) => (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </trpc.Provider>
     ),
   });
 }

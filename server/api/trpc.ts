@@ -12,3 +12,5 @@ export const appRouter = t.router({
       return { greeting: `Hello ${input.name}!` };
     }),
 });
+
+export type AppRouter = typeof appRouter;
