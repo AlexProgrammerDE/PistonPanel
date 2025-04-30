@@ -19,6 +19,7 @@ import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
 import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
 import { authClient } from '@/auth/auth-client';
 import { PostHogProvider } from 'posthog-js/react';
+import { useTranslation } from 'react-i18next';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -233,13 +234,18 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const { i18n } = useTranslation();
+
   // noinspection HtmlRequiredTitleElement
   return (
-    <html>
-      <head>
+    <html
+      suppressHydrationWarning
+      lang={i18n.resolvedLanguage ?? i18n.language ?? 'en'}
+    >
+      <head suppressHydrationWarning>
         <HeadContent />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {children}
         <Scripts />
       </body>

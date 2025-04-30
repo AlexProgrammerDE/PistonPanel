@@ -25,7 +25,6 @@ import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { UserRole } from '@/generated/pistonpanel/common';
 import {
   Select,
   SelectContent,
@@ -33,7 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { getEnumEntries } from '@/lib/types';
 import { useRouteContext } from '@tanstack/react-router';
 import {
   AppGlobalRole,
@@ -47,6 +45,7 @@ export type FormType = {
   username: string;
   email: string;
   role: AppGlobalRole;
+  password: string;
 };
 
 export function ManageUserDialog({
@@ -64,10 +63,11 @@ export function ManageUserDialog({
   const queryClient = useQueryClient();
   const { t } = useTranslation('admin');
   const formSchema = z.object({
-    name: z.string(),
-    username: z.string(),
+    name: z.string().nonempty(),
+    username: z.string().nonempty(),
     email: z.string().email(),
     role: z.enum(appGlobalRoles),
+    password: z.string().nonempty(),
   });
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -79,25 +79,34 @@ export function ManageUserDialog({
         props.mode === 'edit'
           ? ((props.user.role ?? 'user') as AppGlobalRole)
           : 'user',
+      password: '',
     },
   });
   const submitMutation = useMutation({
     mutationFn: async (values: FormType) => {
-      const promise =
+      const promise: Promise<void> =
         props.mode === 'add'
-          ? authClient.admin.createUser({
-              name: values.name,
-              email: values.email,
-              role: values.role,
-              password: '',
-              data: {
-                username: values.username,
-              },
-            })
-          : authClient.admin.setRole({
-              userId: props.user.id,
-              role: values.role,
-            });
+          ? authClient.admin
+              .createUser({
+                name: values.name,
+                email: values.email,
+                role: values.role,
+                password: values.password,
+                data: {
+                  username: values.username,
+                },
+              })
+              .then()
+          : Promise.all([
+              authClient.admin.setRole({
+                userId: props.user.id,
+                role: values.role,
+              }),
+              authClient.admin.setUserPassword({
+                userId: props.user.id,
+                newPassword: values.password,
+              }),
+            ]).then();
       toast.promise(promise, {
         loading:
           props.mode === 'add'
@@ -151,6 +160,31 @@ export function ManageUserDialog({
             <CredenzaBody className="flex flex-col gap-4">
               <FormField
                 control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t('users.baseUserDialog.form.name.label')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        readOnly={props.mode === 'edit'}
+                        autoFocus
+                        placeholder={t(
+                          'users.baseUserDialog.form.name.placeholder',
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('users.baseUserDialog.form.name.description')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="username"
                 render={({ field }) => (
                   <FormItem>
@@ -159,6 +193,7 @@ export function ManageUserDialog({
                     </FormLabel>
                     <FormControl>
                       <Input
+                        readOnly={props.mode === 'edit'}
                         autoFocus
                         placeholder={t(
                           'users.baseUserDialog.form.username.placeholder',
@@ -183,6 +218,7 @@ export function ManageUserDialog({
                     </FormLabel>
                     <FormControl>
                       <Input
+                        readOnly={props.mode === 'edit'}
                         placeholder={t(
                           'users.baseUserDialog.form.email.placeholder',
                         )}
@@ -214,20 +250,39 @@ export function ManageUserDialog({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {getEnumEntries(UserRole).map((role) => (
-                          <SelectItem
-                            key={role.value}
-                            value={String(role.value)}
-                          >
-                            {t(
-                              `users.baseUserDialog.form.role.${role.key.toLowerCase()}`,
-                            )}
+                        {appGlobalRoles.map((role) => (
+                          <SelectItem key={role} value={String(role)}>
+                            {t(`users.baseUserDialog.form.role.${role}`)}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <FormDescription>
                       {t('users.baseUserDialog.form.role.description')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t('users.baseUserDialog.form.password.label')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder={t(
+                          'users.baseUserDialog.form.password.placeholder',
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('users.baseUserDialog.form.password.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

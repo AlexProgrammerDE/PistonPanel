@@ -8,25 +8,26 @@
 
 # PistonPanel
 
-*🌠 Next-gen game-server hosting panel*
+_🌠 Next-gen game-server hosting panel_
 
 ## About
 
-> [!NOTE]  
+> [!NOTE]
 > PistonPanel is currently in development, but you cannot use this project yet. Many features are missing, so you'll have to wait a bit until everything is ready. Check back to see if anything has changed.
 
 PistonPanel is a web-based game server management panel that allows you to manage your game servers from anywhere.
 It is designed to be easy to use and provides a modern interface for managing your game servers.
 
 Unique features of PistonPanel:
-- Organisations - Manage multiple servers in one place. Invite members to your organisation to collaborate.
-- Kubernetes - While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node features like no other panel can.
-- Auth - With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
-- Fully customizable - If you know React and Typescript, you can modify the panel code to your liking.
+
+- Organisations: Manage multiple servers in one place. Invite members to your organisation to collaborate.
+- Kubernetes: While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node features like no other panel can.
+- Auth: With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
+- Fully customizable: If you know React and TypeScript, you can modify the panel code to your liking.
 
 ## Building
 
-PistonPanel has a lot of dependencies. You'll need pnpm and latest node installed.
+PistonPanel has a lot of dependencies. You'll need pnpm and the latest node installed.
 Take a look at the scripts in `package.json` to see how to run a dev env locally.
 You can also refer to the GitHub actions workflows to see how tests are done.
 
@@ -38,6 +39,14 @@ npx @better-auth/cli@latest generate --config ./src/auth/auth-server.tsx  --outp
 
 ## Local Postgres
 
+### Setup container
+
 ```bash
 docker run --name dev-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+```
+
+### Start after boot
+
+```bash
+docker start dev-postgres
 ```
