@@ -57,7 +57,7 @@ export function ManageUserDialog({
   setOpen: (open: boolean) => void;
 } & ({ mode: 'edit'; user: AppUser } | { mode: 'add' })) {
   const usersQueryOptions = useRouteContext({
-    from: '/_dashboard/user/admin/users',
+    from: '/_dashboard/_user/admin/users',
     select: (context) => context.usersQueryOptions,
   });
   const queryClient = useQueryClient();
