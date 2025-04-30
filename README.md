@@ -1,22 +1,28 @@
-# PistonPanel
+<img align="right" src="https://github.com/AlexProgrammerDE/PistonPanel/blob/main/public/logo.png?raw=true" height="150" width="150">
 
-<!--suppress HtmlDeprecatedAttribute -->
-<p align="center">
 <a href="https://github.com/AlexProgrammerDE/PistonPanel/actions/workflows/build.yml"><img src="https://github.com/AlexProgrammerDE/PistonPanel/actions/workflows/build.yml/badge.svg?branch=main" alt="Test"></a>
 <a href="https://github.com/AlexProgrammerDE/PistonPanel/graphs/contributors"><img src="https://img.shields.io/github/contributors/AlexProgrammerDE/PistonPanel.svg" alt="Contributors"></a>
 <a href="https://github.com/AlexProgrammerDE/PistonPanel/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AlexProgrammerDE/PistonPanel.svg" alt="License"></a>
-</p>
-<p align="center"><a href="https://discord.gg/vHgRd6YZmH"><img src="https://discordapp.com/api/guilds/739784741124833301/embed.png" alt="Discord embed"></a></p>
 
-## About PistonPanel
+<a href="https://discord.gg/vHgRd6YZmH"><img src="https://discordapp.com/api/guilds/739784741124833301/embed.png" alt="Discord embed"></a>
 
-Built using the latest web tech to consistently work on both web and as a PWA.
+# PistonPanel
+
+*🌠 Next-gen game-server hosting panel*
+
+## About
+
+> [!NOTE]  
+> PistonPanel is currently in development, but you cannot use this project yet. Many features are missing, so you'll have to wait a bit until everything is ready. Check back to see if anything has changed.
+
 PistonPanel is a web-based game server management panel that allows you to manage your game servers from anywhere.
 It is designed to be easy to use and provides a modern interface for managing your game servers.
 
-## Installation
-
-For installing PistonPanel, please refer to the [installation guide](https://pistonpanel.com/docs/installation).
+Unique features of PistonPanel:
+- Organisations - Manage multiple servers in one place. Invite members to your organisation to collaborate.
+- Kubernetes - While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node features like no other panel can.
+- Auth - With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
+- Fully customizable - If you know React and Typescript, you can modify the panel code to your liking.
 
 ## Building
 
