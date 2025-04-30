@@ -113,6 +113,9 @@ importers:
       better-auth:
         specifier: 1.2.7
         version: 1.2.7
+      better-auth-harmony:
+        specifier: ^1.2.4
+        version: 1.2.4(better-auth@1.2.7)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2652,6 +2655,11 @@ packages:
   base-64@1.0.0:
     resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
 
+  better-auth-harmony@1.2.4:
+    resolution: {integrity: sha512-a5Qe+fEWcOR7c9bmy+g/FmRf3TuJqv3pdz6WD/seuh/ykkxi93u6lG++/L0BIFNhSZkXeIrrosmfBFTycfL3XA==}
+    peerDependencies:
+      better-auth: ^1.0.3
+
   better-auth@1.2.7:
     resolution: {integrity: sha512-2hCB263GSrgetsMUZw8vv9O1e4S4AlYJW3P4e8bX9u3Q3idv4u9BzDFCblpTLuL4YjYovghMCN0vurAsctXOAQ==}
 
@@ -3809,6 +3817,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  libphonenumber-js@1.12.7:
+    resolution: {integrity: sha512-0nYZSNj/QEikyhcM5RZFXGlCB/mr4PVamnT1C2sKBnDDTYndrvbybYjvg+PMqAndQHlLbwQ3socolnL3WWTUFA==}
+
   lightningcss-darwin-arm64@1.29.2:
     resolution: {integrity: sha512-cK/eMabSViKn/PG8U/a7aCorpeKLMlK0bQeNHmdb7qUnBkNPnL+oV5DjJUo0kqWsJUapZsM4jCfYItbqBDvlcA==}
     engines: {node: '>= 12.0.0'}
@@ -3928,6 +3939,10 @@ packages:
 
   lucide-static@0.503.0:
     resolution: {integrity: sha512-uwuom0ibobQx1yxuCnuR9X1sai8WcyT+qdw4Na4NOMoCLbhuEAsWAlwKjr0fdMgWgNzh3Z6pMgVtSo1MwlDe9A==}
+
+  mailchecker@6.0.17:
+    resolution: {integrity: sha512-7wfgNChUp7mqzoh31l8aII2swlalW9Wfxqa6XrNVCyf2pardtSzNKatf4OWng4bQnXN5lvgk7Pd9kLrWbs/ylA==}
+    engines: {node: '>=0.10'}
 
   marked@7.0.4:
     resolution: {integrity: sha512-t8eP0dXRJMtMvBojtkcsA7n48BkauktUKzfkPSCq85ZMTJ0v76Rke4DYz01omYpPTUh4p/f7HePgRo3ebG8+QQ==}
@@ -5058,6 +5073,10 @@ packages:
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
+
+  validator@13.15.0:
+    resolution: {integrity: sha512-36B2ryl4+oL5QxZ3AzD0t5SsMNGvTtQHpjgFO5tbNxfXbMFkY822ktCDe1MnlqV3301QQI9SLHDNJokDI+Z9pA==}
+    engines: {node: '>= 0.10'}
 
   vaul@1.1.2:
     resolution: {integrity: sha512-ZFkClGpWyI2WUQjdLJ/BaGuV6AVQiJ3uELGk3OYtP+B6yCO7Cmn9vPFXVJkRaGkOJu3m8bQMgtyzNHixULceQA==}
@@ -7502,6 +7521,13 @@ snapshots:
 
   base-64@1.0.0: {}
 
+  better-auth-harmony@1.2.4(better-auth@1.2.7):
+    dependencies:
+      better-auth: 1.2.7
+      libphonenumber-js: 1.12.7
+      mailchecker: 6.0.17
+      validator: 13.15.0
+
   better-auth@1.2.7:
     dependencies:
       '@better-auth/utils': 0.2.4
@@ -8713,6 +8739,8 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  libphonenumber-js@1.12.7: {}
+
   lightningcss-darwin-arm64@1.29.2:
     optional: true
 
@@ -8824,6 +8852,8 @@ snapshots:
       react: 19.1.0
 
   lucide-static@0.503.0: {}
+
+  mailchecker@6.0.17: {}
 
   marked@7.0.4: {}
 
@@ -9914,6 +9944,8 @@ snapshots:
       react: 19.1.0
 
   uuid@9.0.1: {}
+
+  validator@13.15.0: {}
 
   vaul@1.1.2(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:

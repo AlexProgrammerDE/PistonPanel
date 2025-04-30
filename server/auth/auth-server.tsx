@@ -18,9 +18,9 @@ import { sendEmail } from '~/email/backend';
 import * as authSchema from '~/db/auth-schema';
 import * as schema from '~/db/schema';
 import { globalAc, globalAdmin, globalUser } from '@/auth/permissions';
+import { siteBaseUrl, siteName } from '~/config';
+import { emailHarmony } from 'better-auth-harmony';
 
-const siteName = 'PistonPanel';
-const siteBaseUrl = 'https://pistonpanel.com';
 const disableSignUp = true;
 const emailAndPasswordEnabled = false;
 
@@ -157,6 +157,7 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    emailHarmony(),
     twoFactor({
       otpOptions: {
         async sendOTP({ user, otp }) {

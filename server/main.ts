@@ -7,6 +7,7 @@ import { appRouter } from '~/api/trpc';
 import { swaggerUI } from '@hono/swagger-ui';
 import { openApiDocument } from '~/api/openapi';
 import { createContext } from '~/api/trpc-context';
+import 'dotenv-flow/config';
 
 const app = new Hono();
 

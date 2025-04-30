@@ -54,6 +54,7 @@
     "@trpc/react-query": "^11.1.2",
     "@vitejs/plugin-react-swc": "^3.9.0",
     "better-auth": "1.2.7",
+    "better-auth-harmony": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
