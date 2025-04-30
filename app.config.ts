@@ -50,7 +50,7 @@ export default defineConfig({
           'X-Frame-Options': 'SAMEORIGIN',
           'X-Content-Type-Options': 'nosniff',
           'Content-Security-Policy':
-            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.posthog.com; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; connect-src 'self' https://*.posthog.com; font-src 'self'; frame-src 'self'; img-src 'self' data: blob: https://www.gravatar.com 'self'; manifest-src 'self'; media-src 'self'; worker-src 'self' blob: data:;",
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.posthog.com; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; connect-src 'self' https://*.posthog.com ws://localhost; font-src 'self'; frame-src 'self'; img-src 'self' data: blob: https://www.gravatar.com 'self'; manifest-src 'self'; media-src 'self'; worker-src 'self' blob: data:;",
         },
       },
     },
