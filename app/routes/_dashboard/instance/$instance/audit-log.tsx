@@ -6,7 +6,6 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Trans, useTranslation } from 'react-i18next';
 import { UserAvatar } from '@/components/user-avatar';
 import {
-  InstanceAuditLogResponse,
   InstanceAuditLogResponse_AuditLogEntry,
   InstanceAuditLogResponse_AuditLogEntryType,
 } from '@/generated/pistonpanel/instance';
@@ -32,7 +31,7 @@ export const Route = createFileRoute(
     const { instance } = props.params;
     const auditLogQueryOptions = queryOptions({
       queryKey: ['instance-audit-log', instance],
-      queryFn: async (props): Promise<InstanceAuditLogResponse> => {
+      queryFn: () => {
         return {
           entry: [],
         };

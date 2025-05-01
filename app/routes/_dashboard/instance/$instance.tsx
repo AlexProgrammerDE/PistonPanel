@@ -5,14 +5,13 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { InstanceSidebar } from '@/components/nav/instance-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
-import { InstanceInfoQueryData } from '@/lib/types';
 
 export const Route = createFileRoute('/_dashboard/instance/$instance')({
   beforeLoad: (props) => {
     const { instance } = props.params;
     const instanceInfoQueryOptions = queryOptions({
       queryKey: ['instance-info', instance],
-      queryFn: (): InstanceInfoQueryData => {
+      queryFn: () => {
         return {
           id: instance,
           friendlyName: 'Demo',

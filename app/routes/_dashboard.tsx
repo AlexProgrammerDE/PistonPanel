@@ -4,10 +4,7 @@ import {
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import {
-  InstanceListResponse,
-  InstanceState,
-} from '@/generated/pistonpanel/instance';
+import { InstanceState } from '@/generated/pistonpanel/instance';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';
@@ -22,7 +19,7 @@ export const Route = createFileRoute('/_dashboard')({
     if (session) {
       const instanceListQueryOptions = queryOptions({
         queryKey: ['instance-list'],
-        queryFn: async (props): Promise<InstanceListResponse> => {
+        queryFn: () => {
           return {
             instances: [
               {

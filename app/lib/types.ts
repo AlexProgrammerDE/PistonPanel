@@ -1,12 +1,5 @@
-import {
-  InstanceInfoResponse,
-  InstanceState,
-} from '@/generated/pistonpanel/instance';
+import { InstanceState } from '@/generated/pistonpanel/instance';
 import { i18n } from 'i18next';
-
-export type InstanceInfoQueryData = InstanceInfoResponse & {
-  id: string;
-};
 
 export function getEnumKeyByValue<E extends object>(
   enumObj: E,
