@@ -1,2 +1,2 @@
-export const siteName = 'PistonPanel';
-export const siteBaseUrl = 'https://pistonpanel.com';
+export const siteName = process.env.SITE_NAME!;
+export const siteBaseUrl = process.env.BASE_URL!;
