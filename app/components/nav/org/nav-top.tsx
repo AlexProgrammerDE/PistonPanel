@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, HomeIcon, LayoutDashboardIcon } from 'lucide-react';
+import { BotIcon, HomeIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarMenu,

@@ -1,12 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import * as React from 'react';
 import UserPageLayout from '@/components/nav/user/user-page-layout';
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { SearchXIcon } from 'lucide-react';
 import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';

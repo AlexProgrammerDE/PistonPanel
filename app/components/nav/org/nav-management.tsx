@@ -8,13 +8,7 @@ import {
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  BoltIcon,
-  CogIcon,
-  ScanEyeIcon,
-  TextSearchIcon,
-  UsersIcon,
-} from 'lucide-react';
+import { CogIcon, ScanEyeIcon, TextSearchIcon, UsersIcon } from 'lucide-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 type NavLink = {

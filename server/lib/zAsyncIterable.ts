@@ -1,13 +1,16 @@
 import type { TrackedEnvelope } from '@trpc/server';
 import { isTrackedEnvelope, tracked } from '@trpc/server';
 import { z } from 'zod';
+
 function isAsyncIterable<TValue, TReturn = unknown>(
   value: unknown,
 ): value is AsyncIterable<TValue, TReturn> {
   return !!value && typeof value === 'object' && Symbol.asyncIterator in value;
 }
+
 const trackedEnvelopeSchema =
   z.custom<TrackedEnvelope<unknown>>(isTrackedEnvelope);
+
 /**
  * A Zod schema helper designed specifically for validating async iterables. This schema ensures that:
  * 1. The value being validated is an async iterable.

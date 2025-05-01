@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  DatabaseIcon,
-  NetworkIcon,
-  ServerIcon,
-  TerminalIcon,
-  TextSearchIcon,
-} from 'lucide-react';
+import { DatabaseIcon, NetworkIcon, ServerIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,

@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { LucideProps } from 'lucide-react';
 import dynamicIconImports from 'lucide-react/dynamicIconImports';
-import i18n from '@/lib/i18n';
 import tags from 'lucide-static/tags.json';
 
 export function getAllIconTags() {

@@ -13,7 +13,8 @@ _🌠 Next-gen game-server hosting panel_
 ## About
 
 > [!NOTE]
-> PistonPanel is currently in development, but you cannot use this project yet. Many features are missing, so you'll have to wait a bit until everything is ready. Check back to see if anything has changed.
+> PistonPanel is currently in development, but you cannot use this project yet. Many features are missing, so you'll
+> have to wait a bit until everything is ready. Check back to see if anything has changed.
 
 PistonPanel is a web-based game server management panel that allows you to manage your game servers from anywhere.
 It is designed to be easy to use and provides a modern interface for managing your game servers.
@@ -21,8 +22,10 @@ It is designed to be easy to use and provides a modern interface for managing yo
 Unique features of PistonPanel:
 
 - Organisations: Manage multiple servers in one place. Invite members to your organisation to collaborate.
-- Kubernetes: While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node features like no other panel can.
-- Auth: With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic links, Google, Microsoft, Apple... and more!
+- Kubernetes: While other panels rely on Docker, PistonPanel is built with only Kubernetes support, providing multi-node
+  features like no other panel can.
+- Auth: With a highly advanced authentication system, support login methods like Passkeys, 2FA, email codes, magic
+  links, Google, Microsoft, Apple... and more!
 - Fully customizable: If you know React and TypeScript, you can modify the panel code to your liking.
 
 ## Building

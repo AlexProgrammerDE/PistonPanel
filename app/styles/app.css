@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+
 @source "../../node_modules/@daveyplate/better-auth-ui";
 
 @custom-variant dark (&:is(.dark *));
@@ -195,6 +196,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
   .dark {
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -227,6 +229,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
