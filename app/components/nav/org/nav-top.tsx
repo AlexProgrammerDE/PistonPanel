@@ -1,6 +1,6 @@
 'use client';
 
-import { BotIcon, LayoutDashboardIcon } from 'lucide-react';
+import { BotIcon, HomeIcon, LayoutDashboardIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarMenu,
@@ -28,8 +28,8 @@ export function NavTop() {
 
   const navLinks: NavLinks = [
     {
-      title: t('orgSidebar.overview'),
-      icon: LayoutDashboardIcon,
+      title: t('orgSidebar.dashboard'),
+      icon: HomeIcon,
       linkProps: {
         to: '/org/$org',
         params: { org: orgInfo.slug },
@@ -39,7 +39,7 @@ export function NavTop() {
       title: t('orgSidebar.assistant'),
       icon: BotIcon,
       linkProps: {
-        to: '/org/$org',
+        to: '/org/$org/assistant',
         params: { org: orgInfo.slug },
       },
     },

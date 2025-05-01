@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import OrgPageLayout from '@/components/nav/org/org-page-layout';
 import { useTranslation } from 'react-i18next';
 
-export const Route = createFileRoute('/_dashboard/org/$org/meta')({
+export const Route = createFileRoute('/_dashboard/org/$org/teams')({
   component: MetaSettings,
 });
 
@@ -13,11 +13,11 @@ function MetaSettings() {
     <OrgPageLayout
       extraCrumbs={[
         {
-          id: 'settings',
-          content: t('breadcrumbs.settings'),
+          id: 'management',
+          content: t('breadcrumbs.management'),
         },
       ]}
-      pageName={t('pageName.metaSettings')}
+      pageName={t('pageName.teams')}
     >
       <Content />
     </OrgPageLayout>

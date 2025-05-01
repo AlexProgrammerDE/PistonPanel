@@ -38,7 +38,7 @@ export function NavResources() {
       title: t('orgSidebar.servers'),
       icon: ServerIcon,
       linkProps: {
-        to: '/org/$org',
+        to: '/org/$org/servers',
         params: { org: orgInfo.slug },
       },
     },
@@ -46,7 +46,7 @@ export function NavResources() {
       title: t('orgSidebar.networks'),
       icon: NetworkIcon,
       linkProps: {
-        to: '/org/$org',
+        to: '/org/$org/networks',
         params: { org: orgInfo.slug },
       },
     },
@@ -54,7 +54,7 @@ export function NavResources() {
       title: t('orgSidebar.databases'),
       icon: DatabaseIcon,
       linkProps: {
-        to: '/org/$org',
+        to: '/org/$org/databases',
         params: { org: orgInfo.slug },
       },
     },

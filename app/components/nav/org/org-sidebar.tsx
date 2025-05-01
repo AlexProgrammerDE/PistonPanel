@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Suspense } from 'react';
 
 import { NavResources } from '@/components/nav/org/nav-resources';
-import { NavOrg } from '@/components/nav/org/nav-org';
+import { NavManagement } from '@/components/nav/org/nav-management';
 import { NavAccount } from '@/components/nav/nav-account';
 import { OrgSwitcher } from '@/components/nav/org/org-switcher';
 import {
@@ -28,7 +28,7 @@ export function OrgSidebar(props: React.ComponentProps<typeof Sidebar>) {
           <Suspense fallback={<NavDefaultSkeleton />}>
             <NavTop />
             <NavResources />
-            <NavOrg />
+            <NavManagement />
           </Suspense>
           <NavSecondary className="mt-auto" />
         </SidebarContent>

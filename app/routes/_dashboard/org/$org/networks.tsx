@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { authClient } from '@/auth/auth-client';
 
-export const Route = createFileRoute('/_dashboard/org/$org/')({
+export const Route = createFileRoute('/_dashboard/org/$org/networks')({
   component: Console,
 });
 
@@ -13,7 +13,15 @@ function Console() {
   const { t } = useTranslation('common');
 
   return (
-    <OrgPageLayout pageName={t('pageName.dashboard')}>
+    <OrgPageLayout
+      extraCrumbs={[
+        {
+          id: 'resources',
+          content: t('breadcrumbs.resources'),
+        },
+      ]}
+      pageName={t('pageName.networks')}
+    >
       <Content />
     </OrgPageLayout>
   );

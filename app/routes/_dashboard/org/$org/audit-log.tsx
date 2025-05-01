@@ -50,8 +50,8 @@ function AuditLog() {
     <OrgPageLayout
       extraCrumbs={[
         {
-          id: 'controls',
-          content: t('breadcrumbs.controls'),
+          id: 'management',
+          content: t('breadcrumbs.management'),
         },
       ]}
       pageName={t('pageName.audit-log')}

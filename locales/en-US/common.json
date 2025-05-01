@@ -194,7 +194,7 @@
     },
     "resourcesGroup": "Resources",
     "orgsGroup": "Organizations",
-    "organizationGroup": "Organization",
+    "managementGroup": "Management",
     "createOrg": "Create Organization",
     "deleteOrg": "Delete Organization",
     "audit-log": "Audit Log",
@@ -204,7 +204,7 @@
     "databases": "Databases",
     "members": "Members",
     "teams": "Teams",
-    "overview": "Overview",
+    "dashboard": "Dashboard",
     "assistant": "Assistant"
   },
   "userSidebar": {
@@ -251,8 +251,8 @@
   "breadcrumbs": {
     "admin": "Admin",
     "settings": "Settings",
-    "controls": "Controls",
-    "plugins": "Plugins"
+    "resources": "Resources",
+    "management": "Management"
   },
   "noOrgsFound": "No orgs found",
   "pageName": {
@@ -264,11 +264,14 @@
     "proxySettings": "Proxy Settings",
     "overview": "Overview",
     "users": "Users",
-    "accountSettings": "Account Settings",
-    "metaSettings": "Organization Settings",
     "discoverPlugins": "Plugins",
-    "adminScripts": "Scripts",
-    "orgScripts": "Scripts"
+    "members": "Members",
+    "teams": "Teams",
+    "servers": "Servers",
+    "networks": "Networks",
+    "databases": "Databases",
+    "assistant": "Assistant",
+    "dashboard": "Dashboard"
   },
   "access": {
     "webdav": {

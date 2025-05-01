@@ -23,7 +23,7 @@ type NavLink = {
   linkProps: LinkProps;
 };
 
-export function NavOrg() {
+export function NavManagement() {
   const { t } = useTranslation('common');
   const orgInfoQueryOptions = useRouteContext({
     from: '/_dashboard/org/$org',
@@ -36,7 +36,7 @@ export function NavOrg() {
       title: t('orgSidebar.settings'),
       icon: CogIcon,
       linkProps: {
-        to: '/org/$org/meta',
+        to: '/org/$org/settings',
         params: { org: orgInfo.slug },
       },
     } satisfies NavLink,
@@ -44,7 +44,7 @@ export function NavOrg() {
       title: t('orgSidebar.members'),
       icon: UsersIcon,
       linkProps: {
-        to: '/org/$org/meta',
+        to: '/org/$org/members',
         params: { org: orgInfo.slug },
       },
     } satisfies NavLink,
@@ -52,7 +52,7 @@ export function NavOrg() {
       title: t('orgSidebar.teams'),
       icon: ScanEyeIcon,
       linkProps: {
-        to: '/org/$org/meta',
+        to: '/org/$org/teams',
         params: { org: orgInfo.slug },
       },
     } satisfies NavLink,
@@ -68,7 +68,7 @@ export function NavOrg() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('orgSidebar.organizationGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.managementGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

@@ -1,11 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Badge } from '@/components/ui/badge';
 import OrgPageLayout from '@/components/nav/org/org-page-layout';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { authClient } from '@/auth/auth-client';
 
-export const Route = createFileRoute('/_dashboard/org/$org/')({
+export const Route = createFileRoute('/_dashboard/org/$org/assistant')({
   component: Console,
 });
 
@@ -13,7 +11,7 @@ function Console() {
   const { t } = useTranslation('common');
 
   return (
-    <OrgPageLayout pageName={t('pageName.dashboard')}>
+    <OrgPageLayout pageName={t('pageName.assistant')}>
       <Content />
     </OrgPageLayout>
   );
