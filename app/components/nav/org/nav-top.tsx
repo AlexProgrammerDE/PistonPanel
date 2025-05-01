@@ -1,6 +1,8 @@
+'use client';
+
+import { BotIcon, LayoutDashboardIcon } from 'lucide-react';
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -8,16 +10,15 @@ import {
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BoltIcon } from 'lucide-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-type NavLink = {
+type NavLinks = {
   title: string;
   icon: (props: { className: string }) => ReactNode;
   linkProps: LinkProps;
-};
+}[];
 
-export function NavSettings() {
+export function NavTop() {
   const { t } = useTranslation('common');
   const orgInfoQueryOptions = useRouteContext({
     from: '/_dashboard/org/$org',
@@ -25,20 +26,27 @@ export function NavSettings() {
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
-  const navLinks: NavLink[] = [
+  const navLinks: NavLinks = [
     {
-      title: t('orgSidebar.metaSettings'),
-      icon: BoltIcon,
+      title: t('orgSidebar.overview'),
+      icon: LayoutDashboardIcon,
       linkProps: {
-        to: '/org/$org/meta',
+        to: '/org/$org',
         params: { org: orgInfo.slug },
       },
-    } satisfies NavLink,
+    },
+    {
+      title: t('orgSidebar.assistant'),
+      icon: BotIcon,
+      linkProps: {
+        to: '/org/$org',
+        params: { org: orgInfo.slug },
+      },
+    },
   ];
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('orgSidebar.settingsGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

@@ -1,6 +1,12 @@
 'use client';
 
-import { TerminalIcon, TextSearchIcon } from 'lucide-react';
+import {
+  DatabaseIcon,
+  NetworkIcon,
+  ServerIcon,
+  TerminalIcon,
+  TextSearchIcon,
+} from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -19,7 +25,7 @@ type NavLinks = {
   linkProps: LinkProps;
 }[];
 
-export function NavControls() {
+export function NavResources() {
   const { t } = useTranslation('common');
   const orgInfoQueryOptions = useRouteContext({
     from: '/_dashboard/org/$org',
@@ -29,18 +35,26 @@ export function NavControls() {
 
   const navLinks: NavLinks = [
     {
-      title: t('orgSidebar.console'),
-      icon: TerminalIcon,
+      title: t('orgSidebar.servers'),
+      icon: ServerIcon,
       linkProps: {
         to: '/org/$org',
         params: { org: orgInfo.slug },
       },
     },
     {
-      title: t('orgSidebar.audit-log'),
-      icon: TextSearchIcon,
+      title: t('orgSidebar.networks'),
+      icon: NetworkIcon,
       linkProps: {
-        to: '/org/$org/audit-log',
+        to: '/org/$org',
+        params: { org: orgInfo.slug },
+      },
+    },
+    {
+      title: t('orgSidebar.databases'),
+      icon: DatabaseIcon,
+      linkProps: {
+        to: '/org/$org',
         params: { org: orgInfo.slug },
       },
     },
@@ -48,7 +62,7 @@ export function NavControls() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('orgSidebar.controlsGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.resourcesGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

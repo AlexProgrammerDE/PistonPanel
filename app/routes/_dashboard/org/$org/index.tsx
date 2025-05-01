@@ -38,9 +38,6 @@ function Content() {
           <h2 className="max-w-64 truncate text-xl font-semibold">
             {orgInfo.name}
           </h2>
-          <Badge className="uppercase" variant="secondary">
-            {'TODO' /* TODO */}
-          </Badge>
         </div>
       </div>
     </div>

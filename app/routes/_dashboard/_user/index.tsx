@@ -61,13 +61,10 @@ function Content() {
                     />
                   </div>
                 </CardHeader>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center">
                   <CardTitle className="max-w-64 truncate">
                     {org.name}
                   </CardTitle>
-                  <CardDescription className="font-semibold">
-                    {'TODO' /* TODO */}
-                  </CardDescription>
                 </CardHeader>
                 <CardHeader className="ml-auto">
                   <p className="mb-auo m-auto text-2xl tracking-widest opacity-60">

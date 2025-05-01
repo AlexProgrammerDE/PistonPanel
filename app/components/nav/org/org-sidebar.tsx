@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Suspense } from 'react';
 
-import { NavControls } from '@/components/nav/org/nav-controls';
-import { NavSettings } from '@/components/nav/org/nav-settings';
+import { NavResources } from '@/components/nav/org/nav-resources';
+import { NavOrg } from '@/components/nav/org/nav-org';
 import { NavAccount } from '@/components/nav/nav-account';
-import { NavPlugins } from '@/components/nav/org/nav-plugins';
 import { OrgSwitcher } from '@/components/nav/org/org-switcher';
 import {
   Sidebar,
@@ -16,6 +15,7 @@ import {
 import { NavSecondary } from '@/components/nav/nav-secondary';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
+import { NavTop } from '@/components/nav/org/nav-top';
 
 export function OrgSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -26,9 +26,9 @@ export function OrgSidebar(props: React.ComponentProps<typeof Sidebar>) {
       <ScrollArea className="h-[calc(100svh-4rem-4rem)] w-full pr-2">
         <SidebarContent className="min-h-[calc(100svh-4rem-4rem)]">
           <Suspense fallback={<NavDefaultSkeleton />}>
-            <NavControls />
-            <NavSettings />
-            <NavPlugins />
+            <NavTop />
+            <NavResources />
+            <NavOrg />
           </Suspense>
           <NavSecondary className="mt-auto" />
         </SidebarContent>
