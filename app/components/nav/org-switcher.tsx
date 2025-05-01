@@ -21,48 +21,37 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { translateInstanceState } from '@/lib/types';
 import { Link, useNavigate, useRouteContext } from '@tanstack/react-router';
-import { hasInstancePermission } from '@/lib/utils';
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
-import { toast } from 'sonner';
-import { TransportContext } from '@/components/providers/transport-context';
-import { InstancePermission } from '@/generated/pistonpanel/common';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import DynamicIcon from '@/components/dynamic-icon';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
+import { CreateOrgContext } from '@/components/dialog/create-org-dialog';
 import { useGlobalPermission } from '@/hooks/use-global-permission';
+import { authClient } from '@/auth/auth-client';
 
-function SidebarInstanceButton() {
-  const { i18n } = useTranslation('common');
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
+function SidebarOrgButton() {
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
-  const capitalizedState = translateInstanceState(i18n, instanceInfo.state);
   return (
     <DropdownMenuTrigger asChild>
       <SidebarMenuButton
         size="lg"
         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        tooltip={`${instanceInfo.friendlyName} | ${capitalizedState}`}
+        tooltip={`${orgInfo.friendlyName} | TODO`}
       >
         <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-          <DynamicIcon name={instanceInfo.icon} className="size-4" />
+          <DynamicIcon name={orgInfo.icon} className="size-4" />
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="max-w-64 truncate font-semibold">
-            {instanceInfo.friendlyName}
+            {orgInfo.friendlyName}
           </span>
-          <span className="truncate text-xs">{capitalizedState}</span>
+          <span className="truncate text-xs">TODO</span>
         </div>
         <ChevronsUpDownIcon className="ml-auto" />
       </SidebarMenuButton>
@@ -70,7 +59,7 @@ function SidebarInstanceButton() {
   );
 }
 
-function SidebarInstanceButtonSkeleton() {
+function SidebarOrgButtonSkeleton() {
   return (
     <DropdownMenuTrigger asChild>
       <SidebarMenuButton
@@ -88,23 +77,25 @@ function SidebarInstanceButtonSkeleton() {
   );
 }
 
-function InstanceList() {
-  const instanceListQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.instanceListQueryOptions,
-  });
-  const { data: instanceList } = useSuspenseQuery(instanceListQueryOptions);
+function OrgList() {
+  const { data: orgList } = authClient.useListOrganizations();
+  if (orgList === null) {
+    return null;
+  }
 
   return (
     <>
-      {instanceList.instances.map((instance, index) => {
+      {orgList.map((org, index) => {
         return (
-          <DropdownMenuItem key={instance.id} asChild className="gap-2 p-2">
-            <Link to="/instance/$instance" params={{ instance: instance.id }}>
+          <DropdownMenuItem key={org.id} asChild className="gap-2 p-2">
+            <Link to="/org/$org" params={{ org: org.slug }}>
               <div className="flex size-6 items-center justify-center rounded-sm border">
-                <DynamicIcon name={instance.icon} className="size-4 shrink-0" />
+                <DynamicIcon
+                  name="rabbit"
+                  /* TODO */ className="size-4 shrink-0"
+                />
               </div>
-              {instance.friendlyName}
+              {org.name}
               <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
@@ -114,7 +105,7 @@ function InstanceList() {
   );
 }
 
-function InstanceListSkeleton() {
+function OrgListSkeleton() {
   return (
     <>
       <DropdownMenuItem className="gap-2 p-2">
@@ -127,7 +118,7 @@ function InstanceListSkeleton() {
   );
 }
 
-export function InstanceSwitcher() {
+export function OrgSwitcher() {
   const { t } = useTranslation('common');
   const { isMobile } = useSidebar();
 
@@ -135,8 +126,8 @@ export function InstanceSwitcher() {
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
-          <Suspense fallback={<SidebarInstanceButtonSkeleton />}>
-            <SidebarInstanceButton />
+          <Suspense fallback={<SidebarOrgButtonSkeleton />}>
+            <SidebarOrgButton />
           </Suspense>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
@@ -145,10 +136,10 @@ export function InstanceSwitcher() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              {t('instanceSidebar.instancesGroup')}
+              {t('orgSidebar.orgsGroup')}
             </DropdownMenuLabel>
-            <Suspense fallback={<InstanceListSkeleton />}>
-              <InstanceList />
+            <Suspense fallback={<OrgListSkeleton />}>
+              <OrgList />
             </Suspense>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild className="gap-2 p-2">
@@ -157,16 +148,16 @@ export function InstanceSwitcher() {
                   <HomeIcon className="size-4" />
                 </div>
                 <div className="text-muted-foreground font-medium">
-                  {t('instanceSidebar.backToDashboard')}
+                  {t('orgSidebar.backToDashboard')}
                 </div>
               </Link>
             </DropdownMenuItem>
             <Suspense>
-              <CreateInstanceButton />
+              <CreateOrgButton />
             </Suspense>
             <DropdownMenuSeparator />
             <Suspense>
-              <DeleteInstanceButton />
+              <DeleteOrgButton />
             </Suspense>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -175,85 +166,66 @@ export function InstanceSwitcher() {
   );
 }
 
-function CreateInstanceButton() {
+function CreateOrgButton() {
   const { t } = useTranslation('common');
-  const { openCreateInstance } = use(CreateInstanceContext);
-  const createInstancePermission = useGlobalPermission({
+  const { openCreateOrg } = use(CreateOrgContext);
+  const createOrgPermission = useGlobalPermission({
     permissions: {
       organization: ['create'],
     },
   });
 
-  if (!createInstancePermission) {
+  if (!createOrgPermission) {
     return null;
   }
 
   return (
-    <DropdownMenuItem onClick={openCreateInstance} className="gap-2 p-2">
+    <DropdownMenuItem onClick={openCreateOrg} className="gap-2 p-2">
       <div className="bg-background flex size-6 items-center justify-center rounded-md border">
         <PlusIcon className="size-4" />
       </div>
       <div className="text-muted-foreground font-medium">
-        {t('instanceSidebar.createInstance')}
+        {t('orgSidebar.createOrg')}
       </div>
     </DropdownMenuItem>
   );
 }
 
-function DeleteInstanceButton() {
+function DeleteOrgButton() {
   const { t } = useTranslation('common');
-  const instanceListQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.instanceListQueryOptions,
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
-  });
-  const transport = use(TransportContext);
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const deleteMutation = useMutation({
-    mutationFn: async (instanceId: string) => {
-      if (transport === null) {
-        return;
-      }
+    mutationFn: async (orgId: string) => {
+      return;
 
-      const instanceService = new InstanceServiceClient(transport);
-      const promise = instanceService
-        .deleteInstance({
-          id: instanceId,
-        })
-        .then((r) => r.response);
-      toast.promise(promise, {
-        loading: t('instanceSidebar.deleteToast.loading'),
-        success: t('instanceSidebar.deleteToast.success'),
-        error: (e) => {
-          console.error(e);
-          return t('instanceSidebar.deleteToast.error');
-        },
-      });
-
-      return promise;
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: instanceListQueryOptions.queryKey,
-      });
+      // const orgService = new OrgServiceClient(transport);
+      // const promise = orgService
+      //   .deleteOrg({
+      //     id: orgId,
+      //   })
+      //   .then((r) => r.response);
+      // toast.promise(promise, {
+      //   loading: t('orgSidebar.deleteToast.loading'),
+      //   success: t('orgSidebar.deleteToast.success'),
+      //   error: (e) => {
+      //     console.error(e);
+      //     return t('orgSidebar.deleteToast.error');
+      //   },
+      // });
+      //
+      // return promise;
     },
   });
-
-  if (
-    !hasInstancePermission(instanceInfo, InstancePermission.DELETE_INSTANCE)
-  ) {
-    return null;
-  }
 
   return (
     <DropdownMenuItem
       onClick={() => {
-        deleteMutation.mutate(instanceInfo.id);
+        deleteMutation.mutate(orgInfo.id);
         void navigate({
           to: '/',
         });
@@ -264,7 +236,7 @@ function DeleteInstanceButton() {
         <MinusIcon className="size-4" />
       </div>
       <div className="text-muted-foreground font-medium">
-        {t('instanceSidebar.deleteInstance')}
+        {t('orgSidebar.deleteOrg')}
       </div>
     </DropdownMenuItem>
   );

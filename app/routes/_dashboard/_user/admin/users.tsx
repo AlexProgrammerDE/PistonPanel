@@ -48,11 +48,11 @@ const columns: ColumnDef<AppUser>[] = [
     cell: ({ row }) => (
       <div className="flex flex-row items-center justify-start gap-2">
         <UserAvatar
-          username={row.original.username ?? ''}
+          username={row.original.name ?? ''}
           email={row.original.email}
           className="size-8"
         />
-        <span className="max-w-64 truncate">{row.original.username}</span>
+        <span className="max-w-64 truncate">{row.original.name}</span>
         <CopyInfoButton value={row.original.id} />
       </div>
     ),

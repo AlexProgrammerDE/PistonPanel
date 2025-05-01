@@ -50,13 +50,13 @@ function Content() {
           </div>
           <Card className="flex w-fit items-center gap-2 p-3 text-left text-base">
             <UserAvatar
-              username={session.user.username ?? ''}
+              username={session.user.name ?? ''}
               email={session.user.email}
               className="size-10"
             />
             <div className="grid flex-1 text-left text-base leading-tight">
               <span className="truncate font-semibold">
-                {session.user.username}
+                {session.user.name}
               </span>
               <span className="truncate text-sm">{session.user.email}</span>
             </div>

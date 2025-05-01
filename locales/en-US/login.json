@@ -14,7 +14,7 @@
     },
     "dedicated": {
       "title": "Dedicated server (remote)",
-      "description": "Connects to a remote instance of the PistonPanel server. You will need to provide the address and token of the server."
+      "description": "Connects to a remote org of the PistonPanel server. You will need to provide the address and token of the server."
     },
     "demo": {
       "title": "Demo server",

@@ -9,8 +9,6 @@ import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BoltIcon } from 'lucide-react';
-import { hasInstancePermission } from '@/lib/utils';
-import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 type NavLink = {
@@ -21,35 +19,26 @@ type NavLink = {
 
 export function NavSettings() {
   const { t } = useTranslation('common');
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
   const navLinks: NavLink[] = [
-    ...(hasInstancePermission(
-      instanceInfo,
-      InstancePermission.UPDATE_INSTANCE_META,
-    )
-      ? [
-          {
-            title: t('instanceSidebar.metaSettings'),
-            icon: BoltIcon,
-            linkProps: {
-              to: '/instance/$instance/meta',
-              params: { instance: instanceInfo.id },
-            },
-          } satisfies NavLink,
-        ]
-      : []),
+    {
+      title: t('orgSidebar.metaSettings'),
+      icon: BoltIcon,
+      linkProps: {
+        to: '/org/$org/meta',
+        params: { org: orgInfo.id },
+      },
+    } satisfies NavLink,
   ];
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
-        {t('instanceSidebar.settingsGroup')}
-      </SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.settingsGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

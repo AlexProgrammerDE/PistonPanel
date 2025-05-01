@@ -1,11 +1,9 @@
 import React, { CSSProperties, use, useEffect, useRef, useState } from 'react';
-import { LogsServiceClient } from '@/generated/pistonpanel/logs.client';
 import { TransportContext } from './providers/transport-context';
 import { ScrollArea } from './ui/scroll-area';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 import { flavorEntries } from '@catppuccin/palette';
 import { AnsiHtml } from 'fancy-ansi/react';
-import { LogScope } from '@/generated/pistonpanel/logs';
 import { stripAnsi } from 'fancy-ansi';
 import { useTranslation } from 'react-i18next';
 
@@ -73,7 +71,7 @@ type TerminalLine = TerminalLineBase & {
   hash: string;
 };
 
-export const TerminalComponent = (props: { scope: LogScope }) => {
+export const TerminalComponent = (props: { scope: {} }) => {
   const { t } = useTranslation('common');
   const [gotPrevious, setGotPrevious] = useState(false);
   const [entries, setEntries] = useState<TerminalLine[]>([]);
@@ -118,39 +116,39 @@ export const TerminalComponent = (props: { scope: LogScope }) => {
     }
 
     const abortController = new AbortController();
-    const logsService = new LogsServiceClient(transport);
-    void logsService
-      .getPrevious(
-        {
-          scope: props.scope,
-          // Max allowed amount of entries by the server
-          count: 300,
-        },
-        {
-          abort: abortController.signal,
-        },
-      )
-      .then((call) => {
-        if (call.response.messages.length === 0) {
-          setEntries((prev) => [
-            ...prev,
-            convertLine({
-              id: 'empty',
-              message: t('terminal.noLogs'),
-            }),
-          ]);
-        }
-
-        for (const message of call.response.messages) {
-          setEntries((prev) => {
-            return deduplicateConsecutive(
-              limitLength([...prev, convertLine(message)]),
-              (element) => element.hash,
-            );
-          });
-        }
-        setGotPrevious(true);
-      });
+    // const logsService = new LogsServiceClient(transport);
+    // void logsService
+    //   .getPrevious(
+    //     {
+    //       scope: props.scope,
+    //       // Max allowed amount of entries by the server
+    //       count: 300,
+    //     },
+    //     {
+    //       abort: abortController.signal,
+    //     },
+    //   )
+    //   .then((call) => {
+    //     if (call.response.messages.length === 0) {
+    //       setEntries((prev) => [
+    //         ...prev,
+    //         convertLine({
+    //           id: 'empty',
+    //           message: t('terminal.noLogs'),
+    //         }),
+    //       ]);
+    //     }
+    //
+    //     for (const message of call.response.messages) {
+    //       setEntries((prev) => {
+    //         return deduplicateConsecutive(
+    //           limitLength([...prev, convertLine(message)]),
+    //           (element) => element.hash,
+    //         );
+    //       });
+    //     }
+    //     setGotPrevious(true);
+    //   });
 
     return () => {
       abortController.abort();
@@ -165,61 +163,61 @@ export const TerminalComponent = (props: { scope: LogScope }) => {
         return;
       }
 
-      console.info('Connecting to logs service');
-      const logsService = new LogsServiceClient(transport);
-      const subscription = logsService.subscribe(
-        {
-          scope: props.scope,
-        },
-        {
-          abort: abortController.signal,
-        },
-      );
-
-      subscription.responses.onError((error) => {
-        if (abortController.signal.aborted) {
-          return;
-        }
-
-        console.error(error);
-        setTimeout(() => {
-          if (abortController.signal.aborted) {
-            return;
-          }
-
-          connect();
-        }, 3_000);
-      });
-      subscription.responses.onComplete(() => {
-        if (abortController.signal.aborted) {
-          return;
-        }
-
-        console.error('Stream completed');
-        setTimeout(() => {
-          if (abortController.signal.aborted) {
-            return;
-          }
-
-          connect();
-        }, 1000);
-      });
-      subscription.responses.onMessage((response) => {
-        const message = response.message;
-        if (message === undefined) {
-          return;
-        }
-
-        setEntries((prev) => {
-          return deduplicateConsecutive(
-            limitLength([
-              ...prev.filter((entry) => entry.id !== 'empty'),
-              convertLine(message),
-            ]),
-            (element) => element.hash,
-          );
-        });
-      });
+      //console.info('Connecting to logs service');
+      //const logsService = new LogsServiceClient(transport);
+      //const subscription = logsService.subscribe(
+      //  {
+      //    scope: props.scope,
+      //  },
+      //  {
+      //    abort: abortController.signal,
+      //  },
+      //);
+      //
+      //subscription.responses.onError((error) => {
+      //  if (abortController.signal.aborted) {
+      //    return;
+      //  }
+      //
+      //  console.error(error);
+      //  setTimeout(() => {
+      //    if (abortController.signal.aborted) {
+      //      return;
+      //    }
+      //
+      //    connect();
+      //  }, 3_000);
+      //});
+      //subscription.responses.onComplete(() => {
+      //  if (abortController.signal.aborted) {
+      //    return;
+      //  }
+      //
+      //  console.error('Stream completed');
+      //  setTimeout(() => {
+      //    if (abortController.signal.aborted) {
+      //      return;
+      //    }
+      //
+      //    connect();
+      //  }, 1000);
+      //});
+      //subscription.responses.onMessage((response) => {
+      //  const message = response.message;
+      //  if (message === undefined) {
+      //    return;
+      //  }
+      //
+      //  setEntries((prev) => {
+      //    return deduplicateConsecutive(
+      //      limitLength([
+      //        ...prev.filter((entry) => entry.id !== 'empty'),
+      //        convertLine(message),
+      //      ]),
+      //      (element) => element.hash,
+      //    );
+      //  });
+      //});
     }
 
     connect();

@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import InstancePageLayout from '@/components/nav/instance-page-layout';
+import OrgPageLayout from '@/components/nav/org-page-layout';
 import { useTranslation } from 'react-i18next';
 
-export const Route = createFileRoute('/_dashboard/instance/$instance/meta')({
+export const Route = createFileRoute('/_dashboard/org/$org/meta')({
   component: MetaSettings,
 });
 
@@ -10,7 +10,7 @@ function MetaSettings() {
   const { t } = useTranslation('common');
 
   return (
-    <InstancePageLayout
+    <OrgPageLayout
       extraCrumbs={[
         {
           id: 'settings',
@@ -20,7 +20,7 @@ function MetaSettings() {
       pageName={t('pageName.metaSettings')}
     >
       <Content />
-    </InstancePageLayout>
+    </OrgPageLayout>
   );
 }
 

@@ -38,14 +38,14 @@
       },
       "close": "Close"
     },
-    "createInstance": {
-      "title": "Create a new instance",
-      "description": "Instances need friendly names for you to distinguish them. It can be any name you want, for example, \"My Minecraft Bot\".",
+    "createOrg": {
+      "title": "Create a new org",
+      "description": "Orgs need friendly names for you to distinguish them. It can be any name you want, for example, \"My Minecraft Bot\".",
       "form": {
         "friendlyName": {
           "label": "Friendly name",
           "placeholder": "My Minecraft Bot",
-          "description": "The name you want to give to this instance.",
+          "description": "The name you want to give to this org.",
           "min": "The friendly name must be at least 3 characters long.",
           "max": "The friendly name must be at most 32 characters long.",
           "regex": "Friendly name must contain only letters, numbers, and spaces"
@@ -54,9 +54,9 @@
         "create": "Create"
       },
       "createToast": {
-        "loading": "Creating instance...",
-        "success": "Instance created successfully",
-        "error": "Failed to create instance"
+        "loading": "Creating org...",
+        "success": "Org created successfully",
+        "error": "Failed to create org"
       }
     },
     "import": {
@@ -152,7 +152,7 @@
   "terminal": {
     "noLogs": "🧙 Looks like there are no logs to display; try running some commands!",
     "demo-1": "Welcome to demo mode! 🧪",
-    "demo-2": "This is a read-only instance of PistonPanel",
+    "demo-2": "This is a read-only org of PistonPanel",
     "demo-3": "Check out all the menus and features before deciding to install PistonPanel :D",
     "demo-4": "Feel free to join our Discord server if you would like to reach out: https://pistonpanel.com/discord"
   },
@@ -185,16 +185,16 @@
       "error": "Failed to broadcast message"
     }
   },
-  "instanceSidebar": {
+  "orgSidebar": {
     "readDocumentation": "Read documentation",
     "backToDashboard": "Back to dashboard",
     "deleteToast": {
-      "loading": "Deleting instance...",
-      "success": "Instance deleted",
-      "error": "Failed to delete instance"
+      "loading": "Deleting org...",
+      "success": "Org deleted",
+      "error": "Failed to delete org"
     },
-    "instancesGroup": "Instances",
-    "createInstance": "Create Instance",
+    "orgsGroup": "Orgs",
+    "createOrg": "Create Org",
     "loadProfileToast": {
       "loading": "Loading profile...",
       "success": "Profile loaded",
@@ -204,7 +204,7 @@
     "loadFromFile": "Load from file",
     "profileSaved": "Profile saved",
     "saveProfile": "Save Profile",
-    "deleteInstance": "Delete Instance",
+    "deleteOrg": "Delete Org",
     "controlsGroup": "Controls",
     "console": "Console",
     "audit-log": "Audit Log",
@@ -213,18 +213,18 @@
     "pluginSettings": "Plugin Settings",
     "botSettings": "Bot Settings",
     "accountSettings": "Account Settings",
-    "metaSettings": "Instance Settings",
+    "metaSettings": "Org Settings",
     "proxySettings": "Proxy Settings",
     "aiSettings": "AI Settings",
     "discoverPlugins": "Plugins",
-    "instanceScripts": "Scripts"
+    "orgScripts": "Scripts"
   },
   "userSidebar": {
     "readDocumentation": "Read documentation",
     "userGroup": "User",
-    "instances": "Instances",
+    "orgs": "Orgs",
     "access": "Access",
-    "createInstance": "Create Instance",
+    "createOrg": "Create Org",
     "settings": "Settings",
     "adminGroup": "Admin",
     "adminOverview": "Overview",
@@ -266,26 +266,26 @@
     "controls": "Controls",
     "plugins": "Plugins"
   },
-  "noInstancesFound": "No instances found",
+  "noOrgsFound": "No orgs found",
   "pageName": {
     "console": "Console",
     "audit-log": "Audit Log",
-    "instances": "Instances",
+    "orgs": "Orgs",
     "access": "Access",
     "settings": "Settings",
     "proxySettings": "Proxy Settings",
     "overview": "Overview",
     "users": "Users",
     "accountSettings": "Account Settings",
-    "metaSettings": "Instance Settings",
+    "metaSettings": "Org Settings",
     "discoverPlugins": "Plugins",
     "adminScripts": "Scripts",
-    "instanceScripts": "Scripts"
+    "orgScripts": "Scripts"
   },
   "access": {
     "webdav": {
       "title": "WebDAV Access",
-      "description": "PistonPanel allows you to access instance, script and other files using the WebDAV protocol.",
+      "description": "PistonPanel allows you to access org, script and other files using the WebDAV protocol.",
       "publicAddress": "Public WebDAV Address",
       "personalToken": "Personal WebDAV Token",
       "securityWarning": "Your personal WebDAV Token is very important. Do not share it with anyone. It is used to authenticate you when accessing your files. Use it as your WebDAV password when connecting. Username is not required, if you are prompted for one, you can use any value you want. (e.g. 'pistonpanel')",
@@ -293,7 +293,7 @@
     },
     "api": {
       "title": "API Access",
-      "description": "PistonPanel's gRPC HTTP API allows you to interact with your instances programmatically using web requests.",
+      "description": "PistonPanel's gRPC HTTP API allows you to interact with your orgs programmatically using web requests.",
       "publicAddress": "Public API Address",
       "personalToken": "Personal API Token",
       "securityWarning": "Your personal API Token is very important. Do not share it with anyone. It is used to authenticate you when accessing the API.",
@@ -316,7 +316,7 @@
     "howToConnect": "How to connect"
   },
   "copiedToClipboard": "Copied to clipboard",
-  "instanceState": {
+  "orgState": {
     "starting": "Starting",
     "running": "Running",
     "paused": "Paused",
@@ -398,6 +398,6 @@
       "actions": "Actions"
     },
     "globalScript": "Global",
-    "instanceScript": "Instance"
+    "orgScript": "Org"
   }
 }

@@ -1,11 +1,6 @@
 import { Input } from '@/components/ui/input';
 import { KeyboardEventHandler, use, useEffect, useRef, useState } from 'react';
 import { TransportContext } from '@/components/providers/transport-context';
-import { CommandServiceClient } from '@/generated/pistonpanel/command.client';
-import {
-  CommandCompletion,
-  CommandScope,
-} from '@/generated/pistonpanel/command';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
@@ -95,11 +90,11 @@ export default function CommandInput(props: { scope: CommandScope }) {
       });
       setHistoryIndex(-1);
 
-      const commandService = new CommandServiceClient(transport);
-      void commandService.executeCommand({
-        scope: props.scope,
-        command: currentVal,
-      });
+      // const commandService = new CommandServiceClient(transport);
+      // void commandService.executeCommand({
+      //   scope: props.scope,
+      //   command: currentVal,
+      // });
     } else if (e.key === 'Tab') {
       e.preventDefault();
 
@@ -140,22 +135,20 @@ export default function CommandInput(props: { scope: CommandScope }) {
       return;
     }
 
-    const commandService = new CommandServiceClient(transport);
-
     let completionStateNew: CompletionState;
     if (
       completionState.receivedCompletions === null ||
       completionState.index === null
     ) {
-      const { response } = await commandService.tabCompleteCommand({
-        scope: props.scope,
-        command: text,
-        cursor: text.length,
-      });
+      // const { response } = await commandService.tabCompleteCommand({
+      //   scope: props.scope,
+      //   command: text,
+      //   cursor: text.length,
+      // });
 
       completionStateNew = {
         lastWritten: text,
-        receivedCompletions: response.suggestions,
+        receivedCompletions: [], // TODO
         index: 0,
       };
     } else if (completionState.receivedCompletions.length > 0) {

@@ -25,7 +25,7 @@ function UserCrumb() {
     select: (context) => context.clientDataQueryOptions,
   });
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
-  return session.user.username;
+  return session.user.name;
 }
 
 function UserCrumbSkeleton() {

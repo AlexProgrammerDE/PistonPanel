@@ -23,32 +23,28 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
-import { toast } from 'sonner';
-import { useNavigate, useRouteContext } from '@tanstack/react-router';
-import { createContext, ReactNode, use, useState } from 'react';
-import { TransportContext } from '../providers/transport-context';
+import { useMutation } from '@tanstack/react-query';
+import { createContext, ReactNode, useState } from 'react';
 
-export const CreateInstanceContext = createContext<{
-  openCreateInstance: () => void;
+export const CreateOrgContext = createContext<{
+  openCreateOrg: () => void;
 }>(null as never);
 
-export function CreateInstanceProvider(props: { children: ReactNode }) {
+export function CreateOrgProvider(props: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <CreateInstanceContext
+      <CreateOrgContext
         value={{
-          openCreateInstance: () => {
+          openCreateOrg: () => {
             setOpen(true);
           },
         }}
       >
         {props.children}
-      </CreateInstanceContext>
-      <CreateInstanceDialog open={open} setOpen={setOpen} />
+      </CreateOrgContext>
+      <CreateOrgDialog open={open} setOpen={setOpen} />
     </>
   );
 }
@@ -57,30 +53,20 @@ export type FormType = {
   friendlyName: string;
 };
 
-function CreateInstanceDialog({
+function CreateOrgDialog({
   open,
   setOpen,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
 }) {
-  const instanceListQueryOptions = useRouteContext({
-    from: '/_dashboard',
-    select: (context) => context.instanceListQueryOptions,
-  });
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const transport = use(TransportContext);
   const { t } = useTranslation('common');
   const formSchema = z.object({
     friendlyName: z
       .string()
-      .min(3, t('dialog.createInstance.form.friendlyName.min'))
-      .max(32, t('dialog.createInstance.form.friendlyName.max'))
-      .regex(
-        /^[a-zA-Z0-9 ]+$/,
-        t('dialog.createInstance.form.friendlyName.regex'),
-      ),
+      .min(3, t('dialog.createOrg.form.friendlyName.min'))
+      .max(32, t('dialog.createOrg.form.friendlyName.max'))
+      .regex(/^[a-zA-Z0-9 ]+$/, t('dialog.createOrg.form.friendlyName.regex')),
   });
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
@@ -90,38 +76,23 @@ function CreateInstanceDialog({
   });
   const addMutation = useMutation({
     mutationFn: async (values: FormType) => {
-      if (transport === null) {
-        return;
-      }
-
-      const instanceService = new InstanceServiceClient(transport);
-      const promise = instanceService
-        .createInstance({
-          friendlyName: values.friendlyName,
-        })
-        .then((r) => r.response);
-      toast.promise(promise, {
-        loading: t('dialog.createInstance.createToast.loading'),
-        success: (r) => {
-          setOpen(false);
-          void navigate({
-            to: '/instance/$instance',
-            params: { instance: r.id },
-          });
-          return t('dialog.createInstance.createToast.success');
-        },
-        error: (e) => {
-          console.error(e);
-          return t('dialog.createInstance.createToast.error');
-        },
-      });
-
-      return promise;
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: instanceListQueryOptions.queryKey,
-      });
+      //toast.promise(promise, {
+      //  loading: t('dialog.createOrg.createToast.loading'),
+      //  success: (r) => {
+      //    setOpen(false);
+      //    void navigate({
+      //      to: '/org/$org',
+      //      params: { org: r.id },
+      //    });
+      //    return t('dialog.createOrg.createToast.success');
+      //  },
+      //  error: (e) => {
+      //    console.error(e);
+      //    return t('dialog.createOrg.createToast.error');
+      //  },
+      //});
+      //
+      //return promise;
     },
   });
 
@@ -136,9 +107,9 @@ function CreateInstanceDialog({
             }
           >
             <CredenzaHeader>
-              <CredenzaTitle>{t('dialog.createInstance.title')}</CredenzaTitle>
+              <CredenzaTitle>{t('dialog.createOrg.title')}</CredenzaTitle>
               <CredenzaDescription>
-                {t('dialog.createInstance.description')}
+                {t('dialog.createOrg.description')}
               </CredenzaDescription>
             </CredenzaHeader>
             <CredenzaBody>
@@ -148,19 +119,19 @@ function CreateInstanceDialog({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t('dialog.createInstance.form.friendlyName.label')}
+                      {t('dialog.createOrg.form.friendlyName.label')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         autoFocus
                         placeholder={t(
-                          'dialog.createInstance.form.friendlyName.placeholder',
+                          'dialog.createOrg.form.friendlyName.placeholder',
                         )}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      {t('dialog.createInstance.form.friendlyName.description')}
+                      {t('dialog.createOrg.form.friendlyName.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -170,12 +141,10 @@ function CreateInstanceDialog({
             <CredenzaFooter className="justify-between">
               <CredenzaClose asChild>
                 <Button variant="outline">
-                  {t('dialog.createInstance.form.cancel')}
+                  {t('dialog.createOrg.form.cancel')}
                 </Button>
               </CredenzaClose>
-              <Button type="submit">
-                {t('dialog.createInstance.form.create')}
-              </Button>
+              <Button type="submit">{t('dialog.createOrg.form.create')}</Button>
             </CredenzaFooter>
           </form>
         </CredenzaContent>

@@ -21,36 +21,34 @@ type NavLinks = {
 
 export function NavControls() {
   const { t } = useTranslation('common');
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
   const navLinks: NavLinks = [
     {
-      title: t('instanceSidebar.console'),
+      title: t('orgSidebar.console'),
       icon: TerminalIcon,
       linkProps: {
-        to: '/instance/$instance',
-        params: { instance: instanceInfo.id },
+        to: '/org/$org',
+        params: { org: orgInfo.id },
       },
     },
     {
-      title: t('instanceSidebar.audit-log'),
+      title: t('orgSidebar.audit-log'),
       icon: TextSearchIcon,
       linkProps: {
-        to: '/instance/$instance/audit-log',
-        params: { instance: instanceInfo.id },
+        to: '/org/$org/audit-log',
+        params: { org: orgInfo.id },
       },
     },
   ];
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
-        {t('instanceSidebar.controlsGroup')}
-      </SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.controlsGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

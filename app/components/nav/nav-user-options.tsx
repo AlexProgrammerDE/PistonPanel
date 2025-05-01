@@ -13,20 +13,20 @@ import { Link, LinkProps } from '@tanstack/react-router';
 import * as React from 'react';
 import { ReactNode, use } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CreateInstanceContext } from '@/components/dialog/create-instance-dialog';
+import { CreateOrgContext } from '@/components/dialog/create-org-dialog';
 import { useGlobalPermission } from '@/hooks/use-global-permission';
 
 type NavLinks = {
   title: string;
   icon: (props: { className: string }) => ReactNode;
   linkProps: LinkProps;
-  createInstance?: boolean;
+  createOrg?: boolean;
 }[];
 
 export function NavUserOptions() {
   const { t } = useTranslation('common');
-  const { openCreateInstance } = use(CreateInstanceContext);
-  const createInstancePermission = useGlobalPermission({
+  const { openCreateOrg } = use(CreateOrgContext);
+  const createOrgPermission = useGlobalPermission({
     permissions: {
       organization: ['create'],
     },
@@ -34,13 +34,13 @@ export function NavUserOptions() {
 
   const navLinks: NavLinks = [
     {
-      title: t('userSidebar.instances'),
+      title: t('userSidebar.orgs'),
       icon: Grid2x2Icon,
       linkProps: {
         to: '/',
         params: {},
       },
-      createInstance: true,
+      createOrg: true,
     },
     {
       title: t('userSidebar.settings'),
@@ -70,11 +70,11 @@ export function NavUserOptions() {
                 <span>{item.title}</span>
               </Link>
             </SidebarMenuButton>
-            {item.createInstance && createInstancePermission && (
+            {item.createOrg && createOrgPermission && (
               <>
                 <SidebarMenuAction
-                  onClick={openCreateInstance}
-                  title={t('userSidebar.createInstance')}
+                  onClick={openCreateOrg}
+                  title={t('userSidebar.createOrg')}
                 >
                   <PlusIcon />
                 </SidebarMenuAction>

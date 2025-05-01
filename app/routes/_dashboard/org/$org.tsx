@@ -1,54 +1,61 @@
 import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
-import { InstanceState } from '@/generated/pistonpanel/instance';
 import { queryOptions } from '@tanstack/react-query';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { InstanceSidebar } from '@/components/nav/instance-sidebar';
+import { OrgSidebar } from '@/components/nav/org-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
+import { useEffect } from 'react';
+import { authClient } from '@/auth/auth-client';
 
-export const Route = createFileRoute('/_dashboard/instance/$instance')({
+export const Route = createFileRoute('/_dashboard/org/$org')({
   beforeLoad: (props) => {
-    const { instance } = props.params;
-    const instanceInfoQueryOptions = queryOptions({
-      queryKey: ['instance-info', instance],
+    const { org } = props.params;
+    const orgInfoQueryOptions = queryOptions({
+      queryKey: ['org-info', org],
       queryFn: () => {
         return {
-          id: instance,
+          id: org,
           friendlyName: 'Demo',
           icon: 'pickaxe',
-          instancePermissions: [],
-          state: InstanceState.RUNNING,
+          orgPermissions: [],
         };
       },
       refetchInterval: 3_000,
     });
     props.abortController.signal.addEventListener('abort', () => {
       void props.context.queryClient.cancelQueries({
-        queryKey: instanceInfoQueryOptions.queryKey,
+        queryKey: orgInfoQueryOptions.queryKey,
       });
     });
     return {
-      instanceInfoQueryOptions,
+      orgInfoQueryOptions,
     };
   },
   loader: (props) => {
     void props.context.queryClient.prefetchQuery(
-      props.context.instanceInfoQueryOptions,
+      props.context.orgInfoQueryOptions,
     );
   },
-  component: InstanceLayout,
+  component: OrgLayout,
 });
 
-function InstanceLayout() {
+function OrgLayout() {
+  const { org } = Route.useParams();
   const defaultOpen = localStorage.getItem('sidebar:state') === 'true';
+
+  useEffect(() => {
+    void authClient.organization.setActive({
+      organizationId: org,
+    });
+  }, []);
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <InstanceSidebar />
+      <OrgSidebar />
       <TooltipProvider delayDuration={500}>
         <SidebarInset>
           <CatchBoundary
-            getResetKey={() => 'instance-layout'}
+            getResetKey={() => 'org-layout'}
             errorComponent={ErrorComponent}
           >
             <Outlet />

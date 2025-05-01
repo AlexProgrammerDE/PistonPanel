@@ -1,9 +1,9 @@
 {
   "overview": {
     "welcome": "Welcome back, {{name}} 🧙",
-    "instancesChart": {
-      "title": "Total instances on this server",
-      "instances": "Instances",
+    "orgsChart": {
+      "title": "Total orgs on this server",
+      "orgs": "Orgs",
       "label": {
         "state": "State",
         "active": "Active",
@@ -41,7 +41,7 @@
         },
         "role": {
           "label": "Role",
-          "description": "The role of the user. Admins can manage users and all instances. Users can only manage their own instances.",
+          "description": "The role of the user. Admins can manage users and all orgs. Users can only manage their own orgs.",
           "user": "User",
           "admin": "Admin"
         }

@@ -9,15 +9,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { use, useRef, useState } from 'react';
-import { hasInstancePermission, runAsync } from '@/lib/utils';
+import { runAsync } from '@/lib/utils';
 import { ClipboardIcon, FileIcon, GlobeIcon, TextIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import MimeMatcher from 'mime-matcher';
 import { TransportContext } from '@/components/providers/transport-context';
-import { DownloadServiceClient } from '@/generated/pistonpanel/download.client';
-import { InstancePermission } from '@/generated/pistonpanel/common';
 import { useTranslation } from 'react-i18next';
 import { useRouteContext } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -56,11 +54,11 @@ export default function ImportDialog(props: ImportDialogProps) {
 function UrlDialog(props: ImportDialogProps) {
   const { t } = useTranslation('common');
   const transport = use(TransportContext);
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
   const [inputText, setInputText] = useState('');
 
   return (
@@ -97,15 +95,15 @@ function UrlDialog(props: ImportDialogProps) {
                       return;
                     }
 
-                    const service = new DownloadServiceClient(transport);
-                    const { response } = await service.download({
-                      instanceId: instanceInfo.id,
-                      uri: inputText,
-                      headers: [],
-                    });
-
-                    const decoder = new TextDecoder();
-                    props.listener(decoder.decode(response.data));
+                    // const service = new DownloadServiceClient(transport);
+                    // const { response } = await service.download({
+                    //   orgId: orgInfo.id,
+                    //   uri: inputText,
+                    //   headers: [],
+                    // });
+                    //
+                    // const decoder = new TextDecoder();
+                    // props.listener(decoder.decode(response.data));
                   };
 
                   toast.promise(download(), {
@@ -135,11 +133,6 @@ function MainDialog(
   },
 ) {
   const { t } = useTranslation('common');
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
-  });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -189,19 +182,14 @@ function MainDialog(
                 <FileIcon className="h-4" />
                 <span>{t('dialog.import.main.fromFile')}</span>
               </Button>
-              {hasInstancePermission(
-                instanceInfo,
-                InstancePermission.DOWNLOAD_URL,
-              ) && (
-                <Button
-                  variant="secondary"
-                  className="flex-auto"
-                  onClick={props.openUrlDialog}
-                >
-                  <GlobeIcon className="h-4" />
-                  <span>{t('dialog.import.main.fromUrl')}</span>
-                </Button>
-              )}
+              <Button
+                variant="secondary"
+                className="flex-auto"
+                onClick={props.openUrlDialog}
+              >
+                <GlobeIcon className="h-4" />
+                <span>{t('dialog.import.main.fromUrl')}</span>
+              </Button>
               <Button
                 variant="secondary"
                 className="flex-auto"

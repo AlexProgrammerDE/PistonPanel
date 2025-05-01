@@ -64,17 +64,15 @@ function SidebarAccountButton() {
       <SidebarMenuButton
         size="lg"
         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        tooltip={`${session.user.username} | ${session.user.email}`}
+        tooltip={`${session.user.name} | ${session.user.email}`}
       >
         <UserAvatar
-          username={session.user.username ?? ''}
+          username={session.user.name ?? ''}
           email={session.user.email}
           className="size-8"
         />
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-semibold">
-            {session.user.username}
-          </span>
+          <span className="truncate font-semibold">{session.user.name}</span>
           <span className="truncate text-xs">{session.user.email}</span>
         </div>
         <ChevronsUpDown className="ml-auto size-4" />
@@ -108,12 +106,12 @@ function DropdownAccountHeader() {
   return (
     <div className="flex items-center gap-2 px-1 py-1.5">
       <UserAvatar
-        username={session.user.username ?? ''}
+        username={session.user.name ?? ''}
         email={session.user.email}
         className="size-8"
       />
       <div className="grid flex-1">
-        <span className="truncate font-semibold">{session.user.username}</span>
+        <span className="truncate font-semibold">{session.user.name}</span>
         <span className="truncate text-xs">{session.user.email}</span>
       </div>
     </div>

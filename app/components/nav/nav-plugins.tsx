@@ -22,7 +22,7 @@ export function NavPlugins() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('instanceSidebar.pluginsGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.pluginsGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

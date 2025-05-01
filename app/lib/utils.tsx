@@ -1,15 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { InstancePermission } from '@/generated/pistonpanel/common';
-import {
-  InstanceInfoResponse,
-  InstanceListResponse_Instance,
-} from '@/generated/pistonpanel/instance';
 import { sha256 } from 'js-sha256';
 import * as Flags from 'country-flag-icons/react/3x2';
 import { type FlagComponent } from 'country-flag-icons/react/1x1';
 import { ReactNode } from 'react';
-import { Timestamp } from '@/generated/google/protobuf/timestamp';
 
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
 
@@ -33,16 +27,6 @@ export function getTerminalTheme() {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function hasInstancePermission(
-  instanceInfo: InstanceInfoResponse | InstanceListResponse_Instance,
-  permission: InstancePermission,
-) {
-  return instanceInfo.instancePermissions
-    .filter((p) => p.granted)
-    .map((p) => p.instancePermission)
-    .includes(permission);
 }
 
 export function getGravatarUrl(email: string) {
@@ -72,13 +56,6 @@ export function getLanguageName(languageCode: string, displayLanguage: string) {
     type: 'language',
   });
   return displayNames.of(languageCode) ?? languageCode;
-}
-
-export function timestampToDate(timestamp: Timestamp): Date {
-  return new Date(
-    parseInt(timestamp.seconds) * 1000 +
-      Math.floor((timestamp.nanos || 0) / 1e6),
-  );
 }
 
 export function runAsync(fn: () => Promise<void>) {

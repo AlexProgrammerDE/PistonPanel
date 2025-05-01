@@ -19,20 +19,20 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
 
-function InstanceCrumb() {
-  const instanceInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/instance/$instance',
-    select: (context) => context.instanceInfoQueryOptions,
+function OrgCrumb() {
+  const orgInfoQueryOptions = useRouteContext({
+    from: '/_dashboard/org/$org',
+    select: (context) => context.orgInfoQueryOptions,
   });
-  const { data: instanceInfo } = useSuspenseQuery(instanceInfoQueryOptions);
-  return <>{instanceInfo.friendlyName}</>;
+  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
+  return <>{orgInfo.friendlyName}</>;
 }
 
-function InstanceCrumbSkeleton() {
+function OrgCrumbSkeleton() {
   return <Skeleton className="h-4 w-24" />;
 }
 
-export default function InstancePageLayout(props: {
+export default function OrgPageLayout(props: {
   children: ReactNode;
   extraCrumbs?: { id: string; content: ReactNode }[];
   pageName: ReactNode;
@@ -56,9 +56,7 @@ export default function InstancePageLayout(props: {
           <Button variant="ghost" size="icon" className="h-7 w-7" asChild>
             <Link to="/">
               <HomeIcon />
-              <span className="sr-only">
-                {t('instanceSidebar.backToDashboard')}
-              </span>
+              <span className="sr-only">{t('orgSidebar.backToDashboard')}</span>
             </Link>
           </Button>
           {props.documentationLink && (
@@ -68,7 +66,7 @@ export default function InstancePageLayout(props: {
                 <ExternalLink href={props.documentationLink}>
                   <BookOpenTextIcon />
                   <span className="sr-only">
-                    {t('instanceSidebar.readDocumentation')}
+                    {t('orgSidebar.readDocumentation')}
                   </span>
                 </ExternalLink>
               </Button>
@@ -78,8 +76,8 @@ export default function InstancePageLayout(props: {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden max-w-64 truncate md:block">
-                <Suspense fallback={<InstanceCrumbSkeleton />}>
-                  <InstanceCrumb />
+                <Suspense fallback={<OrgCrumbSkeleton />}>
+                  <OrgCrumb />
                 </Suspense>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
@@ -96,7 +94,7 @@ export default function InstancePageLayout(props: {
       <ScrollArea className="h-[calc(100dvh-3rem)] w-full">
         <div className="flex min-h-[calc(100dvh-3rem)] w-full flex-col p-4">
           <CatchBoundary
-            getResetKey={() => 'instance-page-layout'}
+            getResetKey={() => 'org-page-layout'}
             errorComponent={ErrorComponent}
           >
             <Suspense fallback={<LoadingComponent />}>
