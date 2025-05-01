@@ -25,6 +25,9 @@ import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@tanstack/react-query';
 import { createContext, ReactNode, useState } from 'react';
+import { authClient } from '@/auth/auth-client';
+import { toast } from 'sonner';
+import { useNavigate } from '@tanstack/react-router';
 
 export const CreateOrgContext = createContext<{
   openCreateOrg: () => void;
@@ -49,9 +52,11 @@ export function CreateOrgProvider(props: { children: ReactNode }) {
   );
 }
 
-export type FormType = {
-  friendlyName: string;
-};
+const formSchema = z.object({
+  name: z.string().nonempty(),
+  slug: z.string().nonempty(),
+});
+export type FormType = z.infer<typeof formSchema>;
 
 function CreateOrgDialog({
   open,
@@ -61,38 +66,38 @@ function CreateOrgDialog({
   setOpen: (open: boolean) => void;
 }) {
   const { t } = useTranslation('common');
-  const formSchema = z.object({
-    friendlyName: z
-      .string()
-      .min(3, t('dialog.createOrg.form.friendlyName.min'))
-      .max(32, t('dialog.createOrg.form.friendlyName.max'))
-      .regex(/^[a-zA-Z0-9 ]+$/, t('dialog.createOrg.form.friendlyName.regex')),
-  });
+  const navigate = useNavigate();
   const form = useForm<FormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      friendlyName: '',
+      name: '',
+      slug: '',
     },
   });
   const addMutation = useMutation({
     mutationFn: async (values: FormType) => {
-      //toast.promise(promise, {
-      //  loading: t('dialog.createOrg.createToast.loading'),
-      //  success: (r) => {
-      //    setOpen(false);
-      //    void navigate({
-      //      to: '/org/$org',
-      //      params: { org: r.id },
-      //    });
-      //    return t('dialog.createOrg.createToast.success');
-      //  },
-      //  error: (e) => {
-      //    console.error(e);
-      //    return t('dialog.createOrg.createToast.error');
-      //  },
-      //});
-      //
-      //return promise;
+      const promise = authClient.organization.create({
+        name: values.name,
+        slug: values.slug,
+      });
+
+      toast.promise(promise, {
+        loading: t('dialog.createOrg.createToast.loading'),
+        success: () => {
+          setOpen(false);
+          void navigate({
+            to: '/org/$org',
+            params: { org: values.slug },
+          });
+          return t('dialog.createOrg.createToast.success');
+        },
+        error: (e) => {
+          console.error(e);
+          return t('dialog.createOrg.createToast.error');
+        },
+      });
+
+      return promise;
     },
   });
 
@@ -112,26 +117,50 @@ function CreateOrgDialog({
                 {t('dialog.createOrg.description')}
               </CredenzaDescription>
             </CredenzaHeader>
-            <CredenzaBody>
+            <CredenzaBody className="flex flex-col gap-4">
               <FormField
                 control={form.control}
-                name="friendlyName"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t('dialog.createOrg.form.friendlyName.label')}
+                      {t('dialog.createOrg.form.name.label')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         autoFocus
                         placeholder={t(
-                          'dialog.createOrg.form.friendlyName.placeholder',
+                          'dialog.createOrg.form.name.placeholder',
                         )}
                         {...field}
                       />
                     </FormControl>
                     <FormDescription>
-                      {t('dialog.createOrg.form.friendlyName.description')}
+                      {t('dialog.createOrg.form.name.description')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="slug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      {t('dialog.createOrg.form.slug.label')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        autoFocus
+                        placeholder={t(
+                          'dialog.createOrg.form.slug.placeholder',
+                        )}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('dialog.createOrg.form.slug.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

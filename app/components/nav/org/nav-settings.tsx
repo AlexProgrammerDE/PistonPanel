@@ -1,6 +1,3 @@
-'use client';
-
-import { TerminalIcon, TextSearchIcon } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -11,15 +8,16 @@ import {
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BoltIcon } from 'lucide-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-type NavLinks = {
+type NavLink = {
   title: string;
   icon: (props: { className: string }) => ReactNode;
   linkProps: LinkProps;
-}[];
+};
 
-export function NavControls() {
+export function NavSettings() {
   const { t } = useTranslation('common');
   const orgInfoQueryOptions = useRouteContext({
     from: '/_dashboard/org/$org',
@@ -27,28 +25,20 @@ export function NavControls() {
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
-  const navLinks: NavLinks = [
+  const navLinks: NavLink[] = [
     {
-      title: t('orgSidebar.console'),
-      icon: TerminalIcon,
+      title: t('orgSidebar.metaSettings'),
+      icon: BoltIcon,
       linkProps: {
-        to: '/org/$org',
-        params: { org: orgInfo.id },
+        to: '/org/$org/meta',
+        params: { org: orgInfo.slug },
       },
-    },
-    {
-      title: t('orgSidebar.audit-log'),
-      icon: TextSearchIcon,
-      linkProps: {
-        to: '/org/$org/audit-log',
-        params: { org: orgInfo.id },
-      },
-    },
+    } satisfies NavLink,
   ];
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('orgSidebar.controlsGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t('orgSidebar.settingsGroup')}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>

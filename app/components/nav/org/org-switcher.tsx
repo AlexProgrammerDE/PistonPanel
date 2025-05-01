@@ -29,6 +29,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CreateOrgContext } from '@/components/dialog/create-org-dialog';
 import { useGlobalPermission } from '@/hooks/use-global-permission';
 import { authClient } from '@/auth/auth-client';
+import { toast } from 'sonner';
 
 function SidebarOrgButton() {
   const orgInfoQueryOptions = useRouteContext({
@@ -42,14 +43,14 @@ function SidebarOrgButton() {
       <SidebarMenuButton
         size="lg"
         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        tooltip={`${orgInfo.friendlyName} | TODO`}
+        tooltip={`${orgInfo.name} | TODO`}
       >
         <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-          <DynamicIcon name={orgInfo.icon} className="size-4" />
+          <DynamicIcon name={orgInfo.logo ?? ''} className="size-4" />
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="max-w-64 truncate font-semibold">
-            {orgInfo.friendlyName}
+            {orgInfo.name}
           </span>
           <span className="truncate text-xs">TODO</span>
         </div>
@@ -91,8 +92,8 @@ function OrgList() {
             <Link to="/org/$org" params={{ org: org.slug }}>
               <div className="flex size-6 items-center justify-center rounded-sm border">
                 <DynamicIcon
-                  name="rabbit"
-                  /* TODO */ className="size-4 shrink-0"
+                  name={org.logo ?? ''}
+                  className="size-4 shrink-0"
                 />
               </div>
               {org.name}
@@ -200,32 +201,27 @@ function DeleteOrgButton() {
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
   const navigate = useNavigate();
   const deleteMutation = useMutation({
-    mutationFn: async (orgId: string) => {
-      return;
+    mutationFn: async () => {
+      const promise = authClient.organization.delete({
+        organizationId: orgInfo.id,
+      });
+      toast.promise(promise, {
+        loading: t('orgSidebar.deleteToast.loading'),
+        success: t('orgSidebar.deleteToast.success'),
+        error: (e) => {
+          console.error(e);
+          return t('orgSidebar.deleteToast.error');
+        },
+      });
 
-      // const orgService = new OrgServiceClient(transport);
-      // const promise = orgService
-      //   .deleteOrg({
-      //     id: orgId,
-      //   })
-      //   .then((r) => r.response);
-      // toast.promise(promise, {
-      //   loading: t('orgSidebar.deleteToast.loading'),
-      //   success: t('orgSidebar.deleteToast.success'),
-      //   error: (e) => {
-      //     console.error(e);
-      //     return t('orgSidebar.deleteToast.error');
-      //   },
-      // });
-      //
-      // return promise;
+      return promise;
     },
   });
 
   return (
     <DropdownMenuItem
       onClick={() => {
-        deleteMutation.mutate(orgInfo.id);
+        deleteMutation.mutate();
         void navigate({
           to: '/',
         });

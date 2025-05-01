@@ -11,10 +11,9 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import UserPageLayout from '@/components/nav/user-page-layout';
+import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { Trans, useTranslation } from 'react-i18next';
 import { AppUser } from '@/auth/auth-client';
-import { Organization } from 'better-auth/plugins';
 
 export const Route = createFileRoute('/_dashboard/_user/admin/')({
   component: OverviewPage,

@@ -8,7 +8,6 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 import { CreateOrgProvider } from '@/components/dialog/create-org-dialog';
 import { authClient } from '@/auth/auth-client';
-import { useAuthenticate } from '@daveyplate/better-auth-ui';
 import { getTerminalTheme } from '@/lib/utils';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 
@@ -55,19 +54,18 @@ export const Route = createFileRoute('/_dashboard')({
 function OrgSwitchKeybinds() {
   const navigate = useNavigate();
   const { data: orgList } = authClient.useListOrganizations();
-  if (orgList === null) {
-    return null;
-  }
 
   useEffect(() => {
+    const usedList = orgList ?? [];
+
     const down = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey) {
         const numberKey = parseInt(e.key);
-        if (numberKey > 0 && numberKey <= orgList.length) {
+        if (numberKey > 0 && numberKey <= usedList.length) {
           e.preventDefault();
           void navigate({
             to: '/org/$org',
-            params: { org: orgList[numberKey - 1].slug },
+            params: { org: usedList[numberKey - 1].slug },
           });
         }
       }
@@ -79,11 +77,20 @@ function OrgSwitchKeybinds() {
   return null;
 }
 
-function DashboardLayout() {
-  useAuthenticate();
-
+function ImpersonationBorder() {
   const { clientDataQueryOptions } = Route.useRouteContext();
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+
+  return (
+    <>
+      {session.session.impersonatedBy && (
+        <div className="border-sidebar-primary pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-30 overflow-hidden border-4" />
+      )}
+    </>
+  );
+}
+
+function DashboardLayout() {
   const [terminalTheme, setTerminalTheme] = useState(getTerminalTheme());
 
   return (
@@ -91,9 +98,9 @@ function DashboardLayout() {
       <Suspense>
         <OrgSwitchKeybinds />
       </Suspense>
-      {session.session.impersonatedBy && (
-        <div className="border-sidebar-primary pointer-events-none absolute top-0 right-0 bottom-0 left-0 z-30 overflow-hidden border-4" />
-      )}
+      <Suspense>
+        <ImpersonationBorder />
+      </Suspense>
       <CreateOrgProvider>
         <TerminalThemeContext
           value={{

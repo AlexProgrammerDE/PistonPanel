@@ -24,11 +24,7 @@ function convertUnsafeIconName(name: string): LucideIconName {
     return name as LucideIconName;
   }
 
-  throw new Error(
-    i18n.t('icon.invalidName', {
-      name,
-    }),
-  );
+  return 'cloud-alert';
 }
 
 function loadCachedIcon(name: LucideIconName) {

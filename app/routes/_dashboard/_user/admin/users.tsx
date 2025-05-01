@@ -22,7 +22,7 @@ import {
   SelectAllHeader,
   SelectRowHeader,
 } from '@/components/data-table-selects';
-import UserPageLayout from '@/components/nav/user-page-layout';
+import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { UserAvatar } from '@/components/user-avatar';
 import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
 import { runAsync } from '@/lib/utils';

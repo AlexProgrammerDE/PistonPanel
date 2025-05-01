@@ -54,11 +54,6 @@ export default function ImportDialog(props: ImportDialogProps) {
 function UrlDialog(props: ImportDialogProps) {
   const { t } = useTranslation('common');
   const transport = use(TransportContext);
-  const orgInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/org/$org',
-    select: (context) => context.orgInfoQueryOptions,
-  });
-  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
   const [inputText, setInputText] = useState('');
 
   return (

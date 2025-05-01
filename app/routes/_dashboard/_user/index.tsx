@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import * as React from 'react';
-import UserPageLayout from '@/components/nav/user-page-layout';
+import UserPageLayout from '@/components/nav/user/user-page-layout';
 import {
   Card,
   CardDescription,
@@ -56,7 +56,7 @@ function Content() {
                 <CardHeader className="pr-0">
                   <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-12 items-center justify-center rounded-lg">
                     <DynamicIcon
-                      name="rabbit" /*TODO*/
+                      name={org.logo ?? ''}
                       className="size-8 shrink-0"
                     />
                   </div>

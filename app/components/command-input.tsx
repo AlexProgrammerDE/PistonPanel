@@ -6,7 +6,11 @@ import { z } from 'zod';
 
 type CompletionState = {
   lastWritten: string;
-  receivedCompletions: CommandCompletion[] | null;
+  receivedCompletions:
+    | {
+        suggestion: string;
+      }[]
+    | null;
   index: number | null;
 };
 
@@ -15,7 +19,7 @@ const SF_COMMAND_HISTORY_LENGTH = 100;
 
 const historySchema = z.string().array();
 
-export default function CommandInput(props: { scope: CommandScope }) {
+export default function CommandInput(props: { scope: {} }) {
   const { t } = useTranslation('common');
   const transport = use(TransportContext);
   const [commandHistory, setCommandHistory] = useState<string[]>(

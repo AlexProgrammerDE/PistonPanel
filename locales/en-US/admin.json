@@ -3,7 +3,7 @@
     "welcome": "Welcome back, {{name}} 🧙",
     "orgsChart": {
       "title": "Total orgs on this server",
-      "orgs": "Orgs",
+      "orgs": "Organizations",
       "label": {
         "state": "State",
         "active": "Active",

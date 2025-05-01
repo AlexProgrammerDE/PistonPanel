@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import * as React from 'react';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import OrgPageLayout from '@/components/nav/org-page-layout';
+import OrgPageLayout from '@/components/nav/org/org-page-layout';
 
 export const Route = createFileRoute('/_dashboard/org/$org/audit-log')({
   beforeLoad: (props) => {

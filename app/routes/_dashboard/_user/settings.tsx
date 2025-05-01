@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import UserPageLayout from '@/components/nav/user-page-layout';
+import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { ExternalLink } from '@/components/external-link';
 import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';

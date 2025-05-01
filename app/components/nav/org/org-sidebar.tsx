@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Suspense } from 'react';
 
-import { NavControls } from '@/components/nav/nav-controls';
-import { NavSettings } from '@/components/nav/nav-settings';
+import { NavControls } from '@/components/nav/org/nav-controls';
+import { NavSettings } from '@/components/nav/org/nav-settings';
 import { NavAccount } from '@/components/nav/nav-account';
-import { NavPlugins } from '@/components/nav/nav-plugins';
-import { OrgSwitcher } from '@/components/nav/org-switcher';
+import { NavPlugins } from '@/components/nav/org/nav-plugins';
+import { OrgSwitcher } from '@/components/nav/org/org-switcher';
 import {
   Sidebar,
   SidebarContent,

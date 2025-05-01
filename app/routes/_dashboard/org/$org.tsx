@@ -1,7 +1,7 @@
 import { CatchBoundary, createFileRoute, Outlet } from '@tanstack/react-router';
 import { queryOptions } from '@tanstack/react-query';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { OrgSidebar } from '@/components/nav/org-sidebar';
+import { OrgSidebar } from '@/components/nav/org/org-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
 import { useEffect } from 'react';
@@ -13,12 +13,14 @@ export const Route = createFileRoute('/_dashboard/org/$org')({
     const orgInfoQueryOptions = queryOptions({
       queryKey: ['org-info', org],
       queryFn: () => {
-        return {
-          id: org,
-          friendlyName: 'Demo',
-          icon: 'pickaxe',
-          orgPermissions: [],
-        };
+        return authClient.organization.getFullOrganization({
+          query: {
+            organizationSlug: org,
+          },
+          fetchOptions: {
+            throw: true,
+          },
+        });
       },
       refetchInterval: 3_000,
     });
@@ -45,7 +47,7 @@ function OrgLayout() {
 
   useEffect(() => {
     void authClient.organization.setActive({
-      organizationId: org,
+      organizationSlug: org,
     });
   }, []);
 

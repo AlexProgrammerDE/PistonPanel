@@ -9,33 +9,34 @@ import {
 } from '@/components/ui/breadcrumb';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ReactNode, Suspense } from 'react';
+import { BookOpenTextIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { BookOpenTextIcon, HomeIcon } from 'lucide-react';
-import { CatchBoundary, Link, useRouteContext } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
+import { CatchBoundary, useRouteContext } from '@tanstack/react-router';
 import { ErrorComponent } from '@/components/error-component';
 import { ExternalLink } from '@/components/external-link';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
-function OrgCrumb() {
-  const orgInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/org/$org',
-    select: (context) => context.orgInfoQueryOptions,
+function UserCrumb() {
+  const clientDataQueryOptions = useRouteContext({
+    from: '/_dashboard',
+    select: (context) => context.clientDataQueryOptions,
   });
-  const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
-  return <>{orgInfo.friendlyName}</>;
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+  return session.user.name;
 }
 
-function OrgCrumbSkeleton() {
+function UserCrumbSkeleton() {
   return <Skeleton className="h-4 w-24" />;
 }
 
-export default function OrgPageLayout(props: {
+export default function UserPageLayout(props: {
   children: ReactNode;
   extraCrumbs?: { id: string; content: ReactNode }[];
   pageName: ReactNode;
+  showUserCrumb: boolean;
   documentationLink?: string;
 }) {
   const { t } = useTranslation('common');
@@ -52,13 +53,6 @@ export default function OrgPageLayout(props: {
       <header className="flex h-12 shrink-0 items-center gap-2 border-b">
         <div className="flex items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="h-4" />
-          <Button variant="ghost" size="icon" className="h-7 w-7" asChild>
-            <Link to="/">
-              <HomeIcon />
-              <span className="sr-only">{t('orgSidebar.backToDashboard')}</span>
-            </Link>
-          </Button>
           {props.documentationLink && (
             <>
               <Separator orientation="vertical" className="h-4" />
@@ -66,7 +60,7 @@ export default function OrgPageLayout(props: {
                 <ExternalLink href={props.documentationLink}>
                   <BookOpenTextIcon />
                   <span className="sr-only">
-                    {t('orgSidebar.readDocumentation')}
+                    {t('userSidebar.readDocumentation')}
                   </span>
                 </ExternalLink>
               </Button>
@@ -75,12 +69,16 @@ export default function OrgPageLayout(props: {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden max-w-64 truncate md:block">
-                <Suspense fallback={<OrgCrumbSkeleton />}>
-                  <OrgCrumb />
-                </Suspense>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
+              {props.showUserCrumb && (
+                <>
+                  <BreadcrumbItem className="hidden max-w-64 truncate md:block">
+                    <Suspense fallback={<UserCrumbSkeleton />}>
+                      <UserCrumb />
+                    </Suspense>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                </>
+              )}
               {(props.extraCrumbs || []).map((crumb) => (
                 <CrumbComponent crumb={crumb.content} key={crumb.id} />
               ))}
@@ -94,7 +92,7 @@ export default function OrgPageLayout(props: {
       <ScrollArea className="h-[calc(100dvh-3rem)] w-full">
         <div className="flex min-h-[calc(100dvh-3rem)] w-full flex-col p-4">
           <CatchBoundary
-            getResetKey={() => 'org-page-layout'}
+            getResetKey={() => 'user-page-layout'}
             errorComponent={ErrorComponent}
           >
             <Suspense fallback={<LoadingComponent />}>

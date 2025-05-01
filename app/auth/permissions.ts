@@ -18,6 +18,7 @@ export const globalAc = createAccessControl({
 
 export const globalAdmin = globalAc.newRole({
   ...defaultGlobalAdminAc.statements,
+  organization: ['create'],
 });
 
 export const globalUser = globalAc.newRole({

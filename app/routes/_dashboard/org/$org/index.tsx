@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Badge } from '@/components/ui/badge';
-import OrgPageLayout from '@/components/nav/org-page-layout';
+import OrgPageLayout from '@/components/nav/org/org-page-layout';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { authClient } from '@/auth/auth-client';
 
 export const Route = createFileRoute('/_dashboard/org/$org/')({
   component: Console,
@@ -35,7 +36,7 @@ function Content() {
       <div className="flex flex-col gap-2">
         <div className="flex flex-row items-center gap-2">
           <h2 className="max-w-64 truncate text-xl font-semibold">
-            {orgInfo.friendlyName}
+            {orgInfo.name}
           </h2>
           <Badge className="uppercase" variant="secondary">
             {'TODO' /* TODO */}

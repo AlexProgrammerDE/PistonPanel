@@ -39,24 +39,26 @@
       "close": "Close"
     },
     "createOrg": {
-      "title": "Create a new org",
-      "description": "Orgs need friendly names for you to distinguish them. It can be any name you want, for example, \"My Minecraft Bot\".",
+      "title": "Create a new organization",
+      "description": "Organizations help you manage resources like servers and networks in one place. Invite members to collaborate on projects.",
       "form": {
-        "friendlyName": {
-          "label": "Friendly name",
-          "placeholder": "My Minecraft Bot",
-          "description": "The name you want to give to this org.",
-          "min": "The friendly name must be at least 3 characters long.",
-          "max": "The friendly name must be at most 32 characters long.",
-          "regex": "Friendly name must contain only letters, numbers, and spaces"
+        "name": {
+          "label": "Name",
+          "placeholder": "Piston Network",
+          "description": "The name you want to give to this org."
+        },
+        "slug": {
+          "label": "Slug",
+          "placeholder": "piston-network",
+          "description": "The slug is used to identify the org in the URL. Unlike the name, it must be unique."
         },
         "cancel": "Cancel",
         "create": "Create"
       },
       "createToast": {
-        "loading": "Creating org...",
-        "success": "Org created successfully",
-        "error": "Failed to create org"
+        "loading": "Creating organization...",
+        "success": "Orgnization created successfully",
+        "error": "Failed to create organization"
       }
     },
     "import": {
@@ -116,9 +118,6 @@
       "error": "Failed to stop attack"
     }
   },
-  "icon": {
-    "invalidName": "Invalid icon name: {{name}}"
-  },
   "dataTable": {
     "noResults": "No results.",
     "rowsSelected": "{{amount}} of {{total}} row(s) selected",
@@ -152,7 +151,7 @@
   "terminal": {
     "noLogs": "🧙 Looks like there are no logs to display; try running some commands!",
     "demo-1": "Welcome to demo mode! 🧪",
-    "demo-2": "This is a read-only org of PistonPanel",
+    "demo-2": "This is a read-only organization of PistonPanel",
     "demo-3": "Check out all the menus and features before deciding to install PistonPanel :D",
     "demo-4": "Feel free to join our Discord server if you would like to reach out: https://pistonpanel.com/discord"
   },
@@ -189,12 +188,12 @@
     "readDocumentation": "Read documentation",
     "backToDashboard": "Back to dashboard",
     "deleteToast": {
-      "loading": "Deleting org...",
-      "success": "Org deleted",
-      "error": "Failed to delete org"
+      "loading": "Deleting organization...",
+      "success": "Organization deleted",
+      "error": "Failed to delete organization"
     },
-    "orgsGroup": "Orgs",
-    "createOrg": "Create Org",
+    "orgsGroup": "Organizations",
+    "createOrg": "Create Organization",
     "loadProfileToast": {
       "loading": "Loading profile...",
       "success": "Profile loaded",
@@ -204,7 +203,7 @@
     "loadFromFile": "Load from file",
     "profileSaved": "Profile saved",
     "saveProfile": "Save Profile",
-    "deleteOrg": "Delete Org",
+    "deleteOrg": "Delete Organization",
     "controlsGroup": "Controls",
     "console": "Console",
     "audit-log": "Audit Log",
@@ -222,9 +221,9 @@
   "userSidebar": {
     "readDocumentation": "Read documentation",
     "userGroup": "User",
-    "orgs": "Orgs",
+    "orgs": "Organizations",
     "access": "Access",
-    "createOrg": "Create Org",
+    "createOrg": "Create Organization",
     "settings": "Settings",
     "adminGroup": "Admin",
     "adminOverview": "Overview",
@@ -270,14 +269,14 @@
   "pageName": {
     "console": "Console",
     "audit-log": "Audit Log",
-    "orgs": "Orgs",
+    "orgs": "Organizations",
     "access": "Access",
     "settings": "Settings",
     "proxySettings": "Proxy Settings",
     "overview": "Overview",
     "users": "Users",
     "accountSettings": "Account Settings",
-    "metaSettings": "Org Settings",
+    "metaSettings": "Organization Settings",
     "discoverPlugins": "Plugins",
     "adminScripts": "Scripts",
     "orgScripts": "Scripts"
@@ -334,70 +333,5 @@
     "pausedAttack": "Paused an attack",
     "stoppedAttack": "Stopped an attack"
   },
-  "pickADate": "Pick a date",
-  "scripts": {
-    "filterPlaceholder": "Filter scripts...",
-    "baseScriptDialog": {
-      "form": {
-        "scriptName": {
-          "min": "Script names must be at least 3 characters",
-          "max": "Script names must be at most 32 characters",
-          "regex": "Script names must be lowercase, begin with an alphanumeric character, followed by more alphanumeric characters or dashes, and end with an alphanumeric character.",
-          "label": "Name",
-          "placeholder": "My Script",
-          "description": "The name of the script."
-        },
-        "elevatedPermissions": {
-          "label": "Elevated Permissions",
-          "description": "Whether the script should run with elevated permissions. Only admins can enable this option."
-        }
-      }
-    },
-    "addScriptDialog": {
-      "title": "Add a new script",
-      "description": "Scripts are small programs that run on the PistonPanel server. They can be used to automate tasks, create custom behaviour, and more.",
-      "form": {
-        "cancel": "Cancel",
-        "add": "Add"
-      }
-    },
-    "updateScriptDialog": {
-      "title": "Update script",
-      "description": "Update the script's information.",
-      "form": {
-        "cancel": "Cancel",
-        "update": "Update"
-      }
-    },
-    "removeToast": {
-      "loading": "Removing scripts...",
-      "success": "Removed scripts!",
-      "error": "Failed to remove scripts"
-    },
-    "addToast": {
-      "loading": "Adding script...",
-      "success": "Added script!",
-      "error": "Failed to add script"
-    },
-    "updateToast": {
-      "loading": "Updating script...",
-      "success": "Updated script!",
-      "error": "Failed to update script"
-    },
-    "restartToast": {
-      "loading": "Restarting script...",
-      "success": "Restarted script!",
-      "error": "Failed to restart script"
-    },
-    "table": {
-      "type": "Type",
-      "scriptName": "Name",
-      "language": "Language",
-      "elevatedPermissions": "Elevated Permissions",
-      "createdAt": "Created",
-      "actions": "Actions"
-    },
-    "globalScript": "Global",
-    "orgScript": "Org"
-  }
+  "pickADate": "Pick a date"
 }

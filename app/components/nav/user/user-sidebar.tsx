@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/sidebar';
 import { NavSecondary } from '@/components/nav/nav-secondary';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { NavUserOptions } from '@/components/nav/nav-user-options';
-import { NavUserAdmin } from '@/components/nav/nav-user-admin';
+import { NavUserOptions } from '@/components/nav/user/nav-user-options';
+import { NavUserAdmin } from '@/components/nav/user/nav-user-admin';
 import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
 
 export function UserSidebar({
