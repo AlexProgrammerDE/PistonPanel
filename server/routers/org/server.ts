@@ -2,6 +2,9 @@ import { protectedProcedure, t } from '~/trpc/trpc';
 import z from 'zod';
 import { zAsyncIterable } from '~/lib/zAsyncIterable';
 import { tracked } from '@trpc/server';
+import * as k8s from '@kubernetes/client-node';
+import { LineStream } from 'byline';
+import { k8sLogApi } from '~/kubernetes/client';
 
 export const serverRouter = t.router({
   subscribeLogs: protectedProcedure
@@ -27,5 +30,11 @@ export const serverRouter = t.router({
         });
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
+
+      //const logStream = new LineStream();
+      //
+      //logStream.on('data', data => console.log(String(data)));
+      //
+      //await k8sLogApi.log("namespace", "pod", "container", logStream, { follow: true });
     }),
 });

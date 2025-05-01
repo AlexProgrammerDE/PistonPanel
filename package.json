@@ -60,6 +60,7 @@
     "@vitejs/plugin-react-swc": "^3.9.0",
     "better-auth": "1.2.7",
     "better-auth-harmony": "^1.2.4",
+    "byline": "^5.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -92,6 +93,7 @@
     "tailwindcss-animate": "^1.0.7",
     "urijs": "^1.19.11",
     "vaul": "^1.1.2",
+    "velaux-typescript-sdk": "^1.0.2",
     "webdav": "^5.8.0",
     "zod-i18n-map": "^2.27.0"
   },
@@ -108,6 +110,7 @@
     "@tanstack/router-cli": "^1.114.27",
     "@tanstack/router-plugin": "^1.114.27",
     "@trpc/server": "^11.1.2",
+    "@types/byline": "^4.2.36",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/file-saver": "^2.0.7",
     "@types/loadable__component": "^5.13.9",
