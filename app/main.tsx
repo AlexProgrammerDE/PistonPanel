@@ -16,6 +16,7 @@ import {
   httpBatchStreamLink,
   httpSubscriptionLink,
   loggerLink,
+  retryLink,
   splitLink,
 } from '@trpc/client';
 import { trpc } from '@/lib/trpc';
@@ -23,6 +24,22 @@ import { trpc } from '@/lib/trpc';
 export function createRouter() {
   const trpcClient = trpc.createClient({
     links: [
+      retryLink({
+        retry: (opts) => {
+          const code = opts.error.data?.code;
+          if (!code) {
+            console.error('No error code found, retrying', opts);
+            return true;
+          }
+
+          if (code === 'UNAUTHORIZED' || code === 'FORBIDDEN') {
+            console.log('Retrying due to 401/403 error');
+            return true;
+          }
+
+          return false;
+        },
+      }),
       loggerLink(),
       splitLink({
         condition: (op) => op.type === 'subscription',
