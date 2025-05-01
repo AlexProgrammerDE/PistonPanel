@@ -12,14 +12,26 @@ import { LoadingComponent } from '@/components/loading-component';
 import { NotFoundComponent } from '@/components/not-found-component';
 import '@/lib/i18n';
 import { StrictMode } from 'react';
-import { httpBatchStreamLink } from '@trpc/client';
+import {
+  httpBatchStreamLink,
+  httpSubscriptionLink,
+  loggerLink,
+  splitLink,
+} from '@trpc/client';
 import { trpc } from '@/lib/trpc';
 
 export function createRouter() {
   const trpcClient = trpc.createClient({
     links: [
-      httpBatchStreamLink({
-        url: '/api/trpc',
+      loggerLink(),
+      splitLink({
+        condition: (op) => op.type === 'subscription',
+        true: httpSubscriptionLink({
+          url: '/api/trpc',
+        }),
+        false: httpBatchStreamLink({
+          url: '/api/trpc',
+        }),
       }),
     ],
   });
