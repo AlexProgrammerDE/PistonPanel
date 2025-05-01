@@ -3,24 +3,29 @@
 // @generated from protobuf file "pistonpanel/client.proto" (package "pistonpanel.v1", syntax proto3)
 // tslint:disable
 // @ts-nocheck
-import type { RpcTransport } from '@protobuf-ts/runtime-rpc';
-import type { ServiceInfo } from '@protobuf-ts/runtime-rpc';
-import { ClientService } from './client';
-import type { InvalidateSelfSessionsResponse } from './client';
-import type { InvalidateSelfSessionsRequest } from './client';
-import type { UpdateSelfEmailResponse } from './client';
-import type { UpdateSelfEmailRequest } from './client';
-import type { UpdateSelfUsernameResponse } from './client';
-import type { UpdateSelfUsernameRequest } from './client';
-import type { GenerateAPITokenResponse } from './client';
-import type { GenerateAPITokenRequest } from './client';
-import type { GenerateWebDAVTokenResponse } from './client';
-import type { GenerateWebDAVTokenRequest } from './client';
+import type {
+  RpcOptions,
+  RpcTransport,
+  ServiceInfo,
+  UnaryCall,
+} from '@protobuf-ts/runtime-rpc';
 import { stackIntercept } from '@protobuf-ts/runtime-rpc';
-import type { ClientDataResponse } from './client';
-import type { ClientDataRequest } from './client';
-import type { UnaryCall } from '@protobuf-ts/runtime-rpc';
-import type { RpcOptions } from '@protobuf-ts/runtime-rpc';
+import type {
+  ClientDataRequest,
+  ClientDataResponse,
+  GenerateAPITokenRequest,
+  GenerateAPITokenResponse,
+  GenerateWebDAVTokenRequest,
+  GenerateWebDAVTokenResponse,
+  InvalidateSelfSessionsRequest,
+  InvalidateSelfSessionsResponse,
+  UpdateSelfEmailRequest,
+  UpdateSelfEmailResponse,
+  UpdateSelfUsernameRequest,
+  UpdateSelfUsernameResponse,
+} from './client';
+import { ClientService } from './client';
+
 /**
  * @generated from protobuf service pistonpanel.v1.ClientService
  */
@@ -32,6 +37,7 @@ export interface IClientServiceClient {
     input: ClientDataRequest,
     options?: RpcOptions,
   ): UnaryCall<ClientDataRequest, ClientDataResponse>;
+
   /**
    * @generated from protobuf rpc: GenerateWebDAVToken(pistonpanel.v1.GenerateWebDAVTokenRequest) returns (pistonpanel.v1.GenerateWebDAVTokenResponse);
    */
@@ -39,6 +45,7 @@ export interface IClientServiceClient {
     input: GenerateWebDAVTokenRequest,
     options?: RpcOptions,
   ): UnaryCall<GenerateWebDAVTokenRequest, GenerateWebDAVTokenResponse>;
+
   /**
    * @generated from protobuf rpc: GenerateAPIToken(pistonpanel.v1.GenerateAPITokenRequest) returns (pistonpanel.v1.GenerateAPITokenResponse);
    */
@@ -46,6 +53,7 @@ export interface IClientServiceClient {
     input: GenerateAPITokenRequest,
     options?: RpcOptions,
   ): UnaryCall<GenerateAPITokenRequest, GenerateAPITokenResponse>;
+
   /**
    * @generated from protobuf rpc: UpdateSelfUsername(pistonpanel.v1.UpdateSelfUsernameRequest) returns (pistonpanel.v1.UpdateSelfUsernameResponse);
    */
@@ -53,6 +61,7 @@ export interface IClientServiceClient {
     input: UpdateSelfUsernameRequest,
     options?: RpcOptions,
   ): UnaryCall<UpdateSelfUsernameRequest, UpdateSelfUsernameResponse>;
+
   /**
    * @generated from protobuf rpc: UpdateSelfEmail(pistonpanel.v1.UpdateSelfEmailRequest) returns (pistonpanel.v1.UpdateSelfEmailResponse);
    */
@@ -60,6 +69,7 @@ export interface IClientServiceClient {
     input: UpdateSelfEmailRequest,
     options?: RpcOptions,
   ): UnaryCall<UpdateSelfEmailRequest, UpdateSelfEmailResponse>;
+
   /**
    * @generated from protobuf rpc: InvalidateSelfSessions(pistonpanel.v1.InvalidateSelfSessionsRequest) returns (pistonpanel.v1.InvalidateSelfSessionsResponse);
    */
@@ -68,6 +78,7 @@ export interface IClientServiceClient {
     options?: RpcOptions,
   ): UnaryCall<InvalidateSelfSessionsRequest, InvalidateSelfSessionsResponse>;
 }
+
 /**
  * @generated from protobuf service pistonpanel.v1.ClientService
  */
@@ -75,7 +86,9 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
   typeName = ClientService.typeName;
   methods = ClientService.methods;
   options = ClientService.options;
+
   constructor(private readonly _transport: RpcTransport) {}
+
   /**
    * @generated from protobuf rpc: GetClientData(pistonpanel.v1.ClientDataRequest) returns (pistonpanel.v1.ClientDataResponse);
    */
@@ -93,6 +106,7 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: GenerateWebDAVToken(pistonpanel.v1.GenerateWebDAVTokenRequest) returns (pistonpanel.v1.GenerateWebDAVTokenResponse);
    */
@@ -107,6 +121,7 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
       GenerateWebDAVTokenResponse
     >('unary', this._transport, method, opt, input);
   }
+
   /**
    * @generated from protobuf rpc: GenerateAPIToken(pistonpanel.v1.GenerateAPITokenRequest) returns (pistonpanel.v1.GenerateAPITokenResponse);
    */
@@ -124,6 +139,7 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: UpdateSelfUsername(pistonpanel.v1.UpdateSelfUsernameRequest) returns (pistonpanel.v1.UpdateSelfUsernameResponse);
    */
@@ -138,6 +154,7 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
       UpdateSelfUsernameResponse
     >('unary', this._transport, method, opt, input);
   }
+
   /**
    * @generated from protobuf rpc: UpdateSelfEmail(pistonpanel.v1.UpdateSelfEmailRequest) returns (pistonpanel.v1.UpdateSelfEmailResponse);
    */
@@ -155,6 +172,7 @@ export class ClientServiceClient implements IClientServiceClient, ServiceInfo {
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: InvalidateSelfSessions(pistonpanel.v1.InvalidateSelfSessionsRequest) returns (pistonpanel.v1.InvalidateSelfSessionsResponse);
    */

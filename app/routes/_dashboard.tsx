@@ -4,12 +4,10 @@ import {
   redirect,
   useNavigate,
 } from '@tanstack/react-router';
-import { createTransport } from '@/lib/web-rpc';
 import {
   InstanceListResponse,
   InstanceState,
 } from '@/generated/pistonpanel/instance';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
 import { CreateInstanceProvider } from '@/components/dialog/create-instance-dialog';

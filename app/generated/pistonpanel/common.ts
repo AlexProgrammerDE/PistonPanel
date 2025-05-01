@@ -4,8 +4,8 @@
 // tslint:disable
 // @ts-nocheck
 import { MessageType } from '@protobuf-ts/runtime';
-import { Value } from '../google/protobuf/struct';
-import { Struct } from '../google/protobuf/struct';
+import { Struct, Value } from '../google/protobuf/struct';
+
 /**
  * @generated from protobuf message pistonpanel.v1.ProxyProto
  */
@@ -27,6 +27,7 @@ export interface ProxyProto {
    */
   password?: string;
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.ProxyProto.Type
  */
@@ -44,6 +45,7 @@ export enum ProxyProto_Type {
    */
   SOCKS5 = 2,
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinecraftAccountProto
  */
@@ -89,6 +91,7 @@ export interface MinecraftAccountProto {
         oneofKind: undefined;
       };
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinecraftAccountProto.OnlineChainJavaData
  */
@@ -106,10 +109,12 @@ export interface MinecraftAccountProto_OnlineChainJavaData {
    */
   authChain?: Struct;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinecraftAccountProto.OfflineJavaData
  */
 export interface MinecraftAccountProto_OfflineJavaData {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinecraftAccountProto.BedrockData
  */
@@ -143,6 +148,7 @@ export interface MinecraftAccountProto_BedrockData {
    */
   authChain?: Struct;
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.MinecraftAccountProto.AccountTypeProto
  */
@@ -172,6 +178,7 @@ export enum MinecraftAccountProto_AccountTypeProto {
    */
   MICROSOFT_JAVA_REFRESH_TOKEN = 7,
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.SettingsEntry
  */
@@ -185,6 +192,7 @@ export interface SettingsEntry {
    */
   value?: Value;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.SettingsNamespace
  */
@@ -198,6 +206,7 @@ export interface SettingsNamespace {
    */
   entries: SettingsEntry[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.StringSetting
  */
@@ -239,6 +248,7 @@ export interface StringSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.StringSetting.InputType
  */
@@ -272,6 +282,7 @@ export enum StringSetting_InputType {
    */
   TEXTAREA = 6,
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.IntSetting
  */
@@ -313,6 +324,7 @@ export interface IntSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.DoubleSetting
  */
@@ -362,6 +374,7 @@ export interface DoubleSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.BoolSetting
  */
@@ -383,6 +396,7 @@ export interface BoolSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.ComboSetting
  */
@@ -410,6 +424,7 @@ export interface ComboSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.ComboSetting.Option
  */
@@ -439,6 +454,7 @@ export interface ComboSetting_Option {
    */
   keywords: string[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.StringListSetting
  */
@@ -460,6 +476,7 @@ export interface StringListSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinMaxSetting
  */
@@ -493,6 +510,7 @@ export interface MinMaxSetting {
    */
   disabled: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.MinMaxSetting.Entry
  */
@@ -514,6 +532,7 @@ export interface MinMaxSetting_Entry {
    */
   placeholder: string;
 }
+
 /**
  * A entry in the settings page
  *
@@ -583,6 +602,7 @@ export interface SettingEntry {
         oneofKind: undefined;
       };
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.SettingsPage
  */
@@ -620,6 +640,7 @@ export interface SettingsPage {
    */
   enabledKey?: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.ServerPlugin
  */
@@ -649,6 +670,7 @@ export interface ServerPlugin {
    */
   website: string;
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.AccountTypeCredentials
  */
@@ -670,6 +692,7 @@ export enum AccountTypeCredentials {
    */
   MICROSOFT_JAVA_REFRESH_TOKEN = 5,
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.AccountTypeDeviceCode
  */
@@ -683,6 +706,7 @@ export enum AccountTypeDeviceCode {
    */
   MICROSOFT_BEDROCK_DEVICE_CODE = 1,
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.GlobalPermission
  */
@@ -776,6 +800,7 @@ export enum GlobalPermission {
    */
   ELEVATE_SCRIPT_PERMISSIONS = 22,
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.InstancePermission
  */
@@ -849,6 +874,7 @@ export enum InstancePermission {
    */
   DELETE_SCRIPT = 19,
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.UserRole
  */
@@ -862,6 +888,7 @@ export enum UserRole {
    */
   USER = 1,
 }
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ProxyProto$Type extends MessageType<ProxyProto> {
   constructor() {
@@ -890,10 +917,12 @@ class ProxyProto$Type extends MessageType<ProxyProto> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ProxyProto
  */
 export const ProxyProto = new ProxyProto$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinecraftAccountProto$Type extends MessageType<MinecraftAccountProto> {
   constructor() {
@@ -938,10 +967,12 @@ class MinecraftAccountProto$Type extends MessageType<MinecraftAccountProto> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinecraftAccountProto
  */
 export const MinecraftAccountProto = new MinecraftAccountProto$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinecraftAccountProto_OnlineChainJavaData$Type extends MessageType<MinecraftAccountProto_OnlineChainJavaData> {
   constructor() {
@@ -957,22 +988,26 @@ class MinecraftAccountProto_OnlineChainJavaData$Type extends MessageType<Minecra
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinecraftAccountProto.OnlineChainJavaData
  */
 export const MinecraftAccountProto_OnlineChainJavaData =
   new MinecraftAccountProto_OnlineChainJavaData$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinecraftAccountProto_OfflineJavaData$Type extends MessageType<MinecraftAccountProto_OfflineJavaData> {
   constructor() {
     super('pistonpanel.v1.MinecraftAccountProto.OfflineJavaData', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinecraftAccountProto.OfflineJavaData
  */
 export const MinecraftAccountProto_OfflineJavaData =
   new MinecraftAccountProto_OfflineJavaData$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinecraftAccountProto_BedrockData$Type extends MessageType<MinecraftAccountProto_BedrockData> {
   constructor() {
@@ -1002,11 +1037,13 @@ class MinecraftAccountProto_BedrockData$Type extends MessageType<MinecraftAccoun
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinecraftAccountProto.BedrockData
  */
 export const MinecraftAccountProto_BedrockData =
   new MinecraftAccountProto_BedrockData$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class SettingsEntry$Type extends MessageType<SettingsEntry> {
   constructor() {
@@ -1016,10 +1053,12 @@ class SettingsEntry$Type extends MessageType<SettingsEntry> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.SettingsEntry
  */
 export const SettingsEntry = new SettingsEntry$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class SettingsNamespace$Type extends MessageType<SettingsNamespace> {
   constructor() {
@@ -1035,10 +1074,12 @@ class SettingsNamespace$Type extends MessageType<SettingsNamespace> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.SettingsNamespace
  */
 export const SettingsNamespace = new SettingsNamespace$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class StringSetting$Type extends MessageType<StringSetting> {
   constructor() {
@@ -1073,10 +1114,12 @@ class StringSetting$Type extends MessageType<StringSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.StringSetting
  */
 export const StringSetting = new StringSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class IntSetting$Type extends MessageType<IntSetting> {
   constructor() {
@@ -1108,10 +1151,12 @@ class IntSetting$Type extends MessageType<IntSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.IntSetting
  */
 export const IntSetting = new IntSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class DoubleSetting$Type extends MessageType<DoubleSetting> {
   constructor() {
@@ -1155,10 +1200,12 @@ class DoubleSetting$Type extends MessageType<DoubleSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.DoubleSetting
  */
 export const DoubleSetting = new DoubleSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class BoolSetting$Type extends MessageType<BoolSetting> {
   constructor() {
@@ -1175,10 +1222,12 @@ class BoolSetting$Type extends MessageType<BoolSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.BoolSetting
  */
 export const BoolSetting = new BoolSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ComboSetting$Type extends MessageType<ComboSetting> {
   constructor() {
@@ -1202,10 +1251,12 @@ class ComboSetting$Type extends MessageType<ComboSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ComboSetting
  */
 export const ComboSetting = new ComboSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ComboSetting_Option$Type extends MessageType<ComboSetting_Option> {
   constructor() {
@@ -1234,10 +1285,12 @@ class ComboSetting_Option$Type extends MessageType<ComboSetting_Option> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ComboSetting.Option
  */
 export const ComboSetting_Option = new ComboSetting_Option$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class StringListSetting$Type extends MessageType<StringListSetting> {
   constructor() {
@@ -1260,10 +1313,12 @@ class StringListSetting$Type extends MessageType<StringListSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.StringListSetting
  */
 export const StringListSetting = new StringListSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinMaxSetting$Type extends MessageType<MinMaxSetting> {
   constructor() {
@@ -1293,10 +1348,12 @@ class MinMaxSetting$Type extends MessageType<MinMaxSetting> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinMaxSetting
  */
 export const MinMaxSetting = new MinMaxSetting$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class MinMaxSetting_Entry$Type extends MessageType<MinMaxSetting_Entry> {
   constructor() {
@@ -1318,10 +1375,12 @@ class MinMaxSetting_Entry$Type extends MessageType<MinMaxSetting_Entry> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.MinMaxSetting.Entry
  */
 export const MinMaxSetting_Entry = new MinMaxSetting_Entry$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class SettingEntry$Type extends MessageType<SettingEntry> {
   constructor() {
@@ -1379,10 +1438,12 @@ class SettingEntry$Type extends MessageType<SettingEntry> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.SettingEntry
  */
 export const SettingEntry = new SettingEntry$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class SettingsPage$Type extends MessageType<SettingsPage> {
   constructor() {
@@ -1408,10 +1469,12 @@ class SettingsPage$Type extends MessageType<SettingsPage> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.SettingsPage
  */
 export const SettingsPage = new SettingsPage$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ServerPlugin$Type extends MessageType<ServerPlugin> {
   constructor() {
@@ -1430,6 +1493,7 @@ class ServerPlugin$Type extends MessageType<ServerPlugin> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ServerPlugin
  */

@@ -3,16 +3,21 @@
 // @generated from protobuf file "pistonpanel/command.proto" (package "pistonpanel.v1", syntax proto3)
 // tslint:disable
 // @ts-nocheck
-import type { RpcTransport } from '@protobuf-ts/runtime-rpc';
-import type { ServiceInfo } from '@protobuf-ts/runtime-rpc';
-import { CommandService } from './command';
-import type { CommandCompletionResponse } from './command';
-import type { CommandCompletionRequest } from './command';
+import type {
+  RpcOptions,
+  RpcTransport,
+  ServiceInfo,
+  UnaryCall,
+} from '@protobuf-ts/runtime-rpc';
 import { stackIntercept } from '@protobuf-ts/runtime-rpc';
-import type { CommandResponse } from './command';
-import type { CommandRequest } from './command';
-import type { UnaryCall } from '@protobuf-ts/runtime-rpc';
-import type { RpcOptions } from '@protobuf-ts/runtime-rpc';
+import type {
+  CommandCompletionRequest,
+  CommandCompletionResponse,
+  CommandRequest,
+  CommandResponse,
+} from './command';
+import { CommandService } from './command';
+
 /**
  * @generated from protobuf service pistonpanel.v1.CommandService
  */
@@ -24,6 +29,7 @@ export interface ICommandServiceClient {
     input: CommandRequest,
     options?: RpcOptions,
   ): UnaryCall<CommandRequest, CommandResponse>;
+
   /**
    * @generated from protobuf rpc: TabCompleteCommand(pistonpanel.v1.CommandCompletionRequest) returns (pistonpanel.v1.CommandCompletionResponse);
    */
@@ -32,6 +38,7 @@ export interface ICommandServiceClient {
     options?: RpcOptions,
   ): UnaryCall<CommandCompletionRequest, CommandCompletionResponse>;
 }
+
 /**
  * @generated from protobuf service pistonpanel.v1.CommandService
  */
@@ -41,7 +48,9 @@ export class CommandServiceClient
   typeName = CommandService.typeName;
   methods = CommandService.methods;
   options = CommandService.options;
+
   constructor(private readonly _transport: RpcTransport) {}
+
   /**
    * @generated from protobuf rpc: ExecuteCommand(pistonpanel.v1.CommandRequest) returns (pistonpanel.v1.CommandResponse);
    */
@@ -59,6 +68,7 @@ export class CommandServiceClient
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: TabCompleteCommand(pistonpanel.v1.CommandCompletionRequest) returns (pistonpanel.v1.CommandCompletionResponse);
    */

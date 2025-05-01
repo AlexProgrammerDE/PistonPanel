@@ -7,6 +7,7 @@ import { ServiceType } from '@protobuf-ts/runtime-rpc';
 import { MessageType } from '@protobuf-ts/runtime';
 import { Timestamp } from '../google/protobuf/timestamp';
 import { InstancePermission } from './common';
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceUser
  */
@@ -24,6 +25,7 @@ export interface InstanceUser {
    */
   email: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceCreateRequest
  */
@@ -33,6 +35,7 @@ export interface InstanceCreateRequest {
    */
   friendlyName: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceCreateResponse
  */
@@ -42,6 +45,7 @@ export interface InstanceCreateResponse {
    */
   id: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceDeleteRequest
  */
@@ -51,14 +55,17 @@ export interface InstanceDeleteRequest {
    */
   id: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceDeleteResponse
  */
 export interface InstanceDeleteResponse {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceListRequest
  */
 export interface InstanceListRequest {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceListResponse
  */
@@ -68,6 +75,7 @@ export interface InstanceListResponse {
    */
   instances: InstanceListResponse_Instance[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceListResponse.Instance
  */
@@ -93,6 +101,7 @@ export interface InstanceListResponse_Instance {
    */
   instancePermissions: InstancePermissionState[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstancePermissionState
  */
@@ -106,6 +115,7 @@ export interface InstancePermissionState {
    */
   granted: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceInfoRequest
  */
@@ -115,6 +125,7 @@ export interface InstanceInfoRequest {
    */
   id: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceInfoResponse
  */
@@ -136,6 +147,7 @@ export interface InstanceInfoResponse {
    */
   instancePermissions: InstancePermissionState[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceUpdateMetaRequest
  */
@@ -166,10 +178,12 @@ export interface InstanceUpdateMetaRequest {
         oneofKind: undefined;
       };
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceUpdateMetaResponse
  */
 export interface InstanceUpdateMetaResponse {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceStateChangeRequest
  */
@@ -183,10 +197,12 @@ export interface InstanceStateChangeRequest {
    */
   state: InstanceState;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceStateChangeResponse
  */
 export interface InstanceStateChangeResponse {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceAuditLogRequest
  */
@@ -196,6 +212,7 @@ export interface InstanceAuditLogRequest {
    */
   id: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceAuditLogResponse
  */
@@ -205,6 +222,7 @@ export interface InstanceAuditLogResponse {
    */
   entry: InstanceAuditLogResponse_AuditLogEntry[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceAuditLogResponse.AuditLogEntry
  */
@@ -230,6 +248,7 @@ export interface InstanceAuditLogResponse_AuditLogEntry {
    */
   data: string;
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.InstanceAuditLogResponse.AuditLogEntryType
  */
@@ -255,6 +274,7 @@ export enum InstanceAuditLogResponse_AuditLogEntryType {
    */
   STOP_ATTACK = 4,
 }
+
 /**
  * @generated from protobuf enum pistonpanel.v1.InstanceState
  */
@@ -280,6 +300,7 @@ export enum InstanceState {
    */
   STOPPED = 4,
 }
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceUser$Type extends MessageType<InstanceUser> {
   constructor() {
@@ -290,10 +311,12 @@ class InstanceUser$Type extends MessageType<InstanceUser> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceUser
  */
 export const InstanceUser = new InstanceUser$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceCreateRequest$Type extends MessageType<InstanceCreateRequest> {
   constructor() {
@@ -307,10 +330,12 @@ class InstanceCreateRequest$Type extends MessageType<InstanceCreateRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceCreateRequest
  */
 export const InstanceCreateRequest = new InstanceCreateRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceCreateResponse$Type extends MessageType<InstanceCreateResponse> {
   constructor() {
@@ -319,10 +344,12 @@ class InstanceCreateResponse$Type extends MessageType<InstanceCreateResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceCreateResponse
  */
 export const InstanceCreateResponse = new InstanceCreateResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceDeleteRequest$Type extends MessageType<InstanceDeleteRequest> {
   constructor() {
@@ -331,30 +358,36 @@ class InstanceDeleteRequest$Type extends MessageType<InstanceDeleteRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceDeleteRequest
  */
 export const InstanceDeleteRequest = new InstanceDeleteRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceDeleteResponse$Type extends MessageType<InstanceDeleteResponse> {
   constructor() {
     super('pistonpanel.v1.InstanceDeleteResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceDeleteResponse
  */
 export const InstanceDeleteResponse = new InstanceDeleteResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceListRequest$Type extends MessageType<InstanceListRequest> {
   constructor() {
     super('pistonpanel.v1.InstanceListRequest', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceListRequest
  */
 export const InstanceListRequest = new InstanceListRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceListResponse$Type extends MessageType<InstanceListResponse> {
   constructor() {
@@ -369,10 +402,12 @@ class InstanceListResponse$Type extends MessageType<InstanceListResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceListResponse
  */
 export const InstanceListResponse = new InstanceListResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceListResponse_Instance$Type extends MessageType<InstanceListResponse_Instance> {
   constructor() {
@@ -401,11 +436,13 @@ class InstanceListResponse_Instance$Type extends MessageType<InstanceListRespons
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceListResponse.Instance
  */
 export const InstanceListResponse_Instance =
   new InstanceListResponse_Instance$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstancePermissionState$Type extends MessageType<InstancePermissionState> {
   constructor() {
@@ -420,10 +457,12 @@ class InstancePermissionState$Type extends MessageType<InstancePermissionState> 
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstancePermissionState
  */
 export const InstancePermissionState = new InstancePermissionState$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceInfoRequest$Type extends MessageType<InstanceInfoRequest> {
   constructor() {
@@ -432,10 +471,12 @@ class InstanceInfoRequest$Type extends MessageType<InstanceInfoRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceInfoRequest
  */
 export const InstanceInfoRequest = new InstanceInfoRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceInfoResponse$Type extends MessageType<InstanceInfoResponse> {
   constructor() {
@@ -463,10 +504,12 @@ class InstanceInfoResponse$Type extends MessageType<InstanceInfoResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceInfoResponse
  */
 export const InstanceInfoResponse = new InstanceInfoResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceUpdateMetaRequest$Type extends MessageType<InstanceUpdateMetaRequest> {
   constructor() {
@@ -489,20 +532,24 @@ class InstanceUpdateMetaRequest$Type extends MessageType<InstanceUpdateMetaReque
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceUpdateMetaRequest
  */
 export const InstanceUpdateMetaRequest = new InstanceUpdateMetaRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceUpdateMetaResponse$Type extends MessageType<InstanceUpdateMetaResponse> {
   constructor() {
     super('pistonpanel.v1.InstanceUpdateMetaResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceUpdateMetaResponse
  */
 export const InstanceUpdateMetaResponse = new InstanceUpdateMetaResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceStateChangeRequest$Type extends MessageType<InstanceStateChangeRequest> {
   constructor() {
@@ -517,21 +564,25 @@ class InstanceStateChangeRequest$Type extends MessageType<InstanceStateChangeReq
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceStateChangeRequest
  */
 export const InstanceStateChangeRequest = new InstanceStateChangeRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceStateChangeResponse$Type extends MessageType<InstanceStateChangeResponse> {
   constructor() {
     super('pistonpanel.v1.InstanceStateChangeResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceStateChangeResponse
  */
 export const InstanceStateChangeResponse =
   new InstanceStateChangeResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceAuditLogRequest$Type extends MessageType<InstanceAuditLogRequest> {
   constructor() {
@@ -540,10 +591,12 @@ class InstanceAuditLogRequest$Type extends MessageType<InstanceAuditLogRequest> 
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceAuditLogRequest
  */
 export const InstanceAuditLogRequest = new InstanceAuditLogRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceAuditLogResponse$Type extends MessageType<InstanceAuditLogResponse> {
   constructor() {
@@ -558,10 +611,12 @@ class InstanceAuditLogResponse$Type extends MessageType<InstanceAuditLogResponse
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceAuditLogResponse
  */
 export const InstanceAuditLogResponse = new InstanceAuditLogResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceAuditLogResponse_AuditLogEntry$Type extends MessageType<InstanceAuditLogResponse_AuditLogEntry> {
   constructor() {
@@ -582,6 +637,7 @@ class InstanceAuditLogResponse_AuditLogEntry$Type extends MessageType<InstanceAu
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceAuditLogResponse.AuditLogEntry
  */

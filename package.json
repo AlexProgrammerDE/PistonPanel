@@ -14,7 +14,8 @@
     "serve": "vite preview",
     "start": "vite",
     "lint": "eslint app/",
-    "fix": "prettier --write .",
+    "fix:prettier": "prettier --write .",
+    "fix:eslint": "eslint --fix app/",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },

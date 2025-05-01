@@ -5,12 +5,13 @@
 // @ts-nocheck
 import { ServiceType } from '@protobuf-ts/runtime-rpc';
 import { MessageType } from '@protobuf-ts/runtime';
-import { UserRole } from './common';
-import { GlobalPermission } from './common';
+import { GlobalPermission, UserRole } from './common';
+
 /**
  * @generated from protobuf message pistonpanel.v1.ClientDataRequest
  */
 export interface ClientDataRequest {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.GlobalPermissionState
  */
@@ -24,6 +25,7 @@ export interface GlobalPermissionState {
    */
   granted: boolean;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.ServerInfo
  */
@@ -53,6 +55,7 @@ export interface ServerInfo {
    */
   publicDocsAddress: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.ClientDataResponse
  */
@@ -82,10 +85,12 @@ export interface ClientDataResponse {
    */
   serverInfo?: ServerInfo;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.GenerateWebDAVTokenRequest
  */
 export interface GenerateWebDAVTokenRequest {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.GenerateWebDAVTokenResponse
  */
@@ -95,10 +100,12 @@ export interface GenerateWebDAVTokenResponse {
    */
   token: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.GenerateAPITokenRequest
  */
 export interface GenerateAPITokenRequest {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.GenerateAPITokenResponse
  */
@@ -108,6 +115,7 @@ export interface GenerateAPITokenResponse {
    */
   token: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.UpdateSelfUsernameRequest
  */
@@ -117,10 +125,12 @@ export interface UpdateSelfUsernameRequest {
    */
   username: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.UpdateSelfUsernameResponse
  */
 export interface UpdateSelfUsernameResponse {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.UpdateSelfEmailRequest
  */
@@ -130,28 +140,34 @@ export interface UpdateSelfEmailRequest {
    */
   email: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.UpdateSelfEmailResponse
  */
 export interface UpdateSelfEmailResponse {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InvalidateSelfSessionsRequest
  */
 export interface InvalidateSelfSessionsRequest {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InvalidateSelfSessionsResponse
  */
 export interface InvalidateSelfSessionsResponse {}
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ClientDataRequest$Type extends MessageType<ClientDataRequest> {
   constructor() {
     super('pistonpanel.v1.ClientDataRequest', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ClientDataRequest
  */
 export const ClientDataRequest = new ClientDataRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GlobalPermissionState$Type extends MessageType<GlobalPermissionState> {
   constructor() {
@@ -166,10 +182,12 @@ class GlobalPermissionState$Type extends MessageType<GlobalPermissionState> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GlobalPermissionState
  */
 export const GlobalPermissionState = new GlobalPermissionState$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ServerInfo$Type extends MessageType<ServerInfo> {
   constructor() {
@@ -208,10 +226,12 @@ class ServerInfo$Type extends MessageType<ServerInfo> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ServerInfo
  */
 export const ServerInfo = new ServerInfo$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class ClientDataResponse$Type extends MessageType<ClientDataResponse> {
   constructor() {
@@ -236,20 +256,24 @@ class ClientDataResponse$Type extends MessageType<ClientDataResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.ClientDataResponse
  */
 export const ClientDataResponse = new ClientDataResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateWebDAVTokenRequest$Type extends MessageType<GenerateWebDAVTokenRequest> {
   constructor() {
     super('pistonpanel.v1.GenerateWebDAVTokenRequest', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GenerateWebDAVTokenRequest
  */
 export const GenerateWebDAVTokenRequest = new GenerateWebDAVTokenRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateWebDAVTokenResponse$Type extends MessageType<GenerateWebDAVTokenResponse> {
   constructor() {
@@ -258,21 +282,25 @@ class GenerateWebDAVTokenResponse$Type extends MessageType<GenerateWebDAVTokenRe
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GenerateWebDAVTokenResponse
  */
 export const GenerateWebDAVTokenResponse =
   new GenerateWebDAVTokenResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateAPITokenRequest$Type extends MessageType<GenerateAPITokenRequest> {
   constructor() {
     super('pistonpanel.v1.GenerateAPITokenRequest', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GenerateAPITokenRequest
  */
 export const GenerateAPITokenRequest = new GenerateAPITokenRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GenerateAPITokenResponse$Type extends MessageType<GenerateAPITokenResponse> {
   constructor() {
@@ -281,10 +309,12 @@ class GenerateAPITokenResponse$Type extends MessageType<GenerateAPITokenResponse
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GenerateAPITokenResponse
  */
 export const GenerateAPITokenResponse = new GenerateAPITokenResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateSelfUsernameRequest$Type extends MessageType<UpdateSelfUsernameRequest> {
   constructor() {
@@ -293,20 +323,24 @@ class UpdateSelfUsernameRequest$Type extends MessageType<UpdateSelfUsernameReque
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.UpdateSelfUsernameRequest
  */
 export const UpdateSelfUsernameRequest = new UpdateSelfUsernameRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateSelfUsernameResponse$Type extends MessageType<UpdateSelfUsernameResponse> {
   constructor() {
     super('pistonpanel.v1.UpdateSelfUsernameResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.UpdateSelfUsernameResponse
  */
 export const UpdateSelfUsernameResponse = new UpdateSelfUsernameResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateSelfEmailRequest$Type extends MessageType<UpdateSelfEmailRequest> {
   constructor() {
@@ -315,37 +349,44 @@ class UpdateSelfEmailRequest$Type extends MessageType<UpdateSelfEmailRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.UpdateSelfEmailRequest
  */
 export const UpdateSelfEmailRequest = new UpdateSelfEmailRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class UpdateSelfEmailResponse$Type extends MessageType<UpdateSelfEmailResponse> {
   constructor() {
     super('pistonpanel.v1.UpdateSelfEmailResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.UpdateSelfEmailResponse
  */
 export const UpdateSelfEmailResponse = new UpdateSelfEmailResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InvalidateSelfSessionsRequest$Type extends MessageType<InvalidateSelfSessionsRequest> {
   constructor() {
     super('pistonpanel.v1.InvalidateSelfSessionsRequest', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InvalidateSelfSessionsRequest
  */
 export const InvalidateSelfSessionsRequest =
   new InvalidateSelfSessionsRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InvalidateSelfSessionsResponse$Type extends MessageType<InvalidateSelfSessionsResponse> {
   constructor() {
     super('pistonpanel.v1.InvalidateSelfSessionsResponse', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InvalidateSelfSessionsResponse
  */

@@ -5,6 +5,7 @@
 // @ts-nocheck
 import { ServiceType } from '@protobuf-ts/runtime-rpc';
 import { MessageType } from '@protobuf-ts/runtime';
+
 /**
  * @generated from protobuf message pistonpanel.v1.LogString
  */
@@ -30,10 +31,12 @@ export interface LogString {
    */
   scriptId?: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.GlobalLogScope
  */
 export interface GlobalLogScope {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceLogScope
  */
@@ -43,6 +46,7 @@ export interface InstanceLogScope {
    */
   instanceId: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.BotLogScope
  */
@@ -56,6 +60,7 @@ export interface BotLogScope {
    */
   botId: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.GlobalScriptLogScope
  */
@@ -65,6 +70,7 @@ export interface GlobalScriptLogScope {
    */
   scriptId: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceScriptLogScope
  */
@@ -78,6 +84,7 @@ export interface InstanceScriptLogScope {
    */
   scriptId: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.LogScope
  */
@@ -125,6 +132,7 @@ export interface LogScope {
         oneofKind: undefined;
       };
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.PreviousLogRequest
  */
@@ -138,6 +146,7 @@ export interface PreviousLogRequest {
    */
   count: number;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.PreviousLogResponse
  */
@@ -147,6 +156,7 @@ export interface PreviousLogResponse {
    */
   messages: LogString[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.LogRequest
  */
@@ -156,6 +166,7 @@ export interface LogRequest {
    */
   scope?: LogScope;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.LogResponse
  */
@@ -165,6 +176,7 @@ export interface LogResponse {
    */
   message?: LogString;
 }
+
 // @generated message type with reflection information, may provide speed optimized methods
 class LogString$Type extends MessageType<LogString> {
   constructor() {
@@ -195,20 +207,24 @@ class LogString$Type extends MessageType<LogString> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.LogString
  */
 export const LogString = new LogString$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GlobalLogScope$Type extends MessageType<GlobalLogScope> {
   constructor() {
     super('pistonpanel.v1.GlobalLogScope', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GlobalLogScope
  */
 export const GlobalLogScope = new GlobalLogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceLogScope$Type extends MessageType<InstanceLogScope> {
   constructor() {
@@ -222,10 +238,12 @@ class InstanceLogScope$Type extends MessageType<InstanceLogScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceLogScope
  */
 export const InstanceLogScope = new InstanceLogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class BotLogScope$Type extends MessageType<BotLogScope> {
   constructor() {
@@ -240,10 +258,12 @@ class BotLogScope$Type extends MessageType<BotLogScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.BotLogScope
  */
 export const BotLogScope = new BotLogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GlobalScriptLogScope$Type extends MessageType<GlobalScriptLogScope> {
   constructor() {
@@ -252,10 +272,12 @@ class GlobalScriptLogScope$Type extends MessageType<GlobalScriptLogScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GlobalScriptLogScope
  */
 export const GlobalScriptLogScope = new GlobalScriptLogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceScriptLogScope$Type extends MessageType<InstanceScriptLogScope> {
   constructor() {
@@ -270,10 +292,12 @@ class InstanceScriptLogScope$Type extends MessageType<InstanceScriptLogScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceScriptLogScope
  */
 export const InstanceScriptLogScope = new InstanceScriptLogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class LogScope$Type extends MessageType<LogScope> {
   constructor() {
@@ -316,10 +340,12 @@ class LogScope$Type extends MessageType<LogScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.LogScope
  */
 export const LogScope = new LogScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class PreviousLogRequest$Type extends MessageType<PreviousLogRequest> {
   constructor() {
@@ -329,10 +355,12 @@ class PreviousLogRequest$Type extends MessageType<PreviousLogRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.PreviousLogRequest
  */
 export const PreviousLogRequest = new PreviousLogRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class PreviousLogResponse$Type extends MessageType<PreviousLogResponse> {
   constructor() {
@@ -347,10 +375,12 @@ class PreviousLogResponse$Type extends MessageType<PreviousLogResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.PreviousLogResponse
  */
 export const PreviousLogResponse = new PreviousLogResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class LogRequest$Type extends MessageType<LogRequest> {
   constructor() {
@@ -359,10 +389,12 @@ class LogRequest$Type extends MessageType<LogRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.LogRequest
  */
 export const LogRequest = new LogRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class LogResponse$Type extends MessageType<LogResponse> {
   constructor() {
@@ -371,6 +403,7 @@ class LogResponse$Type extends MessageType<LogResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.LogResponse
  */

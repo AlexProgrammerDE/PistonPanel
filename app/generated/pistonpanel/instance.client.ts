@@ -3,26 +3,31 @@
 // @generated from protobuf file "pistonpanel/instance.proto" (package "pistonpanel.v1", syntax proto3)
 // tslint:disable
 // @ts-nocheck
-import type { RpcTransport } from '@protobuf-ts/runtime-rpc';
-import type { ServiceInfo } from '@protobuf-ts/runtime-rpc';
-import { InstanceService } from './instance';
-import type { InstanceAuditLogResponse } from './instance';
-import type { InstanceAuditLogRequest } from './instance';
-import type { InstanceStateChangeResponse } from './instance';
-import type { InstanceStateChangeRequest } from './instance';
-import type { InstanceUpdateMetaResponse } from './instance';
-import type { InstanceUpdateMetaRequest } from './instance';
-import type { InstanceInfoResponse } from './instance';
-import type { InstanceInfoRequest } from './instance';
-import type { InstanceListResponse } from './instance';
-import type { InstanceListRequest } from './instance';
-import type { InstanceDeleteResponse } from './instance';
-import type { InstanceDeleteRequest } from './instance';
+import type {
+  RpcOptions,
+  RpcTransport,
+  ServiceInfo,
+  UnaryCall,
+} from '@protobuf-ts/runtime-rpc';
 import { stackIntercept } from '@protobuf-ts/runtime-rpc';
-import type { InstanceCreateResponse } from './instance';
-import type { InstanceCreateRequest } from './instance';
-import type { UnaryCall } from '@protobuf-ts/runtime-rpc';
-import type { RpcOptions } from '@protobuf-ts/runtime-rpc';
+import type {
+  InstanceAuditLogRequest,
+  InstanceAuditLogResponse,
+  InstanceCreateRequest,
+  InstanceCreateResponse,
+  InstanceDeleteRequest,
+  InstanceDeleteResponse,
+  InstanceInfoRequest,
+  InstanceInfoResponse,
+  InstanceListRequest,
+  InstanceListResponse,
+  InstanceStateChangeRequest,
+  InstanceStateChangeResponse,
+  InstanceUpdateMetaRequest,
+  InstanceUpdateMetaResponse,
+} from './instance';
+import { InstanceService } from './instance';
+
 /**
  * @generated from protobuf service pistonpanel.v1.InstanceService
  */
@@ -34,6 +39,7 @@ export interface IInstanceServiceClient {
     input: InstanceCreateRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceCreateRequest, InstanceCreateResponse>;
+
   /**
    * @generated from protobuf rpc: DeleteInstance(pistonpanel.v1.InstanceDeleteRequest) returns (pistonpanel.v1.InstanceDeleteResponse);
    */
@@ -41,6 +47,7 @@ export interface IInstanceServiceClient {
     input: InstanceDeleteRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceDeleteRequest, InstanceDeleteResponse>;
+
   /**
    * @generated from protobuf rpc: ListInstances(pistonpanel.v1.InstanceListRequest) returns (pistonpanel.v1.InstanceListResponse);
    */
@@ -48,6 +55,7 @@ export interface IInstanceServiceClient {
     input: InstanceListRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceListRequest, InstanceListResponse>;
+
   /**
    * @generated from protobuf rpc: GetInstanceInfo(pistonpanel.v1.InstanceInfoRequest) returns (pistonpanel.v1.InstanceInfoResponse);
    */
@@ -55,6 +63,7 @@ export interface IInstanceServiceClient {
     input: InstanceInfoRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceInfoRequest, InstanceInfoResponse>;
+
   /**
    * @generated from protobuf rpc: UpdateInstanceMeta(pistonpanel.v1.InstanceUpdateMetaRequest) returns (pistonpanel.v1.InstanceUpdateMetaResponse);
    */
@@ -62,6 +71,7 @@ export interface IInstanceServiceClient {
     input: InstanceUpdateMetaRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceUpdateMetaRequest, InstanceUpdateMetaResponse>;
+
   /**
    * @generated from protobuf rpc: ChangeInstanceState(pistonpanel.v1.InstanceStateChangeRequest) returns (pistonpanel.v1.InstanceStateChangeResponse);
    */
@@ -69,6 +79,7 @@ export interface IInstanceServiceClient {
     input: InstanceStateChangeRequest,
     options?: RpcOptions,
   ): UnaryCall<InstanceStateChangeRequest, InstanceStateChangeResponse>;
+
   /**
    * @generated from protobuf rpc: GetAuditLog(pistonpanel.v1.InstanceAuditLogRequest) returns (pistonpanel.v1.InstanceAuditLogResponse);
    */
@@ -77,6 +88,7 @@ export interface IInstanceServiceClient {
     options?: RpcOptions,
   ): UnaryCall<InstanceAuditLogRequest, InstanceAuditLogResponse>;
 }
+
 /**
  * @generated from protobuf service pistonpanel.v1.InstanceService
  */
@@ -86,7 +98,9 @@ export class InstanceServiceClient
   typeName = InstanceService.typeName;
   methods = InstanceService.methods;
   options = InstanceService.options;
+
   constructor(private readonly _transport: RpcTransport) {}
+
   /**
    * @generated from protobuf rpc: CreateInstance(pistonpanel.v1.InstanceCreateRequest) returns (pistonpanel.v1.InstanceCreateResponse);
    */
@@ -104,6 +118,7 @@ export class InstanceServiceClient
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: DeleteInstance(pistonpanel.v1.InstanceDeleteRequest) returns (pistonpanel.v1.InstanceDeleteResponse);
    */
@@ -121,6 +136,7 @@ export class InstanceServiceClient
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: ListInstances(pistonpanel.v1.InstanceListRequest) returns (pistonpanel.v1.InstanceListResponse);
    */
@@ -138,6 +154,7 @@ export class InstanceServiceClient
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: GetInstanceInfo(pistonpanel.v1.InstanceInfoRequest) returns (pistonpanel.v1.InstanceInfoResponse);
    */
@@ -155,6 +172,7 @@ export class InstanceServiceClient
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: UpdateInstanceMeta(pistonpanel.v1.InstanceUpdateMetaRequest) returns (pistonpanel.v1.InstanceUpdateMetaResponse);
    */
@@ -169,6 +187,7 @@ export class InstanceServiceClient
       InstanceUpdateMetaResponse
     >('unary', this._transport, method, opt, input);
   }
+
   /**
    * @generated from protobuf rpc: ChangeInstanceState(pistonpanel.v1.InstanceStateChangeRequest) returns (pistonpanel.v1.InstanceStateChangeResponse);
    */
@@ -183,6 +202,7 @@ export class InstanceServiceClient
       InstanceStateChangeResponse
     >('unary', this._transport, method, opt, input);
   }
+
   /**
    * @generated from protobuf rpc: GetAuditLog(pistonpanel.v1.InstanceAuditLogRequest) returns (pistonpanel.v1.InstanceAuditLogResponse);
    */

@@ -5,10 +5,12 @@
 // @ts-nocheck
 import { ServiceType } from '@protobuf-ts/runtime-rpc';
 import { MessageType } from '@protobuf-ts/runtime';
+
 /**
  * @generated from protobuf message pistonpanel.v1.GlobalCommandScope
  */
 export interface GlobalCommandScope {}
+
 /**
  * @generated from protobuf message pistonpanel.v1.InstanceCommandScope
  */
@@ -18,6 +20,7 @@ export interface InstanceCommandScope {
    */
   instanceId: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandScope
  */
@@ -44,6 +47,7 @@ export interface CommandScope {
         oneofKind: undefined;
       };
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandRequest
  */
@@ -57,6 +61,7 @@ export interface CommandRequest {
    */
   command: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandResponse
  */
@@ -66,6 +71,7 @@ export interface CommandResponse {
    */
   code: number;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandCompletionRequest
  */
@@ -83,6 +89,7 @@ export interface CommandCompletionRequest {
    */
   cursor: number;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandCompletion
  */
@@ -96,6 +103,7 @@ export interface CommandCompletion {
    */
   tooltip?: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.CommandCompletionResponse
  */
@@ -105,16 +113,19 @@ export interface CommandCompletionResponse {
    */
   suggestions: CommandCompletion[];
 }
+
 // @generated message type with reflection information, may provide speed optimized methods
 class GlobalCommandScope$Type extends MessageType<GlobalCommandScope> {
   constructor() {
     super('pistonpanel.v1.GlobalCommandScope', []);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.GlobalCommandScope
  */
 export const GlobalCommandScope = new GlobalCommandScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class InstanceCommandScope$Type extends MessageType<InstanceCommandScope> {
   constructor() {
@@ -128,10 +139,12 @@ class InstanceCommandScope$Type extends MessageType<InstanceCommandScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.InstanceCommandScope
  */
 export const InstanceCommandScope = new InstanceCommandScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandScope$Type extends MessageType<CommandScope> {
   constructor() {
@@ -153,10 +166,12 @@ class CommandScope$Type extends MessageType<CommandScope> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandScope
  */
 export const CommandScope = new CommandScope$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandRequest$Type extends MessageType<CommandRequest> {
   constructor() {
@@ -166,10 +181,12 @@ class CommandRequest$Type extends MessageType<CommandRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandRequest
  */
 export const CommandRequest = new CommandRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandResponse$Type extends MessageType<CommandResponse> {
   constructor() {
@@ -178,10 +195,12 @@ class CommandResponse$Type extends MessageType<CommandResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandResponse
  */
 export const CommandResponse = new CommandResponse$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandCompletionRequest$Type extends MessageType<CommandCompletionRequest> {
   constructor() {
@@ -192,10 +211,12 @@ class CommandCompletionRequest$Type extends MessageType<CommandCompletionRequest
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandCompletionRequest
  */
 export const CommandCompletionRequest = new CommandCompletionRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandCompletion$Type extends MessageType<CommandCompletion> {
   constructor() {
@@ -211,10 +232,12 @@ class CommandCompletion$Type extends MessageType<CommandCompletion> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandCompletion
  */
 export const CommandCompletion = new CommandCompletion$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class CommandCompletionResponse$Type extends MessageType<CommandCompletionResponse> {
   constructor() {
@@ -229,6 +252,7 @@ class CommandCompletionResponse$Type extends MessageType<CommandCompletionRespon
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.CommandCompletionResponse
  */

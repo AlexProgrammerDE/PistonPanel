@@ -3,17 +3,22 @@
 // @generated from protobuf file "pistonpanel/logs.proto" (package "pistonpanel.v1", syntax proto3)
 // tslint:disable
 // @ts-nocheck
-import type { RpcTransport } from '@protobuf-ts/runtime-rpc';
-import type { ServiceInfo } from '@protobuf-ts/runtime-rpc';
-import { LogsService } from './logs';
-import type { LogResponse } from './logs';
-import type { LogRequest } from './logs';
-import type { ServerStreamingCall } from '@protobuf-ts/runtime-rpc';
+import type {
+  RpcOptions,
+  RpcTransport,
+  ServerStreamingCall,
+  ServiceInfo,
+  UnaryCall,
+} from '@protobuf-ts/runtime-rpc';
 import { stackIntercept } from '@protobuf-ts/runtime-rpc';
-import type { PreviousLogResponse } from './logs';
-import type { PreviousLogRequest } from './logs';
-import type { UnaryCall } from '@protobuf-ts/runtime-rpc';
-import type { RpcOptions } from '@protobuf-ts/runtime-rpc';
+import type {
+  LogRequest,
+  LogResponse,
+  PreviousLogRequest,
+  PreviousLogResponse,
+} from './logs';
+import { LogsService } from './logs';
+
 /**
  * @generated from protobuf service pistonpanel.v1.LogsService
  */
@@ -25,6 +30,7 @@ export interface ILogsServiceClient {
     input: PreviousLogRequest,
     options?: RpcOptions,
   ): UnaryCall<PreviousLogRequest, PreviousLogResponse>;
+
   /**
    * @generated from protobuf rpc: Subscribe(pistonpanel.v1.LogRequest) returns (stream pistonpanel.v1.LogResponse);
    */
@@ -33,6 +39,7 @@ export interface ILogsServiceClient {
     options?: RpcOptions,
   ): ServerStreamingCall<LogRequest, LogResponse>;
 }
+
 /**
  * @generated from protobuf service pistonpanel.v1.LogsService
  */
@@ -40,7 +47,9 @@ export class LogsServiceClient implements ILogsServiceClient, ServiceInfo {
   typeName = LogsService.typeName;
   methods = LogsService.methods;
   options = LogsService.options;
+
   constructor(private readonly _transport: RpcTransport) {}
+
   /**
    * @generated from protobuf rpc: GetPrevious(pistonpanel.v1.PreviousLogRequest) returns (pistonpanel.v1.PreviousLogResponse);
    */
@@ -58,6 +67,7 @@ export class LogsServiceClient implements ILogsServiceClient, ServiceInfo {
       input,
     );
   }
+
   /**
    * @generated from protobuf rpc: Subscribe(pistonpanel.v1.LogRequest) returns (stream pistonpanel.v1.LogResponse);
    */

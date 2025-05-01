@@ -4,14 +4,12 @@ import { DataTable, DateRange } from '@/components/data-table';
 import { ColumnDef, Table as ReactTable } from '@tanstack/react-table';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Trans, useTranslation } from 'react-i18next';
-import { createTransport } from '@/lib/web-rpc';
 import { UserAvatar } from '@/components/user-avatar';
 import {
   InstanceAuditLogResponse,
   InstanceAuditLogResponse_AuditLogEntry,
   InstanceAuditLogResponse_AuditLogEntryType,
 } from '@/generated/pistonpanel/instance';
-import { InstanceServiceClient } from '@/generated/pistonpanel/instance.client';
 import InstancePageLayout from '@/components/nav/instance-page-layout';
 import { cn, timestampToDate } from '@/lib/utils';
 import i18n from '@/lib/i18n';

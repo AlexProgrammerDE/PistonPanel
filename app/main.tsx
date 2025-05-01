@@ -24,6 +24,7 @@ import { trpc } from '@/lib/trpc';
 export function createRouter() {
   const trpcClient = trpc.createClient({
     links: [
+      loggerLink(),
       retryLink({
         retry: (opts) => {
           const code = opts.error.data?.code;
@@ -40,7 +41,6 @@ export function createRouter() {
           return false;
         },
       }),
-      loggerLink(),
       splitLink({
         condition: (op) => op.type === 'subscription',
         true: httpSubscriptionLink({

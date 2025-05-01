@@ -5,6 +5,7 @@
 // @ts-nocheck
 import { ServiceType } from '@protobuf-ts/runtime-rpc';
 import { MessageType } from '@protobuf-ts/runtime';
+
 /**
  * @generated from protobuf message pistonpanel.v1.HeaderPair
  */
@@ -18,6 +19,7 @@ export interface HeaderPair {
    */
   value: string;
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.DownloadRequest
  */
@@ -35,6 +37,7 @@ export interface DownloadRequest {
    */
   headers: HeaderPair[];
 }
+
 /**
  * @generated from protobuf message pistonpanel.v1.DownloadResponse
  */
@@ -52,6 +55,7 @@ export interface DownloadResponse {
    */
   statusCode: number;
 }
+
 // @generated message type with reflection information, may provide speed optimized methods
 class HeaderPair$Type extends MessageType<HeaderPair> {
   constructor() {
@@ -61,10 +65,12 @@ class HeaderPair$Type extends MessageType<HeaderPair> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.HeaderPair
  */
 export const HeaderPair = new HeaderPair$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class DownloadRequest$Type extends MessageType<DownloadRequest> {
   constructor() {
@@ -86,10 +92,12 @@ class DownloadRequest$Type extends MessageType<DownloadRequest> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.DownloadRequest
  */
 export const DownloadRequest = new DownloadRequest$Type();
+
 // @generated message type with reflection information, may provide speed optimized methods
 class DownloadResponse$Type extends MessageType<DownloadResponse> {
   constructor() {
@@ -106,6 +114,7 @@ class DownloadResponse$Type extends MessageType<DownloadResponse> {
     ]);
   }
 }
+
 /**
  * @generated MessageType for protobuf message pistonpanel.v1.DownloadResponse
  */
