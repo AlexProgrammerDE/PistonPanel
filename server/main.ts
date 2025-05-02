@@ -26,7 +26,14 @@ app.use(
   }),
 );
 
-serve({
-  ...app,
-  port: 8787,
-});
+serve(
+  {
+    ...app,
+    port: 8787,
+    hostname: '0.0.0.0',
+  },
+  (info) => {
+    // noinspection HttpUrlsUsage
+    console.log(`Hono server started on http://${info.address}:${info.port}`);
+  },
+);

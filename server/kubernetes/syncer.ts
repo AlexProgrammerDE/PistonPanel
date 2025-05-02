@@ -1,23 +1,37 @@
 import { Organization } from 'better-auth/plugins';
-import { k8sObjectApi } from '~/kubernetes/client';
 import {
+  KubernetesListObject,
   KubernetesObject,
-  V1NetworkPolicyList,
-  V1StatefulSet,
 } from '@kubernetes/client-node';
 import { db } from '~/db';
 import { orgServersTable } from '~/db/schema';
 import { eq } from 'drizzle-orm';
-import { V1ObjectMeta } from '@kubernetes/client-node/dist/gen/models/V1ObjectMeta';
-import { k8sNamespace } from '~/config';
+import { k8sAppNamespace } from '~/config';
+import * as k from 'cdk8s';
+import * as kplus from 'cdk8s-plus-32';
 
 export type ComponentType = 'server' | 'database';
 
-export function baseSelectorLabels(resourceId: string): V1ObjectMeta['labels'] {
+export function baseGlobalSelectorLabels(): Record<string, string> {
   return {
+    'app.kubernetes.io/managed-by': 'pistonpanel',
+  };
+}
+
+export function baseServerSelectorLabels(
+  resourceId: string,
+): Record<string, string> {
+  return {
+    ...baseGlobalSelectorLabels(),
     'app.kubernetes.io/instance': resourceId,
     'pistonpanel.com/server-id': resourceId,
-    'app.kubernetes.io/managed-by': 'pistonpanel',
+  };
+}
+
+export function baseOrgSelectorLabels(orgId: string): Record<string, string> {
+  return {
+    ...baseGlobalSelectorLabels(),
+    'pistonpanel.com/tenant': orgId,
   };
 }
 
@@ -25,159 +39,132 @@ export function baseLabels(
   orgId: string,
   resourceId: string,
   component: ComponentType,
-): V1ObjectMeta['labels'] {
+): Record<string, string> {
   return {
-    ...baseSelectorLabels(resourceId),
-    'pistonpanel.com/tenant': orgId,
+    ...baseServerSelectorLabels(resourceId),
+    ...baseOrgSelectorLabels(orgId),
     // 'app.kubernetes.io/app': '',
     'app.kubernetes.io/component': component,
   };
 }
 
 export async function sync(org: Organization) {
+  const k8sApp = new k.App();
   const servers = await db
     .select()
     .from(orgServersTable)
     .where(eq(orgServersTable.orgId, org.id))
     .execute();
   for (const server of servers) {
-    await createOrReplace<V1NetworkPolicyList>({
-      apiVersion: 'networking.k8s.io/v1',
-      kind: 'NetworkPolicyList',
-      items: [
-        {
-          apiVersion: 'networking.k8s.io/v1',
-          kind: 'NetworkPolicy',
-          metadata: {
-            name: `server-${server.id}-deny-all`,
-            namespace: k8sNamespace,
-            labels: {
-              ...baseLabels(org.id, String(server.id), 'server'),
-            },
-          },
-          spec: {
-            podSelector: {
-              matchLabels: {
-                ...baseSelectorLabels(String(server.id)),
-              },
-            },
-            policyTypes: ['Ingress', 'Egress'],
-            ingress: [],
-            egress: [],
-          },
-        },
-        {
-          apiVersion: 'networking.k8s.io/v1',
-          kind: 'NetworkPolicy',
-          metadata: {
-            name: `server-${server.id}-allow-dns-egress`,
-            namespace: k8sNamespace,
-            labels: {
-              ...baseLabels(org.id, String(server.id), 'server'),
-            },
-          },
-          spec: {
-            podSelector: {
-              matchLabels: {
-                ...baseSelectorLabels(String(server.id)),
-              },
-            },
-            policyTypes: ['Egress'],
-            egress: [
-              {
-                to: [
-                  {
-                    namespaceSelector: {
-                      matchLabels: { 'k8s-app': 'kube-dns' },
-                    },
-                    podSelector: { matchLabels: { 'k8s-app': 'kube-dns' } },
-                  },
-                ],
-                ports: [
-                  { protocol: 'UDP', port: 53 },
-                  { protocol: 'TCP', port: 53 },
-                ],
-              },
-            ],
-          },
-        },
-        {
-          apiVersion: 'networking.k8s.io/v1',
-          kind: 'NetworkPolicy',
-          metadata: {
-            name: `server-${server.id}-allow-pod-egress`,
-            namespace: k8sNamespace,
-            labels: {
-              ...baseLabels(org.id, String(server.id), 'server'),
-            },
-          },
-          spec: {
-            podSelector: {
-              matchLabels: {
-                ...baseSelectorLabels(String(server.id)),
-              },
-            },
-            policyTypes: ['Egress'],
-            egress: [
-              {
-                to: [
-                  {
-                    namespaceSelector: {},
-                    podSelector: {},
-                  },
-                ],
-              },
-            ],
-          },
-        },
-      ],
-    });
-    await createOrReplace<V1StatefulSet>({
-      apiVersion: 'apps/v1',
-      kind: 'StatefulSet',
-      metadata: {
-        name: `server-${server.id}-statefulset`,
-        namespace: k8sNamespace,
-        labels: {
-          ...baseLabels(org.id, String(server.id), 'server'),
-        },
+    const serverChart = new k.Chart(k8sApp, `server-${server.id}`, {
+      namespace: k8sAppNamespace,
+      labels: {
+        ...baseLabels(org.id, String(server.id), 'server'),
       },
-      spec: {
-        serviceName: `server-${server.id}`,
-        replicas: 1,
-        selector: {
-          matchLabels: {
-            ...baseSelectorLabels(String(server.id)),
-          },
-        },
-        template: {
-          metadata: {
-            namespace: k8sNamespace,
-            labels: {
-              ...baseLabels(org.id, String(server.id), 'server'),
+      disableResourceNameHashes: true,
+    });
+
+    const serverStatefulSet = new kplus.StatefulSet(
+      serverChart,
+      `server-${server.id}`,
+      {
+        service: new kplus.Service(serverChart, `server-${server.id}`, {
+          type: kplus.ServiceType.CLUSTER_IP,
+          ports: [
+            {
+              port: 80,
+              targetPort: 80,
             },
+          ],
+        }),
+        replicas: 1,
+        containers: [
+          {
+            name: 'my-nginx-container',
+            image: 'nginx',
           },
-          spec: {
-            containers: [
-              {
-                name: 'my-container',
-                image: 'nginx',
+        ],
+      },
+    );
+
+    new kplus.NetworkPolicy(serverChart, `server-${server.id}`, {
+      selector: serverStatefulSet,
+      ingress: {
+        default: kplus.NetworkPolicyTrafficDefault.DENY,
+        rules: [
+          {
+            peer: kplus.Pods.select(serverChart, 'org-pods', {
+              namespaces: kplus.Namespaces.select(
+                serverChart,
+                'app-namespace',
+                {
+                  names: [k8sAppNamespace],
+                },
+              ),
+              labels: {
+                ...baseOrgSelectorLabels(org.id),
               },
+            }),
+          },
+        ],
+      },
+      egress: {
+        default: kplus.NetworkPolicyTrafficDefault.DENY,
+        rules: [
+          // Allow talking to DNS
+          {
+            peer: kplus.Pods.select(serverChart, 'kube-dns-pods', {
+              namespaces: kplus.Namespaces.select(serverChart, 'kube-system', {
+                labels: {
+                  'kubernetes.io/metadata.name': 'kube-system',
+                },
+              }),
+              labels: {
+                'k8s-app': 'kube-dns',
+              },
+            }),
+            ports: [
+              kplus.NetworkPolicyPort.udp(53),
+              kplus.NetworkPolicyPort.tcp(53),
             ],
           },
-        },
+          // Allow talking to the internet via ipv4
+          {
+            peer: kplus.NetworkPolicyIpBlock.anyIpv4(
+              serverChart,
+              'internet-ipv4',
+            ),
+          },
+          // Allow talking to the internet via ipv6
+          {
+            peer: kplus.NetworkPolicyIpBlock.anyIpv6(
+              serverChart,
+              'internet-ipv6',
+            ),
+          },
+        ],
       },
     });
   }
+
+  const synthedObjects = k8sApp.charts.flatMap(
+    (chart) => k.App._synthChart(chart) as KubernetesObject[],
+  );
+  console.debug(synthedObjects);
+  await apply<KubernetesListObject<KubernetesObject>>({
+    apiVersion: 'v1',
+    kind: 'List',
+    items: synthedObjects,
+  });
 }
 
-async function createOrReplace<T extends KubernetesObject>(resource: T) {
-  await k8sObjectApi.patch(
-    resource,
-    undefined,
-    undefined,
-    'pistonpanel',
-    true,
-    'application/apply-patch+yaml',
-  );
+async function apply<T extends KubernetesObject>(resource: T) {
+  // await k8sObjectApi.patch(
+  //   resource,
+  //   undefined,
+  //   undefined,
+  //   'pistonpanel',
+  //   true,
+  //   'application/apply-patch+yaml',
+  // );
 }
