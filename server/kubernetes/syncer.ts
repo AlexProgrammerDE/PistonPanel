@@ -13,10 +13,7 @@ import { k8sNamespace } from '~/config';
 
 export type ComponentType = 'server' | 'database';
 
-export function baseSelectorLabels(
-  orgId: string,
-  resourceId: string,
-): V1ObjectMeta['labels'] {
+export function baseSelectorLabels(resourceId: string): V1ObjectMeta['labels'] {
   return {
     'app.kubernetes.io/instance': resourceId,
     'pistonpanel.com/server-id': resourceId,
@@ -30,74 +27,13 @@ export function baseLabels(
   component: ComponentType,
 ): V1ObjectMeta['labels'] {
   return {
-    ...baseSelectorLabels(orgId, resourceId),
+    ...baseSelectorLabels(resourceId),
     'pistonpanel.com/tenant': orgId,
+    // 'app.kubernetes.io/app': '',
     'app.kubernetes.io/component': component,
   };
 }
 
-/*
----
-# 1) Default-deny ALL traffic (ingress & egress) for pods labeled app=myapp
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: deny-all-to-myapp
-spec:
-  podSelector:
-    matchLabels:
-      app: myapp
-  policyTypes:
-    - Ingress
-    - Egress
-  # no ingress: []  (means deny all)
-  # no egress: []   (means deny all)
-
----
-# 2) Allow egress to cluster DNS (kube-dns) on TCP/UDP 53
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-dns-egress
-spec:
-  podSelector:
-    matchLabels:
-      app: myapp
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              k8s-app: kube-dns    # your DNS’s namespace label (often kube-system)
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns    # your DNS pods’ label
-      ports:
-        - protocol: UDP
-          port: 53
-        - protocol: TCP
-          port: 53
-
----
-# 3) Allow egress to any pod in any namespace
-#    (so your pod can dial out to other pods that explicitly allow it in their own policies)
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-pod-egress
-spec:
-  podSelector:
-    matchLabels:
-      app: myapp
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - namespaceSelector: {}   # all namespaces
-          podSelector: {}         # all pods
-
- */
 export async function sync(org: Organization) {
   const servers = await db
     .select()
@@ -122,7 +58,7 @@ export async function sync(org: Organization) {
           spec: {
             podSelector: {
               matchLabels: {
-                ...baseSelectorLabels(org.id, String(server.id)),
+                ...baseSelectorLabels(String(server.id)),
               },
             },
             policyTypes: ['Ingress', 'Egress'],
@@ -143,7 +79,7 @@ export async function sync(org: Organization) {
           spec: {
             podSelector: {
               matchLabels: {
-                ...baseSelectorLabels(org.id, String(server.id)),
+                ...baseSelectorLabels(String(server.id)),
               },
             },
             policyTypes: ['Egress'],
@@ -178,7 +114,7 @@ export async function sync(org: Organization) {
           spec: {
             podSelector: {
               matchLabels: {
-                ...baseSelectorLabels(org.id, String(server.id)),
+                ...baseSelectorLabels(String(server.id)),
               },
             },
             policyTypes: ['Egress'],
@@ -211,7 +147,7 @@ export async function sync(org: Organization) {
         replicas: 1,
         selector: {
           matchLabels: {
-            ...baseSelectorLabels(org.id, String(server.id)),
+            ...baseSelectorLabels(String(server.id)),
           },
         },
         template: {

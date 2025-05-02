@@ -50,7 +50,6 @@ export const orgServersTable = pgTable('org_servers', {
   orgId: text('org_id')
     .notNull()
     .references(() => organization.id, { onDelete: 'cascade' }),
-  serverId: text('server_id').notNull(),
   createdAt: timestamp({
     mode: 'date',
     withTimezone: true,

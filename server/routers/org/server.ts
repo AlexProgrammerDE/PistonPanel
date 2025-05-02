@@ -1,13 +1,26 @@
-import { protectedProcedure, t } from '~/trpc/trpc';
+import { orgProcedure, t } from '~/trpc/trpc';
 import z from 'zod';
 import { zAsyncIterable } from '~/lib/zAsyncIterable';
 import { tracked } from '@trpc/server';
-import * as k8s from '@kubernetes/client-node';
-import { LineStream } from 'byline';
-import { k8sLogApi } from '~/kubernetes/client';
+import { sync } from '~/kubernetes/syncer';
+import { db } from '~/db';
+import { orgServersTable } from '~/db/schema';
 
 export const serverRouter = t.router({
-  subscribeLogs: protectedProcedure
+  createServer: orgProcedure
+    .input(
+      z.object({
+        name: z.string().min(1),
+        resourceId: z.string().min(1),
+        component: z.enum(['server', 'database']),
+      }),
+    )
+    .mutation(async (opts) => {
+      const org = opts.ctx.org;
+
+      await sync(org);
+    }),
+  subscribeLogs: orgProcedure
     .input(
       z.object({
         lastEventId: z.coerce.number().min(0).optional(),
