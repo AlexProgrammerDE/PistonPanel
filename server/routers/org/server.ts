@@ -1,11 +1,13 @@
 import { orgProcedure, t } from '~/trpc/trpc';
 import z from 'zod';
-import { zAsyncIterable } from '~/lib/zAsyncIterable';
-import { tracked } from '@trpc/server';
 import { sync } from '~/kubernetes/syncer';
 import { db } from '~/db';
 import { orgServersTable } from '~/db/schema';
 import { and, eq } from 'drizzle-orm';
+import { k8sLogApi } from '~/kubernetes/client';
+import { k8sAppNamespace } from '~/config';
+import { LineStream } from 'byline';
+import EventEmitter, { on } from 'events';
 
 export const serverRouter = t.router({
   createServer: orgProcedure
@@ -81,31 +83,42 @@ export const serverRouter = t.router({
   subscribeLogs: orgProcedure
     .input(
       z.object({
-        lastEventId: z.coerce.number().min(0).optional(),
-      }),
-    )
-    .output(
-      zAsyncIterable({
-        yield: z.object({
-          count: z.number(),
-        }),
-        tracked: true,
+        id: z.coerce.number().min(0),
       }),
     )
     .subscription(async function* (opts) {
-      let index = opts.input.lastEventId ?? 0;
-      while (true) {
-        index++;
-        yield tracked('logs', {
-          count: index,
-        });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
+      const ee = new EventEmitter();
 
-      //const logStream = new LineStream();
-      //
-      //logStream.on('data', data => console.log(String(data)));
-      //
-      //await k8sLogApi.log("namespace", "pod", "container", logStream, { follow: true });
+      const logStream = new LineStream();
+
+      logStream.on('data', (data) => {
+        ee.emit('add', {
+          data: String(data),
+        });
+      });
+
+      opts.signal?.addEventListener('abort', () => {
+        logStream.destroy();
+      });
+
+      void k8sLogApi
+        .log(k8sAppNamespace, `server-${opts.input.id}-0`, 'main', logStream, {
+          follow: true,
+        })
+        .then((logAbort) => {
+          if (opts.signal?.aborted) {
+            logAbort.abort(opts.signal.reason);
+          } else {
+            opts.signal?.addEventListener('abort', () => {
+              logAbort.abort(opts.signal?.reason);
+            });
+          }
+        });
+
+      for await (const [data] of on(ee, 'add', {
+        signal: opts.signal,
+      })) {
+        yield data as string;
+      }
     }),
 });

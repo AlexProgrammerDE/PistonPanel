@@ -80,7 +80,7 @@ export async function sync(org: Organization) {
         replicas: 1,
         containers: [
           {
-            name: 'my-nginx-container',
+            name: 'main',
             image: 'nginx',
           },
         ],
