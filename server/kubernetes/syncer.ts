@@ -236,17 +236,12 @@ export async function sync(org: Organization) {
 }
 
 async function createOrReplace<T extends KubernetesObject>(resource: T) {
-  try {
-    await k8sObjectApi.create(resource);
-    console.log(`Created ${resource.kind} ${resource.metadata?.name}`);
-  } catch (e: unknown) {
-    console.log(e);
-    const error = e as { body: { reason: string } };
-    if (error.body && error.body.reason === 'AlreadyExists') {
-      await k8sObjectApi.replace(resource);
-      console.log(`Replaced ${resource.kind} ${resource.metadata?.name}`);
-    } else {
-      throw e;
-    }
-  }
+  await k8sObjectApi.patch(
+    resource,
+    undefined,
+    undefined,
+    'pistonpanel',
+    true,
+    'application/apply-patch+yaml',
+  );
 }

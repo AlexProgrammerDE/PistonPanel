@@ -125,6 +125,12 @@ importers:
       byline:
         specifier: ^5.0.0
         version: 5.0.0
+      cdk8s:
+        specifier: ^2.69.65
+        version: 2.69.65(constructs@10.4.2)
+      cdk8s-plus-32:
+        specifier: ^2.0.13
+        version: 2.0.13(cdk8s@2.69.65(constructs@10.4.2))(constructs@10.4.2)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2791,6 +2797,25 @@ packages:
   caniuse-lite@1.0.30001716:
     resolution: {integrity: sha512-49/c1+x3Kwz7ZIWt+4DvK3aMJy9oYXXG6/97JKsnjdCk/6n9vVyWL8NAwVt95Lwt9eigI10Hl782kDfZUUlRXw==}
 
+  cdk8s-plus-32@2.0.13:
+    resolution: {integrity: sha512-m9Ct7SnSjK6SRkMmpT/4S5hoFryhBCOGr+PYhliuPBmi1+h/IIGM3UHITXfFvf+F119nYvXVqAXwyoQH8dp6rQ==}
+    engines: {node: '>= 16.20.0'}
+    peerDependencies:
+      cdk8s: ^2.68.11
+      constructs: ^10.3.0
+    bundledDependencies:
+      - minimatch
+
+  cdk8s@2.69.65:
+    resolution: {integrity: sha512-fo5bDbJS6YuGqVTwTODgkath594mHbd4S4Qn2K5mTmEIlKsYkOauzZLrjaaQ+hUMKvBsZMorusDyWsHz+GU1/w==}
+    engines: {node: '>= 16.20.0'}
+    peerDependencies:
+      constructs: ^10
+    bundledDependencies:
+      - fast-json-patch
+      - follow-redirects
+      - yaml
+
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -2866,6 +2891,9 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  constructs@10.4.2:
+    resolution: {integrity: sha512-wsNxBlAott2qg8Zv87q3eYZYgheb9lchtBfjHzzLHtXbttwSrHPs1NNQbBrmbb1YZvYg2+Vh0Dor76w4mFxJkA==}
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
@@ -7798,6 +7826,15 @@ snapshots:
 
   caniuse-lite@1.0.30001716: {}
 
+  cdk8s-plus-32@2.0.13(cdk8s@2.69.65(constructs@10.4.2))(constructs@10.4.2):
+    dependencies:
+      cdk8s: 2.69.65(constructs@10.4.2)
+      constructs: 10.4.2
+
+  cdk8s@2.69.65(constructs@10.4.2):
+    dependencies:
+      constructs: 10.4.2
+
   chalk@4.1.2:
     dependencies:
       ansi-styles: 4.3.0
@@ -7877,6 +7914,8 @@ snapshots:
   commander@7.2.0: {}
 
   concat-map@0.0.1: {}
+
+  constructs@10.4.2: {}
 
   convert-source-map@2.0.0: {}
 
