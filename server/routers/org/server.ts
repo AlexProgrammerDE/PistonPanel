@@ -5,18 +5,76 @@ import { tracked } from '@trpc/server';
 import { sync } from '~/kubernetes/syncer';
 import { db } from '~/db';
 import { orgServersTable } from '~/db/schema';
+import { and, eq } from 'drizzle-orm';
 
 export const serverRouter = t.router({
   createServer: orgProcedure
     .input(
       z.object({
-        name: z.string().min(1),
-        resourceId: z.string().min(1),
-        component: z.enum(['server', 'database']),
+        slug: z.string().nonempty(),
+        name: z.string().nonempty(),
       }),
     )
     .mutation(async (opts) => {
       const org = opts.ctx.org;
+
+      await db
+        .insert(orgServersTable)
+        .values({
+          slug: opts.input.slug,
+          name: opts.input.name,
+          orgId: org.id,
+        })
+        .returning()
+        .execute();
+
+      await sync(org);
+    }),
+  updateServer: orgProcedure
+    .input(
+      z.object({
+        id: z.coerce.number().min(0),
+        slug: z.string().nonempty(),
+        name: z.string().nonempty(),
+      }),
+    )
+    .mutation(async (opts) => {
+      const org = opts.ctx.org;
+
+      await db
+        .update(orgServersTable)
+        .set({
+          slug: opts.input.slug,
+          name: opts.input.name,
+        })
+        .where(
+          and(
+            eq(orgServersTable.orgId, org.id),
+            eq(orgServersTable.id, opts.input.id),
+          ),
+        )
+        .execute();
+
+      await sync(org);
+    }),
+  deleteServer: orgProcedure
+    .input(
+      z.object({
+        id: z.coerce.number().min(0),
+      }),
+    )
+    .mutation(async (opts) => {
+      const org = opts.ctx.org;
+
+      await db
+        .delete(orgServersTable)
+        .where(
+          and(
+            eq(orgServersTable.orgId, org.id),
+            eq(orgServersTable.id, opts.input.id),
+          ),
+        )
+        .execute();
 
       await sync(org);
     }),

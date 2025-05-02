@@ -20,6 +20,9 @@ export const auditLogActionEnum = pgEnum('org_audit_log_action', [
   'create-server',
   'update-server',
   'delete-server',
+  'create-database',
+  'update-database',
+  'delete-database',
 ]);
 
 export const orgAuditLogsTable = pgTable('org_audit_logs', {
@@ -44,19 +47,16 @@ export const orgServersTable = pgTable('org_servers', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   slug: varchar({ length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
-  nodeId: integer('node_id')
-    .notNull()
-    .references(() => nodesTable.id, { onDelete: 'cascade' }),
   orgId: text('org_id')
     .notNull()
     .references(() => organization.id, { onDelete: 'cascade' }),
-  createdAt: timestamp({
+  createdAt: timestamp('created_at', {
     mode: 'date',
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
-  updatedAt: timestamp({
+  updatedAt: timestamp('updated_at', {
     mode: 'date',
     withTimezone: true,
   })
@@ -68,19 +68,16 @@ export const orgDatabasesTable = pgTable('org_databases', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   slug: varchar({ length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
-  nodeId: integer('node_id')
-    .notNull()
-    .references(() => nodesTable.id, { onDelete: 'cascade' }),
   orgId: text('org_id')
     .notNull()
     .references(() => organization.id, { onDelete: 'cascade' }),
-  createdAt: timestamp({
+  createdAt: timestamp('created_at', {
     mode: 'date',
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
-  updatedAt: timestamp({
+  updatedAt: timestamp('updated_at', {
     mode: 'date',
     withTimezone: true,
   })
