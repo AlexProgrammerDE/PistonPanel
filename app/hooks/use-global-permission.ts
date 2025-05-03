@@ -1,19 +1,20 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { authClient } from '@/auth/auth-client';
+import { useRouteContext } from '@tanstack/react-router';
 
 export function useGlobalPermission(
-  input: Parameters<typeof authClient.admin.hasPermission>[0],
+  input: Parameters<
+    typeof authClient.admin.checkRolePermission
+  >[0]['permissions'],
 ) {
-  const { data: result } = useSuspenseQuery({
-    queryKey: ['global-permission', input],
-    queryFn: async () =>
-      await authClient.admin.hasPermission({
-        ...input,
-        fetchOptions: {
-          throw: true,
-        },
-      }),
+  const clientDataQueryOptions = useRouteContext({
+    from: '/_dashboard',
+    select: (context) => context.clientDataQueryOptions,
   });
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
-  return result.success;
+  return authClient.admin.checkRolePermission({
+    permissions: input as never,
+    role: (session.user.role ?? 'user') as 'admin' | 'user',
+  });
 }

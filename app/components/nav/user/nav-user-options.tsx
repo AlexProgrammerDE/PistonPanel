@@ -27,9 +27,7 @@ export function NavUserOptions() {
   const { t } = useTranslation('common');
   const { openCreateOrg } = use(CreateOrgContext);
   const createOrgPermission = useGlobalPermission({
-    permissions: {
-      organization: ['create'],
-    },
+    organization: ['create'],
   });
 
   const navLinks: NavLinks = [

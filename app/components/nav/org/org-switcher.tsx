@@ -168,9 +168,7 @@ function CreateOrgButton() {
   const { t } = useTranslation('common');
   const { openCreateOrg } = use(CreateOrgContext);
   const createOrgPermission = useGlobalPermission({
-    permissions: {
-      organization: ['create'],
-    },
+    organization: ['create'],
   });
 
   if (!createOrgPermission) {

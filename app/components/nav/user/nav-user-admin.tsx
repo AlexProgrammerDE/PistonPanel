@@ -23,9 +23,7 @@ type NavLinks = {
 export function NavUserAdmin() {
   const { t } = useTranslation('common');
   const listUsersPermission = useGlobalPermission({
-    permissions: {
-      user: ['list'],
-    },
+    user: ['list'],
   });
 
   if (!listUsersPermission) {
