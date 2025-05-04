@@ -3,6 +3,7 @@ import {
   admin,
   apiKey,
   emailOTP,
+  haveIBeenPwned,
   magicLink,
   oneTimeToken,
   openAPI,
@@ -303,5 +304,8 @@ export const auth = betterAuth({
     }),
     oneTimeToken(),
     openAPI(),
+    haveIBeenPwned({
+      customPasswordCompromisedMessage: 'Please choose a more secure password.',
+    }),
   ],
 });
