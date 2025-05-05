@@ -74,7 +74,6 @@ rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 minikube addons enable metrics-server
 minikube addons enable dashboard
 minikube addons enable portainer
-minikube addons enable storage-provisioner-gluster
 minikube start --network-plugin=cni --cni=cilium --driver=docker
 ```
 
