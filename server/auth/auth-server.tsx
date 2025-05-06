@@ -304,7 +304,9 @@ export const auth = betterAuth({
       },
     }),
     oneTimeToken(),
-    oneTap(),
+    oneTap({
+      disableSignup: disableSignUp,
+    }),
     openAPI(),
     haveIBeenPwned({
       customPasswordCompromisedMessage: 'Please choose a more secure password.',
