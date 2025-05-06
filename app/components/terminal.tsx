@@ -1,5 +1,4 @@
 import React, { CSSProperties, use, useEffect, useRef, useState } from 'react';
-import { TransportContext } from './providers/transport-context';
 import { ScrollArea } from './ui/scroll-area';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
 import { flavorEntries } from '@catppuccin/palette';
@@ -75,7 +74,6 @@ export const TerminalComponent = (props: { scope: {} }) => {
   const { t } = useTranslation('common');
   const [gotPrevious, setGotPrevious] = useState(false);
   const [entries, setEntries] = useState<TerminalLine[]>([]);
-  const transport = use(TransportContext);
   const terminalTheme = use(TerminalThemeContext);
   const paneRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
@@ -108,10 +106,6 @@ export const TerminalComponent = (props: { scope: {} }) => {
 
   useEffect(() => {
     if (gotPrevious) {
-      return;
-    }
-
-    if (transport === null) {
       return;
     }
 
@@ -153,16 +147,12 @@ export const TerminalComponent = (props: { scope: {} }) => {
     return () => {
       abortController.abort();
     };
-  }, [gotPrevious, props.scope, t, transport]);
+  }, [gotPrevious, props.scope, t]);
 
   useEffect(() => {
     const abortController = new AbortController();
 
     function connect() {
-      if (transport === null) {
-        return;
-      }
-
       //console.info('Connecting to logs service');
       //const logsService = new LogsServiceClient(transport);
       //const subscription = logsService.subscribe(
@@ -225,7 +215,7 @@ export const TerminalComponent = (props: { scope: {} }) => {
     return () => {
       abortController.abort();
     };
-  }, [props.scope, transport]);
+  }, [props.scope]);
 
   return (
     <ScrollArea

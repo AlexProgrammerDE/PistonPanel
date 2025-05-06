@@ -1,6 +1,5 @@
 import { Input } from '@/components/ui/input';
 import { KeyboardEventHandler, use, useEffect, useRef, useState } from 'react';
-import { TransportContext } from '@/components/providers/transport-context';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
@@ -19,9 +18,8 @@ const SF_COMMAND_HISTORY_LENGTH = 100;
 
 const historySchema = z.string().array();
 
-export default function CommandInput(props: { scope: {} }) {
+export default function CommandInput() {
   const { t } = useTranslation('common');
-  const transport = use(TransportContext);
   const [commandHistory, setCommandHistory] = useState<string[]>(
     historySchema.parse(
       JSON.parse(localStorage.getItem(SF_COMMAND_HISTORY_KEY) ?? '[]'),
@@ -67,10 +65,6 @@ export default function CommandInput(props: { scope: {} }) {
 
       const currentVal = currentTarget.value.trim();
       currentTarget.value = '';
-
-      if (transport === null) {
-        return;
-      }
 
       if (currentVal === '') {
         return;
@@ -135,10 +129,6 @@ export default function CommandInput(props: { scope: {} }) {
   };
 
   const handleTabPress = async (text: string, element: HTMLInputElement) => {
-    if (transport === null) {
-      return;
-    }
-
     let completionStateNew: CompletionState;
     if (
       completionState.receivedCompletions === null ||

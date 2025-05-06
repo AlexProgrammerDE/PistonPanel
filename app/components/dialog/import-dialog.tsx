@@ -15,7 +15,6 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import MimeMatcher from 'mime-matcher';
-import { TransportContext } from '@/components/providers/transport-context';
 import { useTranslation } from 'react-i18next';
 
 export type TextInput = {
@@ -51,7 +50,6 @@ export default function ImportDialog(props: ImportDialogProps) {
 
 function UrlDialog(props: ImportDialogProps) {
   const { t } = useTranslation('common');
-  const transport = use(TransportContext);
   const [inputText, setInputText] = useState('');
 
   return (
@@ -84,10 +82,6 @@ function UrlDialog(props: ImportDialogProps) {
                   }
 
                   const download = async () => {
-                    if (transport === null) {
-                      return;
-                    }
-
                     // const service = new DownloadServiceClient(transport);
                     // const { response } = await service.download({
                     //   orgId: orgInfo.id,
