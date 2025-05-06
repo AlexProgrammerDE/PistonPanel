@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly APP_NAMESPACES: string[];
   readonly VITE_POSTHOG_KEY: string;
   readonly VITE_POSTHOG_HOST: string;
+  readonly VITE_GOOGLE_CLIENT_ID: string;
 }
 
 interface ImportMeta {

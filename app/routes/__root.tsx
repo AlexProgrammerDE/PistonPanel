@@ -73,6 +73,8 @@ function RootComponent() {
             replace={(href) => void router.navigate({ href, replace: true })}
             providers={['google', 'microsoft', 'apple']}
             magicLink
+            emailOTP
+            oneTap
             emailVerification
             changeEmail
             passkey

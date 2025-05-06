@@ -2,6 +2,7 @@ import {
   adminClient,
   apiKeyClient,
   emailOTPClient,
+  oneTapClient,
   oneTimeTokenClient,
   organizationClient,
   passkeyClient,
@@ -45,6 +46,9 @@ const clientOptions = {
       roles: orgRoleConfig,
     }),
     oneTimeTokenClient(),
+    oneTapClient({
+      clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    }),
   ],
 };
 export const authClient = createAuthClient(clientOptions);
