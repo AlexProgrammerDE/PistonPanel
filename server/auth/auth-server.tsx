@@ -274,7 +274,18 @@ export const auth = betterAuth({
     }),
     apiKey(),
     organization({
-      allowUserToCreateOrganization: true,
+      allowUserToCreateOrganization: async (user): Promise<boolean> => {
+        return (
+          await auth.api.userHasPermission({
+            body: {
+              userId: user.id,
+              permissions: {
+                organization: ['create'],
+              },
+            },
+          })
+        ).success;
+      },
       cancelPendingInvitationsOnReInvite: true,
       async sendInvitationEmail({ id, role, email, inviter, organization }) {
         await sendEmail(
