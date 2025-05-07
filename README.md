@@ -8,7 +8,7 @@
 
 # PistonPanel
 
-_🌠 Next-gen game-server hosting panel_
+**🌠 Next-gen game-server hosting panel**
 
 ## About
 
