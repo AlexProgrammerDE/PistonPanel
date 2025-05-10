@@ -181,7 +181,7 @@ importers:
         version: 8.15.6
       posthog-js:
         specifier: ^1.236.7
-        version: 1.240.5
+        version: 1.240.6
       react:
         specifier: ^19.0.0
         version: 19.1.0
@@ -2519,8 +2519,8 @@ packages:
     resolution: {integrity: sha512-9X5ONTmtY78J09kRwzEzC0X64hGEj+pFzsLiq9i0aR1jGpHcPsw7Xut5edKeyYkDlGSGnrf4fOKcSD7uH50hKQ==}
     engines: {node: '>=18.0.0'}
 
-  '@triplit/db@1.0.30':
-    resolution: {integrity: sha512-Kcw5THmO6o510AI/y0NUFB5AOotapY1F21WaKH2zyG3ZTfcHAnc5qgCRt8xzA98yTfihANCQCL4goP7A8ddjiw==}
+  '@triplit/db@1.0.31':
+    resolution: {integrity: sha512-58Y2x5UT3zfWNaF4pGd3naYU1KzNz4LBFY1ucAaDCFDKuZOlD6FMBLE1DI2SYqca1K38nGqGmkkPS4y+cor/5g==}
     peerDependencies:
       better-sqlite3: '*'
       expo-sqlite: '*'
@@ -4837,8 +4837,8 @@ packages:
   postgres-range@1.1.4:
     resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
-  posthog-js@1.240.5:
-    resolution: {integrity: sha512-sLaDiN0TrGQnF94ed85wo044ifJ5U9rBlIVe5rueLUtusE2Gc/Vis7VcHOjbBeAaJXCHwOcs/TUZZNxbRGzNgw==}
+  posthog-js@1.240.6:
+    resolution: {integrity: sha512-Pz5r/LrMchGf9jCVnTXJrbyMhKriZRGLSZ5qt8c8QrPkmG2JOnFHNWmmBlu+iqmzbY3+oROrhwyP4IgQl2z34w==}
     peerDependencies:
       '@rrweb/types': 2.0.0-alpha.17
       rrweb-snapshot: 2.0.0-alpha.17
@@ -7823,7 +7823,7 @@ snapshots:
 
   '@triplit/client@1.0.29(typescript@5.8.3)':
     dependencies:
-      '@triplit/db': 1.0.30(typescript@5.8.3)
+      '@triplit/db': 1.0.31(typescript@5.8.3)
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       comlink: 4.4.2
       superjson: 2.2.2
@@ -7833,7 +7833,7 @@ snapshots:
       - lmdb
       - typescript
 
-  '@triplit/db@1.0.30(typescript@5.8.3)':
+  '@triplit/db@1.0.31(typescript@5.8.3)':
     dependencies:
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       core-js: 3.42.0
@@ -10279,7 +10279,7 @@ snapshots:
 
   postgres-range@1.1.4: {}
 
-  posthog-js@1.240.5:
+  posthog-js@1.240.6:
     dependencies:
       core-js: 3.42.0
       fflate: 0.4.8
