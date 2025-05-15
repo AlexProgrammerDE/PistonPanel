@@ -1,13 +1,19 @@
 import { auth } from '~/auth/auth-server';
 import { TRPCError } from '@trpc/server';
 
-export async function checkPermission(data: {
-  headers: HeadersInit;
-  body: Parameters<typeof auth.api.hasPermission>[0]['body'];
-}): Promise<void> {
+export async function checkPermission(
+  headers: HeadersInit,
+  permissions: NonNullable<
+    Parameters<typeof auth.api.hasPermission>[0]['body']['permissions']
+  >,
+  organizationId: string,
+): Promise<void> {
   const result = await auth.api.hasPermission({
-    headers: data.headers,
-    body: data.body,
+    headers,
+    body: {
+      permissions,
+      organizationId,
+    },
   });
 
   if (!result) {

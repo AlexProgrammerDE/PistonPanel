@@ -19,16 +19,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
-      await checkPermission({
-        headers: opts.ctx.headers,
-        body: {
-          permissions: {
-            server: ['create'],
-          },
-        },
-      });
-
       const org = opts.ctx.org;
+
+      await checkPermission(
+        opts.ctx.headers,
+        {
+          server: ['create'],
+        },
+        org.id,
+      );
 
       await db
         .insert(orgServersTable)
@@ -51,16 +50,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
-      await checkPermission({
-        headers: opts.ctx.headers,
-        body: {
-          permissions: {
-            server: ['update'],
-          },
-        },
-      });
-
       const org = opts.ctx.org;
+
+      await checkPermission(
+        opts.ctx.headers,
+        {
+          server: ['update'],
+        },
+        org.id,
+      );
 
       await db
         .update(orgServersTable)
@@ -85,16 +83,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
-      await checkPermission({
-        headers: opts.ctx.headers,
-        body: {
-          permissions: {
-            server: ['delete'],
-          },
-        },
-      });
-
       const org = opts.ctx.org;
+
+      await checkPermission(
+        opts.ctx.headers,
+        {
+          server: ['delete'],
+        },
+        org.id,
+      );
 
       await db
         .delete(orgServersTable)

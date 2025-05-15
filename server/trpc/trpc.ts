@@ -1,6 +1,7 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import { Context } from '~/trpc/trpc-context';
 import { auth } from '~/auth/auth-server';
+import { z } from 'zod';
 
 export const t = initTRPC.context<Context>().create();
 
@@ -20,17 +21,13 @@ export const protectedProcedure = t.procedure.use(
   },
 );
 
-export const orgProcedure = protectedProcedure.use(
-  async function isActiveOrg(opts) {
-    const { ctx } = opts;
-    if (!ctx.session.activeOrganizationId) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' });
-    }
-
+export const orgProcedure = protectedProcedure
+  .input(z.object({ organizationId: z.string() }))
+  .use(async function isActiveOrg(opts) {
     const resolvedOrg = await auth.api.getFullOrganization({
-      headers: ctx.headers,
+      headers: opts.ctx.headers,
       query: {
-        organizationId: ctx.session.activeOrganizationId,
+        organizationId: opts.input.organizationId,
       },
     });
 
@@ -40,9 +37,8 @@ export const orgProcedure = protectedProcedure.use(
 
     return opts.next({
       ctx: {
-        ...ctx,
+        ...opts.ctx,
         org: resolvedOrg,
       },
     });
-  },
-);
+  });

@@ -42,14 +42,7 @@ export const Route = createFileRoute('/_dashboard/org/$org')({
 });
 
 function OrgLayout() {
-  const { org } = Route.useParams();
   const defaultOpen = localStorage.getItem('sidebar:state') === 'true';
-
-  useEffect(() => {
-    void authClient.organization.setActive({
-      organizationSlug: org,
-    });
-  }, []);
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
