@@ -8,6 +8,7 @@ import { k8sLogApi } from '~/kubernetes/client';
 import { k8sAppNamespace } from '~/config';
 import { LineStream } from 'byline';
 import EventEmitter, { on } from 'events';
+import { checkPermission } from '~/auth/helpers';
 
 export const serverRouter = t.router({
   createServer: orgProcedure
@@ -18,6 +19,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
+      await checkPermission({
+        headers: opts.ctx.headers,
+        body: {
+          permissions: {
+            server: ['create'],
+          },
+        },
+      });
+
       const org = opts.ctx.org;
 
       await db
@@ -41,6 +51,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
+      await checkPermission({
+        headers: opts.ctx.headers,
+        body: {
+          permissions: {
+            server: ['update'],
+          },
+        },
+      });
+
       const org = opts.ctx.org;
 
       await db
@@ -66,6 +85,15 @@ export const serverRouter = t.router({
       }),
     )
     .mutation(async (opts) => {
+      await checkPermission({
+        headers: opts.ctx.headers,
+        body: {
+          permissions: {
+            server: ['delete'],
+          },
+        },
+      });
+
       const org = opts.ctx.org;
 
       await db
