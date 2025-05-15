@@ -34,7 +34,9 @@ export function OrgSidebar(props: React.ComponentProps<typeof Sidebar>) {
         </SidebarContent>
       </ScrollArea>
       <SidebarFooter className="h-16 justify-center">
-        <NavAccount />
+        <Suspense>
+          <NavAccount />
+        </Suspense>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
