@@ -12,24 +12,12 @@ import {
 import { createAuthClient } from 'better-auth/react';
 import {
   globalAc,
-  globalAdmin,
-  globalUser,
+  globalRoleConfig,
   orgAc,
-  orgAdmin,
-  orgMember,
-  orgOwner,
+  orgRoleConfig,
 } from '@/auth/permissions';
 import { InferUserFromClient } from 'better-auth/types';
 
-const globalRoleConfig = {
-  admin: globalAdmin,
-  user: globalUser,
-};
-const orgRoleConfig = {
-  owner: orgOwner,
-  admin: orgAdmin,
-  member: orgMember,
-};
 const clientOptions = {
   plugins: [
     twoFactorClient(),

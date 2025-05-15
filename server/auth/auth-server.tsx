@@ -19,7 +19,12 @@ import { EmailTemplate } from '@daveyplate/better-auth-ui';
 import { sendEmail } from '~/email/backend';
 import * as authSchema from '~/db/auth-schema';
 import * as schema from '~/db/schema';
-import { globalAc, globalAdmin, globalUser } from '@/auth/permissions';
+import {
+  globalAc,
+  globalRoleConfig,
+  orgAc,
+  orgRoleConfig,
+} from '@/auth/permissions';
 import { siteBaseUrl, siteName } from '~/config';
 import { emailHarmony } from 'better-auth-harmony';
 
@@ -267,13 +272,12 @@ export const auth = betterAuth({
     passkey(),
     admin({
       ac: globalAc,
-      roles: {
-        admin: globalAdmin,
-        user: globalUser,
-      },
+      roles: globalRoleConfig,
     }),
     apiKey(),
     organization({
+      ac: orgAc,
+      roles: orgRoleConfig,
       allowUserToCreateOrganization: async (user): Promise<boolean> => {
         return (
           await auth.api.userHasPermission({
