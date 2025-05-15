@@ -130,6 +130,40 @@ function DropdownAccountHeaderSkeleton() {
   );
 }
 
+function DropdownImpersonateButton() {
+  const { t } = useTranslation('common');
+  const navigate = useNavigate();
+  const { clientDataQueryOptions } = Route.useRouteContext();
+  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
+
+  if (!session.session.impersonatedBy) {
+    return null;
+  }
+
+  return (
+    <DropdownMenuItem
+      onClick={() => {
+        runAsync(async () => {
+          await authClient.admin.stopImpersonating({
+            fetchOptions: {
+              onSuccess: async () => {
+                await navigate({
+                  to: '/',
+                  replace: true,
+                  reloadDocument: true,
+                });
+              },
+            },
+          });
+        });
+      }}
+    >
+      <VenetianMaskIcon />
+      {t('userSidebar.stopImpersonating')}
+    </DropdownMenuItem>
+  );
+}
+
 export function NavAccount() {
   const { t, i18n } = useTranslation('common');
   const navigate = useNavigate();
@@ -137,8 +171,6 @@ export function NavAccount() {
   const { openAbout } = use(AboutContext);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
-  const { clientDataQueryOptions } = Route.useRouteContext();
-  const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
     <SidebarMenu>
@@ -255,28 +287,9 @@ export function NavAccount() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {session.session.impersonatedBy && (
-                <DropdownMenuItem
-                  onClick={() => {
-                    runAsync(async () => {
-                      await authClient.admin.stopImpersonating({
-                        fetchOptions: {
-                          onSuccess: async () => {
-                            await navigate({
-                              to: '/',
-                              replace: true,
-                              reloadDocument: true,
-                            });
-                          },
-                        },
-                      });
-                    });
-                  }}
-                >
-                  <VenetianMaskIcon />
-                  {t('userSidebar.stopImpersonating')}
-                </DropdownMenuItem>
-              )}
+              <Suspense>
+                <DropdownImpersonateButton />
+              </Suspense>
               <DropdownMenuItem
                 onClick={() => {
                   const disconnect = async () => {
