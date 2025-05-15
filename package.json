@@ -4,7 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "typecheck": "tsc --noEmit",
     "generate-routes": "tsr generate",
     "watch:routes": "tsr watch",
     "watch:ts": "tsc-watch",
