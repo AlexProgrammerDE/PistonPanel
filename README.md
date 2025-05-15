@@ -13,7 +13,7 @@
 ## About
 
 > [!NOTE]
-> PistonPanel is currently in development, but you cannot use this project yet. Many features are missing, so you'll
+> PistonPanel is currently in early development; you cannot use this project yet. Many features are missing, so you'll
 > have to wait a bit until everything is ready. Check back to see if anything has changed.
 
 PistonPanel is a web-based game server management panel that allows you to manage your game servers from anywhere.
