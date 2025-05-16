@@ -85,7 +85,7 @@ function RootComponent() {
             signUp={false}
             nameRequired
             twoFactor={['otp', 'totp']}
-            settingsURL="/user/settings"
+            settingsURL="/settings"
             Link={({ href, ...props }) => <Link to={href} {...props} />}
           >
             <PostHogProvider

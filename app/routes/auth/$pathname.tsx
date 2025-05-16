@@ -43,7 +43,7 @@ function RouteComponent() {
           </div>
           <AuthCard
             pathname={pathname}
-            redirectTo={searchParams.redirect ?? '/user'}
+            redirectTo={searchParams.redirect ?? '/'}
           />
           <div>
             <div className="text-muted-foreground text-center text-xs text-balance">
