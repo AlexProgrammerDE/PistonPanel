@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^1.5.5
-        version: 1.6.4(1e0ba718ec89ce3d73d364d8cf7f6e25)
+        version: 1.6.4(5fabd3d900cf2587f2e2b708c1623d58)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.1(hono@4.7.8)
@@ -25,7 +25,7 @@ importers:
         version: 0.19.0(hono@4.7.8)
       '@hookform/resolvers':
         specifier: ^5.0.0
-        version: 5.0.1(react-hook-form@7.56.3(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@icons-pack/react-simple-icons':
         specifier: ^12.5.0
         version: 12.8.0(react@19.1.0)
@@ -190,7 +190,7 @@ importers:
         version: 19.1.0(react@19.1.0)
       react-hook-form:
         specifier: ^7.54.2
-        version: 7.56.3(react@19.1.0)
+        version: 7.56.4(react@19.1.0)
       react-i18next:
         specifier: ^15.4.1
         version: 15.5.1(i18next@25.1.3(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
@@ -2394,8 +2394,8 @@ packages:
     resolution: {integrity: sha512-9X5ONTmtY78J09kRwzEzC0X64hGEj+pFzsLiq9i0aR1jGpHcPsw7Xut5edKeyYkDlGSGnrf4fOKcSD7uH50hKQ==}
     engines: {node: '>=18.0.0'}
 
-  '@triplit/db@1.0.33':
-    resolution: {integrity: sha512-/U1Thy4FegdIVwdbMAqzuqxkpeBl+khx623Qg74FspcF3t9rpPf+S/AwX/nssV3dxB1Pvuh4oLFNmB2494yv2g==}
+  '@triplit/db@1.0.34':
+    resolution: {integrity: sha512-yCZMg2iu701neJI4tHcSIvtz1fCO5tcrKj+swxjFIhJwwv58uxG4z7fOQU/jBkWNUq33BcjvNIlQ+FU5o+YKNg==}
     peerDependencies:
       better-sqlite3: '*'
       expo-sqlite: '*'
@@ -4616,8 +4616,8 @@ packages:
     peerDependencies:
       react: '>=16.4.1'
 
-  react-hook-form@7.56.3:
-    resolution: {integrity: sha512-IK18V6GVbab4TAo1/cz3kqajxbDPGofdF0w7VHdCo0Nt8PrPlOZcuuDq9YYIV1BtjcX78x0XsldbQRQnQXWXmw==}
+  react-hook-form@7.56.4:
+    resolution: {integrity: sha512-Rob7Ftz2vyZ/ZGsQZPaRdIefkgOSrQSPXfqBdvOPwJfoGnjwRJUs7EM7Kc1mcoDv3NOtqBzPGbcMB8CGn9CKgw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -5569,12 +5569,12 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.6.4(1e0ba718ec89ce3d73d364d8cf7f6e25)':
+  '@daveyplate/better-auth-ui@1.6.4(5fabd3d900cf2587f2e2b708c1623d58)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.1(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@hookform/resolvers': 5.0.1(react-hook-form@7.56.3(react@19.1.0))
+      '@hookform/resolvers': 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@instantdb/react': 0.18.9(react@19.1.0)
       '@marsidev/react-turnstile': 1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-avatar': 1.1.9(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5602,7 +5602,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       react-google-recaptcha: 3.1.0(react@19.1.0)
       react-google-recaptcha-v3: 1.10.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react-hook-form: 7.56.3(react@19.1.0)
+      react-hook-form: 7.56.4(react@19.1.0)
       react-qr-code: 2.0.15(react@19.1.0)
       sonner: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge: 3.3.0
@@ -5929,10 +5929,10 @@ snapshots:
       hono: 4.7.8
       minimatch: 9.0.5
 
-  '@hookform/resolvers@5.0.1(react-hook-form@7.56.3(react@19.1.0))':
+  '@hookform/resolvers@5.0.1(react-hook-form@7.56.4(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.56.3(react@19.1.0)
+      react-hook-form: 7.56.4(react@19.1.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -7234,7 +7234,7 @@ snapshots:
 
   '@triplit/client@1.0.29(typescript@5.8.3)':
     dependencies:
-      '@triplit/db': 1.0.33(typescript@5.8.3)
+      '@triplit/db': 1.0.34(typescript@5.8.3)
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       comlink: 4.4.2
       superjson: 2.2.2
@@ -7244,7 +7244,7 @@ snapshots:
       - lmdb
       - typescript
 
-  '@triplit/db@1.0.33(typescript@5.8.3)':
+  '@triplit/db@1.0.34(typescript@5.8.3)':
     dependencies:
       '@triplit/logger': 0.0.3(typescript@5.8.3)
       core-js: 3.42.0
@@ -9518,7 +9518,7 @@ snapshots:
       react: 19.1.0
       react-async-script: 1.2.0(react@19.1.0)
 
-  react-hook-form@7.56.3(react@19.1.0):
+  react-hook-form@7.56.4(react@19.1.0):
     dependencies:
       react: 19.1.0
 
