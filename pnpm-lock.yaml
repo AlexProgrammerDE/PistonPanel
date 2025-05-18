@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^1.5.5
-        version: 1.6.4(5fabd3d900cf2587f2e2b708c1623d58)
+        version: 1.7.1(63cf81f9c4b33b5da60ddb8045a9254e)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.1(hono@4.7.8)
@@ -476,11 +476,11 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-ui@1.6.4':
-    resolution: {integrity: sha512-oev3T6zX07Bg0s753YWpl1KkAcsRI7G+tP/FuErCooOIyhGcTSQLNT2x5IisNbbPNgCLLhGIsby4yOM3ajzjkg==}
+  '@daveyplate/better-auth-ui@1.7.1':
+    resolution: {integrity: sha512-GeIqkn06yo5w49NQ7jhSWtF2C5LnYd3odnL2wldAlcd8w41hFM9AIx/vWekG8qhVMBp8jVdlN+zDQZwhxLLCkQ==}
     peerDependencies:
       '@better-fetch/fetch': '>=1.1.0'
-      '@daveyplate/better-auth-tanstack': ^1.3.3
+      '@daveyplate/better-auth-tanstack': ^1.3.5
       '@hcaptcha/react-hcaptcha': '>=1.12.0'
       '@hookform/resolvers': '>=5.0.0'
       '@instantdb/react': '>=0.18.0'
@@ -492,6 +492,7 @@ packages:
       '@radix-ui/react-dropdown-menu': '>=2.1.0'
       '@radix-ui/react-label': '>=2.1.0'
       '@radix-ui/react-primitive': '>=2.0.0'
+      '@radix-ui/react-select': '>=2.2.0'
       '@radix-ui/react-separator': '>=1.1.0'
       '@radix-ui/react-slot': '>=1.1.0'
       '@radix-ui/react-tabs': '>=1.1.0'
@@ -501,6 +502,7 @@ packages:
       '@tanstack/react-query': '>=5.66.0'
       '@triplit/client': '>=1.0.0'
       '@triplit/react': '>=1.0.0'
+      '@wojtekmaj/react-recaptcha-v3': '>=0.1.4'
       better-auth: ^1.2.4
       class-variance-authority: '>=0.7.0'
       clsx: '>=2.1.0'
@@ -509,7 +511,6 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
       react-google-recaptcha: '>=3.1.0'
-      react-google-recaptcha-v3: '>=1.10.0'
       react-hook-form: '>=7.55.0'
       react-qr-code: '>=2.0.0'
       sonner: '>=1.7.0'
@@ -2650,6 +2651,16 @@ packages:
   '@webassemblyjs/wast-printer@1.14.1':
     resolution: {integrity: sha512-kPSSXE6De1XOR820C90RIo2ogvZG+c3KiHzqUoO/F34Y2shGzesfqv7o57xrxovZJH/MetF5UjroJ/R/3isoiw==}
 
+  '@wojtekmaj/react-recaptcha-v3@0.1.4':
+    resolution: {integrity: sha512-zszMOdgI+y1Dz3496pRFr3t68n9+OmX/puLQNnOBDC7WrjM+nOKGyjIMCTe+3J14KDvzcxETeiglyDMGl0Yh/Q==}
+    peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
 
@@ -4605,12 +4616,6 @@ packages:
     peerDependencies:
       react: ^19.1.0
 
-  react-google-recaptcha-v3@1.10.1:
-    resolution: {integrity: sha512-K3AYzSE0SasTn+XvV2tq+6YaxM+zQypk9rbCgG4OVUt7Rh4ze9basIKefoBz9sC0CNslJj9N1uwTTgRMJQbQJQ==}
-    peerDependencies:
-      react: ^16.3 || ^17.0 || ^18.0
-      react-dom: ^17.0 || ^18.0
-
   react-google-recaptcha@3.1.0:
     resolution: {integrity: sha512-cYW2/DWas8nEKZGD7SCu9BSuVz8iOcOLHChHyi7upUuVhkpkhYG/6N3KDiTQ3XAiZ2UAZkfvYKMfAHOzBOcGEg==}
     peerDependencies:
@@ -5286,6 +5291,9 @@ packages:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
 
+  warning@4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
+
   watchpack@2.4.2:
     resolution: {integrity: sha512-TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==}
     engines: {node: '>=10.13.0'}
@@ -5569,7 +5577,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.6.4(5fabd3d900cf2587f2e2b708c1623d58)':
+  '@daveyplate/better-auth-ui@1.7.1(63cf81f9c4b33b5da60ddb8045a9254e)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.76.0)(@tanstack/react-query@5.76.1(react@19.1.0))(better-auth@1.2.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5584,6 +5592,7 @@ snapshots:
       '@radix-ui/react-dropdown-menu': 2.1.14(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-label': 2.1.6(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-primitive': 2.1.2(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@radix-ui/react-select': 2.2.4(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-separator': 1.1.6(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-slot': 1.2.2(@types/react@19.1.4)(react@19.1.0)
       '@radix-ui/react-tabs': 1.1.9(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5593,6 +5602,7 @@ snapshots:
       '@tanstack/react-query': 5.76.1(react@19.1.0)
       '@triplit/client': 1.0.29(typescript@5.8.3)
       '@triplit/react': 1.0.29(react@19.1.0)(typescript@5.8.3)
+      '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       better-auth: 1.2.8
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -5601,7 +5611,6 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-google-recaptcha: 3.1.0(react@19.1.0)
-      react-google-recaptcha-v3: 1.10.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-hook-form: 7.56.4(react@19.1.0)
       react-qr-code: 2.0.15(react@19.1.0)
       sonner: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7601,6 +7610,14 @@ snapshots:
       '@xtuc/long': 4.2.2
     optional: true
 
+  '@wojtekmaj/react-recaptcha-v3@0.1.4(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      warning: 4.0.3
+    optionalDependencies:
+      '@types/react': 19.1.4
+
   '@xtuc/ieee754@1.2.0':
     optional: true
 
@@ -9506,12 +9523,6 @@ snapshots:
       react: 19.1.0
       scheduler: 0.26.0
 
-  react-google-recaptcha-v3@1.10.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      hoist-non-react-statics: 3.3.2
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-
   react-google-recaptcha@3.1.0(react@19.1.0):
     dependencies:
       prop-types: 15.8.1
@@ -10278,6 +10289,10 @@ snapshots:
       yaml: 2.7.1
 
   void-elements@3.1.0: {}
+
+  warning@4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
 
   watchpack@2.4.2:
     dependencies:
