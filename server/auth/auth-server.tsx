@@ -188,7 +188,8 @@ export const auth = betterAuth({
     }),
     username(),
     magicLink({
-      disableSignUp,
+      // We always want a username, which we don't get this way
+      disableSignUp: true,
       async sendMagicLink({ email, url }) {
         await sendEmail(
           email,
@@ -209,8 +210,9 @@ export const auth = betterAuth({
       },
     }),
     emailOTP({
-      disableSignUp,
-      sendVerificationOnSignUp: true,
+      // We always want a username, which we don't get this way
+      disableSignUp: true,
+      sendVerificationOnSignUp: false,
       async sendVerificationOTP({ email, otp, type }) {
         if (type === 'sign-in') {
           await sendEmail(

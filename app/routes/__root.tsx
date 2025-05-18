@@ -84,6 +84,7 @@ function RootComponent() {
             credentials={false}
             signUp={false}
             nameRequired
+            apiKeys
             twoFactor={['otp', 'totp']}
             settingsURL="/settings"
             Link={({ href, ...props }) => <Link to={href} {...props} />}
