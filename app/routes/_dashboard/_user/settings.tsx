@@ -27,7 +27,7 @@ function Content() {
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
 
   return (
-    <div className="flex h-full w-full max-w-4xl grow flex-col gap-4">
+    <div className="container flex h-full w-full grow flex-col gap-4">
       <div className="flex flex-col gap-2">
         <div className="flex max-w-xl flex-col gap-1">
           <div className="flex w-fit flex-row items-center gap-2">
