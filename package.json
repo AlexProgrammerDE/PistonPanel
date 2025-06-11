@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@catppuccin/palette": "^1.7.1",
-    "@daveyplate/better-auth-ui": "^2.0.0",
+    "@daveyplate/better-auth-ui": "^2.0.2",
     "@hono/swagger-ui": "^0.5.1",
     "@hono/trpc-server": "^0.3.4",
     "@hono/vite-dev-server": "^0.19.0",

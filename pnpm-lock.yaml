@@ -12,7 +12,7 @@ importers:
         specifier: ^1.7.1
         version: 1.7.1
       '@daveyplate/better-auth-ui':
-        specifier: ^2.0.0
+        specifier: ^2.0.2
         version: 2.0.2(23bf4cba27c5bc5f1619f2c14485366c)
       '@hono/swagger-ui':
         specifier: ^0.5.1
