@@ -12,8 +12,8 @@ importers:
         specifier: ^1.7.1
         version: 1.7.1
       '@daveyplate/better-auth-ui':
-        specifier: ^1.5.5
-        version: 1.7.4(6d144336ea14d5ddc936085444bc18c8)
+        specifier: ^2.0.0
+        version: 2.0.2(23bf4cba27c5bc5f1619f2c14485366c)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -529,12 +529,10 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-ui@1.7.4':
-    resolution: {integrity: sha512-YMlH0jXxZkfi97ibxvPqzYn02hQWOqV2EZ7jXab/NRYC57/KEacRV2ykWnyswzsBnes6LGW6ir8TREPitz2K+Q==}
+  '@daveyplate/better-auth-ui@2.0.2':
+    resolution: {integrity: sha512-JVGCkYdJFX2MyScZhn5HcAmiqkOFbubMnBoWVaZradgK2kCj3muFwE1I06ReLjamxVIopb5tzeQMaRuRAY9zwA==}
     peerDependencies:
-      '@better-fetch/fetch': '>=1.1.0'
-      '@daveyplate/better-auth-tanstack': ^1.3.5
-      '@hcaptcha/react-hcaptcha': '>=1.12.0'
+      '@daveyplate/better-auth-tanstack': ^1.3.6
       '@hookform/resolvers': '>=5.0.0'
       '@instantdb/react': '>=0.18.0'
       '@marsidev/react-turnstile': '>=1.1.0'
@@ -551,25 +549,20 @@ packages:
       '@radix-ui/react-tabs': '>=1.1.0'
       '@radix-ui/react-use-callback-ref': '>=1.1.0'
       '@radix-ui/react-use-layout-effect': '>=1.1.0'
-      '@react-email/components': '>=0.0.33'
       '@tanstack/react-query': '>=5.66.0'
       '@triplit/client': '>=1.0.0'
       '@triplit/react': '>=1.0.0'
-      '@wojtekmaj/react-recaptcha-v3': '>=0.1.4'
-      better-auth: ^1.2.4
+      better-auth: ^1.2.9
       class-variance-authority: '>=0.7.0'
       clsx: '>=2.1.0'
       input-otp: '>=1.4.0'
       lucide-react: '>=0.469.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
-      react-google-recaptcha: '>=3.1.0'
       react-hook-form: '>=7.55.0'
-      react-qr-code: '>=2.0.0'
       sonner: '>=1.7.0'
       tailwind-merge: '>=2.6.0'
       tailwindcss: '>=3.0.0'
-      ua-parser-js: '>=2.0.0'
       zod: '>=3.24.0'
 
   '@drizzle-team/brocli@0.10.2':
@@ -5660,7 +5653,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@1.7.4(6d144336ea14d5ddc936085444bc18c8)':
+  '@daveyplate/better-auth-ui@2.0.2(23bf4cba27c5bc5f1619f2c14485366c)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.80.6)(@tanstack/react-query@5.80.6(react@19.1.0))(better-auth@1.2.9)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5700,7 +5693,12 @@ snapshots:
       tailwind-merge: 3.3.1
       tailwindcss: 4.1.8
       ua-parser-js: 2.0.3
+      vaul: 1.1.2(@types/react-dom@19.1.6(@types/react@19.1.7))(@types/react@19.1.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       zod: 3.25.58
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+      - encoding
 
   '@drizzle-team/brocli@0.10.2': {}
 
