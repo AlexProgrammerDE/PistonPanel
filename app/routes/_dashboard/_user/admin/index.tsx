@@ -25,15 +25,15 @@ const usersChartConfig = {
   },
   user: {
     label: <Trans i18nKey="admin:overview.usersChart.label.user" />,
-    color: 'hsl(var(--chart-2))',
+    color: 'var(--chart-2)',
   },
   admin: {
     label: <Trans i18nKey="admin:overview.usersChart.label.admin" />,
-    color: 'hsl(var(--chart-1))',
+    color: 'var(--chart-1)',
   },
   other: {
     label: <Trans i18nKey="admin:overview.usersChart.label.other" />,
-    color: 'hsl(var(--chart-3))',
+    color: 'var(--chart-3)',
   },
 } satisfies ChartConfig;
 
@@ -154,7 +154,7 @@ function Content() {
           name: session.user.name,
         })}
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <UsersChart userList={userList} />
       </div>
     </div>

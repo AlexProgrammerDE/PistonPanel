@@ -85,14 +85,9 @@ function OrgList() {
     <>
       {orgList.map((org, index) => {
         return (
-          <DropdownMenuItem key={org.id} asChild className="gap-2 p-2">
+          <DropdownMenuItem key={org.id} asChild>
             <Link to="/org/$org" params={{ org: org.slug }}>
-              <div className="flex size-6 items-center justify-center rounded-sm border">
-                <DynamicIcon
-                  name={org.logo ?? ''}
-                  className="size-4 shrink-0"
-                />
-              </div>
+              <DynamicIcon name={org.logo ?? ''} className="size-4 shrink-0" />
               {org.name}
               <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
             </Link>
@@ -106,10 +101,8 @@ function OrgList() {
 function OrgListSkeleton() {
   return (
     <>
-      <DropdownMenuItem className="gap-2 p-2">
-        <div className="flex size-6 items-center justify-center rounded-sm border">
-          <Skeleton className="h-4 w-4" />
-        </div>
+      <DropdownMenuItem>
+        <Skeleton className="h-4 w-4" />
         <Skeleton className="h-3 w-32" />
       </DropdownMenuItem>
     </>
@@ -140,14 +133,10 @@ export function OrgSwitcher() {
               <OrgList />
             </Suspense>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="gap-2 p-2">
+            <DropdownMenuItem asChild>
               <Link to="/">
-                <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-                  <HomeIcon className="size-4" />
-                </div>
-                <div className="text-muted-foreground font-medium">
-                  {t('orgSidebar.backToDashboard')}
-                </div>
+                <HomeIcon className="size-4" />
+                {t('orgSidebar.backToDashboard')}
               </Link>
             </DropdownMenuItem>
             <Suspense>
@@ -176,13 +165,9 @@ function CreateOrgButton() {
   }
 
   return (
-    <DropdownMenuItem onClick={openCreateOrg} className="gap-2 p-2">
-      <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-        <PlusIcon className="size-4" />
-      </div>
-      <div className="text-muted-foreground font-medium">
-        {t('orgSidebar.createOrg')}
-      </div>
+    <DropdownMenuItem onClick={openCreateOrg}>
+      <PlusIcon className="size-4" />
+      {t('orgSidebar.createOrg')}
     </DropdownMenuItem>
   );
 }
@@ -221,14 +206,9 @@ function DeleteOrgButton() {
           to: '/',
         });
       }}
-      className="gap-2 p-2"
     >
-      <div className="bg-background flex size-6 items-center justify-center rounded-md border">
-        <MinusIcon className="size-4" />
-      </div>
-      <div className="text-muted-foreground font-medium">
-        {t('orgSidebar.deleteOrg')}
-      </div>
+      <MinusIcon className="size-4" />
+      {t('orgSidebar.deleteOrg')}
     </DropdownMenuItem>
   );
 }
