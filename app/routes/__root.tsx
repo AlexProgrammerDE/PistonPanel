@@ -71,22 +71,29 @@ function RootComponent() {
             authClient={authClient}
             navigate={(href) => void router.navigate({ href })}
             replace={(href) => void router.navigate({ href, replace: true })}
-            providers={['google', 'microsoft', 'apple']}
+            social={{
+              providers: ['google', 'microsoft', 'apple'],
+            }}
             magicLink
             emailOTP
             oneTap
             emailVerification
             changeEmail
             passkey
-            username
-            deleteAccountVerification
-            deleteUser
-            credentials={false}
+            deleteUser={{
+              verification: true,
+            }}
+            credentials={{
+              forgotPassword: true,
+              username: true,
+            }}
             signUp={false}
             nameRequired
-            apiKeys
+            apiKey
             twoFactor={['otp', 'totp']}
-            settingsURL="/settings"
+            settings={{
+              url: '/settings',
+            }}
             Link={({ href, ...props }) => <Link to={href} {...props} />}
           >
             <PostHogProvider
