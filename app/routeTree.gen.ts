@@ -8,404 +8,176 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/_dashboard'
+import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
+import { Route as DashboardUserRouteImport } from './routes/_dashboard/_user'
+import { Route as DashboardUserIndexRouteImport } from './routes/_dashboard/_user/index'
+import { Route as DashboardOrgOrgRouteImport } from './routes/_dashboard/org/$org'
+import { Route as DashboardUserSettingsRouteImport } from './routes/_dashboard/_user/settings'
+import { Route as DashboardUserAdminRouteImport } from './routes/_dashboard/_user/admin'
+import { Route as DashboardOrgOrgIndexRouteImport } from './routes/_dashboard/org/$org/index'
+import { Route as DashboardUserAdminIndexRouteImport } from './routes/_dashboard/_user/admin/index'
+import { Route as DashboardOrgOrgTeamsRouteImport } from './routes/_dashboard/org/$org/teams'
+import { Route as DashboardOrgOrgSettingsRouteImport } from './routes/_dashboard/org/$org/settings'
+import { Route as DashboardOrgOrgServersRouteImport } from './routes/_dashboard/org/$org/servers'
+import { Route as DashboardOrgOrgNetworksRouteImport } from './routes/_dashboard/org/$org/networks'
+import { Route as DashboardOrgOrgMembersRouteImport } from './routes/_dashboard/org/$org/members'
+import { Route as DashboardOrgOrgDatabasesRouteImport } from './routes/_dashboard/org/$org/databases'
+import { Route as DashboardOrgOrgAuditLogRouteImport } from './routes/_dashboard/org/$org/audit-log'
+import { Route as DashboardOrgOrgAssistantRouteImport } from './routes/_dashboard/org/$org/assistant'
+import { Route as DashboardUserAdminUsersRouteImport } from './routes/_dashboard/_user/admin/users'
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as DashboardImport } from './routes/_dashboard';
-import { Route as AuthPathnameImport } from './routes/auth/$pathname';
-import { Route as DashboardUserImport } from './routes/_dashboard/_user';
-import { Route as DashboardUserIndexImport } from './routes/_dashboard/_user/index';
-import { Route as DashboardOrgOrgImport } from './routes/_dashboard/org/$org';
-import { Route as DashboardUserSettingsImport } from './routes/_dashboard/_user/settings';
-import { Route as DashboardUserAdminImport } from './routes/_dashboard/_user/admin';
-import { Route as DashboardOrgOrgIndexImport } from './routes/_dashboard/org/$org/index';
-import { Route as DashboardUserAdminIndexImport } from './routes/_dashboard/_user/admin/index';
-import { Route as DashboardOrgOrgTeamsImport } from './routes/_dashboard/org/$org/teams';
-import { Route as DashboardOrgOrgSettingsImport } from './routes/_dashboard/org/$org/settings';
-import { Route as DashboardOrgOrgServersImport } from './routes/_dashboard/org/$org/servers';
-import { Route as DashboardOrgOrgNetworksImport } from './routes/_dashboard/org/$org/networks';
-import { Route as DashboardOrgOrgMembersImport } from './routes/_dashboard/org/$org/members';
-import { Route as DashboardOrgOrgDatabasesImport } from './routes/_dashboard/org/$org/databases';
-import { Route as DashboardOrgOrgAuditLogImport } from './routes/_dashboard/org/$org/audit-log';
-import { Route as DashboardOrgOrgAssistantImport } from './routes/_dashboard/org/$org/assistant';
-import { Route as DashboardUserAdminUsersImport } from './routes/_dashboard/_user/admin/users';
-
-// Create/Update Routes
-
-const DashboardRoute = DashboardImport.update({
+const DashboardRoute = DashboardRouteImport.update({
   id: '/_dashboard',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const AuthPathnameRoute = AuthPathnameImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthPathnameRoute = AuthPathnameRouteImport.update({
   id: '/auth/$pathname',
   path: '/auth/$pathname',
-  getParentRoute: () => rootRoute,
-} as any);
-
-const DashboardUserRoute = DashboardUserImport.update({
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardUserRoute = DashboardUserRouteImport.update({
   id: '/_user',
   getParentRoute: () => DashboardRoute,
-} as any);
-
-const DashboardUserIndexRoute = DashboardUserIndexImport.update({
+} as any)
+const DashboardUserIndexRoute = DashboardUserIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardUserRoute,
-} as any);
-
-const DashboardOrgOrgRoute = DashboardOrgOrgImport.update({
+} as any)
+const DashboardOrgOrgRoute = DashboardOrgOrgRouteImport.update({
   id: '/org/$org',
   path: '/org/$org',
   getParentRoute: () => DashboardRoute,
-} as any);
-
-const DashboardUserSettingsRoute = DashboardUserSettingsImport.update({
+} as any)
+const DashboardUserSettingsRoute = DashboardUserSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => DashboardUserRoute,
-} as any);
-
-const DashboardUserAdminRoute = DashboardUserAdminImport.update({
+} as any)
+const DashboardUserAdminRoute = DashboardUserAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => DashboardUserRoute,
-} as any);
-
-const DashboardOrgOrgIndexRoute = DashboardOrgOrgIndexImport.update({
+} as any)
+const DashboardOrgOrgIndexRoute = DashboardOrgOrgIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardUserAdminIndexRoute = DashboardUserAdminIndexImport.update({
+} as any)
+const DashboardUserAdminIndexRoute = DashboardUserAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardUserAdminRoute,
-} as any);
-
-const DashboardOrgOrgTeamsRoute = DashboardOrgOrgTeamsImport.update({
+} as any)
+const DashboardOrgOrgTeamsRoute = DashboardOrgOrgTeamsRouteImport.update({
   id: '/teams',
   path: '/teams',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgSettingsRoute = DashboardOrgOrgSettingsImport.update({
+} as any)
+const DashboardOrgOrgSettingsRoute = DashboardOrgOrgSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgServersRoute = DashboardOrgOrgServersImport.update({
+} as any)
+const DashboardOrgOrgServersRoute = DashboardOrgOrgServersRouteImport.update({
   id: '/servers',
   path: '/servers',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgNetworksRoute = DashboardOrgOrgNetworksImport.update({
+} as any)
+const DashboardOrgOrgNetworksRoute = DashboardOrgOrgNetworksRouteImport.update({
   id: '/networks',
   path: '/networks',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgMembersRoute = DashboardOrgOrgMembersImport.update({
+} as any)
+const DashboardOrgOrgMembersRoute = DashboardOrgOrgMembersRouteImport.update({
   id: '/members',
   path: '/members',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgDatabasesRoute = DashboardOrgOrgDatabasesImport.update({
-  id: '/databases',
-  path: '/databases',
-  getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgAuditLogRoute = DashboardOrgOrgAuditLogImport.update({
+} as any)
+const DashboardOrgOrgDatabasesRoute =
+  DashboardOrgOrgDatabasesRouteImport.update({
+    id: '/databases',
+    path: '/databases',
+    getParentRoute: () => DashboardOrgOrgRoute,
+  } as any)
+const DashboardOrgOrgAuditLogRoute = DashboardOrgOrgAuditLogRouteImport.update({
   id: '/audit-log',
   path: '/audit-log',
   getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardOrgOrgAssistantRoute = DashboardOrgOrgAssistantImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => DashboardOrgOrgRoute,
-} as any);
-
-const DashboardUserAdminUsersRoute = DashboardUserAdminUsersImport.update({
+} as any)
+const DashboardOrgOrgAssistantRoute =
+  DashboardOrgOrgAssistantRouteImport.update({
+    id: '/assistant',
+    path: '/assistant',
+    getParentRoute: () => DashboardOrgOrgRoute,
+  } as any)
+const DashboardUserAdminUsersRoute = DashboardUserAdminUsersRouteImport.update({
   id: '/users',
   path: '/users',
   getParentRoute: () => DashboardUserAdminRoute,
-} as any);
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/_dashboard': {
-      id: '/_dashboard'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DashboardImport
-      parentRoute: typeof rootRoute
-    };
-    '/_dashboard/_user': {
-      id: '/_dashboard/_user'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DashboardUserImport
-      parentRoute: typeof DashboardImport
-    };
-    '/auth/$pathname': {
-      id: '/auth/$pathname'
-      path: '/auth/$pathname'
-      fullPath: '/auth/$pathname'
-      preLoaderRoute: typeof AuthPathnameImport
-      parentRoute: typeof rootRoute
-    };
-    '/_dashboard/_user/admin': {
-      id: '/_dashboard/_user/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof DashboardUserAdminImport
-      parentRoute: typeof DashboardUserImport
-    };
-    '/_dashboard/_user/settings': {
-      id: '/_dashboard/_user/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof DashboardUserSettingsImport
-      parentRoute: typeof DashboardUserImport
-    };
-    '/_dashboard/org/$org': {
-      id: '/_dashboard/org/$org'
-      path: '/org/$org'
-      fullPath: '/org/$org'
-      preLoaderRoute: typeof DashboardOrgOrgImport
-      parentRoute: typeof DashboardImport
-    };
-    '/_dashboard/_user/': {
-      id: '/_dashboard/_user/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof DashboardUserIndexImport
-      parentRoute: typeof DashboardUserImport
-    };
-    '/_dashboard/_user/admin/users': {
-      id: '/_dashboard/_user/admin/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof DashboardUserAdminUsersImport
-      parentRoute: typeof DashboardUserAdminImport
-    };
-    '/_dashboard/org/$org/assistant': {
-      id: '/_dashboard/org/$org/assistant'
-      path: '/assistant'
-      fullPath: '/org/$org/assistant'
-      preLoaderRoute: typeof DashboardOrgOrgAssistantImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/audit-log': {
-      id: '/_dashboard/org/$org/audit-log'
-      path: '/audit-log'
-      fullPath: '/org/$org/audit-log'
-      preLoaderRoute: typeof DashboardOrgOrgAuditLogImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/databases': {
-      id: '/_dashboard/org/$org/databases'
-      path: '/databases'
-      fullPath: '/org/$org/databases'
-      preLoaderRoute: typeof DashboardOrgOrgDatabasesImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/members': {
-      id: '/_dashboard/org/$org/members'
-      path: '/members'
-      fullPath: '/org/$org/members'
-      preLoaderRoute: typeof DashboardOrgOrgMembersImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/networks': {
-      id: '/_dashboard/org/$org/networks'
-      path: '/networks'
-      fullPath: '/org/$org/networks'
-      preLoaderRoute: typeof DashboardOrgOrgNetworksImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/servers': {
-      id: '/_dashboard/org/$org/servers'
-      path: '/servers'
-      fullPath: '/org/$org/servers'
-      preLoaderRoute: typeof DashboardOrgOrgServersImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/settings': {
-      id: '/_dashboard/org/$org/settings'
-      path: '/settings'
-      fullPath: '/org/$org/settings'
-      preLoaderRoute: typeof DashboardOrgOrgSettingsImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/org/$org/teams': {
-      id: '/_dashboard/org/$org/teams'
-      path: '/teams'
-      fullPath: '/org/$org/teams'
-      preLoaderRoute: typeof DashboardOrgOrgTeamsImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-    '/_dashboard/_user/admin/': {
-      id: '/_dashboard/_user/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof DashboardUserAdminIndexImport
-      parentRoute: typeof DashboardUserAdminImport
-    };
-    '/_dashboard/org/$org/': {
-      id: '/_dashboard/org/$org/'
-      path: '/'
-      fullPath: '/org/$org/'
-      preLoaderRoute: typeof DashboardOrgOrgIndexImport
-      parentRoute: typeof DashboardOrgOrgImport
-    };
-  }
-}
-
-// Create and export the route tree
-
-interface DashboardUserAdminRouteChildren {
-  DashboardUserAdminUsersRoute: typeof DashboardUserAdminUsersRoute;
-  DashboardUserAdminIndexRoute: typeof DashboardUserAdminIndexRoute;
-}
-
-const DashboardUserAdminRouteChildren: DashboardUserAdminRouteChildren = {
-  DashboardUserAdminUsersRoute: DashboardUserAdminUsersRoute,
-  DashboardUserAdminIndexRoute: DashboardUserAdminIndexRoute,
-};
-
-const DashboardUserAdminRouteWithChildren =
-  DashboardUserAdminRoute._addFileChildren(DashboardUserAdminRouteChildren);
-
-interface DashboardUserRouteChildren {
-  DashboardUserAdminRoute: typeof DashboardUserAdminRouteWithChildren;
-  DashboardUserSettingsRoute: typeof DashboardUserSettingsRoute;
-  DashboardUserIndexRoute: typeof DashboardUserIndexRoute;
-}
-
-const DashboardUserRouteChildren: DashboardUserRouteChildren = {
-  DashboardUserAdminRoute: DashboardUserAdminRouteWithChildren,
-  DashboardUserSettingsRoute: DashboardUserSettingsRoute,
-  DashboardUserIndexRoute: DashboardUserIndexRoute,
-};
-
-const DashboardUserRouteWithChildren = DashboardUserRoute._addFileChildren(
-  DashboardUserRouteChildren,
-);
-
-interface DashboardOrgOrgRouteChildren {
-  DashboardOrgOrgAssistantRoute: typeof DashboardOrgOrgAssistantRoute;
-  DashboardOrgOrgAuditLogRoute: typeof DashboardOrgOrgAuditLogRoute;
-  DashboardOrgOrgDatabasesRoute: typeof DashboardOrgOrgDatabasesRoute;
-  DashboardOrgOrgMembersRoute: typeof DashboardOrgOrgMembersRoute;
-  DashboardOrgOrgNetworksRoute: typeof DashboardOrgOrgNetworksRoute;
-  DashboardOrgOrgServersRoute: typeof DashboardOrgOrgServersRoute;
-  DashboardOrgOrgSettingsRoute: typeof DashboardOrgOrgSettingsRoute;
-  DashboardOrgOrgTeamsRoute: typeof DashboardOrgOrgTeamsRoute;
-  DashboardOrgOrgIndexRoute: typeof DashboardOrgOrgIndexRoute;
-}
-
-const DashboardOrgOrgRouteChildren: DashboardOrgOrgRouteChildren = {
-  DashboardOrgOrgAssistantRoute: DashboardOrgOrgAssistantRoute,
-  DashboardOrgOrgAuditLogRoute: DashboardOrgOrgAuditLogRoute,
-  DashboardOrgOrgDatabasesRoute: DashboardOrgOrgDatabasesRoute,
-  DashboardOrgOrgMembersRoute: DashboardOrgOrgMembersRoute,
-  DashboardOrgOrgNetworksRoute: DashboardOrgOrgNetworksRoute,
-  DashboardOrgOrgServersRoute: DashboardOrgOrgServersRoute,
-  DashboardOrgOrgSettingsRoute: DashboardOrgOrgSettingsRoute,
-  DashboardOrgOrgTeamsRoute: DashboardOrgOrgTeamsRoute,
-  DashboardOrgOrgIndexRoute: DashboardOrgOrgIndexRoute,
-};
-
-const DashboardOrgOrgRouteWithChildren = DashboardOrgOrgRoute._addFileChildren(
-  DashboardOrgOrgRouteChildren,
-);
-
-interface DashboardRouteChildren {
-  DashboardUserRoute: typeof DashboardUserRouteWithChildren;
-  DashboardOrgOrgRoute: typeof DashboardOrgOrgRouteWithChildren;
-}
-
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardUserRoute: DashboardUserRouteWithChildren,
-  DashboardOrgOrgRoute: DashboardOrgOrgRouteWithChildren,
-};
-
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-);
+} as any)
 
 export interface FileRoutesByFullPath {
-  '': typeof DashboardUserRouteWithChildren;
-  '/auth/$pathname': typeof AuthPathnameRoute;
-  '/admin': typeof DashboardUserAdminRouteWithChildren;
-  '/settings': typeof DashboardUserSettingsRoute;
-  '/org/$org': typeof DashboardOrgOrgRouteWithChildren;
-  '/': typeof DashboardUserIndexRoute;
-  '/admin/users': typeof DashboardUserAdminUsersRoute;
-  '/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute;
-  '/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute;
-  '/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute;
-  '/org/$org/members': typeof DashboardOrgOrgMembersRoute;
-  '/org/$org/networks': typeof DashboardOrgOrgNetworksRoute;
-  '/org/$org/servers': typeof DashboardOrgOrgServersRoute;
-  '/org/$org/settings': typeof DashboardOrgOrgSettingsRoute;
-  '/org/$org/teams': typeof DashboardOrgOrgTeamsRoute;
-  '/admin/': typeof DashboardUserAdminIndexRoute;
-  '/org/$org/': typeof DashboardOrgOrgIndexRoute;
+  '': typeof DashboardUserRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/admin': typeof DashboardUserAdminRouteWithChildren
+  '/settings': typeof DashboardUserSettingsRoute
+  '/org/$org': typeof DashboardOrgOrgRouteWithChildren
+  '/': typeof DashboardUserIndexRoute
+  '/admin/users': typeof DashboardUserAdminUsersRoute
+  '/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute
+  '/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute
+  '/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute
+  '/org/$org/members': typeof DashboardOrgOrgMembersRoute
+  '/org/$org/networks': typeof DashboardOrgOrgNetworksRoute
+  '/org/$org/servers': typeof DashboardOrgOrgServersRoute
+  '/org/$org/settings': typeof DashboardOrgOrgSettingsRoute
+  '/org/$org/teams': typeof DashboardOrgOrgTeamsRoute
+  '/admin/': typeof DashboardUserAdminIndexRoute
+  '/org/$org/': typeof DashboardOrgOrgIndexRoute
 }
-
 export interface FileRoutesByTo {
-  '': typeof DashboardRouteWithChildren;
-  '/auth/$pathname': typeof AuthPathnameRoute;
-  '/settings': typeof DashboardUserSettingsRoute;
-  '/': typeof DashboardUserIndexRoute;
-  '/admin/users': typeof DashboardUserAdminUsersRoute;
-  '/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute;
-  '/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute;
-  '/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute;
-  '/org/$org/members': typeof DashboardOrgOrgMembersRoute;
-  '/org/$org/networks': typeof DashboardOrgOrgNetworksRoute;
-  '/org/$org/servers': typeof DashboardOrgOrgServersRoute;
-  '/org/$org/settings': typeof DashboardOrgOrgSettingsRoute;
-  '/org/$org/teams': typeof DashboardOrgOrgTeamsRoute;
-  '/admin': typeof DashboardUserAdminIndexRoute;
-  '/org/$org': typeof DashboardOrgOrgIndexRoute;
+  '': typeof DashboardRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/settings': typeof DashboardUserSettingsRoute
+  '/': typeof DashboardUserIndexRoute
+  '/admin/users': typeof DashboardUserAdminUsersRoute
+  '/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute
+  '/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute
+  '/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute
+  '/org/$org/members': typeof DashboardOrgOrgMembersRoute
+  '/org/$org/networks': typeof DashboardOrgOrgNetworksRoute
+  '/org/$org/servers': typeof DashboardOrgOrgServersRoute
+  '/org/$org/settings': typeof DashboardOrgOrgSettingsRoute
+  '/org/$org/teams': typeof DashboardOrgOrgTeamsRoute
+  '/admin': typeof DashboardUserAdminIndexRoute
+  '/org/$org': typeof DashboardOrgOrgIndexRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/_dashboard': typeof DashboardRouteWithChildren;
-  '/_dashboard/_user': typeof DashboardUserRouteWithChildren;
-  '/auth/$pathname': typeof AuthPathnameRoute;
-  '/_dashboard/_user/admin': typeof DashboardUserAdminRouteWithChildren;
-  '/_dashboard/_user/settings': typeof DashboardUserSettingsRoute;
-  '/_dashboard/org/$org': typeof DashboardOrgOrgRouteWithChildren;
-  '/_dashboard/_user/': typeof DashboardUserIndexRoute;
-  '/_dashboard/_user/admin/users': typeof DashboardUserAdminUsersRoute;
-  '/_dashboard/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute;
-  '/_dashboard/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute;
-  '/_dashboard/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute;
-  '/_dashboard/org/$org/members': typeof DashboardOrgOrgMembersRoute;
-  '/_dashboard/org/$org/networks': typeof DashboardOrgOrgNetworksRoute;
-  '/_dashboard/org/$org/servers': typeof DashboardOrgOrgServersRoute;
-  '/_dashboard/org/$org/settings': typeof DashboardOrgOrgSettingsRoute;
-  '/_dashboard/org/$org/teams': typeof DashboardOrgOrgTeamsRoute;
-  '/_dashboard/_user/admin/': typeof DashboardUserAdminIndexRoute;
-  '/_dashboard/org/$org/': typeof DashboardOrgOrgIndexRoute;
+  __root__: typeof rootRouteImport
+  '/_dashboard': typeof DashboardRouteWithChildren
+  '/_dashboard/_user': typeof DashboardUserRouteWithChildren
+  '/auth/$pathname': typeof AuthPathnameRoute
+  '/_dashboard/_user/admin': typeof DashboardUserAdminRouteWithChildren
+  '/_dashboard/_user/settings': typeof DashboardUserSettingsRoute
+  '/_dashboard/org/$org': typeof DashboardOrgOrgRouteWithChildren
+  '/_dashboard/_user/': typeof DashboardUserIndexRoute
+  '/_dashboard/_user/admin/users': typeof DashboardUserAdminUsersRoute
+  '/_dashboard/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute
+  '/_dashboard/org/$org/audit-log': typeof DashboardOrgOrgAuditLogRoute
+  '/_dashboard/org/$org/databases': typeof DashboardOrgOrgDatabasesRoute
+  '/_dashboard/org/$org/members': typeof DashboardOrgOrgMembersRoute
+  '/_dashboard/org/$org/networks': typeof DashboardOrgOrgNetworksRoute
+  '/_dashboard/org/$org/servers': typeof DashboardOrgOrgServersRoute
+  '/_dashboard/org/$org/settings': typeof DashboardOrgOrgSettingsRoute
+  '/_dashboard/org/$org/teams': typeof DashboardOrgOrgTeamsRoute
+  '/_dashboard/_user/admin/': typeof DashboardUserAdminIndexRoute
+  '/_dashboard/org/$org/': typeof DashboardOrgOrgIndexRoute
 }
-
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
     | '/auth/$pathname'
@@ -423,8 +195,8 @@ export interface FileRouteTypes {
     | '/org/$org/settings'
     | '/org/$org/teams'
     | '/admin/'
-    | '/org/$org/';
-  fileRoutesByTo: FileRoutesByTo;
+    | '/org/$org/'
+  fileRoutesByTo: FileRoutesByTo
   to:
     | ''
     | '/auth/$pathname'
@@ -440,7 +212,7 @@ export interface FileRouteTypes {
     | '/org/$org/settings'
     | '/org/$org/teams'
     | '/admin'
-    | '/org/$org';
+    | '/org/$org'
   id:
     | '__root__'
     | '/_dashboard'
@@ -460,128 +232,220 @@ export interface FileRouteTypes {
     | '/_dashboard/org/$org/settings'
     | '/_dashboard/org/$org/teams'
     | '/_dashboard/_user/admin/'
-    | '/_dashboard/org/$org/';
-  fileRoutesById: FileRoutesById;
+    | '/_dashboard/org/$org/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  DashboardRoute: typeof DashboardRouteWithChildren
+  AuthPathnameRoute: typeof AuthPathnameRoute
 }
 
-export interface RootRouteChildren {
-  DashboardRoute: typeof DashboardRouteWithChildren;
-  AuthPathnameRoute: typeof AuthPathnameRoute;
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_dashboard': {
+      id: '/_dashboard'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_dashboard/_user': {
+      id: '/_dashboard/_user'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DashboardUserRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/auth/$pathname': {
+      id: '/auth/$pathname'
+      path: '/auth/$pathname'
+      fullPath: '/auth/$pathname'
+      preLoaderRoute: typeof AuthPathnameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_dashboard/_user/admin': {
+      id: '/_dashboard/_user/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof DashboardUserAdminRouteImport
+      parentRoute: typeof DashboardUserRoute
+    }
+    '/_dashboard/_user/settings': {
+      id: '/_dashboard/_user/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof DashboardUserSettingsRouteImport
+      parentRoute: typeof DashboardUserRoute
+    }
+    '/_dashboard/org/$org': {
+      id: '/_dashboard/org/$org'
+      path: '/org/$org'
+      fullPath: '/org/$org'
+      preLoaderRoute: typeof DashboardOrgOrgRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/_dashboard/_user/': {
+      id: '/_dashboard/_user/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof DashboardUserIndexRouteImport
+      parentRoute: typeof DashboardUserRoute
+    }
+    '/_dashboard/_user/admin/users': {
+      id: '/_dashboard/_user/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof DashboardUserAdminUsersRouteImport
+      parentRoute: typeof DashboardUserAdminRoute
+    }
+    '/_dashboard/org/$org/assistant': {
+      id: '/_dashboard/org/$org/assistant'
+      path: '/assistant'
+      fullPath: '/org/$org/assistant'
+      preLoaderRoute: typeof DashboardOrgOrgAssistantRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/audit-log': {
+      id: '/_dashboard/org/$org/audit-log'
+      path: '/audit-log'
+      fullPath: '/org/$org/audit-log'
+      preLoaderRoute: typeof DashboardOrgOrgAuditLogRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/databases': {
+      id: '/_dashboard/org/$org/databases'
+      path: '/databases'
+      fullPath: '/org/$org/databases'
+      preLoaderRoute: typeof DashboardOrgOrgDatabasesRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/members': {
+      id: '/_dashboard/org/$org/members'
+      path: '/members'
+      fullPath: '/org/$org/members'
+      preLoaderRoute: typeof DashboardOrgOrgMembersRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/networks': {
+      id: '/_dashboard/org/$org/networks'
+      path: '/networks'
+      fullPath: '/org/$org/networks'
+      preLoaderRoute: typeof DashboardOrgOrgNetworksRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/servers': {
+      id: '/_dashboard/org/$org/servers'
+      path: '/servers'
+      fullPath: '/org/$org/servers'
+      preLoaderRoute: typeof DashboardOrgOrgServersRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/settings': {
+      id: '/_dashboard/org/$org/settings'
+      path: '/settings'
+      fullPath: '/org/$org/settings'
+      preLoaderRoute: typeof DashboardOrgOrgSettingsRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/teams': {
+      id: '/_dashboard/org/$org/teams'
+      path: '/teams'
+      fullPath: '/org/$org/teams'
+      preLoaderRoute: typeof DashboardOrgOrgTeamsRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/_user/admin/': {
+      id: '/_dashboard/_user/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof DashboardUserAdminIndexRouteImport
+      parentRoute: typeof DashboardUserAdminRoute
+    }
+    '/_dashboard/org/$org/': {
+      id: '/_dashboard/org/$org/'
+      path: '/'
+      fullPath: '/org/$org/'
+      preLoaderRoute: typeof DashboardOrgOrgIndexRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+  }
 }
+
+interface DashboardUserAdminRouteChildren {
+  DashboardUserAdminUsersRoute: typeof DashboardUserAdminUsersRoute
+  DashboardUserAdminIndexRoute: typeof DashboardUserAdminIndexRoute
+}
+
+const DashboardUserAdminRouteChildren: DashboardUserAdminRouteChildren = {
+  DashboardUserAdminUsersRoute: DashboardUserAdminUsersRoute,
+  DashboardUserAdminIndexRoute: DashboardUserAdminIndexRoute,
+}
+
+const DashboardUserAdminRouteWithChildren =
+  DashboardUserAdminRoute._addFileChildren(DashboardUserAdminRouteChildren)
+
+interface DashboardUserRouteChildren {
+  DashboardUserAdminRoute: typeof DashboardUserAdminRouteWithChildren
+  DashboardUserSettingsRoute: typeof DashboardUserSettingsRoute
+  DashboardUserIndexRoute: typeof DashboardUserIndexRoute
+}
+
+const DashboardUserRouteChildren: DashboardUserRouteChildren = {
+  DashboardUserAdminRoute: DashboardUserAdminRouteWithChildren,
+  DashboardUserSettingsRoute: DashboardUserSettingsRoute,
+  DashboardUserIndexRoute: DashboardUserIndexRoute,
+}
+
+const DashboardUserRouteWithChildren = DashboardUserRoute._addFileChildren(
+  DashboardUserRouteChildren,
+)
+
+interface DashboardOrgOrgRouteChildren {
+  DashboardOrgOrgAssistantRoute: typeof DashboardOrgOrgAssistantRoute
+  DashboardOrgOrgAuditLogRoute: typeof DashboardOrgOrgAuditLogRoute
+  DashboardOrgOrgDatabasesRoute: typeof DashboardOrgOrgDatabasesRoute
+  DashboardOrgOrgMembersRoute: typeof DashboardOrgOrgMembersRoute
+  DashboardOrgOrgNetworksRoute: typeof DashboardOrgOrgNetworksRoute
+  DashboardOrgOrgServersRoute: typeof DashboardOrgOrgServersRoute
+  DashboardOrgOrgSettingsRoute: typeof DashboardOrgOrgSettingsRoute
+  DashboardOrgOrgTeamsRoute: typeof DashboardOrgOrgTeamsRoute
+  DashboardOrgOrgIndexRoute: typeof DashboardOrgOrgIndexRoute
+}
+
+const DashboardOrgOrgRouteChildren: DashboardOrgOrgRouteChildren = {
+  DashboardOrgOrgAssistantRoute: DashboardOrgOrgAssistantRoute,
+  DashboardOrgOrgAuditLogRoute: DashboardOrgOrgAuditLogRoute,
+  DashboardOrgOrgDatabasesRoute: DashboardOrgOrgDatabasesRoute,
+  DashboardOrgOrgMembersRoute: DashboardOrgOrgMembersRoute,
+  DashboardOrgOrgNetworksRoute: DashboardOrgOrgNetworksRoute,
+  DashboardOrgOrgServersRoute: DashboardOrgOrgServersRoute,
+  DashboardOrgOrgSettingsRoute: DashboardOrgOrgSettingsRoute,
+  DashboardOrgOrgTeamsRoute: DashboardOrgOrgTeamsRoute,
+  DashboardOrgOrgIndexRoute: DashboardOrgOrgIndexRoute,
+}
+
+const DashboardOrgOrgRouteWithChildren = DashboardOrgOrgRoute._addFileChildren(
+  DashboardOrgOrgRouteChildren,
+)
+
+interface DashboardRouteChildren {
+  DashboardUserRoute: typeof DashboardUserRouteWithChildren
+  DashboardOrgOrgRoute: typeof DashboardOrgOrgRouteWithChildren
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardUserRoute: DashboardUserRouteWithChildren,
+  DashboardOrgOrgRoute: DashboardOrgOrgRouteWithChildren,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   AuthPathnameRoute: AuthPathnameRoute,
-};
-
-export const routeTree = rootRoute
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_dashboard",
-        "/auth/$pathname"
-      ]
-    },
-    "/_dashboard": {
-      "filePath": "_dashboard.tsx",
-      "children": [
-        "/_dashboard/_user",
-        "/_dashboard/org/$org"
-      ]
-    },
-    "/_dashboard/_user": {
-      "filePath": "_dashboard/_user.tsx",
-      "parent": "/_dashboard",
-      "children": [
-        "/_dashboard/_user/admin",
-        "/_dashboard/_user/settings",
-        "/_dashboard/_user/"
-      ]
-    },
-    "/auth/$pathname": {
-      "filePath": "auth/$pathname.tsx"
-    },
-    "/_dashboard/_user/admin": {
-      "filePath": "_dashboard/_user/admin.tsx",
-      "parent": "/_dashboard/_user",
-      "children": [
-        "/_dashboard/_user/admin/users",
-        "/_dashboard/_user/admin/"
-      ]
-    },
-    "/_dashboard/_user/settings": {
-      "filePath": "_dashboard/_user/settings.tsx",
-      "parent": "/_dashboard/_user"
-    },
-    "/_dashboard/org/$org": {
-      "filePath": "_dashboard/org/$org.tsx",
-      "parent": "/_dashboard",
-      "children": [
-        "/_dashboard/org/$org/assistant",
-        "/_dashboard/org/$org/audit-log",
-        "/_dashboard/org/$org/databases",
-        "/_dashboard/org/$org/members",
-        "/_dashboard/org/$org/networks",
-        "/_dashboard/org/$org/servers",
-        "/_dashboard/org/$org/settings",
-        "/_dashboard/org/$org/teams",
-        "/_dashboard/org/$org/"
-      ]
-    },
-    "/_dashboard/_user/": {
-      "filePath": "_dashboard/_user/index.tsx",
-      "parent": "/_dashboard/_user"
-    },
-    "/_dashboard/_user/admin/users": {
-      "filePath": "_dashboard/_user/admin/users.tsx",
-      "parent": "/_dashboard/_user/admin"
-    },
-    "/_dashboard/org/$org/assistant": {
-      "filePath": "_dashboard/org/$org/assistant.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/audit-log": {
-      "filePath": "_dashboard/org/$org/audit-log.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/databases": {
-      "filePath": "_dashboard/org/$org/databases.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/members": {
-      "filePath": "_dashboard/org/$org/members.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/networks": {
-      "filePath": "_dashboard/org/$org/networks.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/servers": {
-      "filePath": "_dashboard/org/$org/servers.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/settings": {
-      "filePath": "_dashboard/org/$org/settings.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/org/$org/teams": {
-      "filePath": "_dashboard/org/$org/teams.tsx",
-      "parent": "/_dashboard/org/$org"
-    },
-    "/_dashboard/_user/admin/": {
-      "filePath": "_dashboard/_user/admin/index.tsx",
-      "parent": "/_dashboard/_user/admin"
-    },
-    "/_dashboard/org/$org/": {
-      "filePath": "_dashboard/org/$org/index.tsx",
-      "parent": "/_dashboard/org/$org"
-    }
-  }
 }
-ROUTE_MANIFEST_END */
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
