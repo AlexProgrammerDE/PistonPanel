@@ -90,6 +90,7 @@ function RootComponent() {
             signUp={false}
             nameRequired
             apiKey
+            optimistic
             twoFactor={['otp', 'totp']}
             settings={{
               url: '/settings',
