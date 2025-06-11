@@ -315,7 +315,7 @@ export const auth = betterAuth({
             heading: 'Organization invitation',
             siteName: siteName,
             baseUrl: siteBaseUrl,
-            url: `${siteBaseUrl}/organization/accept-invitation?id=${id}`,
+            url: `${siteBaseUrl}/auth/accept-invitation?invitationId=${id}`,
           }),
         );
       },
