@@ -4,11 +4,11 @@ import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { ExternalLink } from '@/components/external-link';
 import { UserAvatar } from '@/components/user-avatar';
 import { Card } from '@/components/ui/card';
-import { SettingsCards } from '@daveyplate/better-auth-ui';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { TextInfoButton } from '@/components/info-buttons';
+import { AccountSettingsCards } from '@daveyplate/better-auth-ui';
 
-export const Route = createFileRoute('/_dashboard/_user/settings')({
+export const Route = createFileRoute('/_dashboard/_user/account')({
   component: UserSettings,
 });
 
@@ -16,7 +16,7 @@ function UserSettings() {
   const { t } = useTranslation('common');
 
   return (
-    <UserPageLayout showUserCrumb={true} pageName={t('pageName.settings')}>
+    <UserPageLayout showUserCrumb={true} pageName={t('pageName.account')}>
       <Content />
     </UserPageLayout>
   );
@@ -28,7 +28,7 @@ function Content() {
 
   return (
     <div className="container flex h-full w-full grow flex-col gap-4">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         <div className="flex max-w-xl flex-col gap-1">
           <div className="flex w-fit flex-row items-center gap-2">
             <p>Avatar</p>
@@ -62,7 +62,7 @@ function Content() {
             </div>
           </Card>
         </div>
-        <SettingsCards />
+        <AccountSettingsCards />
       </div>
     </div>
   );

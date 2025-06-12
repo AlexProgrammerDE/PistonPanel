@@ -14,8 +14,10 @@ import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
 import { Route as DashboardUserRouteImport } from './routes/_dashboard/_user'
 import { Route as DashboardUserIndexRouteImport } from './routes/_dashboard/_user/index'
 import { Route as DashboardOrgOrgRouteImport } from './routes/_dashboard/org/$org'
-import { Route as DashboardUserSettingsRouteImport } from './routes/_dashboard/_user/settings'
+import { Route as DashboardUserSecurityRouteImport } from './routes/_dashboard/_user/security'
+import { Route as DashboardUserApiKeysRouteImport } from './routes/_dashboard/_user/api-keys'
 import { Route as DashboardUserAdminRouteImport } from './routes/_dashboard/_user/admin'
+import { Route as DashboardUserAccountRouteImport } from './routes/_dashboard/_user/account'
 import { Route as DashboardOrgOrgIndexRouteImport } from './routes/_dashboard/org/$org/index'
 import { Route as DashboardUserAdminIndexRouteImport } from './routes/_dashboard/_user/admin/index'
 import { Route as DashboardOrgOrgTeamsRouteImport } from './routes/_dashboard/org/$org/teams'
@@ -51,14 +53,24 @@ const DashboardOrgOrgRoute = DashboardOrgOrgRouteImport.update({
   path: '/org/$org',
   getParentRoute: () => DashboardRoute,
 } as any)
-const DashboardUserSettingsRoute = DashboardUserSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const DashboardUserSecurityRoute = DashboardUserSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => DashboardUserRoute,
+} as any)
+const DashboardUserApiKeysRoute = DashboardUserApiKeysRouteImport.update({
+  id: '/api-keys',
+  path: '/api-keys',
   getParentRoute: () => DashboardUserRoute,
 } as any)
 const DashboardUserAdminRoute = DashboardUserAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => DashboardUserRoute,
+} as any)
+const DashboardUserAccountRoute = DashboardUserAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => DashboardUserRoute,
 } as any)
 const DashboardOrgOrgIndexRoute = DashboardOrgOrgIndexRouteImport.update({
@@ -122,8 +134,10 @@ const DashboardUserAdminUsersRoute = DashboardUserAdminUsersRouteImport.update({
 export interface FileRoutesByFullPath {
   '': typeof DashboardUserRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
+  '/account': typeof DashboardUserAccountRoute
   '/admin': typeof DashboardUserAdminRouteWithChildren
-  '/settings': typeof DashboardUserSettingsRoute
+  '/api-keys': typeof DashboardUserApiKeysRoute
+  '/security': typeof DashboardUserSecurityRoute
   '/org/$org': typeof DashboardOrgOrgRouteWithChildren
   '/': typeof DashboardUserIndexRoute
   '/admin/users': typeof DashboardUserAdminUsersRoute
@@ -141,7 +155,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof DashboardRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
-  '/settings': typeof DashboardUserSettingsRoute
+  '/account': typeof DashboardUserAccountRoute
+  '/api-keys': typeof DashboardUserApiKeysRoute
+  '/security': typeof DashboardUserSecurityRoute
   '/': typeof DashboardUserIndexRoute
   '/admin/users': typeof DashboardUserAdminUsersRoute
   '/org/$org/assistant': typeof DashboardOrgOrgAssistantRoute
@@ -160,8 +176,10 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardRouteWithChildren
   '/_dashboard/_user': typeof DashboardUserRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
+  '/_dashboard/_user/account': typeof DashboardUserAccountRoute
   '/_dashboard/_user/admin': typeof DashboardUserAdminRouteWithChildren
-  '/_dashboard/_user/settings': typeof DashboardUserSettingsRoute
+  '/_dashboard/_user/api-keys': typeof DashboardUserApiKeysRoute
+  '/_dashboard/_user/security': typeof DashboardUserSecurityRoute
   '/_dashboard/org/$org': typeof DashboardOrgOrgRouteWithChildren
   '/_dashboard/_user/': typeof DashboardUserIndexRoute
   '/_dashboard/_user/admin/users': typeof DashboardUserAdminUsersRoute
@@ -181,8 +199,10 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/auth/$pathname'
+    | '/account'
     | '/admin'
-    | '/settings'
+    | '/api-keys'
+    | '/security'
     | '/org/$org'
     | '/'
     | '/admin/users'
@@ -200,7 +220,9 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/auth/$pathname'
-    | '/settings'
+    | '/account'
+    | '/api-keys'
+    | '/security'
     | '/'
     | '/admin/users'
     | '/org/$org/assistant'
@@ -218,8 +240,10 @@ export interface FileRouteTypes {
     | '/_dashboard'
     | '/_dashboard/_user'
     | '/auth/$pathname'
+    | '/_dashboard/_user/account'
     | '/_dashboard/_user/admin'
-    | '/_dashboard/_user/settings'
+    | '/_dashboard/_user/api-keys'
+    | '/_dashboard/_user/security'
     | '/_dashboard/org/$org'
     | '/_dashboard/_user/'
     | '/_dashboard/_user/admin/users'
@@ -263,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthPathnameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_dashboard/_user/account': {
+      id: '/_dashboard/_user/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof DashboardUserAccountRouteImport
+      parentRoute: typeof DashboardUserRoute
+    }
     '/_dashboard/_user/admin': {
       id: '/_dashboard/_user/admin'
       path: '/admin'
@@ -270,11 +301,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUserAdminRouteImport
       parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/_user/settings': {
-      id: '/_dashboard/_user/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof DashboardUserSettingsRouteImport
+    '/_dashboard/_user/api-keys': {
+      id: '/_dashboard/_user/api-keys'
+      path: '/api-keys'
+      fullPath: '/api-keys'
+      preLoaderRoute: typeof DashboardUserApiKeysRouteImport
+      parentRoute: typeof DashboardUserRoute
+    }
+    '/_dashboard/_user/security': {
+      id: '/_dashboard/_user/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof DashboardUserSecurityRouteImport
       parentRoute: typeof DashboardUserRoute
     }
     '/_dashboard/org/$org': {
@@ -385,14 +423,18 @@ const DashboardUserAdminRouteWithChildren =
   DashboardUserAdminRoute._addFileChildren(DashboardUserAdminRouteChildren)
 
 interface DashboardUserRouteChildren {
+  DashboardUserAccountRoute: typeof DashboardUserAccountRoute
   DashboardUserAdminRoute: typeof DashboardUserAdminRouteWithChildren
-  DashboardUserSettingsRoute: typeof DashboardUserSettingsRoute
+  DashboardUserApiKeysRoute: typeof DashboardUserApiKeysRoute
+  DashboardUserSecurityRoute: typeof DashboardUserSecurityRoute
   DashboardUserIndexRoute: typeof DashboardUserIndexRoute
 }
 
 const DashboardUserRouteChildren: DashboardUserRouteChildren = {
+  DashboardUserAccountRoute: DashboardUserAccountRoute,
   DashboardUserAdminRoute: DashboardUserAdminRouteWithChildren,
-  DashboardUserSettingsRoute: DashboardUserSettingsRoute,
+  DashboardUserApiKeysRoute: DashboardUserApiKeysRoute,
+  DashboardUserSecurityRoute: DashboardUserSecurityRoute,
   DashboardUserIndexRoute: DashboardUserIndexRoute,
 }
 

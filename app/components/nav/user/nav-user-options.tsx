@@ -1,6 +1,12 @@
 'use client';
 
-import { Grid2x2Icon, PlusIcon, SettingsIcon } from 'lucide-react';
+import {
+  Grid2x2Icon,
+  KeyIcon,
+  LockIcon,
+  PlusIcon,
+  UserIcon,
+} from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -41,10 +47,26 @@ export function NavUserOptions() {
       createOrg: true,
     },
     {
-      title: t('userSidebar.settings'),
-      icon: SettingsIcon,
+      title: t('userSidebar.account'),
+      icon: UserIcon,
       linkProps: {
-        to: '/settings',
+        to: '/account',
+        params: {},
+      },
+    },
+    {
+      title: t('userSidebar.security'),
+      icon: LockIcon,
+      linkProps: {
+        to: '/security',
+        params: {},
+      },
+    },
+    {
+      title: t('userSidebar.apiKeys'),
+      icon: KeyIcon,
+      linkProps: {
+        to: '/api-keys',
         params: {},
       },
     },
