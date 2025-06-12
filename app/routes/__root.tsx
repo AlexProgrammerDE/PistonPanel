@@ -93,7 +93,7 @@ function RootComponent() {
             optimistic
             twoFactor={['otp', 'totp']}
             settings={{
-              url: '/settings',
+              url: '/account',
             }}
             Link={({ href, ...props }) => <Link to={href} {...props} />}
           >
