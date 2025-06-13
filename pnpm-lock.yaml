@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.4
-        version: 2.0.5(e8921b584a55b0218c2b6ffc51bc30ea)
+        version: 2.0.5(17fb22130b9f680d61a862b9c6b093c1)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -162,11 +162,11 @@ importers:
         specifier: ^0.11.0
         version: 0.11.1
       lucide-react:
-        specifier: ^0.514.0
-        version: 0.514.0(react@19.1.0)
+        specifier: ^0.515.0
+        version: 0.515.0(react@19.1.0)
       lucide-static:
-        specifier: ^0.514.0
-        version: 0.514.0
+        specifier: ^0.515.0
+        version: 0.515.0
       mime-matcher:
         specifier: ^1.0.5
         version: 1.0.5
@@ -220,7 +220,7 @@ importers:
         version: 5.8.0
       zod-i18n-map:
         specifier: ^2.27.0
-        version: 2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.63)
+        version: 2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.64)
     devDependencies:
       '@eslint/js':
         specifier: ^9.23.0
@@ -356,7 +356,7 @@ importers:
         version: 5.1.4(typescript@5.8.3)(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.2)(yaml@2.8.0))
       zod:
         specifier: ^3.24.2
-        version: 3.25.63
+        version: 3.25.64
 
 packages:
 
@@ -2911,6 +2911,9 @@ packages:
   caniuse-lite@1.0.30001722:
     resolution: {integrity: sha512-DCQHBBZtiK6JVkAGw7drvAMK0Q0POD/xZvEmDp6baiMMP6QXXk9HpD6mNYBZWhOPG6LvIDb82ITqtWjhDckHCA==}
 
+  caniuse-lite@1.0.30001723:
+    resolution: {integrity: sha512-1R/elMjtehrFejxwmexeXAtae5UO9iSyFn6G/I806CYC/BLyyBk1EPhrKBkWhy6wM6Xnm47dSJQec+tLJ39WHw==}
+
   cdk8s-plus-32@2.1.5:
     resolution: {integrity: sha512-fhfClAJRBpalRHmRdbGj6O40VU8HuEUIKS70bOKdoUJ/0becI4y3+sXSWUrcxsgVqzzgKFowY7YIGn6QGIxprA==}
     engines: {node: '>= 16.20.0'}
@@ -4126,13 +4129,13 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.514.0:
-    resolution: {integrity: sha512-HXD0OAMd+JM2xCjlwG1EGW9Nuab64dhjO3+MvdyD+pSUeOTBaVAPhQblKIYmmX4RyBYbdzW0VWnJpjJmxWGr6w==}
+  lucide-react@0.515.0:
+    resolution: {integrity: sha512-Sy7bY0MeicRm2pzrnoHm2h6C1iVoeHyBU2fjdQDsXGP51fhkhau1/ZV/dzrcxEmAKsxYb6bGaIsMnGHuQ5s0dw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  lucide-static@0.514.0:
-    resolution: {integrity: sha512-agEEaXa/nFnzw/zZU+V9KD45YA6+ke4uhB3HRBHUd0tr2kw+Ej7sY+jeaAKTmsg3Lis1a4iAjZGfffa8pMwlpw==}
+  lucide-static@0.515.0:
+    resolution: {integrity: sha512-6ycN6eCEFrSv2FSmJicJ1FjLn5U5wuzZzx9wYqmiOruUJJYDHXQJlP3jZOQoKF13gJtvUOAgUNo+Bj2Q+DE9yg==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -5426,8 +5429,8 @@ packages:
       i18next: '>=21.3.0'
       zod: '>=3.17.0'
 
-  zod@3.25.63:
-    resolution: {integrity: sha512-3ttCkqhtpncYXfP0f6dsyabbYV/nEUW+Xlu89jiXbTBifUfjaSqXOG6JnQPLtqt87n7KAmnMqcjay6c0Wq0Vbw==}
+  zod@3.25.64:
+    resolution: {integrity: sha512-hbP9FpSZf7pkS7hRVUrOjhwKJNyampPgtXKc3AN6DsWtoHsg2Sb4SQaS4Tcay380zSwd2VPo9G9180emBACp5g==}
 
 snapshots:
 
@@ -5653,7 +5656,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.0.5(e8921b584a55b0218c2b6ffc51bc30ea)':
+  '@daveyplate/better-auth-ui@2.0.5(17fb22130b9f680d61a862b9c6b093c1)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.80.7)(@tanstack/react-query@5.80.7(react@19.1.0))(better-auth@1.2.9)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5684,7 +5687,7 @@ snapshots:
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       js-sha256: 0.11.1
-      lucide-react: 0.514.0(react@19.1.0)
+      lucide-react: 0.515.0(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-google-recaptcha: 3.1.0(react@19.1.0)
@@ -5695,7 +5698,7 @@ snapshots:
       tailwindcss: 4.1.10
       ua-parser-js: 2.0.3
       vaul: 1.1.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      zod: 3.25.63
+      zod: 3.25.64
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -6953,7 +6956,7 @@ snapshots:
       '@module-federation/runtime-tools': 0.11.2
       '@rspack/binding': 1.3.5
       '@rspack/lite-tapable': 1.0.1
-      caniuse-lite: 1.0.30001722
+      caniuse-lite: 1.0.30001723
     optionalDependencies:
       '@swc/helpers': 0.5.17
     optional: true
@@ -7235,7 +7238,7 @@ snapshots:
       recast: 0.23.11
       source-map: 0.7.4
       tsx: 4.20.2
-      zod: 3.25.63
+      zod: 3.25.64
     transitivePeerDependencies:
       - supports-color
 
@@ -7254,7 +7257,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       chokidar: 3.6.0
       unplugin: 2.3.5
-      zod: 3.25.63
+      zod: 3.25.64
     optionalDependencies:
       '@rsbuild/core': 1.3.9
       '@tanstack/react-router': 1.121.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7879,7 +7882,7 @@ snapshots:
       jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.63
+      zod: 3.25.64
 
   better-call@1.0.9:
     dependencies:
@@ -7952,6 +7955,9 @@ snapshots:
   caniuse-lite@1.0.30001707: {}
 
   caniuse-lite@1.0.30001722: {}
+
+  caniuse-lite@1.0.30001723:
+    optional: true
 
   cdk8s-plus-32@2.1.5(cdk8s@2.69.73(constructs@10.4.2))(constructs@10.4.2):
     dependencies:
@@ -9178,11 +9184,11 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.514.0(react@19.1.0):
+  lucide-react@0.515.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 
-  lucide-static@0.514.0: {}
+  lucide-static@0.515.0: {}
 
   magic-string@0.30.17:
     dependencies:
@@ -10495,9 +10501,9 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-i18n-map@2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.63):
+  zod-i18n-map@2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.64):
     dependencies:
       i18next: 25.2.1(typescript@5.8.3)
-      zod: 3.25.63
+      zod: 3.25.64
 
-  zod@3.25.63: {}
+  zod@3.25.64: {}
