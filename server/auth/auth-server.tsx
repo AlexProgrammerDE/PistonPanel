@@ -29,7 +29,6 @@ import { siteBaseUrl, siteName } from '~/config';
 import { emailHarmony } from 'better-auth-harmony';
 
 const disableSignUp = true;
-const emailAndPasswordEnabled = false;
 
 export const auth = betterAuth({
   appName: siteName,
@@ -48,7 +47,7 @@ export const auth = betterAuth({
   },
   socialProviders: {},
   emailAndPassword: {
-    enabled: emailAndPasswordEnabled,
+    enabled: true,
     disableSignUp,
     requireEmailVerification: true,
     async sendResetPassword({ user, url }) {
