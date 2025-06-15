@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.4
-        version: 2.0.5(17fb22130b9f680d61a862b9c6b093c1)
+        version: 2.0.7(17fb22130b9f680d61a862b9c6b093c1)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -239,10 +239,10 @@ importers:
         version: 1.121.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/router-cli':
         specifier: ^1.114.27
-        version: 1.121.12
+        version: 1.121.13
       '@tanstack/router-plugin':
         specifier: ^1.114.27
-        version: 1.121.12(@rsbuild/core@1.3.9)(@tanstack/react-router@1.121.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.95.0(esbuild@0.25.3))
+        version: 1.121.13(@rsbuild/core@1.3.9)(@tanstack/react-router@1.121.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.95.0(esbuild@0.25.3))
       '@trpc/server':
         specifier: ^11.1.2
         version: 11.4.1(typescript@5.8.3)
@@ -529,8 +529,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-ui@2.0.5':
-    resolution: {integrity: sha512-ItwFWhD9YxAFy3IsmW88SAVuklf8VwnFgEWvzxR2i5s+cP56QoMDFFcuvpFjVA2ZUBrNrVGtO9GT10Z5SGsouw==}
+  '@daveyplate/better-auth-ui@2.0.7':
+    resolution: {integrity: sha512-Q67wiYWhNb9T+WMjYuZzIggNTUL9RiIFmklJoPWP5S4RTKeCR9NmGjchC1Y5mjBbl/2p5f+TVvM1N3KCcb3f+Q==}
     peerDependencies:
       '@daveyplate/better-auth-tanstack': ^1.3.6
       '@hookform/resolvers': '>=5.0.0'
@@ -2311,8 +2311,8 @@ packages:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  '@tanstack/router-cli@1.121.12':
-    resolution: {integrity: sha512-dvpK87Ed9OnuIfsAo5P0qHH7oiz3oc1HZviwl6akHEfITc2OR93EQ5WKGxj21C3PGwygUU6B2Cn2FyxsgpKKGA==}
+  '@tanstack/router-cli@1.121.13':
+    resolution: {integrity: sha512-oGxMdUHPazO+HKOtfliQTFw7zM+2ip/0Ph9G6QSn/J4Me6cPDNTZ6pqyA21T97ha/YGir+JS0XPeqDkG9TlxiA==}
     engines: {node: '>=12'}
     hasBin: true
 
@@ -2344,12 +2344,12 @@ packages:
       csstype:
         optional: true
 
-  '@tanstack/router-generator@1.121.12':
-    resolution: {integrity: sha512-/bpF51PB0Tk2w9WGEbH2mnBYQv74J+I9fb5N2Y7eigZ/FQsQw88J6ps8iDksOXJpdoOZ5K/M97WSpaU74rc/UQ==}
+  '@tanstack/router-generator@1.121.13':
+    resolution: {integrity: sha512-kMgwO7ioy/wv3vZhfEe4a3RZKvANv+EBHQPcEM7dbC1Da8Jk/Ql+/d7SCNkkWg4BdCM4K8tz+3nu2533XjEQxA==}
     engines: {node: '>=12'}
 
-  '@tanstack/router-plugin@1.121.12':
-    resolution: {integrity: sha512-B4KedMpjxk1oBlLIaQoAppLQOzmQVKUo0B6YDyXHFFJImlO5YQlqGJvIqI0zQRF4+h1DCpGpSxatOChOGzpIHQ==}
+  '@tanstack/router-plugin@1.121.13':
+    resolution: {integrity: sha512-WrZ3RsW9UJO9tQGfmFIVz/pkSgihlyxxCUqE066Pvh8Z/cxmGLYF4VEXTBjin5yOeIpo8z6BFFA2oMUrFFBu1g==}
     engines: {node: '>=12'}
     peerDependencies:
       '@rsbuild/core': '>=1.0.2'
@@ -5648,7 +5648,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.0.5(17fb22130b9f680d61a862b9c6b093c1)':
+  '@daveyplate/better-auth-ui@2.0.7(17fb22130b9f680d61a862b9c6b093c1)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.80.7)(@tanstack/react-query@5.80.7(react@19.1.0))(better-auth@1.2.9)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7186,9 +7186,9 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@tanstack/router-cli@1.121.12':
+  '@tanstack/router-cli@1.121.13':
     dependencies:
-      '@tanstack/router-generator': 1.121.12
+      '@tanstack/router-generator': 1.121.13
       chokidar: 3.6.0
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -7225,7 +7225,7 @@ snapshots:
       - solid-js
       - tiny-invariant
 
-  '@tanstack/router-generator@1.121.12':
+  '@tanstack/router-generator@1.121.13':
     dependencies:
       '@tanstack/router-core': 1.121.12
       '@tanstack/router-utils': 1.121.0
@@ -7238,7 +7238,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/router-plugin@1.121.12(@rsbuild/core@1.3.9)(@tanstack/react-router@1.121.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.95.0(esbuild@0.25.3))':
+  '@tanstack/router-plugin@1.121.13(@rsbuild/core@1.3.9)(@tanstack/react-router@1.121.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.3.3(@types/node@22.15.31)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))(webpack@5.95.0(esbuild@0.25.3))':
     dependencies:
       '@babel/core': 7.27.4
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.27.4)
@@ -7247,7 +7247,7 @@ snapshots:
       '@babel/traverse': 7.27.4
       '@babel/types': 7.27.6
       '@tanstack/router-core': 1.121.12
-      '@tanstack/router-generator': 1.121.12
+      '@tanstack/router-generator': 1.121.13
       '@tanstack/router-utils': 1.121.0
       '@tanstack/virtual-file-routes': 1.120.17
       babel-dead-code-elimination: 1.0.10
