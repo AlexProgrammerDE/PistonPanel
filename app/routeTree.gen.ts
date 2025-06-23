@@ -132,7 +132,6 @@ const DashboardUserAdminUsersRoute = DashboardUserAdminUsersRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '': typeof DashboardUserRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
   '/account': typeof DashboardUserAccountRoute
   '/admin': typeof DashboardUserAdminRouteWithChildren
@@ -153,7 +152,6 @@ export interface FileRoutesByFullPath {
   '/org/$org/': typeof DashboardOrgOrgIndexRoute
 }
 export interface FileRoutesByTo {
-  '': typeof DashboardRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
   '/account': typeof DashboardUserAccountRoute
   '/api-keys': typeof DashboardUserApiKeysRoute
@@ -197,7 +195,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | ''
     | '/auth/$pathname'
     | '/account'
     | '/admin'
@@ -218,7 +215,6 @@ export interface FileRouteTypes {
     | '/org/$org/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | ''
     | '/auth/$pathname'
     | '/account'
     | '/api-keys'
@@ -273,13 +269,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_dashboard/_user': {
-      id: '/_dashboard/_user'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DashboardUserRouteImport
-      parentRoute: typeof DashboardRoute
-    }
     '/auth/$pathname': {
       id: '/auth/$pathname'
       path: '/auth/$pathname'
@@ -287,39 +276,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthPathnameRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_dashboard/_user/account': {
-      id: '/_dashboard/_user/account'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof DashboardUserAccountRouteImport
-      parentRoute: typeof DashboardUserRoute
-    }
-    '/_dashboard/_user/admin': {
-      id: '/_dashboard/_user/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof DashboardUserAdminRouteImport
-      parentRoute: typeof DashboardUserRoute
-    }
-    '/_dashboard/_user/api-keys': {
-      id: '/_dashboard/_user/api-keys'
-      path: '/api-keys'
-      fullPath: '/api-keys'
-      preLoaderRoute: typeof DashboardUserApiKeysRouteImport
-      parentRoute: typeof DashboardUserRoute
-    }
-    '/_dashboard/_user/security': {
-      id: '/_dashboard/_user/security'
-      path: '/security'
-      fullPath: '/security'
-      preLoaderRoute: typeof DashboardUserSecurityRouteImport
-      parentRoute: typeof DashboardUserRoute
-    }
-    '/_dashboard/org/$org': {
-      id: '/_dashboard/org/$org'
-      path: '/org/$org'
-      fullPath: '/org/$org'
-      preLoaderRoute: typeof DashboardOrgOrgRouteImport
+    '/_dashboard/_user': {
+      id: '/_dashboard/_user'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DashboardUserRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/_dashboard/_user/': {
@@ -329,67 +290,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUserIndexRouteImport
       parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/_user/admin/users': {
-      id: '/_dashboard/_user/admin/users'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof DashboardUserAdminUsersRouteImport
-      parentRoute: typeof DashboardUserAdminRoute
+    '/_dashboard/org/$org': {
+      id: '/_dashboard/org/$org'
+      path: '/org/$org'
+      fullPath: '/org/$org'
+      preLoaderRoute: typeof DashboardOrgOrgRouteImport
+      parentRoute: typeof DashboardRoute
     }
-    '/_dashboard/org/$org/assistant': {
-      id: '/_dashboard/org/$org/assistant'
-      path: '/assistant'
-      fullPath: '/org/$org/assistant'
-      preLoaderRoute: typeof DashboardOrgOrgAssistantRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
+    '/_dashboard/_user/security': {
+      id: '/_dashboard/_user/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof DashboardUserSecurityRouteImport
+      parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/org/$org/audit-log': {
-      id: '/_dashboard/org/$org/audit-log'
-      path: '/audit-log'
-      fullPath: '/org/$org/audit-log'
-      preLoaderRoute: typeof DashboardOrgOrgAuditLogRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
+    '/_dashboard/_user/api-keys': {
+      id: '/_dashboard/_user/api-keys'
+      path: '/api-keys'
+      fullPath: '/api-keys'
+      preLoaderRoute: typeof DashboardUserApiKeysRouteImport
+      parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/org/$org/databases': {
-      id: '/_dashboard/org/$org/databases'
-      path: '/databases'
-      fullPath: '/org/$org/databases'
-      preLoaderRoute: typeof DashboardOrgOrgDatabasesRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
+    '/_dashboard/_user/admin': {
+      id: '/_dashboard/_user/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof DashboardUserAdminRouteImport
+      parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/org/$org/members': {
-      id: '/_dashboard/org/$org/members'
-      path: '/members'
-      fullPath: '/org/$org/members'
-      preLoaderRoute: typeof DashboardOrgOrgMembersRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
+    '/_dashboard/_user/account': {
+      id: '/_dashboard/_user/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof DashboardUserAccountRouteImport
+      parentRoute: typeof DashboardUserRoute
     }
-    '/_dashboard/org/$org/networks': {
-      id: '/_dashboard/org/$org/networks'
-      path: '/networks'
-      fullPath: '/org/$org/networks'
-      preLoaderRoute: typeof DashboardOrgOrgNetworksRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
-    }
-    '/_dashboard/org/$org/servers': {
-      id: '/_dashboard/org/$org/servers'
-      path: '/servers'
-      fullPath: '/org/$org/servers'
-      preLoaderRoute: typeof DashboardOrgOrgServersRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
-    }
-    '/_dashboard/org/$org/settings': {
-      id: '/_dashboard/org/$org/settings'
-      path: '/settings'
-      fullPath: '/org/$org/settings'
-      preLoaderRoute: typeof DashboardOrgOrgSettingsRouteImport
-      parentRoute: typeof DashboardOrgOrgRoute
-    }
-    '/_dashboard/org/$org/teams': {
-      id: '/_dashboard/org/$org/teams'
-      path: '/teams'
-      fullPath: '/org/$org/teams'
-      preLoaderRoute: typeof DashboardOrgOrgTeamsRouteImport
+    '/_dashboard/org/$org/': {
+      id: '/_dashboard/org/$org/'
+      path: '/'
+      fullPath: '/org/$org/'
+      preLoaderRoute: typeof DashboardOrgOrgIndexRouteImport
       parentRoute: typeof DashboardOrgOrgRoute
     }
     '/_dashboard/_user/admin/': {
@@ -399,12 +339,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUserAdminIndexRouteImport
       parentRoute: typeof DashboardUserAdminRoute
     }
-    '/_dashboard/org/$org/': {
-      id: '/_dashboard/org/$org/'
-      path: '/'
-      fullPath: '/org/$org/'
-      preLoaderRoute: typeof DashboardOrgOrgIndexRouteImport
+    '/_dashboard/org/$org/teams': {
+      id: '/_dashboard/org/$org/teams'
+      path: '/teams'
+      fullPath: '/org/$org/teams'
+      preLoaderRoute: typeof DashboardOrgOrgTeamsRouteImport
       parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/settings': {
+      id: '/_dashboard/org/$org/settings'
+      path: '/settings'
+      fullPath: '/org/$org/settings'
+      preLoaderRoute: typeof DashboardOrgOrgSettingsRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/servers': {
+      id: '/_dashboard/org/$org/servers'
+      path: '/servers'
+      fullPath: '/org/$org/servers'
+      preLoaderRoute: typeof DashboardOrgOrgServersRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/networks': {
+      id: '/_dashboard/org/$org/networks'
+      path: '/networks'
+      fullPath: '/org/$org/networks'
+      preLoaderRoute: typeof DashboardOrgOrgNetworksRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/members': {
+      id: '/_dashboard/org/$org/members'
+      path: '/members'
+      fullPath: '/org/$org/members'
+      preLoaderRoute: typeof DashboardOrgOrgMembersRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/databases': {
+      id: '/_dashboard/org/$org/databases'
+      path: '/databases'
+      fullPath: '/org/$org/databases'
+      preLoaderRoute: typeof DashboardOrgOrgDatabasesRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/audit-log': {
+      id: '/_dashboard/org/$org/audit-log'
+      path: '/audit-log'
+      fullPath: '/org/$org/audit-log'
+      preLoaderRoute: typeof DashboardOrgOrgAuditLogRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/org/$org/assistant': {
+      id: '/_dashboard/org/$org/assistant'
+      path: '/assistant'
+      fullPath: '/org/$org/assistant'
+      preLoaderRoute: typeof DashboardOrgOrgAssistantRouteImport
+      parentRoute: typeof DashboardOrgOrgRoute
+    }
+    '/_dashboard/_user/admin/users': {
+      id: '/_dashboard/_user/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof DashboardUserAdminUsersRouteImport
+      parentRoute: typeof DashboardUserAdminRoute
     }
   }
 }
