@@ -18,11 +18,17 @@ export const Route = createFileRoute('/_dashboard')({
       const clientDataQueryOptions = queryOptions({
         queryKey: ['client-data'],
         queryFn: async () => {
-          return await authClient.getSession({
+          const session = await authClient.getSession({
             fetchOptions: {
               throw: true,
             },
           });
+
+          if (!session) {
+            throw new Error('Session not found');
+          }
+
+          return session;
         },
       });
       props.abortController.signal.addEventListener('abort', () => {
