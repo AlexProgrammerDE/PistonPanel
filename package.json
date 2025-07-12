@@ -49,7 +49,7 @@
     "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/query-broadcast-client-experimental": "^5.69.0",
     "@tanstack/react-query": "^5.69.0",
-    "@tanstack/react-query-devtools": "5.82.0",
+    "@tanstack/react-query-devtools": "5.83.0",
     "@tanstack/react-table": "^8.21.2",
     "@tanstack/router-devtools": "^1.114.27",
     "@trpc/client": "^11.1.2",
@@ -97,7 +97,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
-    "@react-email/components": "^0.2.0",
+    "@react-email/components": "^0.3.0",
     "@tailwindcss/postcss": "^4.0.15",
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/react-router": "^1.114.27",
