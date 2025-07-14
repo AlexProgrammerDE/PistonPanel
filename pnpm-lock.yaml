@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.4
-        version: 2.0.12(52dc4de41d356c7ff70c7aef02dbf2a9)
+        version: 2.0.14(52dc4de41d356c7ff70c7aef02dbf2a9)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -28,7 +28,7 @@ importers:
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@icons-pack/react-simple-icons':
         specifier: ^13.0.0
-        version: 13.4.0(react@19.1.0)
+        version: 13.5.0(react@19.1.0)
       '@kubernetes/client-node':
         specifier: ^1.1.2
         version: 1.3.0
@@ -529,8 +529,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@daveyplate/better-auth-ui@2.0.12':
-    resolution: {integrity: sha512-SSKofNNrGcQCgWO2rKD5LF/moNom9lsPy0XQZgxWcNtMe6FTeuGX8qLQqxAVmiKxMsDAV6amNQJkFkYX7pjoNA==}
+  '@daveyplate/better-auth-ui@2.0.14':
+    resolution: {integrity: sha512-8ma5Pc+ryaIJWBRus7sfsiucpUqGFCBwuM2MOmT9jhATLFA7AkneVsaEhpIb5URDhXinv/24eT1stj5U/QPz6w==}
     peerDependencies:
       '@daveyplate/better-auth-tanstack': ^1.3.6
       '@hookform/resolvers': '>=5.0.0'
@@ -1135,8 +1135,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@icons-pack/react-simple-icons@13.4.0':
-    resolution: {integrity: sha512-SBBR2Jq88IEhr5NEg22MtF5WxlC6B5uRgXCL8tFHS/CBr5WBepEIFIcHG8ijNjfjIQa8YuO73Q2UvVHoM148fA==}
+  '@icons-pack/react-simple-icons@13.5.0':
+    resolution: {integrity: sha512-00/E53YOt967SomgPWyH4eTtHdUDLAeaowl0CAU7UnEuBOrHznrKhFQHccdN0wShR5CVXxYh41qeYl6ZGJ/OSg==}
     peerDependencies:
       react: ^16.13 || ^17 || ^18 || ^19
 
@@ -4691,8 +4691,8 @@ packages:
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
 
-  react-qr-code@2.0.16:
-    resolution: {integrity: sha512-8f54aTOo7DxYr1LB47pMeclV5SL/zSbJxkXHIS2a+QnAIa4XDVIdmzYRC+CBCJeDLSCeFHn8gHtltwvwZGJD/w==}
+  react-qr-code@2.0.18:
+    resolution: {integrity: sha512-v1Jqz7urLMhkO6jkgJuBYhnqvXagzceg3qJUWayuCK/c6LTIonpWbwxR1f1APGd4xrW/QcQEovNrAojbUz65Tg==}
     peerDependencies:
       react: '*'
 
@@ -5694,7 +5694,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.0.12(52dc4de41d356c7ff70c7aef02dbf2a9)':
+  '@daveyplate/better-auth-ui@2.0.14(52dc4de41d356c7ff70c7aef02dbf2a9)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -5730,7 +5730,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       react-google-recaptcha: 3.1.0(react@19.1.0)
       react-hook-form: 7.60.0(react@19.1.0)
-      react-qr-code: 2.0.16(react@19.1.0)
+      react-qr-code: 2.0.18(react@19.1.0)
       sonner: 2.0.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge: 3.3.1
       tailwindcss: 4.1.11
@@ -6082,7 +6082,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@icons-pack/react-simple-icons@13.4.0(react@19.1.0)':
+  '@icons-pack/react-simple-icons@13.5.0(react@19.1.0)':
     dependencies:
       react: 19.1.0
 
@@ -9686,7 +9686,7 @@ snapshots:
     dependencies:
       fast-deep-equal: 2.0.1
 
-  react-qr-code@2.0.16(react@19.1.0):
+  react-qr-code@2.0.18(react@19.1.0):
     dependencies:
       prop-types: 15.8.1
       qr.js: 0.0.0
