@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.4
-        version: 2.1.2(2281ec00d1d653dafc0e372d1cf5a63d)
+        version: 2.1.2(2c238483e6e3fdb859469ae23e7de47e)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -105,11 +105,11 @@ importers:
         specifier: ^3.9.0
         version: 3.11.0(@swc/helpers@0.5.17)(vite@6.3.3(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.0)(tsx@4.20.3)(yaml@2.8.0))
       better-auth:
-        specifier: 1.3.3
-        version: 1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 1.3.4
+        version: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       better-auth-harmony:
         specifier: ^1.2.4
-        version: 1.2.5(better-auth@1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+        version: 1.2.5(better-auth@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       byline:
         specifier: ^5.0.0
         version: 5.0.0
@@ -2865,8 +2865,8 @@ packages:
     peerDependencies:
       better-auth: ^1.0.3
 
-  better-auth@1.3.3:
-    resolution: {integrity: sha512-q1aD2nNpGfEI2ckYu+pBjN+23CIRctOpmREkWyJDJdoYW1q9EPs1Xdb+KhFztg2rMmsoUN8I9Xm5mUWMxiWuLw==}
+  better-auth@1.3.4:
+    resolution: {integrity: sha512-JbZYam6Cs3Eu5CSoMK120zSshfaKvrCftSo/+v7524H1RvhryQ7UtMbzagBcXj0Digjj8hZtVkkR4tTZD/wK2g==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -5686,18 +5686,18 @@ snapshots:
 
   '@date-fns/tz@1.2.0': {}
 
-  '@daveyplate/better-auth-tanstack@1.3.4(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-tanstack@1.3.4(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.83.0
       '@tanstack/react-query': 5.83.0(react@19.1.0)
-      better-auth: 1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      better-auth: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.1.2(2281ec00d1d653dafc0e372d1cf5a63d)':
+  '@daveyplate/better-auth-ui@2.1.2(2c238483e6e3fdb859469ae23e7de47e)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.2.0(react-hook-form@7.61.1(react@19.1.0))
       '@instantdb/react': 0.18.9(react@19.1.0)
@@ -5720,7 +5720,7 @@ snapshots:
       '@triplit/client': 1.0.29(typescript@5.8.3)
       '@triplit/react': 1.0.29(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      better-auth: 1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      better-auth: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7925,14 +7925,14 @@ snapshots:
 
   base-64@1.0.0: {}
 
-  better-auth-harmony@1.2.5(better-auth@1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
+  better-auth-harmony@1.2.5(better-auth@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
     dependencies:
-      better-auth: 1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      better-auth: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       libphonenumber-js: 1.12.8
       mailchecker: 6.0.17
       validator: 13.15.15
 
-  better-auth@1.3.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  better-auth@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@better-auth/utils': 0.2.5
       '@better-fetch/fetch': 1.1.18
