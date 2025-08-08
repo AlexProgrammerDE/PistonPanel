@@ -9,6 +9,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  CustomTooltipProps,
 } from '@/components/ui/chart';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import UserPageLayout from '@/components/nav/user/user-page-layout';
@@ -76,7 +77,9 @@ export function UsersChart(props: { userList: AppUser[] }) {
           <PieChart>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={(props: CustomTooltipProps) => (
+                <ChartTooltipContent {...props} hideLabel />
+              )}
             />
             <Pie
               data={chartData}
