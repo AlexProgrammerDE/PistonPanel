@@ -13,7 +13,7 @@ importers:
         version: 1.7.1
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.4
-        version: 2.1.11(d7dbc739b3c1e59d0d4d13095725c315)
+        version: 2.1.11(bc81e875a4219720dc57518ce7745337)
       '@hono/swagger-ui':
         specifier: ^0.5.1
         version: 0.5.2(hono@4.7.8)
@@ -162,11 +162,11 @@ importers:
         specifier: ^0.11.0
         version: 0.11.1
       lucide-react:
-        specifier: ^0.537.0
-        version: 0.537.0(react@19.1.1)
+        specifier: ^0.539.0
+        version: 0.539.0(react@19.1.1)
       lucide-static:
-        specifier: ^0.537.0
-        version: 0.537.0
+        specifier: ^0.538.0
+        version: 0.538.0
       mime-matcher:
         specifier: ^1.0.5
         version: 1.0.5
@@ -335,7 +335,7 @@ importers:
         version: 1.0.1
       resend:
         specifier: ^6.0.0
-        version: 6.0.0(@react-email/render@1.1.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+        version: 6.0.0(@react-email/render@1.2.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       tailwindcss:
         specifier: ^4.0.15
         version: 4.1.11
@@ -4175,13 +4175,13 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.537.0:
-    resolution: {integrity: sha512-VxWsdxBGeFnlC+HwMg/l08HptN4YRU9o/lRog156jOmRxI1ERKqN+rJiNY/mPcKAdWdM0UbyO8ft1o0jq69SSQ==}
+  lucide-react@0.539.0:
+    resolution: {integrity: sha512-VVISr+VF2krO91FeuCrm1rSOLACQUYVy7NQkzrOty52Y8TlTPcXcMdQFj9bYzBgXbWCiywlwSZ3Z8u6a+6bMlg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  lucide-static@0.537.0:
-    resolution: {integrity: sha512-8Eq+JYazwnx0O9Tihi6oMS2f2HDFbmmsSvmTaBMUErwQwzEjSAm0fOaLzctPan/lP6cHP0+FvS5IvzU33bzCTA==}
+  lucide-static@0.538.0:
+    resolution: {integrity: sha512-kjCbN5Q8XxMtPmxDYFgG2sSZYjXZ37wQP6GsIMLh+LE//5t7hM+Razkbsw4nRbFIvlnxPIYt7EfRgpHoa9RqjQ==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -5722,7 +5722,7 @@ snapshots:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  '@daveyplate/better-auth-ui@2.1.11(d7dbc739b3c1e59d0d4d13095725c315)':
+  '@daveyplate/better-auth-ui@2.1.11(bc81e875a4219720dc57518ce7745337)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
       '@daveyplate/better-auth-tanstack': 1.3.4(@tanstack/query-core@5.83.1)(@tanstack/react-query@5.84.1(react@19.1.1))(better-auth@1.3.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -5753,7 +5753,7 @@ snapshots:
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      lucide-react: 0.537.0(react@19.1.1)
+      lucide-react: 0.539.0(react@19.1.1)
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
       react-google-recaptcha: 3.1.0(react@19.1.1)
@@ -9324,11 +9324,11 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.537.0(react@19.1.1):
+  lucide-react@0.539.0(react@19.1.1):
     dependencies:
       react: 19.1.1
 
-  lucide-static@0.537.0: {}
+  lucide-static@0.538.0: {}
 
   magic-string@0.30.17:
     dependencies:
@@ -9850,9 +9850,9 @@ snapshots:
 
   requires-port@1.0.0: {}
 
-  resend@6.0.0(@react-email/render@1.1.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
+  resend@6.0.0(@react-email/render@1.2.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
     optionalDependencies:
-      '@react-email/render': 1.1.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@react-email/render': 1.2.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
 
   resolve-from@4.0.0: {}
 
