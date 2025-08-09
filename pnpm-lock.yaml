@@ -115,10 +115,10 @@ importers:
         version: 5.0.0
       cdk8s:
         specifier: ^2.69.65
-        version: 2.70.6(constructs@10.4.2)
+        version: 2.70.7(constructs@10.4.2)
       cdk8s-plus-32:
         specifier: ^2.0.13
-        version: 2.1.8(cdk8s@2.70.6(constructs@10.4.2))(constructs@10.4.2)
+        version: 2.1.8(cdk8s@2.70.7(constructs@10.4.2))(constructs@10.4.2)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2982,8 +2982,8 @@ packages:
     bundledDependencies:
       - minimatch
 
-  cdk8s@2.70.6:
-    resolution: {integrity: sha512-wly0cgRCAvn41uvhtb6o9l5LdyAxyrvsyOZyw5GgyTlyARkCQoVjWQZl7eK9kV3ECVYknEf0eyZdUEdrp2tmHg==}
+  cdk8s@2.70.7:
+    resolution: {integrity: sha512-tESancjKdyRAFYHcxjwzMaZjHDj6Gnx61uL7H/gAljfxSgoRBBUBN2hdDcyF11X8S7/HSiXovfqFrsqg4dT7Zw==}
     engines: {node: '>= 16.20.0'}
     peerDependencies:
       constructs: ^10
@@ -8125,12 +8125,12 @@ snapshots:
 
   caniuse-lite@1.0.30001733: {}
 
-  cdk8s-plus-32@2.1.8(cdk8s@2.70.6(constructs@10.4.2))(constructs@10.4.2):
+  cdk8s-plus-32@2.1.8(cdk8s@2.70.7(constructs@10.4.2))(constructs@10.4.2):
     dependencies:
-      cdk8s: 2.70.6(constructs@10.4.2)
+      cdk8s: 2.70.7(constructs@10.4.2)
       constructs: 10.4.2
 
-  cdk8s@2.70.6(constructs@10.4.2):
+  cdk8s@2.70.7(constructs@10.4.2):
     dependencies:
       constructs: 10.4.2
 
