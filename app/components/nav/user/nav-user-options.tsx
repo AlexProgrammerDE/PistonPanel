@@ -2,27 +2,23 @@
 
 import {
   BuildingIcon,
-  Grid2x2Icon,
+  HouseIcon,
   KeyIcon,
   LockIcon,
   LucideIcon,
-  PlusIcon,
   SettingsIcon,
 } from 'lucide-react';
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Link, LinkProps } from '@tanstack/react-router';
 import * as React from 'react';
-import { ReactNode, use } from 'react';
+import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CreateOrgContext } from '@/components/dialog/create-org-dialog';
-import { useGlobalPermission } from '@/hooks/use-global-permission';
 import { smartEntries } from '@/lib/utils';
 import { accountViewPaths, authLocalization } from '@daveyplate/better-auth-ui';
 
@@ -35,10 +31,6 @@ type NavLink = {
 
 export function NavUserOptions() {
   const { t } = useTranslation('common');
-  const { openCreateOrg } = use(CreateOrgContext);
-  const createOrgPermission = useGlobalPermission({
-    organization: ['create'],
-  });
 
   function viewToIcon(view: keyof typeof accountViewPaths): LucideIcon {
     switch (view) {
@@ -55,16 +47,18 @@ export function NavUserOptions() {
     }
   }
 
-  const navLinks: NavLink[] = [
+  const topNavLinks: NavLink[] = [
     {
-      title: t('userSidebar.orgs'),
-      icon: Grid2x2Icon,
+      title: t('userSidebar.overview'),
+      icon: HouseIcon,
       linkProps: {
         to: '/',
         params: {},
       },
-      createOrg: true,
     },
+  ];
+
+  const navLinks: NavLink[] = [
     ...smartEntries(accountViewPaths)
       .filter((view) => view[0] !== 'ACCEPT_INVITATION')
       .map(
@@ -83,36 +77,48 @@ export function NavUserOptions() {
   ];
 
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>{t('userSidebar.userGroup')}</SidebarGroupLabel>
-      <SidebarMenu>
-        {navLinks.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild tooltip={item.title}>
-              <Link
-                activeOptions={{ exact: true }}
-                activeProps={{
-                  'data-active': true,
-                }}
-                {...item.linkProps}
-              >
-                <item.icon className="size-4" />
-                <span>{item.title}</span>
-              </Link>
-            </SidebarMenuButton>
-            {item.createOrg && createOrgPermission && (
-              <>
-                <SidebarMenuAction
-                  onClick={openCreateOrg}
-                  title={t('userSidebar.createOrg')}
+    <>
+      <SidebarGroup>
+        <SidebarMenu>
+          {topNavLinks.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title}>
+                <Link
+                  activeOptions={{ exact: true }}
+                  activeProps={{
+                    'data-active': true,
+                  }}
+                  {...item.linkProps}
                 >
-                  <PlusIcon />
-                </SidebarMenuAction>
-              </>
-            )}
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
-    </SidebarGroup>
+                  <item.icon className="size-4" />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>{t('userSidebar.userGroup')}</SidebarGroupLabel>
+        <SidebarMenu>
+          {navLinks.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild tooltip={item.title}>
+                <Link
+                  activeOptions={{ exact: true }}
+                  activeProps={{
+                    'data-active': true,
+                  }}
+                  {...item.linkProps}
+                >
+                  <item.icon className="size-4" />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroup>
+    </>
   );
 }

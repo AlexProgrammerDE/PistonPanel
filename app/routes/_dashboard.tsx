@@ -6,7 +6,6 @@ import {
 } from '@tanstack/react-router';
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense, useEffect, useState } from 'react';
-import { CreateOrgProvider } from '@/components/dialog/create-org-dialog';
 import { authClient } from '@/auth/auth-client';
 import { getTerminalTheme } from '@/lib/utils';
 import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
@@ -107,16 +106,14 @@ function DashboardLayout() {
       <Suspense>
         <ImpersonationBorder />
       </Suspense>
-      <CreateOrgProvider>
-        <TerminalThemeContext
-          value={{
-            value: terminalTheme,
-            setter: setTerminalTheme,
-          }}
-        >
-          <Outlet />
-        </TerminalThemeContext>
-      </CreateOrgProvider>
+      <TerminalThemeContext
+        value={{
+          value: terminalTheme,
+          setter: setTerminalTheme,
+        }}
+      >
+        <Outlet />
+      </TerminalThemeContext>
     </>
   );
 }

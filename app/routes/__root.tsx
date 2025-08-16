@@ -3,6 +3,7 @@ import {
   Link,
   Outlet,
   useLocation,
+  useParams,
   useRouter,
 } from '@tanstack/react-router';
 import '@/styles/app.css';
@@ -57,6 +58,11 @@ function PointerReset() {
 
 function RootComponent() {
   const router = useRouter();
+  const orgSlug = useParams({
+    from: '/_dashboard/org/$org',
+    select: (params) => params.org,
+    shouldThrow: false,
+  });
 
   return (
     <>
@@ -71,8 +77,9 @@ function RootComponent() {
             authClient={authClient}
             navigate={(href) => void router.navigate({ href })}
             replace={(href) => void router.navigate({ href, replace: true })}
+            Link={({ href, ...props }) => <Link to={href} {...props} />}
             social={{
-              providers: ['google', 'microsoft', 'apple'],
+              providers: ['google', 'microsoft', 'discord'],
             }}
             emailOTP
             oneTap
@@ -87,11 +94,26 @@ function RootComponent() {
               username: true,
             }}
             signUp={false}
-            nameRequired
+            nameRequired={false}
             apiKey
             optimistic
             twoFactor={['otp', 'totp']}
-            Link={({ href, ...props }) => <Link to={href} {...props} />}
+            redirectTo="/"
+            organization={{
+              pathMode: 'slug',
+              apiKey: true,
+              basePath: '/org',
+              personalPath: '/',
+              slug: orgSlug,
+            }}
+            account={{
+              basePath: '/',
+            }}
+            localization={{
+              NAME: 'Display Name',
+              NAME_DESCRIPTION: 'Please enter a display name.',
+              NAME_PLACEHOLDER: 'Display Name',
+            }}
           >
             <PostHogProvider
               apiKey={import.meta.env.VITE_POSTHOG_KEY}

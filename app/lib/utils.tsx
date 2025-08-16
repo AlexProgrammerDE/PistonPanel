@@ -4,6 +4,7 @@ import { sha256 } from 'js-sha256';
 import * as Flags from 'country-flag-icons/react/3x2';
 import { type FlagComponent } from 'country-flag-icons/react/1x1';
 import { ReactNode } from 'react';
+import { AppUser } from '@/auth/auth-client';
 
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
 
@@ -60,6 +61,16 @@ export function getLanguageName(languageCode: string, displayLanguage: string) {
 
 export function runAsync(fn: () => Promise<void>) {
   void fn().catch(console.error);
+}
+
+export function appUserName(user: AppUser) {
+  return (
+    user.name ??
+    user.displayUsername ??
+    user.username ??
+    user.email ??
+    'Unknown'
+  );
 }
 
 export function smartEntries<T extends object>(

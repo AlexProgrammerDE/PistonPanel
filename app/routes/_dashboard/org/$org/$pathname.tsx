@@ -28,7 +28,7 @@ function Content() {
   const { pathname } = Route.useParams();
 
   return (
-    <div className="flex h-full w-full grow flex-col gap-2">
+    <div className="h-full w-full grow">
       <OrganizationView hideNav pathname={pathname} />
     </div>
   );

@@ -38,29 +38,6 @@
       },
       "close": "Close"
     },
-    "createOrg": {
-      "title": "Create a new organization",
-      "description": "Organizations help you manage resources like servers and networks in one place. Invite members to collaborate on projects.",
-      "form": {
-        "name": {
-          "label": "Name",
-          "placeholder": "Piston Network",
-          "description": "The name you want to give to this org."
-        },
-        "slug": {
-          "label": "Slug",
-          "placeholder": "piston-network",
-          "description": "The slug is used to identify the org in the URL. Unlike the name, it must be unique."
-        },
-        "cancel": "Cancel",
-        "create": "Create"
-      },
-      "createToast": {
-        "loading": "Creating organization...",
-        "success": "Orgnization created successfully",
-        "error": "Failed to create organization"
-      }
-    },
     "import": {
       "main": {
         "fromFile": "From file",
@@ -210,7 +187,7 @@
   "userSidebar": {
     "readDocumentation": "Read documentation",
     "userGroup": "User",
-    "orgs": "Organizations",
+    "overview": "Overview",
     "access": "Access",
     "createOrg": "Create Organization",
     "settings": "Settings",

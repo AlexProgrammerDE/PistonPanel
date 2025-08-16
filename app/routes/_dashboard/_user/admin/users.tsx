@@ -25,7 +25,7 @@ import {
 import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { UserAvatar } from '@/components/user-avatar';
 import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
-import { runAsync } from '@/lib/utils';
+import { appUserName, runAsync } from '@/lib/utils';
 import { SFTimeAgo } from '@/components/sf-timeago';
 import { CopyInfoButton } from '@/components/info-buttons';
 import { AppUser, authClient } from '@/auth/auth-client';
@@ -48,11 +48,11 @@ const columns: ColumnDef<AppUser>[] = [
     cell: ({ row }) => (
       <div className="flex flex-row items-center justify-start gap-2">
         <UserAvatar
-          username={row.original.name ?? ''}
+          username={appUserName(row.original)}
           email={row.original.email}
           className="size-8"
         />
-        <span className="max-w-64 truncate">{row.original.name}</span>
+        <span className="max-w-64 truncate">{appUserName(row.original)}</span>
         <CopyInfoButton value={row.original.id} />
       </div>
     ),

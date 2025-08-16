@@ -18,6 +18,7 @@ import { ExternalLink } from '@/components/external-link';
 import { LoadingComponent } from '@/components/loading-component';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { appUserName } from '@/lib/utils';
 
 function UserCrumb() {
   const clientDataQueryOptions = useRouteContext({
@@ -25,7 +26,7 @@ function UserCrumb() {
     select: (context) => context.clientDataQueryOptions,
   });
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
-  return session.user.name;
+  return appUserName(session.user);
 }
 
 function UserCrumbSkeleton() {

@@ -36,6 +36,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Suspense, use } from 'react';
 import {
+  appUserName,
   getLanguageName,
   languageEmoji,
   runAsync,
@@ -64,15 +65,17 @@ function SidebarAccountButton() {
       <SidebarMenuButton
         size="lg"
         className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-        tooltip={`${session.user.name} | ${session.user.email}`}
+        tooltip={`${appUserName(session.user)} | ${session.user.email}`}
       >
         <UserAvatar
-          username={session.user.name ?? ''}
+          username={appUserName(session.user)}
           email={session.user.email}
           className="size-8"
         />
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-semibold">{session.user.name}</span>
+          <span className="truncate font-semibold">
+            {appUserName(session.user)}
+          </span>
           <span className="truncate text-xs">{session.user.email}</span>
         </div>
         <ChevronsUpDown className="ml-auto size-4" />
@@ -106,12 +109,14 @@ function DropdownAccountHeader() {
   return (
     <div className="flex items-center gap-2 px-1 py-1.5">
       <UserAvatar
-        username={session.user.name ?? ''}
+        username={appUserName(session.user)}
         email={session.user.email}
         className="size-8"
       />
       <div className="grid flex-1">
-        <span className="truncate font-semibold">{session.user.name}</span>
+        <span className="truncate font-semibold">
+          {appUserName(session.user)}
+        </span>
         <span className="truncate text-xs">{session.user.email}</span>
       </div>
     </div>

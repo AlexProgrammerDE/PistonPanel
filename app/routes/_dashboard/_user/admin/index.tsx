@@ -15,6 +15,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import UserPageLayout from '@/components/nav/user/user-page-layout';
 import { Trans, useTranslation } from 'react-i18next';
 import { AppUser } from '@/auth/auth-client';
+import { appUserName } from '@/lib/utils';
 
 export const Route = createFileRoute('/_dashboard/_user/admin/')({
   component: OverviewPage,
@@ -154,7 +155,7 @@ function Content() {
     <div className="flex h-full w-full grow flex-col gap-2 pl-2">
       <h2 className="text-xl font-semibold">
         {t('admin:overview.welcome', {
-          name: session.user.name,
+          name: appUserName(session.user),
         })}
       </h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
