@@ -267,7 +267,7 @@ export const authEmails = {
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
-        url: `${siteBaseUrl}/accept-invitation?invitationId=${id}`,
+        url: `${siteBaseUrl}/auth/accept-invitation?invitationId=${id}`,
       }),
     );
   },
