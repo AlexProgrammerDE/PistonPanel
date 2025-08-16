@@ -4,7 +4,6 @@ import {
   apiKey,
   emailOTP,
   haveIBeenPwned,
-  magicLink,
   oneTap,
   oneTimeToken,
   openAPI,
@@ -15,8 +14,6 @@ import {
 import { passkey } from 'better-auth/plugins/passkey';
 import { db } from '~/db';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { EmailTemplate } from '@daveyplate/better-auth-ui/server';
-import { sendEmail } from '~/email/backend';
 import * as authSchema from '~/db/auth-schema';
 import * as schema from '~/db/schema';
 import {
@@ -27,8 +24,17 @@ import {
 } from '@/auth/permissions';
 import { siteBaseUrl, siteName } from '~/config';
 import { emailHarmony } from 'better-auth-harmony';
+import { authEmails } from '~/auth/auth-emails';
 
 const disableSignUp = true;
+
+function emailToUniqueUsername(email: string): string {
+  // Use the email prefix as the username, removing any not allowed characters
+  // Add a random suffix to ensure uniqueness
+  const prefix = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '');
+  const suffix = Math.random().toString(36).substring(2, 8);
+  return `${prefix}_${suffix}`;
+}
 
 export const auth = betterAuth({
   appName: siteName,
@@ -45,58 +51,56 @@ export const auth = betterAuth({
       enabled: true,
     },
   },
-  socialProviders: {},
+  socialProviders: {
+    google: {
+      disableSignUp,
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    microsoft: {
+      disableSignUp,
+      clientId: process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID!,
+      clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
+    },
+    discord: {
+      disableSignUp,
+      clientId: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          const customTypedUser = user as unknown as typeof user & {
+            username?: string;
+            displayUsername?: string;
+          };
+          const uniqueUsername = emailToUniqueUsername(user.email);
+          return {
+            data: {
+              ...user,
+              username: customTypedUser.username ?? uniqueUsername,
+              displayUsername:
+                customTypedUser.displayUsername ?? uniqueUsername,
+            },
+          };
+        },
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     disableSignUp,
     requireEmailVerification: true,
-    async sendResetPassword({ user, url }) {
-      const name = user.name || user.email.split('@')[0];
-      await sendEmail(
-        user.email,
-        'Your password reset request for PistonPanel',
-        EmailTemplate({
-          action: 'Reset Password',
-          content: (
-            <>
-              <p>{`Hello ${name},`}</p>
-
-              <p>
-                You have requested to reset your password. Please click the
-                button below to confirm your request.
-              </p>
-            </>
-          ),
-          heading: 'Password reset request',
-          siteName: siteName,
-          baseUrl: siteBaseUrl,
-          url,
-        }),
-      );
+    async sendResetPassword({ user, url }): Promise<void> {
+      await authEmails.sendPasswordReset({ user, url });
     },
     autoSignIn: true,
   },
   emailVerification: {
-    async sendVerificationEmail({ user, url }) {
-      const name = user.name || user.email.split('@')[0];
-      await sendEmail(
-        user.email,
-        'Verify your email address for PistonPanel',
-        EmailTemplate({
-          action: 'Verify Email',
-          content: (
-            <>
-              <p>{`Hello ${name},`}</p>
-
-              <p>Click the button below to verify your email address.</p>
-            </>
-          ),
-          heading: 'Verify your email address',
-          siteName: siteName,
-          baseUrl: siteBaseUrl,
-          url,
-        }),
-      );
+    async sendVerificationEmail({ user, url }): Promise<void> {
+      await authEmails.sendEmailVerification({ user, url });
     },
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
@@ -104,56 +108,14 @@ export const auth = betterAuth({
   user: {
     changeEmail: {
       enabled: true,
-      async sendChangeEmailVerification({ user, url }) {
-        const name = user.name || user.email.split('@')[0];
-        await sendEmail(
-          user.email,
-          'Your email change verification for PistonPanel',
-          EmailTemplate({
-            action: 'Change Email',
-            content: (
-              <>
-                <p>{`Hello ${name},`}</p>
-
-                <p>
-                  You have requested to change your email. Please click the
-                  button below to confirm your request.
-                </p>
-              </>
-            ),
-            heading: 'Email change verification',
-            siteName: siteName,
-            baseUrl: siteBaseUrl,
-            url,
-          }),
-        );
+      async sendChangeEmailVerification({ user, url }): Promise<void> {
+        await authEmails.sendChangeEmailVerification({ user, url });
       },
     },
     deleteUser: {
       enabled: true,
-      async sendDeleteAccountVerification({ user, url }) {
-        const name = user.name || user.email.split('@')[0];
-        await sendEmail(
-          user.email,
-          'Your account deletion request for PistonPanel',
-          EmailTemplate({
-            action: 'Delete Account',
-            content: (
-              <>
-                <p>{`Hello ${name},`}</p>
-
-                <p>
-                  You have requested to delete your account. Please click the
-                  button below to confirm your request.
-                </p>
-              </>
-            ),
-            heading: 'Account deletion request',
-            siteName: siteName,
-            baseUrl: siteBaseUrl,
-            url,
-          }),
-        );
+      async sendDeleteAccountVerification({ user, url }): Promise<void> {
+        await authEmails.sendDeleteAccountVerification({ user, url });
       },
     },
   },
@@ -161,91 +123,17 @@ export const auth = betterAuth({
     emailHarmony(),
     twoFactor({
       otpOptions: {
-        async sendOTP({ user, otp }) {
-          const name = user.name || user.email.split('@')[0];
-          await sendEmail(
-            user.email,
-            'Your verification code for PistonPanel',
-            EmailTemplate({
-              content: (
-                <>
-                  <p>{`Hello ${name},`}</p>
-
-                  <p>
-                    Your verification code is <strong>{otp}</strong>.
-                  </p>
-                  <p>If you did not request this, please ignore this email.</p>
-                </>
-              ),
-              heading: 'Two-factor authentication code',
-              siteName: siteName,
-              baseUrl: siteBaseUrl,
-            }),
-          );
+        async sendOTP({ user, otp }): Promise<void> {
+          await authEmails.sendTwoFactorOTP({ user, otp });
         },
       },
     }),
     username(),
     emailOTP({
-      // We always want a username, which we don't get this way
-      disableSignUp: true,
+      disableSignUp,
       sendVerificationOnSignUp: false,
-      async sendVerificationOTP({ email, otp, type }) {
-        if (type === 'sign-in') {
-          await sendEmail(
-            email,
-            'Your sign-in code for PistonPanel',
-            EmailTemplate({
-              content: (
-                <>
-                  <p>
-                    Your verification code is <strong>{otp}</strong>.
-                  </p>
-                  <p>If you did not request this, please ignore this email.</p>
-                </>
-              ),
-              heading: 'Sign in code',
-              siteName: siteName,
-              baseUrl: siteBaseUrl,
-            }),
-          );
-        } else if (type === 'email-verification') {
-          await sendEmail(
-            email,
-            'Your verification code for PistonPanel',
-            EmailTemplate({
-              content: (
-                <>
-                  <p>
-                    Your verification code is <strong>{otp}</strong>.
-                  </p>
-                  <p>If you did not request this, please ignore this email.</p>
-                </>
-              ),
-              heading: 'Email verification code',
-              siteName: siteName,
-              baseUrl: siteBaseUrl,
-            }),
-          );
-        } else if (type === 'forget-password') {
-          await sendEmail(
-            email,
-            'Your password reset code for PistonPanel',
-            EmailTemplate({
-              content: (
-                <>
-                  <p>
-                    Your password reset code is <strong>{otp}</strong>.
-                  </p>
-                  <p>If you did not request this, please ignore this email.</p>
-                </>
-              ),
-              heading: 'Password reset code',
-              siteName: siteName,
-              baseUrl: siteBaseUrl,
-            }),
-          );
-        }
+      async sendVerificationOTP({ email, otp, type }): Promise<void> {
+        await authEmails.sendEmailOTP({ email, otp, type });
       },
     }),
     passkey(),
@@ -270,31 +158,20 @@ export const auth = betterAuth({
         ).success;
       },
       cancelPendingInvitationsOnReInvite: true,
-      async sendInvitationEmail({ id, role, email, inviter, organization }) {
-        await sendEmail(
+      async sendInvitationEmail({
+        id,
+        role,
+        email,
+        inviter,
+        organization,
+      }): Promise<void> {
+        await authEmails.sendOrganizationInvitation({
+          id,
+          role,
           email,
-          'You have been invited to join an organization on PistonPanel',
-          EmailTemplate({
-            action: 'Join Organization',
-            content: (
-              <>
-                <p>
-                  {inviter.user.name} has invited you to join the organization{' '}
-                  {organization.name} as a {role}.
-                </p>
-
-                <p>
-                  Click the button below to accept the invitation and create an
-                  account.
-                </p>
-              </>
-            ),
-            heading: 'Organization invitation',
-            siteName: siteName,
-            baseUrl: siteBaseUrl,
-            url: `${siteBaseUrl}/auth/accept-invitation?invitationId=${id}`,
-          }),
-        );
+          inviter,
+          organization,
+        });
       },
     }),
     oneTimeToken(),
@@ -307,3 +184,7 @@ export const auth = betterAuth({
     }),
   ],
 });
+export type Session = typeof auth.$Infer.Session;
+export type Organization = typeof auth.$Infer.Organization;
+export type Member = typeof auth.$Infer.Member;
+export type Invitation = typeof auth.$Infer.Invitation;
