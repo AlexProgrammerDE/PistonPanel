@@ -64,13 +64,17 @@ export function runAsync(fn: () => Promise<void>) {
 }
 
 export function appUserName(user: AppUser) {
-  return (
-    user.name ??
-    user.displayUsername ??
-    user.username ??
-    user.email ??
-    'Unknown'
-  );
+  if (user.name) {
+    return user.name;
+  } else if (user.displayUsername) {
+    return user.displayUsername;
+  } else if (user.username) {
+    return user.username;
+  } else if (user.email) {
+    return user.email;
+  } else {
+    return 'Unknown';
+  }
 }
 
 export function smartEntries<T extends object>(
