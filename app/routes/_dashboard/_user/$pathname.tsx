@@ -18,7 +18,7 @@ function Console() {
   return (
     <UserPageLayout
       showUserCrumb={true}
-      pageName={authLocalization[viewName ?? 'SETTINGS']}
+      pageName={authLocalization[viewName || 'SETTINGS']}
     >
       <Content />
     </UserPageLayout>
@@ -29,7 +29,7 @@ function Content() {
   const { pathname } = Route.useParams();
 
   return (
-    <div className="h-full w-full grow">
+    <div className="h-full w-full max-w-5xl grow">
       <AccountView hideNav pathname={pathname} />
     </div>
   );

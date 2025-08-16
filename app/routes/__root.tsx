@@ -109,6 +109,7 @@ function RootComponent() {
             account={{
               basePath: '/',
             }}
+            gravatar
             localization={{
               NAME: 'Display Name',
               NAME_DESCRIPTION: 'Please enter a display name.',

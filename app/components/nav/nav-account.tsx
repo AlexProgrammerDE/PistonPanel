@@ -255,7 +255,7 @@ export function NavAccount() {
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuRadioGroup
-                      value={i18n.resolvedLanguage ?? i18n.language}
+                      value={i18n.resolvedLanguage || i18n.language}
                       onValueChange={(lang) => void i18n.changeLanguage(lang)}
                       className="grid grid-cols-1 md:grid-cols-2"
                     >

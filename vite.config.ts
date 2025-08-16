@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import fs from 'fs';
 
-const baseEnv = process.env.VERCEL_ENV ?? process.env.NODE_ENV;
+const baseEnv = process.env.VERCEL_ENV || process.env.NODE_ENV;
 let appEnv: string;
 if (baseEnv === 'production') {
   appEnv = 'production';
@@ -58,8 +58,22 @@ export default defineConfig({
       'X-XSS-Protection': '1; mode=block',
       'X-Frame-Options': 'SAMEORIGIN',
       'X-Content-Type-Options': 'nosniff',
-      'Content-Security-Policy':
-        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.posthog.com https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; object-src 'none'; base-uri 'self'; connect-src 'self' https://*.posthog.com https://accounts.google.com/gsi/; font-src 'self'; frame-src 'self'; img-src 'self' data: blob: https://www.gravatar.com 'self' https://accounts.google.com/gsi/; manifest-src 'self'; media-src 'self'; worker-src 'self' blob: data:;",
+      'Content-Security-Policy': [
+        "default-src 'self';",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.posthog.com https://accounts.google.com/gsi/client https://challenges.cloudflare.com https://va.vercel-scripts.com https://vercel.live;",
+        "style-src 'self' 'unsafe-inline' https://*.posthog.com https://accounts.google.com/gsi/style https://vercel.live;",
+        "object-src 'none';",
+        "base-uri 'self';",
+        "connect-src 'self' https://discord.com https://*.posthog.com https://accounts.google.com/gsi/ https://vercel.com https://vercel.live wss://ws-us3.pusher.com;",
+        "font-src 'self' https://*.posthog.com https://vercel.live https://assets.vercel.com;",
+        "frame-src 'self' https://accounts.google.com/gsi/ https://challenges.cloudflare.com https://vercel.live;",
+        "img-src 'self' data: blob: https://vercel.live https://vercel.com https://*.posthog.com https://gravatar.com https://www.gravatar.com https://accounts.google.com/gsi/;",
+        "manifest-src 'self';",
+        "media-src 'self' https://*.posthog.com;",
+        "worker-src 'self' blob: data:;",
+        "frame-ancestors 'self' https://*.posthog.com;",
+        'upgrade-insecure-requests',
+      ].join(' '),
     },
   },
 });

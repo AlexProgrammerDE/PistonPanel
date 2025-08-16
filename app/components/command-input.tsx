@@ -1,5 +1,5 @@
 import { Input } from '@/components/ui/input';
-import { KeyboardEventHandler, use, useEffect, useRef, useState } from 'react';
+import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
@@ -22,7 +22,7 @@ export default function CommandInput() {
   const { t } = useTranslation('common');
   const [commandHistory, setCommandHistory] = useState<string[]>(
     historySchema.parse(
-      JSON.parse(localStorage.getItem(SF_COMMAND_HISTORY_KEY) ?? '[]'),
+      JSON.parse(localStorage.getItem(SF_COMMAND_HISTORY_KEY) || '[]'),
     ),
   );
   const [historyIndex, setHistoryIndex] = useState<number>(-1);

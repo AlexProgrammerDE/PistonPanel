@@ -61,7 +61,7 @@ function OrgSwitchKeybinds() {
   const { data: orgList } = authClient.useListOrganizations();
 
   useEffect(() => {
-    const usedList = orgList ?? [];
+    const usedList = orgList || [];
 
     const down = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey) {

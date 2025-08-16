@@ -15,6 +15,6 @@ export function useGlobalPermission(
 
   return authClient.admin.checkRolePermission({
     permissions: input as never,
-    role: (session.user.role ?? 'user') as 'admin' | 'user',
+    role: (session.user.role || 'user') as 'admin' | 'user',
   });
 }

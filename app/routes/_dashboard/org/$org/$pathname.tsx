@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import OrgPageLayout from '@/components/nav/org/org-page-layout';
-import { useTranslation } from 'react-i18next';
 import {
-  accountViewPaths,
   authLocalization,
   getViewByPath,
   OrganizationView,
@@ -18,7 +16,7 @@ function Console() {
   const viewName = getViewByPath(organizationViewPaths, pathname);
 
   return (
-    <OrgPageLayout pageName={authLocalization[viewName ?? 'SETTINGS']}>
+    <OrgPageLayout pageName={authLocalization[viewName || 'SETTINGS']}>
       <Content />
     </OrgPageLayout>
   );
@@ -28,7 +26,7 @@ function Content() {
   const { pathname } = Route.useParams();
 
   return (
-    <div className="h-full w-full grow">
+    <div className="h-full w-full max-w-5xl grow">
       <OrganizationView hideNav pathname={pathname} />
     </div>
   );

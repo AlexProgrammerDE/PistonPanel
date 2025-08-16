@@ -23,7 +23,7 @@ export function setTerminalTheme(theme: string) {
 }
 
 export function getTerminalTheme() {
-  return localStorage.getItem(LOCAL_STORAGE_TERMINAL_THEME_KEY) ?? 'mocha';
+  return localStorage.getItem(LOCAL_STORAGE_TERMINAL_THEME_KEY) || 'mocha';
 }
 
 export function cn(...inputs: ClassValue[]) {
@@ -56,7 +56,7 @@ export function getLanguageName(languageCode: string, displayLanguage: string) {
   const displayNames = new Intl.DisplayNames([displayLanguage], {
     type: 'language',
   });
-  return displayNames.of(languageCode) ?? languageCode;
+  return displayNames.of(languageCode) || languageCode;
 }
 
 export function runAsync(fn: () => Promise<void>) {
@@ -64,17 +64,13 @@ export function runAsync(fn: () => Promise<void>) {
 }
 
 export function appUserName(user: AppUser) {
-  if (user.name) {
-    return user.name;
-  } else if (user.displayUsername) {
-    return user.displayUsername;
-  } else if (user.username) {
-    return user.username;
-  } else if (user.email) {
-    return user.email;
-  } else {
-    return 'Unknown';
-  }
+  return (
+    user.name ||
+    user.displayUsername ||
+    user.username ||
+    user.email ||
+    'Unknown'
+  );
 }
 
 export function smartEntries<T extends object>(

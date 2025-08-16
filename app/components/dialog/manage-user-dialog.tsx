@@ -73,11 +73,11 @@ export function ManageUserDialog({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: props.mode === 'edit' ? props.user.name : '',
-      username: props.mode === 'edit' ? (props.user.username ?? '') : '',
+      username: props.mode === 'edit' ? props.user.username || '' : '',
       email: props.mode === 'edit' ? props.user.email : '',
       role:
         props.mode === 'edit'
-          ? ((props.user.role ?? 'user') as AppGlobalRole)
+          ? ((props.user.role || 'user') as AppGlobalRole)
           : 'user',
       password: '',
     },

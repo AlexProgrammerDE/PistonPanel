@@ -80,9 +80,9 @@ export const auth = betterAuth({
           return {
             data: {
               ...user,
-              username: customTypedUser.username ?? uniqueUsername,
+              username: customTypedUser.username || uniqueUsername,
               displayUsername:
-                customTypedUser.displayUsername ?? uniqueUsername,
+                customTypedUser.displayUsername || uniqueUsername,
             },
           };
         },

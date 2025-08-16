@@ -64,7 +64,7 @@ function RouteComponent() {
           </div>
           <AuthView
             pathname={pathname}
-            redirectTo={searchParams.redirect ?? '/'}
+            redirectTo={searchParams.redirect || '/'}
           />
           <div>
             <div className="text-muted-foreground text-center text-xs text-balance">
@@ -82,10 +82,10 @@ function RouteComponent() {
                     className="text-muted-foreground w-fit text-sm text-balance"
                     variant="ghost"
                   >
-                    {languageEmoji(i18n.resolvedLanguage ?? i18n.language)}{' '}
+                    {languageEmoji(i18n.resolvedLanguage || i18n.language)}{' '}
                     {getLanguageName(
-                      i18n.resolvedLanguage ?? i18n.language,
-                      i18n.resolvedLanguage ?? i18n.language,
+                      i18n.resolvedLanguage || i18n.language,
+                      i18n.resolvedLanguage || i18n.language,
                     )}
                   </Button>
                 </DropdownMenuTrigger>
@@ -93,7 +93,7 @@ function RouteComponent() {
                   <DropdownMenuLabel>{t('common:locale')}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuRadioGroup
-                    value={i18n.resolvedLanguage ?? i18n.language}
+                    value={i18n.resolvedLanguage || i18n.language}
                     onValueChange={(lang) => void i18n.changeLanguage(lang)}
                     className="grid grid-cols-1 md:grid-cols-2"
                   >
