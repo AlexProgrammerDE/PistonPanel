@@ -13,11 +13,11 @@ import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-type NavLinks = {
+type NavLink = {
   title: string;
   icon: (props: { className: string }) => ReactNode;
   linkProps: LinkProps;
-}[];
+};
 
 export function NavResources() {
   const { t } = useTranslation('common');
@@ -27,7 +27,7 @@ export function NavResources() {
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
-  const navLinks: NavLinks = [
+  const navLinks: NavLink[] = [
     {
       title: t('orgSidebar.servers'),
       icon: ServerIcon,

@@ -14,11 +14,11 @@ import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGlobalPermission } from '@/hooks/use-global-permission';
 
-type NavLinks = {
+type NavLink = {
   title: string;
   icon: (props: { className: string }) => ReactNode;
   linkProps: LinkProps;
-}[];
+};
 
 export function NavUserAdmin() {
   const { t } = useTranslation('common');
@@ -30,7 +30,7 @@ export function NavUserAdmin() {
     return null;
   }
 
-  const navLinks: NavLinks = [
+  const navLinks: NavLink[] = [
     {
       title: t('userSidebar.adminOverview'),
       icon: ChartAreaIcon,

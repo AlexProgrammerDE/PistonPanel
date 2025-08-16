@@ -8,8 +8,21 @@ import {
 import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CogIcon, ScanEyeIcon, TextSearchIcon, UsersIcon } from 'lucide-react';
+import {
+  CogIcon,
+  KeyIcon,
+  LucideIcon,
+  ScanEyeIcon,
+  SettingsIcon,
+  TextSearchIcon,
+  UsersIcon,
+} from 'lucide-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { smartEntries } from '@/lib/utils';
+import {
+  authLocalization,
+  organizationViewPaths,
+} from '@daveyplate/better-auth-ui';
 
 type NavLink = {
   title: string;
@@ -25,31 +38,29 @@ export function NavManagement() {
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
+  function viewToIcon(view: keyof typeof organizationViewPaths): LucideIcon {
+    switch (view) {
+      case 'SETTINGS':
+        return SettingsIcon;
+      case 'MEMBERS':
+        return UsersIcon;
+      case 'API_KEYS':
+        return KeyIcon;
+    }
+  }
+
   const navLinks: NavLink[] = [
-    {
-      title: t('orgSidebar.settings'),
-      icon: CogIcon,
-      linkProps: {
-        to: '/org/$org/settings',
-        params: { org: orgInfo.slug },
-      },
-    } satisfies NavLink,
-    {
-      title: t('orgSidebar.members'),
-      icon: UsersIcon,
-      linkProps: {
-        to: '/org/$org/members',
-        params: { org: orgInfo.slug },
-      },
-    } satisfies NavLink,
-    {
-      title: t('orgSidebar.teams'),
-      icon: ScanEyeIcon,
-      linkProps: {
-        to: '/org/$org/teams',
-        params: { org: orgInfo.slug },
-      },
-    } satisfies NavLink,
+    ...smartEntries(organizationViewPaths).map(
+      (view) =>
+        ({
+          title: authLocalization[view[0]],
+          icon: viewToIcon(view[0]),
+          linkProps: {
+            to: '/org/$org/$pathname',
+            params: { org: orgInfo.slug, pathname: view[1] },
+          },
+        }) satisfies NavLink,
+    ),
     {
       title: t('orgSidebar.audit-log'),
       icon: TextSearchIcon,

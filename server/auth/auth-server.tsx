@@ -186,28 +186,6 @@ export const auth = betterAuth({
       },
     }),
     username(),
-    magicLink({
-      // We always want a username, which we don't get this way
-      disableSignUp: true,
-      async sendMagicLink({ email, url }) {
-        await sendEmail(
-          email,
-          'Your magic link for PistonPanel',
-          EmailTemplate({
-            action: 'Sign in',
-            content: (
-              <>
-                <p>Click the button below to sign in.</p>
-              </>
-            ),
-            heading: 'Magic link',
-            siteName: siteName,
-            baseUrl: siteBaseUrl,
-            url,
-          }),
-        );
-      },
-    }),
     emailOTP({
       // We always want a username, which we don't get this way
       disableSignUp: true,

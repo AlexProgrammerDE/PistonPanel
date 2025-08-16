@@ -74,7 +74,6 @@ function RootComponent() {
             social={{
               providers: ['google', 'microsoft', 'apple'],
             }}
-            magicLink
             emailOTP
             oneTap
             emailVerification
@@ -92,9 +91,6 @@ function RootComponent() {
             apiKey
             optimistic
             twoFactor={['otp', 'totp']}
-            settings={{
-              url: '/account',
-            }}
             Link={({ href, ...props }) => <Link to={href} {...props} />}
           >
             <PostHogProvider
