@@ -5,6 +5,7 @@ import { OrgSidebar } from '@/components/nav/org/org-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
 import { authClient } from '@/auth/auth-client';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export const Route = createFileRoute('/_dashboard/org/$org')({
   beforeLoad: (props) => {
@@ -41,7 +42,10 @@ export const Route = createFileRoute('/_dashboard/org/$org')({
 });
 
 function OrgLayout() {
-  const defaultOpen = localStorage.getItem('sidebar:state') === 'true';
+  const isMobile = useIsMobile();
+  const sidebarState = localStorage.getItem('sidebar:state');
+  const defaultOpen =
+    sidebarState === null ? !isMobile : sidebarState === 'true';
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
