@@ -4,7 +4,6 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { OrgSidebar } from '@/components/nav/org/org-sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ErrorComponent } from '@/components/error-component';
-import { useEffect } from 'react';
 import { authClient } from '@/auth/auth-client';
 
 export const Route = createFileRoute('/_dashboard/org/$org')({

@@ -12,17 +12,17 @@ import { useTranslation } from 'react-i18next';
 import { ExternalLink } from '@/components/external-link';
 import { SiDiscord } from '@icons-pack/react-simple-icons';
 
-type NavLinks = {
+type NavLink = {
   title: string;
   url: string;
   icon: LucideIcon;
-}[];
+};
 
 export function NavSecondary({
   ...props
 }: React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
   const { t } = useTranslation('common');
-  const items: NavLinks = [
+  const items: NavLink[] = [
     {
       title: t('sidebar.documentation'),
       url: 'https://pistonpanel.com/docs',

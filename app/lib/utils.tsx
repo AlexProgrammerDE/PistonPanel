@@ -62,9 +62,11 @@ export function runAsync(fn: () => Promise<void>) {
   void fn().catch(console.error);
 }
 
-export function formatIconName(text: string): string {
-  return text
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+export function smartEntries<T extends object>(
+  obj: T,
+): [keyof T, T[keyof T]][] {
+  return Object.entries(obj).map(([key, value]) => [
+    key as keyof T,
+    value as T[keyof T],
+  ]);
 }

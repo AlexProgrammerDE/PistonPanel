@@ -1,4 +1,3 @@
-import { AuthCard } from '@daveyplate/better-auth-ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
@@ -17,6 +16,7 @@ import { getLanguageName, languageEmoji } from '@/lib/utils';
 import { ExternalLink } from '@/components/external-link';
 import { HeartHandshakeIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { AuthView } from '@daveyplate/better-auth-ui';
 
 export const Route = createFileRoute('/auth/$pathname')({
   component: RouteComponent,
@@ -62,7 +62,7 @@ function RouteComponent() {
             />
             <p className="font-medium tracking-wide">{t('header.title')}</p>
           </div>
-          <AuthCard
+          <AuthView
             pathname={pathname}
             redirectTo={searchParams.redirect ?? '/'}
           />
