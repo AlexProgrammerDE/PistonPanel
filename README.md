@@ -84,7 +84,7 @@ https://orm.drizzle.team/docs/kit-overview
 ### Create migration
 
 ```bash
-pnpm drizzle-kit generate
+pnpm drizzle-kit generate --name=<name>
 ```
 
 ### Run migrations
