@@ -45,13 +45,13 @@ npx @better-auth/cli@latest generate --config ./server/auth/auth-server.tsx  --o
 ### Setup container
 
 ```bash
-docker run --name dev-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+docker run --name pistonpanel-dev-postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
 ```
 
 ### Start after boot
 
 ```bash
-docker start dev-postgres
+docker start pistonpanel-dev-postgres
 ```
 
 ## Local k8s
