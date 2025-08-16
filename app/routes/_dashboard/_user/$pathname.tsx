@@ -29,7 +29,7 @@ function Content() {
   const { pathname } = Route.useParams();
 
   return (
-    <div className="h-full w-full max-w-5xl grow">
+    <div className="container h-full w-full grow">
       <AccountView hideNav pathname={pathname} />
     </div>
   );
