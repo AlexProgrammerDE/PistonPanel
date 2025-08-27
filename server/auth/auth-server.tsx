@@ -141,7 +141,11 @@ export const auth = betterAuth({
       ac: globalAc,
       roles: globalRoleConfig,
     }),
-    apiKey(),
+    apiKey({
+      requireName: true,
+      enableMetadata: true,
+      defaultPrefix: 'key_',
+    }),
     organization({
       ac: orgAc,
       roles: orgRoleConfig,
