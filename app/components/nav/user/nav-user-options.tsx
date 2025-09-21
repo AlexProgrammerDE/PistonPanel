@@ -42,8 +42,6 @@ export function NavUserOptions() {
         return BuildingIcon;
       case 'SECURITY':
         return LockIcon;
-      case 'ACCEPT_INVITATION':
-        throw new Error('ACCEPT_INVITATION view should not be used in sidebar');
     }
   }
 
@@ -59,21 +57,19 @@ export function NavUserOptions() {
   ];
 
   const navLinks: NavLink[] = [
-    ...smartEntries(accountViewPaths)
-      .filter((view) => view[0] !== 'ACCEPT_INVITATION')
-      .map(
-        (view) =>
-          ({
-            title: authLocalization[view[0]],
-            icon: viewToIcon(view[0]),
-            linkProps: {
-              to: '/$pathname',
-              params: {
-                pathname: view[1],
-              },
+    ...smartEntries(accountViewPaths).map(
+      (view) =>
+        ({
+          title: authLocalization[view[0]],
+          icon: viewToIcon(view[0]),
+          linkProps: {
+            to: '/$pathname',
+            params: {
+              pathname: view[1],
             },
-          }) satisfies NavLink,
-      ),
+          },
+        }) satisfies NavLink,
+    ),
   ];
 
   return (
