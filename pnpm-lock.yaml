@@ -178,7 +178,7 @@ importers:
         version: 8.16.3
       posthog-js:
         specifier: ^1.236.7
-        version: 1.274.1
+        version: 1.274.3
       react:
         specifier: ^19.0.0
         version: 19.2.0
@@ -2943,8 +2943,8 @@ packages:
   core-js@3.41.0:
     resolution: {integrity: sha512-SJ4/EHwS36QMJd6h/Rg+GyR4A5xE0FSI3eZ+iBVpfqf1x0eTSg1smWLHrA+2jQThZSh97fmSgFSU8B61nxosxA==}
 
-  core-js@3.45.1:
-    resolution: {integrity: sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==}
+  core-js@3.46.0:
+    resolution: {integrity: sha512-vDMm9B0xnqqZ8uSBpZ8sNtRtOdmfShrvT6h2TuQGLs0Is+cR0DYbj/KWP6ALVNbWPpqA/qPLoOuppJN07humpA==}
 
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
@@ -4284,8 +4284,8 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
-  posthog-js@1.274.1:
-    resolution: {integrity: sha512-edHhkoSIX0h2BApdc+D2fBElgMnLCwrf5dcsMms57IT+dFDIF7WcyuyAyh3LC50s1f/+mEHt20QW7auAcum+Kg==}
+  posthog-js@1.274.3:
+    resolution: {integrity: sha512-w+xS+g/waoa2d2t9mHfO0q6/r9jZU/ISgHFgz+Sk6fxqmJdMuZnXAoOwjN0C2SS1PetJREaQx0K7czTisufjgw==}
     peerDependencies:
       '@rrweb/types': 2.0.0-alpha.17
       rrweb-snapshot: 2.0.0-alpha.17
@@ -7085,7 +7085,7 @@ snapshots:
   '@triplit/db@1.1.10(typescript@5.9.3)':
     dependencies:
       '@triplit/logger': 0.0.3(typescript@5.9.3)
-      core-js: 3.45.1
+      core-js: 3.46.0
       elen: 1.0.10
       nanoid: 5.1.6
       sorted-btree: 1.8.1
@@ -7806,7 +7806,7 @@ snapshots:
   core-js@3.41.0:
     optional: true
 
-  core-js@3.45.1: {}
+  core-js@3.46.0: {}
 
   core-util-is@1.0.2: {}
 
@@ -8993,10 +8993,10 @@ snapshots:
     dependencies:
       xtend: 4.0.2
 
-  posthog-js@1.274.1:
+  posthog-js@1.274.3:
     dependencies:
       '@posthog/core': 1.2.4
-      core-js: 3.45.1
+      core-js: 3.46.0
       fflate: 0.4.8
       preact: 10.27.2
       web-vitals: 4.2.4
