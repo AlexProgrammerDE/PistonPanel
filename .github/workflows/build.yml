@@ -36,7 +36,7 @@ jobs:
 
       - name: Run check
         run: |
-          pnpm check
+          pnpm exec biome ci
 
       - name: Build project
         run: |
