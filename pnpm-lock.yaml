@@ -21,8 +21,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(@trpc/server@11.5.1(typescript@5.9.2))(hono@4.7.8)
       '@hono/vite-dev-server':
-        specifier: ^0.22.0
-        version: 0.22.0(hono@4.7.8)
+        specifier: ^0.23.0
+        version: 0.23.0(hono@4.7.8)
       '@hookform/resolvers':
         specifier: ^5.0.0
         version: 5.2.2(react-hook-form@7.63.0(react@19.1.1))
@@ -1129,8 +1129,8 @@ packages:
       '@trpc/server': ^10.10.0 || >11.0.0-rc
       hono: '>=4.*'
 
-  '@hono/vite-dev-server@0.22.0':
-    resolution: {integrity: sha512-N/KHR/wtWv7IyTc1h5NvkYfY4fAvnSZRpec85/39UIFBFG7rP9qacGIfKN3WZGsqbIHqUqduR5YHu0iOdBgEug==}
+  '@hono/vite-dev-server@0.23.0':
+    resolution: {integrity: sha512-tHV86xToed9Up0j/dubQW2PDP4aYNFDSfQrjcV6Ra7bqCGrxhtg/zZBmbgSco3aTxKOEPzDXKK+6seAAfsbIXw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -5693,7 +5693,7 @@ snapshots:
       '@trpc/server': 11.5.1(typescript@5.9.2)
       hono: 4.7.8
 
-  '@hono/vite-dev-server@0.22.0(hono@4.7.8)':
+  '@hono/vite-dev-server@0.23.0(hono@4.7.8)':
     dependencies:
       '@hono/node-server': 1.18.1(hono@4.7.8)
       hono: 4.7.8
