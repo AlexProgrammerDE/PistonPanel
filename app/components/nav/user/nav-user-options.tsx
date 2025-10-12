@@ -1,26 +1,25 @@
-'use client';
+"use client";
 
+import { accountViewPaths, authLocalization } from "@daveyplate/better-auth-ui";
+import { Link, type LinkProps } from "@tanstack/react-router";
 import {
   BuildingIcon,
   HouseIcon,
   KeyIcon,
   LockIcon,
-  LucideIcon,
+  type LucideIcon,
   SettingsIcon,
-} from 'lucide-react';
+} from "lucide-react";
+import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Link, LinkProps } from '@tanstack/react-router';
-import * as React from 'react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
-import { smartEntries } from '@/lib/utils';
-import { accountViewPaths, authLocalization } from '@daveyplate/better-auth-ui';
+} from "@/components/ui/sidebar";
+import { smartEntries } from "@/lib/utils";
 
 type NavLink = {
   title: string;
@@ -30,27 +29,27 @@ type NavLink = {
 };
 
 export function NavUserOptions() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   function viewToIcon(view: keyof typeof accountViewPaths): LucideIcon {
     switch (view) {
-      case 'SETTINGS':
+      case "SETTINGS":
         return SettingsIcon;
-      case 'API_KEYS':
+      case "API_KEYS":
         return KeyIcon;
-      case 'ORGANIZATIONS':
+      case "ORGANIZATIONS":
         return BuildingIcon;
-      case 'SECURITY':
+      case "SECURITY":
         return LockIcon;
     }
   }
 
   const topNavLinks: NavLink[] = [
     {
-      title: t('userSidebar.overview'),
+      title: t("userSidebar.overview"),
       icon: HouseIcon,
       linkProps: {
-        to: '/',
+        to: "/",
         params: {},
       },
     },
@@ -63,7 +62,7 @@ export function NavUserOptions() {
           title: authLocalization[view[0]],
           icon: viewToIcon(view[0]),
           linkProps: {
-            to: '/$pathname',
+            to: "/$pathname",
             params: {
               pathname: view[1],
             },
@@ -82,7 +81,7 @@ export function NavUserOptions() {
                 <Link
                   activeOptions={{ exact: true }}
                   activeProps={{
-                    'data-active': true,
+                    "data-active": true,
                   }}
                   {...item.linkProps}
                 >
@@ -95,7 +94,7 @@ export function NavUserOptions() {
         </SidebarMenu>
       </SidebarGroup>
       <SidebarGroup>
-        <SidebarGroupLabel>{t('userSidebar.userGroup')}</SidebarGroupLabel>
+        <SidebarGroupLabel>{t("userSidebar.userGroup")}</SidebarGroupLabel>
         <SidebarMenu>
           {navLinks.map((item) => (
             <SidebarMenuItem key={item.title}>
@@ -103,7 +102,7 @@ export function NavUserOptions() {
                 <Link
                   activeOptions={{ exact: true }}
                   activeProps={{
-                    'data-active': true,
+                    "data-active": true,
                   }}
                   {...item.linkProps}
                 >

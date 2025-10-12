@@ -6,79 +6,79 @@ import {
   text,
   timestamp,
   varchar,
-} from 'drizzle-orm/pg-core';
-import { organization, user } from '~/db/auth-schema';
+} from "drizzle-orm/pg-core";
+import { organization, user } from "~/db/auth-schema";
 
-export const nodesTable = pgTable('nodes', {
+export const nodesTable = pgTable("nodes", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   location: varchar({ length: 255 }),
   description: varchar({ length: 255 }),
 });
 
-export const auditLogActionEnum = pgEnum('org_audit_log_action', [
-  'create-server',
-  'update-server',
-  'delete-server',
-  'create-database',
-  'update-database',
-  'delete-database',
+export const auditLogActionEnum = pgEnum("org_audit_log_action", [
+  "create-server",
+  "update-server",
+  "delete-server",
+  "create-database",
+  "update-database",
+  "delete-database",
 ]);
 
-export const orgAuditLogsTable = pgTable('org_audit_logs', {
+export const orgAuditLogsTable = pgTable("org_audit_logs", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  action: auditLogActionEnum('action').notNull(),
-  orgId: text('org_id')
+  action: auditLogActionEnum("action").notNull(),
+  orgId: text("org_id")
     .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  userId: text('user_id')
+    .references(() => organization.id, { onDelete: "cascade" }),
+  userId: text("user_id")
     .notNull()
-    .references(() => user.id, { onDelete: 'no action' }),
+    .references(() => user.id, { onDelete: "no action" }),
   timestamp: timestamp({
-    mode: 'date',
+    mode: "date",
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
-  data: jsonb('data').notNull().default({}),
+  data: jsonb("data").notNull().default({}),
 });
 
-export const orgServersTable = pgTable('org_servers', {
+export const orgServersTable = pgTable("org_servers", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   slug: varchar({ length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
-  orgId: text('org_id')
+  orgId: text("org_id")
     .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  createdAt: timestamp('created_at', {
-    mode: 'date',
+    .references(() => organization.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", {
+    mode: "date",
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
-  updatedAt: timestamp('updated_at', {
-    mode: 'date',
+  updatedAt: timestamp("updated_at", {
+    mode: "date",
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
 });
 
-export const orgDatabasesTable = pgTable('org_databases', {
+export const orgDatabasesTable = pgTable("org_databases", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   slug: varchar({ length: 255 }).notNull(),
   name: varchar({ length: 255 }).notNull(),
-  orgId: text('org_id')
+  orgId: text("org_id")
     .notNull()
-    .references(() => organization.id, { onDelete: 'cascade' }),
-  createdAt: timestamp('created_at', {
-    mode: 'date',
+    .references(() => organization.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", {
+    mode: "date",
     withTimezone: true,
   })
     .notNull()
     .defaultNow(),
-  updatedAt: timestamp('updated_at', {
-    mode: 'date',
+  updatedAt: timestamp("updated_at", {
+    mode: "date",
     withTimezone: true,
   })
     .notNull()

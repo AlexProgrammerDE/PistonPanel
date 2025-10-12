@@ -1,6 +1,12 @@
-import * as React from 'react';
-import { Suspense } from 'react';
-import { NavAccount } from '@/components/nav/nav-account';
+import type * as React from "react";
+import { Suspense } from "react";
+import { NavAccount } from "@/components/nav/nav-account";
+import { NavDefaultSkeleton } from "@/components/nav/nav-default-skeleton";
+import { NavOrgSwitcher } from "@/components/nav/nav-org-switcher";
+import { NavSecondary } from "@/components/nav/nav-secondary";
+import { NavUserAdmin } from "@/components/nav/user/nav-user-admin";
+import { NavUserOptions } from "@/components/nav/user/nav-user-options";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -9,13 +15,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
-} from '@/components/ui/sidebar';
-import { NavSecondary } from '@/components/nav/nav-secondary';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { NavUserOptions } from '@/components/nav/user/nav-user-options';
-import { NavUserAdmin } from '@/components/nav/user/nav-user-admin';
-import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
-import { NavOrgSwitcher } from '@/components/nav/nav-org-switcher';
+} from "@/components/ui/sidebar";
 
 export function UserSidebar({
   ...props

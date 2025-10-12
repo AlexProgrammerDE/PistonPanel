@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { BotIcon, HomeIcon } from 'lucide-react';
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link, type LinkProps, useRouteContext } from "@tanstack/react-router";
+import { BotIcon, HomeIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+} from "@/components/ui/sidebar";
 
 type NavLink = {
   title: string;
@@ -19,27 +19,27 @@ type NavLink = {
 };
 
 export function NavTop() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const orgInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/org/$org',
+    from: "/_dashboard/org/$org",
     select: (context) => context.orgInfoQueryOptions,
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
   const navLinks: NavLink[] = [
     {
-      title: t('orgSidebar.dashboard'),
+      title: t("orgSidebar.dashboard"),
       icon: HomeIcon,
       linkProps: {
-        to: '/org/$org',
+        to: "/org/$org",
         params: { org: orgInfo.slug },
       },
     },
     {
-      title: t('orgSidebar.assistant'),
+      title: t("orgSidebar.assistant"),
       icon: BotIcon,
       linkProps: {
-        to: '/org/$org/assistant',
+        to: "/org/$org/assistant",
         params: { org: orgInfo.slug },
       },
     },
@@ -54,7 +54,7 @@ export function NavTop() {
               <Link
                 activeOptions={{ exact: true }}
                 activeProps={{
-                  'data-active': true,
+                  "data-active": true,
                 }}
                 {...item.linkProps}
               >

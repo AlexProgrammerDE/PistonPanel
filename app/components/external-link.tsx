@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes, DetailedHTMLProps } from 'react';
+import type { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
 
 export function ExternalLink(
   props: Omit<
@@ -6,7 +6,7 @@ export function ExternalLink(
       AnchorHTMLAttributes<HTMLAnchorElement>,
       HTMLAnchorElement
     >,
-    'target'
+    "target"
   >,
 ) {
   return <a target="_blank" {...props} />;

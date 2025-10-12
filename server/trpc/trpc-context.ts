@@ -1,4 +1,4 @@
-import { auth } from '~/auth/auth-server';
+import { auth } from "~/auth/auth-server";
 
 export async function createContext(req: Request) {
   const session = await auth.api.getSession({ headers: req.headers });

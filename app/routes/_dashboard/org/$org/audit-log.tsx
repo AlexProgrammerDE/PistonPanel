@@ -1,14 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router';
-import * as React from 'react';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
-import OrgPageLayout from '@/components/nav/org/org-page-layout';
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import OrgPageLayout from "@/components/nav/org/org-page-layout";
 
-export const Route = createFileRoute('/_dashboard/org/$org/audit-log')({
+export const Route = createFileRoute("/_dashboard/org/$org/audit-log")({
   beforeLoad: (props) => {
     const { org } = props.params;
     const auditLogQueryOptions = queryOptions({
-      queryKey: ['org-audit-log', org],
+      queryKey: ["org-audit-log", org],
       queryFn: () => {
         return {
           entry: [],
@@ -16,7 +15,7 @@ export const Route = createFileRoute('/_dashboard/org/$org/audit-log')({
       },
       refetchInterval: 3_000,
     });
-    props.abortController.signal.addEventListener('abort', () => {
+    props.abortController.signal.addEventListener("abort", () => {
       void props.context.queryClient.cancelQueries({
         queryKey: auditLogQueryOptions.queryKey,
       });
@@ -33,7 +32,7 @@ export const Route = createFileRoute('/_dashboard/org/$org/audit-log')({
   component: AuditLog,
 });
 
-function getPreviousMonthDate(date: Date | undefined): Date | undefined {
+function _getPreviousMonthDate(date: Date | undefined): Date | undefined {
   if (!date) {
     return undefined;
   }
@@ -44,17 +43,17 @@ function getPreviousMonthDate(date: Date | undefined): Date | undefined {
 }
 
 function AuditLog() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <OrgPageLayout
       extraCrumbs={[
         {
-          id: 'management',
-          content: t('breadcrumbs.management'),
+          id: "management",
+          content: t("breadcrumbs.management"),
         },
       ]}
-      pageName={t('pageName.audit-log')}
+      pageName={t("pageName.audit-log")}
     >
       <Content />
     </OrgPageLayout>
@@ -62,7 +61,7 @@ function AuditLog() {
 }
 
 function Content() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { auditLogQueryOptions } = Route.useRouteContext();
   const { data: auditLog } = useSuspenseQuery(auditLogQueryOptions);
 

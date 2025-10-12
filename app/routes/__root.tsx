@@ -5,19 +5,19 @@ import {
   useLocation,
   useParams,
   useRouter,
-} from '@tanstack/react-router';
-import '@/styles/app.css';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { Toaster } from '@/components/ui/sonner';
-import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { QueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { AboutProvider } from '@/components/dialog/about-dialog';
-import { AuthQueryProvider } from '@daveyplate/better-auth-tanstack';
-import { AuthUIProviderTanstack } from '@daveyplate/better-auth-ui/tanstack';
-import { authClient } from '@/auth/auth-client';
-import { PostHogProvider } from 'posthog-js/react';
+} from "@tanstack/react-router";
+import "@/styles/app.css";
+import { AuthQueryProvider } from "@daveyplate/better-auth-tanstack";
+import { AuthUIProviderTanstack } from "@daveyplate/better-auth-ui/tanstack";
+import type { QueryClient } from "@tanstack/react-query";
+import { PostHogProvider } from "posthog-js/react";
+import { useEffect } from "react";
+import { authClient } from "@/auth/auth-client";
+import { AboutProvider } from "@/components/dialog/about-dialog";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -30,28 +30,26 @@ export const Route = createRootRouteWithContext<{
 
 function RootPending() {
   return (
-    <>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
-      </ThemeProvider>
-    </>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col" />
+    </ThemeProvider>
   );
 }
 
 function PointerReset() {
-  const location = useLocation();
+  const _location = useLocation();
 
   // Avoid mobile pointer events issues
   // When dropdowns were open when page is switched, sometimes the body still has pointer-events: none
   // This will reset it to auto
   useEffect(() => {
-    document.body.style.pointerEvents = 'auto';
-  }, [location.pathname]);
+    document.body.style.pointerEvents = "auto";
+  }, []);
 
   return null;
 }
@@ -59,86 +57,81 @@ function PointerReset() {
 function RootComponent() {
   const router = useRouter();
   const orgSlug = useParams({
-    from: '/_dashboard/org/$org',
+    from: "/_dashboard/org/$org",
     select: (params) => params.org,
     shouldThrow: false,
   });
 
   return (
-    <>
-      <AuthQueryProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <AuthQueryProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <AuthUIProviderTanstack
+          authClient={authClient}
+          navigate={(href) => void router.navigate({ href })}
+          replace={(href) => void router.navigate({ href, replace: true })}
+          Link={({ href, ...props }) => <Link to={href} {...props} />}
+          social={{
+            providers: ["google", "microsoft", "discord"],
+          }}
+          emailOTP
+          oneTap
+          emailVerification
+          changeEmail
+          passkey
+          deleteUser={{
+            verification: true,
+          }}
+          credentials={{
+            forgotPassword: true,
+            username: true,
+          }}
+          signUp={false}
+          nameRequired={false}
+          apiKey
+          optimistic
+          twoFactor={["otp", "totp"]}
+          redirectTo="/"
+          organization={{
+            pathMode: "slug",
+            apiKey: true,
+            basePath: "/org",
+            personalPath: "/",
+            slug: orgSlug,
+          }}
+          account={{
+            basePath: "/",
+          }}
+          gravatar
+          localization={{
+            NAME: "Display Name",
+            NAME_DESCRIPTION: "Please enter a display name.",
+            NAME_PLACEHOLDER: "Display Name",
+          }}
         >
-          <AuthUIProviderTanstack
-            authClient={authClient}
-            navigate={(href) => void router.navigate({ href })}
-            replace={(href) => void router.navigate({ href, replace: true })}
-            Link={({ href, ...props }) => <Link to={href} {...props} />}
-            social={{
-              providers: ['google', 'microsoft', 'discord'],
-            }}
-            emailOTP
-            oneTap
-            emailVerification
-            changeEmail
-            passkey
-            deleteUser={{
-              verification: true,
-            }}
-            credentials={{
-              forgotPassword: true,
-              username: true,
-            }}
-            signUp={false}
-            nameRequired={false}
-            apiKey
-            optimistic
-            twoFactor={['otp', 'totp']}
-            redirectTo="/"
-            organization={{
-              pathMode: 'slug',
-              apiKey: true,
-              basePath: '/org',
-              personalPath: '/',
-              slug: orgSlug,
-            }}
-            account={{
-              basePath: '/',
-            }}
-            gravatar
-            localization={{
-              NAME: 'Display Name',
-              NAME_DESCRIPTION: 'Please enter a display name.',
-              NAME_PLACEHOLDER: 'Display Name',
+          <PostHogProvider
+            apiKey={import.meta.env.VITE_POSTHOG_KEY}
+            options={{
+              api_host: import.meta.env.VITE_POSTHOG_HOST,
             }}
           >
-            <PostHogProvider
-              apiKey={import.meta.env.VITE_POSTHOG_KEY}
-              options={{
-                api_host: import.meta.env.VITE_POSTHOG_HOST,
-              }}
-            >
-              <TooltipProvider delayDuration={500}>
-                <div
-                  vaul-drawer-wrapper=""
-                  className="flex h-dvh w-dvw flex-col"
-                >
-                  <PointerReset />
-                  <AboutProvider>
-                    <Outlet />
-                  </AboutProvider>
-                </div>
-                <Toaster richColors />
-              </TooltipProvider>
-              <TailwindIndicator />
-            </PostHogProvider>
-          </AuthUIProviderTanstack>
-        </ThemeProvider>
-      </AuthQueryProvider>
-    </>
+            <TooltipProvider delayDuration={500}>
+              <div vaul-drawer-wrapper="" className="flex h-dvh w-dvw flex-col">
+                <PointerReset />
+                <AboutProvider>
+                  <Outlet />
+                </AboutProvider>
+              </div>
+              <Toaster richColors />
+            </TooltipProvider>
+            <TailwindIndicator />
+          </PostHogProvider>
+        </AuthUIProviderTanstack>
+      </ThemeProvider>
+    </AuthQueryProvider>
   );
 }

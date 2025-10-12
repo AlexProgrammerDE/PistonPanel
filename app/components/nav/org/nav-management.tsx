@@ -1,28 +1,26 @@
 import {
+  authLocalization,
+  organizationViewPaths,
+} from "@daveyplate/better-auth-ui";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link, type LinkProps, useRouteContext } from "@tanstack/react-router";
+import {
+  KeyIcon,
+  type LucideIcon,
+  SettingsIcon,
+  TextSearchIcon,
+  UsersIcon,
+} from "lucide-react";
+import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Link, LinkProps, useRouteContext } from '@tanstack/react-router';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  CogIcon,
-  KeyIcon,
-  LucideIcon,
-  ScanEyeIcon,
-  SettingsIcon,
-  TextSearchIcon,
-  UsersIcon,
-} from 'lucide-react';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { smartEntries } from '@/lib/utils';
-import {
-  authLocalization,
-  organizationViewPaths,
-} from '@daveyplate/better-auth-ui';
+} from "@/components/ui/sidebar";
+import { smartEntries } from "@/lib/utils";
 
 type NavLink = {
   title: string;
@@ -31,20 +29,20 @@ type NavLink = {
 };
 
 export function NavManagement() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const orgInfoQueryOptions = useRouteContext({
-    from: '/_dashboard/org/$org',
+    from: "/_dashboard/org/$org",
     select: (context) => context.orgInfoQueryOptions,
   });
   const { data: orgInfo } = useSuspenseQuery(orgInfoQueryOptions);
 
   function viewToIcon(view: keyof typeof organizationViewPaths): LucideIcon {
     switch (view) {
-      case 'SETTINGS':
+      case "SETTINGS":
         return SettingsIcon;
-      case 'MEMBERS':
+      case "MEMBERS":
         return UsersIcon;
-      case 'API_KEYS':
+      case "API_KEYS":
         return KeyIcon;
     }
   }
@@ -56,16 +54,16 @@ export function NavManagement() {
           title: authLocalization[view[0]],
           icon: viewToIcon(view[0]),
           linkProps: {
-            to: '/org/$org/$pathname',
+            to: "/org/$org/$pathname",
             params: { org: orgInfo.slug, pathname: view[1] },
           },
         }) satisfies NavLink,
     ),
     {
-      title: t('orgSidebar.audit-log'),
+      title: t("orgSidebar.audit-log"),
       icon: TextSearchIcon,
       linkProps: {
-        to: '/org/$org/audit-log',
+        to: "/org/$org/audit-log",
         params: { org: orgInfo.slug },
       },
     },
@@ -73,7 +71,7 @@ export function NavManagement() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('orgSidebar.managementGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("orgSidebar.managementGroup")}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>
@@ -81,7 +79,7 @@ export function NavManagement() {
               <Link
                 activeOptions={{ exact: true }}
                 activeProps={{
-                  'data-active': true,
+                  "data-active": true,
                 }}
                 {...item.linkProps}
               >

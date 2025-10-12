@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly APP_VERSION: string;
-  readonly APP_ENVIRONMENT: 'production' | 'development' | 'preview';
+  readonly APP_ENVIRONMENT: "production" | "development" | "preview";
   readonly APP_LOCALES: string[];
   readonly APP_NAMESPACES: string[];
   readonly VITE_POSTHOG_KEY: string;

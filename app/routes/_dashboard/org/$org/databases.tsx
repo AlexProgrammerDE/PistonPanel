@@ -1,24 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router';
-import OrgPageLayout from '@/components/nav/org/org-page-layout';
-import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import OrgPageLayout from "@/components/nav/org/org-page-layout";
 
-export const Route = createFileRoute('/_dashboard/org/$org/databases')({
+export const Route = createFileRoute("/_dashboard/org/$org/databases")({
   component: Console,
 });
 
 function Console() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <OrgPageLayout
       extraCrumbs={[
         {
-          id: 'resources',
-          content: t('breadcrumbs.resources'),
+          id: "resources",
+          content: t("breadcrumbs.resources"),
         },
       ]}
-      pageName={t('pageName.databases')}
+      pageName={t("pageName.databases")}
     >
       <Content />
     </OrgPageLayout>

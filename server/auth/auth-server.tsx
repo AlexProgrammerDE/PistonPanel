@@ -1,4 +1,5 @@
-import { betterAuth } from 'better-auth';
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import {
   admin,
   apiKey,
@@ -10,28 +11,27 @@ import {
   organization,
   twoFactor,
   username,
-} from 'better-auth/plugins';
-import { passkey } from 'better-auth/plugins/passkey';
-import { db } from '~/db';
-import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import * as authSchema from '~/db/auth-schema';
-import * as schema from '~/db/schema';
+} from "better-auth/plugins";
+import { passkey } from "better-auth/plugins/passkey";
+import { emailHarmony } from "better-auth-harmony";
 import {
   globalAc,
   globalRoleConfig,
   orgAc,
   orgRoleConfig,
-} from '@/auth/permissions';
-import { siteBaseUrl, siteName } from '~/config';
-import { emailHarmony } from 'better-auth-harmony';
-import { authEmails } from '~/auth/auth-emails';
+} from "@/auth/permissions";
+import { authEmails } from "~/auth/auth-emails";
+import { siteBaseUrl, siteName } from "~/config";
+import { db } from "~/db";
+import * as authSchema from "~/db/auth-schema";
+import * as schema from "~/db/schema";
 
 const disableSignUp = true;
 
 function emailToUniqueUsername(email: string): string {
   // Use the email prefix as the username, removing any not allowed characters
   // Add a random suffix to ensure uniqueness
-  const prefix = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '');
+  const prefix = email.split("@")[0].replace(/[^a-zA-Z0-9_]/g, "");
   const suffix = Math.random().toString(36).substring(2, 8);
   return `${prefix}_${suffix}`;
 }
@@ -40,7 +40,7 @@ export const auth = betterAuth({
   appName: siteName,
   baseURL: siteBaseUrl,
   database: drizzleAdapter(db, {
-    provider: 'pg',
+    provider: "pg",
     schema: {
       ...authSchema,
       ...schema,
@@ -144,7 +144,7 @@ export const auth = betterAuth({
     apiKey({
       requireName: true,
       enableMetadata: true,
-      defaultPrefix: 'key_',
+      defaultPrefix: "key_",
     }),
     organization({
       ac: orgAc,
@@ -155,7 +155,7 @@ export const auth = betterAuth({
             body: {
               userId: user.id,
               permissions: {
-                organization: ['create'],
+                organization: ["create"],
               },
             },
           })
@@ -184,7 +184,7 @@ export const auth = betterAuth({
     }),
     openAPI(),
     haveIBeenPwned({
-      customPasswordCompromisedMessage: 'Please choose a more secure password.',
+      customPasswordCompromisedMessage: "Please choose a more secure password.",
     }),
   ],
 });

@@ -1,19 +1,19 @@
-import { createAccessControl } from 'better-auth/plugins/access';
+import { createAccessControl } from "better-auth/plugins/access";
 import {
   adminAc as defaultGlobalAdminAc,
   defaultStatements as defaultGlobalStatements,
   userAc as defaultGlobalUserAc,
-} from 'better-auth/plugins/admin/access';
+} from "better-auth/plugins/admin/access";
 import {
   adminAc as defaultOrgAdminAc,
-  defaultStatements as defaultOrgStatements,
   memberAc as defaultOrgMemberAc,
   ownerAc as defaultOrgOwnerAc,
-} from 'better-auth/plugins/organization/access';
+  defaultStatements as defaultOrgStatements,
+} from "better-auth/plugins/organization/access";
 
 export const globalAc = createAccessControl({
   ...defaultGlobalStatements,
-  organization: ['create'],
+  organization: ["create"],
 });
 
 export const globalUser = globalAc.newRole({
@@ -23,7 +23,7 @@ export const globalUser = globalAc.newRole({
 export const globalAdmin = globalAc.newRole({
   ...globalUser.statements,
   ...defaultGlobalAdminAc.statements,
-  organization: ['create'],
+  organization: ["create"],
 });
 
 export const globalRoleConfig = {
@@ -33,7 +33,7 @@ export const globalRoleConfig = {
 
 export const orgAc = createAccessControl({
   ...defaultOrgStatements,
-  server: ['create', 'update', 'delete'],
+  server: ["create", "update", "delete"],
 });
 
 export const orgMember = orgAc.newRole({
@@ -43,7 +43,7 @@ export const orgMember = orgAc.newRole({
 export const orgAdmin = orgAc.newRole({
   ...orgMember.statements,
   ...defaultOrgAdminAc.statements,
-  server: ['create', 'update', 'delete'],
+  server: ["create", "update", "delete"],
 });
 
 export const orgOwner = orgAc.newRole({

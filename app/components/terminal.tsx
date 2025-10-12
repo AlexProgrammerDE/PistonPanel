@@ -1,10 +1,16 @@
-import React, { CSSProperties, use, useEffect, useRef, useState } from 'react';
-import { ScrollArea } from './ui/scroll-area';
-import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import { flavorEntries } from '@catppuccin/palette';
-import { AnsiHtml } from 'fancy-ansi/react';
-import { stripAnsi } from 'fancy-ansi';
-import { useTranslation } from 'react-i18next';
+import { flavorEntries } from "@catppuccin/palette";
+import { stripAnsi } from "fancy-ansi";
+import { AnsiHtml } from "fancy-ansi/react";
+import React, {
+  type CSSProperties,
+  use,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { TerminalThemeContext } from "@/components/providers/terminal-theme-context";
+import { ScrollArea } from "./ui/scroll-area";
 
 const MAX_TERMINAL_LINES = 500;
 
@@ -12,7 +18,7 @@ const MemoAnsiHtml = React.memo((props: { text: string }) => {
   return (
     <AnsiHtml
       text={
-        stripAnsi(props.text).endsWith('\n') ? props.text : props.text + '\n'
+        stripAnsi(props.text).endsWith("\n") ? props.text : `${props.text}\n`
       }
     />
   );
@@ -28,16 +34,16 @@ function fnv1aHash(str: string): string {
   return (hash >>> 0).toString(16);
 }
 
-function convertLine(message: TerminalLineBase): TerminalLine {
+function _convertLine(message: TerminalLineBase): TerminalLine {
   return {
     id: message.id,
     message: message.message,
-    lines: message.message.split('\n').length,
+    lines: message.message.split("\n").length,
     hash: fnv1aHash(message.message),
   };
 }
 
-function limitLength(lines: TerminalLine[]): TerminalLine[] {
+function _limitLength(lines: TerminalLine[]): TerminalLine[] {
   // Cut from start until we are <= max lines
   let linesSum = lines.reduce((acc, curr) => acc + curr.lines, 0);
   while (linesSum > MAX_TERMINAL_LINES) {
@@ -48,7 +54,7 @@ function limitLength(lines: TerminalLine[]): TerminalLine[] {
   return lines;
 }
 
-function deduplicateConsecutive<T>(
+function _deduplicateConsecutive<T>(
   arr: T[],
   getHash: (item: T) => string,
 ): T[] {
@@ -70,16 +76,16 @@ type TerminalLine = TerminalLineBase & {
   hash: string;
 };
 
-export const TerminalComponent = (props: { scope: {} }) => {
-  const { t } = useTranslation('common');
-  const [gotPrevious, setGotPrevious] = useState(false);
-  const [entries, setEntries] = useState<TerminalLine[]>([]);
+export const TerminalComponent = (_props: { scope: {} }) => {
+  const { t } = useTranslation("common");
+  const [gotPrevious, _setGotPrevious] = useState(false);
+  const [entries, _setEntries] = useState<TerminalLine[]>([]);
   const terminalTheme = use(TerminalThemeContext);
   const paneRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const selectedTheme = flavorEntries.find(
     (entry) => entry[0] === terminalTheme.value,
-  )![1];
+  )?.[1];
 
   const handleScroll = () => {
     if (paneRef.current) {
@@ -91,18 +97,18 @@ export const TerminalComponent = (props: { scope: {} }) => {
   useEffect(() => {
     const pane = paneRef.current;
     if (pane) {
-      pane.addEventListener('scroll', handleScroll);
+      pane.addEventListener("scroll", handleScroll);
       return () => {
-        pane.removeEventListener('scroll', handleScroll);
+        pane.removeEventListener("scroll", handleScroll);
       };
     }
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
     if (isAtBottom && paneRef.current) {
       paneRef.current.scrollTop = paneRef.current.scrollHeight;
     }
-  }, [entries, isAtBottom]);
+  }, [isAtBottom]);
 
   useEffect(() => {
     if (gotPrevious) {
@@ -147,7 +153,7 @@ export const TerminalComponent = (props: { scope: {} }) => {
     return () => {
       abortController.abort();
     };
-  }, [gotPrevious, props.scope, t]);
+  }, [gotPrevious]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -215,7 +221,7 @@ export const TerminalComponent = (props: { scope: {} }) => {
     return () => {
       abortController.abort();
     };
-  }, [props.scope]);
+  }, []);
 
   return (
     <ScrollArea
@@ -225,32 +231,32 @@ export const TerminalComponent = (props: { scope: {} }) => {
         {
           backgroundColor: selectedTheme.colors.base.hex,
           color: selectedTheme.colors.text.hex,
-          '--color-border': selectedTheme.colors.surface2.hex + '80', // Add 50% opacity
-          '--ansi-black': selectedTheme.dark
+          "--color-border": `${selectedTheme.colors.surface2.hex}80`, // Add 50% opacity
+          "--ansi-black": selectedTheme.dark
             ? selectedTheme.colors.surface1.hex
             : selectedTheme.colors.subtext1.hex,
-          '--ansi-red': selectedTheme.colors.red.hex,
-          '--ansi-green': selectedTheme.colors.green.hex,
-          '--ansi-yellow': selectedTheme.colors.yellow.hex,
-          '--ansi-blue': selectedTheme.colors.blue.hex,
-          '--ansi-magenta': selectedTheme.colors.pink.hex,
-          '--ansi-cyan': selectedTheme.colors.teal.hex,
-          '--ansi-white': selectedTheme.dark
+          "--ansi-red": selectedTheme.colors.red.hex,
+          "--ansi-green": selectedTheme.colors.green.hex,
+          "--ansi-yellow": selectedTheme.colors.yellow.hex,
+          "--ansi-blue": selectedTheme.colors.blue.hex,
+          "--ansi-magenta": selectedTheme.colors.pink.hex,
+          "--ansi-cyan": selectedTheme.colors.teal.hex,
+          "--ansi-white": selectedTheme.dark
             ? selectedTheme.colors.subtext0.hex
             : selectedTheme.colors.surface2.hex,
-          '--ansi-bright-black': selectedTheme.dark
+          "--ansi-bright-black": selectedTheme.dark
             ? selectedTheme.colors.surface2.hex
             : selectedTheme.colors.subtext0.hex,
-          '--ansi-bright-red': selectedTheme.colors.red.hex,
-          '--ansi-bright-green': selectedTheme.colors.green.hex,
-          '--ansi-bright-yellow': selectedTheme.colors.yellow.hex,
-          '--ansi-bright-blue': selectedTheme.colors.blue.hex,
-          '--ansi-bright-magenta': selectedTheme.colors.pink.hex,
-          '--ansi-bright-cyan': selectedTheme.colors.teal.hex,
-          '--ansi-bright-white': selectedTheme.dark
+          "--ansi-bright-red": selectedTheme.colors.red.hex,
+          "--ansi-bright-green": selectedTheme.colors.green.hex,
+          "--ansi-bright-yellow": selectedTheme.colors.yellow.hex,
+          "--ansi-bright-blue": selectedTheme.colors.blue.hex,
+          "--ansi-bright-magenta": selectedTheme.colors.pink.hex,
+          "--ansi-bright-cyan": selectedTheme.colors.teal.hex,
+          "--ansi-bright-white": selectedTheme.dark
             ? selectedTheme.colors.subtext1.hex
             : selectedTheme.colors.surface1.hex,
-          '--terminal-selection-bg': selectedTheme.colors.overlay2.hex,
+          "--terminal-selection-bg": selectedTheme.colors.overlay2.hex,
         } as CSSProperties
       }
     >

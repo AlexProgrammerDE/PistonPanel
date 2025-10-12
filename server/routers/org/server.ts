@@ -1,14 +1,14 @@
-import { orgProcedure, t } from '~/trpc/trpc';
-import z from 'zod';
-import { sync } from '~/kubernetes/syncer';
-import { db } from '~/db';
-import { orgServersTable } from '~/db/schema';
-import { and, eq } from 'drizzle-orm';
-import { k8sLogApi } from '~/kubernetes/client';
-import { k8sAppNamespace } from '~/config';
-import { LineStream } from 'byline';
-import EventEmitter, { on } from 'events';
-import { checkPermission } from '~/auth/helpers';
+import EventEmitter, { on } from "node:events";
+import { LineStream } from "byline";
+import { and, eq } from "drizzle-orm";
+import z from "zod";
+import { checkPermission } from "~/auth/helpers";
+import { k8sAppNamespace } from "~/config";
+import { db } from "~/db";
+import { orgServersTable } from "~/db/schema";
+import { k8sLogApi } from "~/kubernetes/client";
+import { sync } from "~/kubernetes/syncer";
+import { orgProcedure, t } from "~/trpc/trpc";
 
 export const serverRouter = t.router({
   createServer: orgProcedure
@@ -24,7 +24,7 @@ export const serverRouter = t.router({
       await checkPermission(
         opts.ctx.headers,
         {
-          server: ['create'],
+          server: ["create"],
         },
         org.id,
       );
@@ -55,7 +55,7 @@ export const serverRouter = t.router({
       await checkPermission(
         opts.ctx.headers,
         {
-          server: ['update'],
+          server: ["update"],
         },
         org.id,
       );
@@ -88,7 +88,7 @@ export const serverRouter = t.router({
       await checkPermission(
         opts.ctx.headers,
         {
-          server: ['delete'],
+          server: ["delete"],
         },
         org.id,
       );
@@ -116,31 +116,31 @@ export const serverRouter = t.router({
 
       const logStream = new LineStream();
 
-      logStream.on('data', (data) => {
-        ee.emit('add', {
+      logStream.on("data", (data) => {
+        ee.emit("add", {
           data: String(data),
         });
       });
 
-      opts.signal?.addEventListener('abort', () => {
+      opts.signal?.addEventListener("abort", () => {
         logStream.destroy();
       });
 
       void k8sLogApi
-        .log(k8sAppNamespace, `server-${opts.input.id}-0`, 'main', logStream, {
+        .log(k8sAppNamespace, `server-${opts.input.id}-0`, "main", logStream, {
           follow: true,
         })
         .then((logAbort) => {
           if (opts.signal?.aborted) {
             logAbort.abort(opts.signal.reason);
           } else {
-            opts.signal?.addEventListener('abort', () => {
+            opts.signal?.addEventListener("abort", () => {
               logAbort.abort(opts.signal?.reason);
             });
           }
         });
 
-      for await (const [data] of on(ee, 'add', {
+      for await (const [data] of on(ee, "add", {
         signal: opts.signal,
       })) {
         yield data as string;

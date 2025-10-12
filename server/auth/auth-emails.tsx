@@ -1,7 +1,6 @@
-import React from 'react';
-import { EmailTemplate } from '@daveyplate/better-auth-ui/server';
-import { siteBaseUrl, siteName } from '~/config';
-import { sendEmail } from '~/email/backend';
+import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
+import { siteBaseUrl, siteName } from "~/config";
+import { sendEmail } from "~/email/backend";
 
 interface BaseEmailParams {
   user: {
@@ -22,7 +21,7 @@ interface OTPEmailParams extends BaseEmailParams {
 interface EmailOTPParams {
   email: string;
   otp: string;
-  type: 'sign-in' | 'email-verification' | 'forget-password';
+  type: "sign-in" | "email-verification" | "forget-password";
 }
 
 interface InvitationEmailParams {
@@ -41,14 +40,14 @@ interface InvitationEmailParams {
 
 export const authEmails = {
   async sendPasswordReset({ user, url }: EmailWithUrlParams) {
-    const name = user.name || user.email.split('@')[0];
+    const name = user.name || user.email.split("@")[0];
     await sendEmail(
       process.env.EMAIL_FROM!,
       user.email,
       process.env.EMAIL_REPLY_TO!,
       `Your password reset request for ${siteName}`,
       EmailTemplate({
-        action: 'Reset Password',
+        action: "Reset Password",
         content: (
           <>
             <p>{`Hello ${name},`}</p>
@@ -58,7 +57,7 @@ export const authEmails = {
             </p>
           </>
         ),
-        heading: 'Password reset request',
+        heading: "Password reset request",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -68,21 +67,21 @@ export const authEmails = {
   },
 
   async sendEmailVerification({ user, url }: EmailWithUrlParams) {
-    const name = user.name || user.email.split('@')[0];
+    const name = user.name || user.email.split("@")[0];
     await sendEmail(
       process.env.EMAIL_FROM!,
       user.email,
       process.env.EMAIL_REPLY_TO!,
       `Verify your email address for ${siteName}`,
       EmailTemplate({
-        action: 'Verify Email',
+        action: "Verify Email",
         content: (
           <>
             <p>{`Hello ${name},`}</p>
             <p>Click the button below to verify your email address.</p>
           </>
         ),
-        heading: 'Verify your email address',
+        heading: "Verify your email address",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -92,14 +91,14 @@ export const authEmails = {
   },
 
   async sendChangeEmailVerification({ user, url }: EmailWithUrlParams) {
-    const name = user.name || user.email.split('@')[0];
+    const name = user.name || user.email.split("@")[0];
     await sendEmail(
       process.env.EMAIL_FROM!,
       user.email,
       process.env.EMAIL_REPLY_TO!,
-      'Your email change verification for ${siteName}',
+      "Your email change verification for ${siteName}",
       EmailTemplate({
-        action: 'Change Email',
+        action: "Change Email",
         content: (
           <>
             <p>{`Hello ${name},`}</p>
@@ -109,7 +108,7 @@ export const authEmails = {
             </p>
           </>
         ),
-        heading: 'Email change verification',
+        heading: "Email change verification",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -119,14 +118,14 @@ export const authEmails = {
   },
 
   async sendDeleteAccountVerification({ user, url }: EmailWithUrlParams) {
-    const name = user.name || user.email.split('@')[0];
+    const name = user.name || user.email.split("@")[0];
     await sendEmail(
       process.env.EMAIL_FROM!,
       user.email,
       process.env.EMAIL_REPLY_TO!,
       `Your account deletion request for ${siteName}`,
       EmailTemplate({
-        action: 'Delete Account',
+        action: "Delete Account",
         content: (
           <>
             <p>{`Hello ${name},`}</p>
@@ -136,7 +135,7 @@ export const authEmails = {
             </p>
           </>
         ),
-        heading: 'Account deletion request',
+        heading: "Account deletion request",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -146,7 +145,7 @@ export const authEmails = {
   },
 
   async sendTwoFactorOTP({ user, otp }: OTPEmailParams) {
-    const name = user.name || user.email.split('@')[0];
+    const name = user.name || user.email.split("@")[0];
     await sendEmail(
       process.env.EMAIL_FROM!,
       user.email,
@@ -162,7 +161,7 @@ export const authEmails = {
             <p>If you did not request this, please ignore this email.</p>
           </>
         ),
-        heading: 'Two-factor authentication code',
+        heading: "Two-factor authentication code",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -171,7 +170,7 @@ export const authEmails = {
   },
 
   async sendEmailOTP({ email, otp, type }: EmailOTPParams) {
-    if (type === 'sign-in') {
+    if (type === "sign-in") {
       await sendEmail(
         process.env.EMAIL_FROM!,
         email,
@@ -186,13 +185,13 @@ export const authEmails = {
               <p>If you did not request this, please ignore this email.</p>
             </>
           ),
-          heading: 'Sign in code',
+          heading: "Sign in code",
           siteName: siteName,
           baseUrl: siteBaseUrl,
           imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
         }),
       );
-    } else if (type === 'email-verification') {
+    } else if (type === "email-verification") {
       await sendEmail(
         process.env.EMAIL_FROM!,
         email,
@@ -207,13 +206,13 @@ export const authEmails = {
               <p>If you did not request this, please ignore this email.</p>
             </>
           ),
-          heading: 'Email verification code',
+          heading: "Email verification code",
           siteName: siteName,
           baseUrl: siteBaseUrl,
           imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
         }),
       );
-    } else if (type === 'forget-password') {
+    } else if (type === "forget-password") {
       await sendEmail(
         process.env.EMAIL_FROM!,
         email,
@@ -228,7 +227,7 @@ export const authEmails = {
               <p>If you did not request this, please ignore this email.</p>
             </>
           ),
-          heading: 'Password reset code',
+          heading: "Password reset code",
           siteName: siteName,
           baseUrl: siteBaseUrl,
           imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,
@@ -250,11 +249,11 @@ export const authEmails = {
       process.env.EMAIL_REPLY_TO!,
       `You have been invited to join an organization on ${siteName}`,
       EmailTemplate({
-        action: 'Join Organization',
+        action: "Join Organization",
         content: (
           <>
             <p>
-              {inviter.user.name} has invited you to join the organization{' '}
+              {inviter.user.name} has invited you to join the organization{" "}
               {organization.name} as a {role}.
             </p>
             <p>
@@ -263,7 +262,7 @@ export const authEmails = {
             </p>
           </>
         ),
-        heading: 'Organization invitation',
+        heading: "Organization invitation",
         siteName: siteName,
         baseUrl: siteBaseUrl,
         imageUrl: `${siteBaseUrl}/apple-touch-icon.png`,

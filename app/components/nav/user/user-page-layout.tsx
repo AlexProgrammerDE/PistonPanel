@@ -1,28 +1,28 @@
-import { SidebarTrigger } from '@/components/ui/sidebar';
-import { Separator } from '@/components/ui/separator';
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { CatchBoundary, useRouteContext } from "@tanstack/react-router";
+import { BookOpenTextIcon } from "lucide-react";
+import { type ReactNode, Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import { ErrorComponent } from "@/components/error-component";
+import { ExternalLink } from "@/components/external-link";
+import { LoadingComponent } from "@/components/loading-component";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ReactNode, Suspense } from 'react';
-import { BookOpenTextIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useTranslation } from 'react-i18next';
-import { CatchBoundary, useRouteContext } from '@tanstack/react-router';
-import { ErrorComponent } from '@/components/error-component';
-import { ExternalLink } from '@/components/external-link';
-import { LoadingComponent } from '@/components/loading-component';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { appUserName } from '@/lib/utils';
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { appUserName } from "@/lib/utils";
 
 function UserCrumb() {
   const clientDataQueryOptions = useRouteContext({
-    from: '/_dashboard',
+    from: "/_dashboard",
     select: (context) => context.clientDataQueryOptions,
   });
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
@@ -40,7 +40,7 @@ export default function UserPageLayout(props: {
   showUserCrumb: boolean;
   documentationLink?: string;
 }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const CrumbComponent = (props: { crumb: ReactNode }) => (
     <>
@@ -61,7 +61,7 @@ export default function UserPageLayout(props: {
                 <ExternalLink href={props.documentationLink}>
                   <BookOpenTextIcon />
                   <span className="sr-only">
-                    {t('userSidebar.readDocumentation')}
+                    {t("userSidebar.readDocumentation")}
                   </span>
                 </ExternalLink>
               </Button>
@@ -93,7 +93,7 @@ export default function UserPageLayout(props: {
       <ScrollArea className="h-[calc(100dvh-3rem)] w-full">
         <div className="flex min-h-[calc(100dvh-3rem)] w-full flex-col p-4">
           <CatchBoundary
-            getResetKey={() => 'user-page-layout'}
+            getResetKey={() => "user-page-layout"}
             errorComponent={ErrorComponent}
           >
             <Suspense fallback={<LoadingComponent />}>

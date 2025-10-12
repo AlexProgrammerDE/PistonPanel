@@ -1,13 +1,13 @@
-import { ReactNode, useState } from 'react';
+import { ClipboardIcon, InfoIcon } from "lucide-react";
+import { type ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { ClipboardIcon, InfoIcon } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/popover";
 
 export function TextInfoButton(props: { value: ReactNode }) {
   return (
@@ -18,7 +18,7 @@ export function TextInfoButton(props: { value: ReactNode }) {
 }
 
 export function CopyInfoButton(props: { value: string }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   return (
     <GenericInfoButton
       value={(close) => (
@@ -31,7 +31,7 @@ export function CopyInfoButton(props: { value: string }) {
             onClick={() => {
               void navigator.clipboard.writeText(props.value);
               close();
-              toast.success(t('copiedToClipboard'));
+              toast.success(t("copiedToClipboard"));
             }}
           >
             <ClipboardIcon className="h-4 w-4" />

@@ -1,7 +1,7 @@
-import { initTRPC, TRPCError } from '@trpc/server';
-import { Context } from '~/trpc/trpc-context';
-import { auth } from '~/auth/auth-server';
-import { z } from 'zod';
+import { initTRPC, TRPCError } from "@trpc/server";
+import { z } from "zod";
+import { auth } from "~/auth/auth-server";
+import type { Context } from "~/trpc/trpc-context";
 
 export const t = initTRPC.context<Context>().create();
 
@@ -9,7 +9,7 @@ export const protectedProcedure = t.procedure.use(
   async function isAuthed(opts) {
     const { ctx } = opts;
     if (!ctx.user || !ctx.session) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' });
+      throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
     return opts.next({
@@ -32,7 +32,7 @@ export const orgProcedure = protectedProcedure
     });
 
     if (!resolvedOrg) {
-      throw new TRPCError({ code: 'UNAUTHORIZED' });
+      throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
     return opts.next({

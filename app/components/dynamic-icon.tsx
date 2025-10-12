@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
-import { LucideProps } from 'lucide-react';
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
-import tags from 'lucide-static/tags.json';
+import type { LucideProps } from "lucide-react";
+import dynamicIconImports from "lucide-react/dynamicIconImports";
+import tags from "lucide-static/tags.json";
+import React, { Suspense } from "react";
 
 export function getAllIconTags() {
   return Object.entries(tags);
@@ -9,7 +9,7 @@ export function getAllIconTags() {
 
 export type LucideIconName = keyof typeof dynamicIconImports;
 
-export interface IconProps extends Omit<LucideProps, 'ref'> {
+export interface IconProps extends Omit<LucideProps, "ref"> {
   name: string;
 }
 
@@ -23,7 +23,7 @@ function convertUnsafeIconName(name: string): LucideIconName {
     return name as LucideIconName;
   }
 
-  return 'cloud-alert';
+  return "cloud-alert";
 }
 
 function loadCachedIcon(name: LucideIconName) {

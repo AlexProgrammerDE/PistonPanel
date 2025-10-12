@@ -1,17 +1,17 @@
-import { createFileRoute } from '@tanstack/react-router';
-import OrgPageLayout from '@/components/nav/org/org-page-layout';
-import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import OrgPageLayout from "@/components/nav/org/org-page-layout";
 
-export const Route = createFileRoute('/_dashboard/org/$org/assistant')({
+export const Route = createFileRoute("/_dashboard/org/$org/assistant")({
   component: Console,
 });
 
 function Console() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
-    <OrgPageLayout pageName={t('pageName.assistant')}>
+    <OrgPageLayout pageName={t("pageName.assistant")}>
       <Content />
     </OrgPageLayout>
   );

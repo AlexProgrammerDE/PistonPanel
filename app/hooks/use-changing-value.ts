@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { deepEqual } from '@tanstack/react-router';
+import { deepEqual } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export function useChangingData<T>(
   produce: () => T,
@@ -20,7 +20,7 @@ export function useChangingData<T>(
     const timer = setInterval(checkUpdate, interval);
 
     return () => clearInterval(timer);
-  }, [interval, ...deps]);
+  }, [interval, ...deps, produce]);
 
   return value;
 }

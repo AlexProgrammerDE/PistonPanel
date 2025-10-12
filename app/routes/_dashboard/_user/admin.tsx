@@ -1,11 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { queryOptions } from '@tanstack/react-query';
-import { AppUser, authClient } from '@/auth/auth-client';
+import { queryOptions } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { type AppUser, authClient } from "@/auth/auth-client";
 
-export const Route = createFileRoute('/_dashboard/_user/admin')({
+export const Route = createFileRoute("/_dashboard/_user/admin")({
   beforeLoad: (props) => {
     const usersQueryOptions = queryOptions({
-      queryKey: ['users'],
+      queryKey: ["users"],
       queryFn: async (): Promise<AppUser[]> => {
         return (
           await authClient.admin.listUsers({
@@ -20,7 +20,7 @@ export const Route = createFileRoute('/_dashboard/_user/admin')({
       },
       refetchInterval: 3_000,
     });
-    props.abortController.signal.addEventListener('abort', () => {
+    props.abortController.signal.addEventListener("abort", () => {
       void props.context.queryClient.cancelQueries({
         queryKey: usersQueryOptions.queryKey,
       });

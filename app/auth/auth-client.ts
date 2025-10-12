@@ -8,15 +8,15 @@ import {
   passkeyClient,
   twoFactorClient,
   usernameClient,
-} from 'better-auth/client/plugins';
-import { createAuthClient } from 'better-auth/react';
+} from "better-auth/client/plugins";
+import { createAuthClient } from "better-auth/react";
+import type { InferUserFromClient } from "better-auth/types";
 import {
   globalAc,
   globalRoleConfig,
   orgAc,
   orgRoleConfig,
-} from '@/auth/permissions';
-import { InferUserFromClient } from 'better-auth/types';
+} from "@/auth/permissions";
 
 const clientOptions = {
   plugins: [

@@ -1,9 +1,13 @@
-import * as React from 'react';
-import { Suspense } from 'react';
-
-import { NavResources } from '@/components/nav/org/nav-resources';
-import { NavManagement } from '@/components/nav/org/nav-management';
-import { NavAccount } from '@/components/nav/nav-account';
+import type * as React from "react";
+import { Suspense } from "react";
+import { NavAccount } from "@/components/nav/nav-account";
+import { NavDefaultSkeleton } from "@/components/nav/nav-default-skeleton";
+import { NavOrgSwitcher } from "@/components/nav/nav-org-switcher";
+import { NavSecondary } from "@/components/nav/nav-secondary";
+import { NavManagement } from "@/components/nav/org/nav-management";
+import { NavResources } from "@/components/nav/org/nav-resources";
+import { NavTop } from "@/components/nav/org/nav-top";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -12,12 +16,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
-} from '@/components/ui/sidebar';
-import { NavSecondary } from '@/components/nav/nav-secondary';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { NavDefaultSkeleton } from '@/components/nav/nav-default-skeleton';
-import { NavTop } from '@/components/nav/org/nav-top';
-import { NavOrgSwitcher } from '@/components/nav/nav-org-switcher';
+} from "@/components/ui/sidebar";
 
 export function OrgSidebar(props: React.ComponentProps<typeof Sidebar>) {
   return (

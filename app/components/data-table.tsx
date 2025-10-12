@@ -1,19 +1,28 @@
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  FilterFn,
+  compareItems,
+  type RankingInfo,
+  rankItem,
+} from "@tanstack/match-sorter-utils";
+import {
+  type ColumnDef,
+  type ColumnFiltersState,
+  type FilterFn,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingFn,
+  type Table as ReactTable,
+  type SortingFn,
+  type SortingState,
   sortingFns,
-  SortingState,
-  Table as ReactTable,
   useReactTable,
-} from '@tanstack/react-table';
-
+} from "@tanstack/react-table";
+import type { TableOptions } from "@tanstack/table-core";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { DataTablePagination } from "@/components/data-table-pagination";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -21,17 +30,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import React, { useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { DataTablePagination } from '@/components/data-table-pagination';
-import { useTranslation } from 'react-i18next';
-import {
-  compareItems,
-  RankingInfo,
-  rankItem,
-} from '@tanstack/match-sorter-utils';
-import { TableOptions } from '@tanstack/table-core';
+} from "@/components/ui/table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -39,10 +38,10 @@ interface DataTableProps<TData, TValue> {
   filterPlaceholder: string;
   // Element with form param
   extraHeader?: (props: { table: ReactTable<TData> }) => React.ReactNode;
-  enableRowSelection?: TableOptions<TData>['enableRowSelection'];
+  enableRowSelection?: TableOptions<TData>["enableRowSelection"];
 }
 
-declare module '@tanstack/react-table' {
+declare module "@tanstack/react-table" {
   //add fuzzy filter to the filterFns
   interface FilterFns {
     fuzzy: FilterFn<unknown>;
@@ -121,7 +120,7 @@ const isPickedDay: FilterFn<Date> = (
   if ((start || end) && !date) return false;
 
   if (start && !end && date) {
-    return date.getTime() == start.getTime();
+    return date.getTime() === start.getTime();
   } else if (start && end && date) {
     return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
   } else return true;
@@ -134,11 +133,11 @@ export function DataTable<TData, TValue>({
   extraHeader,
   enableRowSelection,
 }: DataTableProps<TData, TValue>) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = React.useState('');
+  const [globalFilter, setGlobalFilter] = React.useState("");
 
   const table = useReactTable({
     data,
@@ -156,7 +155,7 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: 'fuzzy',
+    globalFilterFn: "fuzzy",
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
     enableRowSelection,
@@ -177,7 +176,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="max-w-sm"
         />
-        {extraHeader && extraHeader({ table })}
+        {extraHeader?.({ table })}
       </div>
       <div className="rounded-md border">
         <Table>
@@ -204,7 +203,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -222,7 +221,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {t('dataTable.noResults')}
+                  {t("dataTable.noResults")}
                 </TableCell>
               </TableRow>
             )}

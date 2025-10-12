@@ -1,49 +1,52 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import * as React from 'react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/data-table';
-import { ColumnDef, Row, Table as ReactTable } from '@tanstack/react-table';
-import { toast } from 'sonner';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import type {
+  ColumnDef,
+  Table as ReactTable,
+  Row,
+} from "@tanstack/react-table";
 import {
   LogOutIcon,
   PencilIcon,
   PlusIcon,
   TrashIcon,
   VenetianMaskIcon,
-} from 'lucide-react';
-import {
-  useMutation,
-  useQueryClient,
-  useSuspenseQuery,
-} from '@tanstack/react-query';
-import { Trans, useTranslation } from 'react-i18next';
+} from "lucide-react";
+import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { type AppUser, authClient } from "@/auth/auth-client";
+import { DataTable } from "@/components/data-table";
 import {
   SelectAllHeader,
   SelectRowHeader,
-} from '@/components/data-table-selects';
-import UserPageLayout from '@/components/nav/user/user-page-layout';
-import { UserAvatar } from '@/components/user-avatar';
-import { ManageUserDialog } from '@/components/dialog/manage-user-dialog';
-import { appUserName, runAsync } from '@/lib/utils';
-import { SFTimeAgo } from '@/components/sf-timeago';
-import { CopyInfoButton } from '@/components/info-buttons';
-import { AppUser, authClient } from '@/auth/auth-client';
+} from "@/components/data-table-selects";
+import { ManageUserDialog } from "@/components/dialog/manage-user-dialog";
+import { CopyInfoButton } from "@/components/info-buttons";
+import UserPageLayout from "@/components/nav/user/user-page-layout";
+import { SFTimeAgo } from "@/components/sf-timeago";
+import { Button } from "@/components/ui/button";
+import { UserAvatar } from "@/components/user-avatar";
+import { appUserName, runAsync } from "@/lib/utils";
 
-export const Route = createFileRoute('/_dashboard/_user/admin/users')({
+export const Route = createFileRoute("/_dashboard/_user/admin/users")({
   component: Users,
 });
 
 const columns: ColumnDef<AppUser>[] = [
   {
-    id: 'select',
+    id: "select",
     header: SelectAllHeader,
     cell: SelectRowHeader,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'username',
+    accessorKey: "username",
     header: () => <Trans i18nKey="admin:users.table.username" />,
     cell: ({ row }) => (
       <div className="flex flex-row items-center justify-start gap-2">
@@ -56,30 +59,30 @@ const columns: ColumnDef<AppUser>[] = [
         <CopyInfoButton value={row.original.id} />
       </div>
     ),
-    sortingFn: 'fuzzySort',
+    sortingFn: "fuzzySort",
   },
   {
-    accessorKey: 'email',
+    accessorKey: "email",
     header: () => <Trans i18nKey="admin:users.table.email" />,
-    sortingFn: 'fuzzySort',
+    sortingFn: "fuzzySort",
   },
   {
     accessorFn: (row) => row.role,
-    accessorKey: 'role',
+    accessorKey: "role",
     header: () => <Trans i18nKey="admin:users.table.role" />,
-    sortingFn: 'fuzzySort',
+    sortingFn: "fuzzySort",
   },
   {
     accessorFn: (row) => row.createdAt,
-    accessorKey: 'createdAt',
+    accessorKey: "createdAt",
     header: () => <Trans i18nKey="admin:users.table.createdAt" />,
     cell: ({ row }) => <SFTimeAgo date={row.original.createdAt} />,
     enableGlobalFilter: false,
-    sortingFn: 'datetime',
-    filterFn: 'isWithinRange',
+    sortingFn: "datetime",
+    filterFn: "isWithinRange",
   },
   {
-    id: 'actions',
+    id: "actions",
     header: () => <Trans i18nKey="admin:users.table.actions" />,
     cell: ({ row }) => (
       <div className="flex flex-row gap-2">
@@ -118,36 +121,34 @@ function UpdateUserButton(props: { row: Row<AppUser> }) {
 function ImpersonateUserButton(props: { row: Row<AppUser> }) {
   const navigate = useNavigate();
   return (
-    <>
-      <Button
-        disabled={!props.row.getCanSelect()}
-        variant="secondary"
-        size="sm"
-        onClick={() => {
-          runAsync(async () => {
-            await authClient.admin.impersonateUser({
-              userId: props.row.original.id,
-              fetchOptions: {
-                onSuccess: async () => {
-                  await navigate({
-                    to: '/',
-                    replace: true,
-                    reloadDocument: true,
-                  });
-                },
+    <Button
+      disabled={!props.row.getCanSelect()}
+      variant="secondary"
+      size="sm"
+      onClick={() => {
+        runAsync(async () => {
+          await authClient.admin.impersonateUser({
+            userId: props.row.original.id,
+            fetchOptions: {
+              onSuccess: async () => {
+                await navigate({
+                  to: "/",
+                  replace: true,
+                  reloadDocument: true,
+                });
               },
-            });
+            },
           });
-        }}
-      >
-        <VenetianMaskIcon />
-      </Button>
-    </>
+        });
+      }}
+    >
+      <VenetianMaskIcon />
+    </Button>
   );
 }
 
 function ExtraHeader(props: { table: ReactTable<AppUser> }) {
-  const { t } = useTranslation('admin');
+  const { t } = useTranslation("admin");
   const queryClient = useQueryClient();
   const [createOpen, setCreateOpen] = useState(false);
   const { usersQueryOptions } = Route.useRouteContext();
@@ -195,11 +196,11 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
             .rows.map((r) => r.original);
 
           toast.promise(deleteUsersMutation(selectedRows), {
-            loading: t('users.removeToast.loading'),
-            success: t('users.removeToast.success'),
+            loading: t("users.removeToast.loading"),
+            success: t("users.removeToast.success"),
             error: (e) => {
               console.error(e);
-              return t('users.removeToast.error');
+              return t("users.removeToast.error");
             },
           });
         }}
@@ -215,11 +216,11 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
             .rows.map((r) => r.original);
 
           toast.promise(invalidateUsersMutation(selectedRows), {
-            loading: t('users.invalidateToast.loading'),
-            success: t('users.invalidateToast.success'),
+            loading: t("users.invalidateToast.loading"),
+            success: t("users.invalidateToast.success"),
             error: (e) => {
               console.error(e);
-              return t('users.invalidateToast.error');
+              return t("users.invalidateToast.error");
             },
           });
         }}
@@ -231,18 +232,18 @@ function ExtraHeader(props: { table: ReactTable<AppUser> }) {
 }
 
 function Users() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <UserPageLayout
       showUserCrumb={false}
       extraCrumbs={[
         {
-          id: 'settings',
-          content: t('breadcrumbs.settings'),
+          id: "settings",
+          content: t("breadcrumbs.settings"),
         },
       ]}
-      pageName={t('pageName.users')}
+      pageName={t("pageName.users")}
     >
       <Content />
     </UserPageLayout>
@@ -250,7 +251,7 @@ function Users() {
 }
 
 function Content() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { usersQueryOptions, clientDataQueryOptions } = Route.useRouteContext();
   const { data: clientInfo } = useSuspenseQuery(clientDataQueryOptions);
   const { data: userList } = useSuspenseQuery(usersQueryOptions);
@@ -258,7 +259,7 @@ function Content() {
   return (
     <div className="container flex h-full w-full grow flex-col gap-4">
       <DataTable
-        filterPlaceholder={t('admin:users.filterPlaceholder')}
+        filterPlaceholder={t("admin:users.filterPlaceholder")}
         columns={columns}
         data={userList}
         extraHeader={ExtraHeader}

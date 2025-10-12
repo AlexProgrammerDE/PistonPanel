@@ -1,16 +1,15 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import { z } from 'zod';
-
-import resourcesToBackend from 'i18next-resources-to-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { en } from 'zod/v4/locales';
-import { $ZodErrorMap } from 'zod/v4/core';
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import resourcesToBackend from "i18next-resources-to-backend";
+import { initReactI18next } from "react-i18next";
+import { z } from "zod";
+import type { $ZodErrorMap } from "zod/v4/core";
+import { en } from "zod/v4/locales";
 
 async function loadZodLocale(locale: string) {
   const moduleExport = (await import(
     `../../node_modules/zod/v4/locales/${locale}.js`
-    )) as {
+  )) as {
     default: () => {
       localeError: $ZodErrorMap;
     };
@@ -20,7 +19,7 @@ async function loadZodLocale(locale: string) {
 }
 
 async function tryApplyZodLocale(locale: string) {
-  const splitLocale = locale.split('-');
+  const splitLocale = locale.split("-");
   const langCode = splitLocale[0];
 
   try {
@@ -51,11 +50,11 @@ void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    defaultNS: 'common',
-    fallbackLng: 'en-US',
+    defaultNS: "common",
+    fallbackLng: "en-US",
     debug: true,
 
-    load: 'currentOnly',
+    load: "currentOnly",
     supportedLngs: import.meta.env.APP_LOCALES,
     ns: import.meta.env.APP_NAMESPACES,
     lowerCaseLng: false,
@@ -66,12 +65,12 @@ void i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
     detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage'],
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
     },
   });
 
-i18n.on('languageChanged', (lng) => {
+i18n.on("languageChanged", (lng) => {
   void tryApplyZodLocale(lng);
 });
 

@@ -1,5 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { AuthView } from "@daveyplate/better-auth-ui";
+import { createFileRoute } from "@tanstack/react-router";
+import { HeartHandshakeIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ExternalLink } from "@/components/external-link";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,21 +14,17 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { getLanguageName, languageEmoji } from '@/lib/utils';
-import { ExternalLink } from '@/components/external-link';
-import { HeartHandshakeIcon } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { AuthView } from '@daveyplate/better-auth-ui';
+} from "@/components/ui/dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { getLanguageName, languageEmoji } from "@/lib/utils";
 
-export const Route = createFileRoute('/auth/$pathname')({
+export const Route = createFileRoute("/auth/$pathname")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { pathname } = Route.useParams();
-  const { t, i18n } = useTranslation('login');
+  const { t, i18n } = useTranslation("login");
   const searchParams: Record<string, string> = Route.useSearch();
 
   return (
@@ -58,18 +58,18 @@ function RouteComponent() {
               width={32}
               height={32}
               src="/logo.png"
-              alt={t('header.image.alt')}
+              alt={t("header.image.alt")}
             />
-            <p className="font-medium tracking-wide">{t('header.title')}</p>
+            <p className="font-medium tracking-wide">{t("header.title")}</p>
           </div>
           <AuthView
             pathname={pathname}
-            redirectTo={searchParams.redirect || '/'}
+            redirectTo={searchParams.redirect || "/"}
           />
           <div>
             <div className="text-muted-foreground text-center text-xs text-balance">
               <p className="mb-1">
-                {t('footer.version', {
+                {t("footer.version", {
                   version: import.meta.env.APP_VERSION,
                   environment: import.meta.env.APP_ENVIRONMENT,
                 })}
@@ -82,7 +82,7 @@ function RouteComponent() {
                     className="text-muted-foreground w-fit text-sm text-balance"
                     variant="ghost"
                   >
-                    {languageEmoji(i18n.resolvedLanguage || i18n.language)}{' '}
+                    {languageEmoji(i18n.resolvedLanguage || i18n.language)}{" "}
                     {getLanguageName(
                       i18n.resolvedLanguage || i18n.language,
                       i18n.resolvedLanguage || i18n.language,
@@ -90,7 +90,7 @@ function RouteComponent() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>{t('common:locale')}</DropdownMenuLabel>
+                  <DropdownMenuLabel>{t("common:locale")}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuRadioGroup
                     value={i18n.resolvedLanguage || i18n.language}
@@ -101,7 +101,7 @@ function RouteComponent() {
                       ? i18n.options.supportedLngs
                       : []
                     )
-                      .filter((lang) => lang !== 'cimode')
+                      .filter((lang) => lang !== "cimode")
                       .map((lang) => (
                         <DropdownMenuRadioItem key={lang} value={lang}>
                           {languageEmoji(lang)} {getLanguageName(lang, lang)}
@@ -113,7 +113,7 @@ function RouteComponent() {
                     <DropdownMenuItem asChild>
                       <ExternalLink href="https://translate.pistonpanel.com">
                         <HeartHandshakeIcon />
-                        {t('footer.helpTranslate')}
+                        {t("footer.helpTranslate")}
                       </ExternalLink>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

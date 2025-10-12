@@ -1,20 +1,20 @@
-import { Organization } from 'better-auth/plugins';
-import {
+import type {
   KubernetesListObject,
   KubernetesObject,
-} from '@kubernetes/client-node';
-import { db } from '~/db';
-import { orgServersTable } from '~/db/schema';
-import { eq } from 'drizzle-orm';
-import { k8sAppNamespace } from '~/config';
-import * as k from 'cdk8s';
-import * as kplus from 'cdk8s-plus-32';
+} from "@kubernetes/client-node";
+import type { Organization } from "better-auth/plugins";
+import * as k from "cdk8s";
+import * as kplus from "cdk8s-plus-32";
+import { eq } from "drizzle-orm";
+import { k8sAppNamespace } from "~/config";
+import { db } from "~/db";
+import { orgServersTable } from "~/db/schema";
 
-export type ComponentType = 'server' | 'database';
+export type ComponentType = "server" | "database";
 
 export function baseGlobalSelectorLabels(): Record<string, string> {
   return {
-    'app.kubernetes.io/managed-by': 'pistonpanel',
+    "app.kubernetes.io/managed-by": "pistonpanel",
   };
 }
 
@@ -23,15 +23,15 @@ export function baseServerSelectorLabels(
 ): Record<string, string> {
   return {
     ...baseGlobalSelectorLabels(),
-    'app.kubernetes.io/instance': resourceId,
-    'pistonpanel.com/server-id': resourceId,
+    "app.kubernetes.io/instance": resourceId,
+    "pistonpanel.com/server-id": resourceId,
   };
 }
 
 export function baseOrgSelectorLabels(orgId: string): Record<string, string> {
   return {
     ...baseGlobalSelectorLabels(),
-    'pistonpanel.com/tenant': orgId,
+    "pistonpanel.com/tenant": orgId,
   };
 }
 
@@ -44,7 +44,7 @@ export function baseLabels(
     ...baseServerSelectorLabels(resourceId),
     ...baseOrgSelectorLabels(orgId),
     // 'app.kubernetes.io/app': '',
-    'app.kubernetes.io/component': component,
+    "app.kubernetes.io/component": component,
   };
 }
 
@@ -59,7 +59,7 @@ export async function sync(org: Organization) {
     const serverChart = new k.Chart(k8sApp, `server-${server.id}`, {
       namespace: k8sAppNamespace,
       labels: {
-        ...baseLabels(org.id, String(server.id), 'server'),
+        ...baseLabels(org.id, String(server.id), "server"),
       },
       disableResourceNameHashes: true,
     });
@@ -80,8 +80,8 @@ export async function sync(org: Organization) {
         replicas: 1,
         containers: [
           {
-            name: 'main',
-            image: 'nginx',
+            name: "main",
+            image: "nginx",
           },
         ],
       },
@@ -93,10 +93,10 @@ export async function sync(org: Organization) {
         default: kplus.NetworkPolicyTrafficDefault.DENY,
         rules: [
           {
-            peer: kplus.Pods.select(serverChart, 'org-pods', {
+            peer: kplus.Pods.select(serverChart, "org-pods", {
               namespaces: kplus.Namespaces.select(
                 serverChart,
-                'app-namespace',
+                "app-namespace",
                 {
                   names: [k8sAppNamespace],
                 },
@@ -113,14 +113,14 @@ export async function sync(org: Organization) {
         rules: [
           // Allow talking to DNS
           {
-            peer: kplus.Pods.select(serverChart, 'kube-dns-pods', {
-              namespaces: kplus.Namespaces.select(serverChart, 'kube-system', {
+            peer: kplus.Pods.select(serverChart, "kube-dns-pods", {
+              namespaces: kplus.Namespaces.select(serverChart, "kube-system", {
                 labels: {
-                  'kubernetes.io/metadata.name': 'kube-system',
+                  "kubernetes.io/metadata.name": "kube-system",
                 },
               }),
               labels: {
-                'k8s-app': 'kube-dns',
+                "k8s-app": "kube-dns",
               },
             }),
             ports: [
@@ -132,14 +132,14 @@ export async function sync(org: Organization) {
           {
             peer: kplus.NetworkPolicyIpBlock.anyIpv4(
               serverChart,
-              'internet-ipv4',
+              "internet-ipv4",
             ),
           },
           // Allow talking to the internet via ipv6
           {
             peer: kplus.NetworkPolicyIpBlock.anyIpv6(
               serverChart,
-              'internet-ipv6',
+              "internet-ipv6",
             ),
           },
         ],
@@ -152,13 +152,13 @@ export async function sync(org: Organization) {
   );
   console.debug(synthedObjects);
   await apply<KubernetesListObject<KubernetesObject>>({
-    apiVersion: 'v1',
-    kind: 'List',
+    apiVersion: "v1",
+    kind: "List",
     items: synthedObjects,
   });
 }
 
-async function apply<T extends KubernetesObject>(resource: T) {
+async function apply<T extends KubernetesObject>(_resource: T) {
   // await k8sObjectApi.patch(
   //   resource,
   //   undefined,

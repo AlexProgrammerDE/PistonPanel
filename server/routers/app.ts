@@ -1,5 +1,5 @@
-import { t } from '~/trpc/trpc';
-import { orgRouter } from '~/routers/org';
+import { orgRouter } from "~/routers/org";
+import { t } from "~/trpc/trpc";
 
 export const appRouter = t.router({
   org: orgRouter,

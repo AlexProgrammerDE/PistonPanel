@@ -1,28 +1,27 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import * as React from 'react';
-import UserPageLayout from '@/components/nav/user/user-page-layout';
-import { Card, CardTitle } from '@/components/ui/card';
-import { SearchXIcon } from 'lucide-react';
-import DynamicIcon from '@/components/dynamic-icon';
-import { useTranslation } from 'react-i18next';
-import { authClient } from '@/auth/auth-client';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SearchXIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { authClient } from "@/auth/auth-client";
+import DynamicIcon from "@/components/dynamic-icon";
+import UserPageLayout from "@/components/nav/user/user-page-layout";
+import { Card, CardTitle } from "@/components/ui/card";
 
-export const Route = createFileRoute('/_dashboard/_user/')({
+export const Route = createFileRoute("/_dashboard/_user/")({
   component: OrgSelectPage,
 });
 
 function OrgSelectPage() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
-    <UserPageLayout showUserCrumb={true} pageName={t('pageName.orgs')}>
+    <UserPageLayout showUserCrumb={true} pageName={t("pageName.orgs")}>
       <Content />
     </UserPageLayout>
   );
 }
 
 function Content() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { data: orgList } = authClient.useListOrganizations();
   if (orgList === null) {
     return null;
@@ -30,11 +29,11 @@ function Content() {
 
   return (
     <>
-      {orgList.length == 0 ? (
+      {orgList.length === 0 ? (
         <div className="flex size-full flex-1">
           <div className="m-auto flex flex-row gap-2">
             <SearchXIcon className="m-auto size-7" />
-            <h1 className="m-auto text-xl font-bold">{t('noOrgsFound')}</h1>
+            <h1 className="m-auto text-xl font-bold">{t("noOrgsFound")}</h1>
           </div>
         </div>
       ) : (
@@ -51,7 +50,7 @@ function Content() {
                 <div className="shrink-0 pr-0">
                   <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-12 items-center justify-center rounded-lg">
                     <DynamicIcon
-                      name={org.logo || ''}
+                      name={org.logo || ""}
                       className="size-8 shrink-0"
                     />
                   </div>

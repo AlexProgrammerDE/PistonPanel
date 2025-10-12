@@ -1,18 +1,17 @@
-'use client';
+"use client";
 
-import { ChartAreaIcon, UsersIcon } from 'lucide-react';
+import { Link, type LinkProps } from "@tanstack/react-router";
+import { ChartAreaIcon, UsersIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Link, LinkProps } from '@tanstack/react-router';
-import * as React from 'react';
-import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useGlobalPermission } from '@/hooks/use-global-permission';
+} from "@/components/ui/sidebar";
+import { useGlobalPermission } from "@/hooks/use-global-permission";
 
 type NavLink = {
   title: string;
@@ -21,9 +20,9 @@ type NavLink = {
 };
 
 export function NavUserAdmin() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const listUsersPermission = useGlobalPermission({
-    user: ['list'],
+    user: ["list"],
   });
 
   if (!listUsersPermission) {
@@ -32,18 +31,18 @@ export function NavUserAdmin() {
 
   const navLinks: NavLink[] = [
     {
-      title: t('userSidebar.adminOverview'),
+      title: t("userSidebar.adminOverview"),
       icon: ChartAreaIcon,
       linkProps: {
-        to: '/admin',
+        to: "/admin",
         params: {},
       },
     },
     {
-      title: t('userSidebar.users'),
+      title: t("userSidebar.users"),
       icon: UsersIcon,
       linkProps: {
-        to: '/admin/users',
+        to: "/admin/users",
         params: {},
       },
     },
@@ -51,7 +50,7 @@ export function NavUserAdmin() {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{t('userSidebar.adminGroup')}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("userSidebar.adminGroup")}</SidebarGroupLabel>
       <SidebarMenu>
         {navLinks.map((item) => (
           <SidebarMenuItem key={item.title}>
@@ -59,7 +58,7 @@ export function NavUserAdmin() {
               <Link
                 activeOptions={{ exact: true }}
                 activeProps={{
-                  'data-active': true,
+                  "data-active": true,
                 }}
                 {...item.linkProps}
               >

@@ -1,25 +1,25 @@
 // Must be first
-import 'dotenv-flow/config';
+import "dotenv-flow/config";
 
-import { Hono } from 'hono';
-import { serve } from '@hono/node-server';
-import { auth } from './auth/auth-server';
-import { logger } from 'hono/logger';
-import { appRouter } from '~/routers/app';
-import { createContext } from '~/trpc/trpc-context';
-import { trpcServer } from '@hono/trpc-server';
+import { serve } from "@hono/node-server";
+import { trpcServer } from "@hono/trpc-server";
+import { Hono } from "hono";
+import { logger } from "hono/logger";
+import { appRouter } from "~/routers/app";
+import { createContext } from "~/trpc/trpc-context";
+import { auth } from "./auth/auth-server";
 
 const app = new Hono();
 
 app.use(logger());
-app.get('/', (c) => c.text('Hello World!'));
+app.get("/", (c) => c.text("Hello World!"));
 
-app.on(['POST', 'GET'], '/api/auth/*', (c) => {
+app.on(["POST", "GET"], "/api/auth/*", (c) => {
   return auth.handler(c.req.raw);
 });
 
 app.use(
-  '/api/trpc/*',
+  "/api/trpc/*",
   trpcServer({
     router: appRouter,
     createContext: (_opts, c) => createContext(c.req.raw),
@@ -30,7 +30,7 @@ serve(
   {
     ...app,
     port: 8787,
-    hostname: '0.0.0.0',
+    hostname: "0.0.0.0",
   },
   (info) => {
     // noinspection HttpUrlsUsage

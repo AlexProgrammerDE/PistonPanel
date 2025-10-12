@@ -1,23 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router';
-import * as React from 'react';
-import { useMemo } from 'react';
-import { Label, Pie, PieChart } from 'recharts';
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import * as React from "react";
+import { useMemo } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { Label, Pie, PieChart } from "recharts";
+import type { AppUser } from "@/auth/auth-client";
+import UserPageLayout from "@/components/nav/user/user-page-layout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  CustomTooltipProps,
-} from '@/components/ui/chart';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import UserPageLayout from '@/components/nav/user/user-page-layout';
-import { Trans, useTranslation } from 'react-i18next';
-import { AppUser } from '@/auth/auth-client';
-import { appUserName } from '@/lib/utils';
+  type CustomTooltipProps,
+} from "@/components/ui/chart";
+import { appUserName } from "@/lib/utils";
 
-export const Route = createFileRoute('/_dashboard/_user/admin/')({
+export const Route = createFileRoute("/_dashboard/_user/admin/")({
   component: OverviewPage,
 });
 
@@ -27,35 +26,35 @@ const usersChartConfig = {
   },
   user: {
     label: <Trans i18nKey="admin:overview.usersChart.label.user" />,
-    color: 'var(--chart-2)',
+    color: "var(--chart-2)",
   },
   admin: {
     label: <Trans i18nKey="admin:overview.usersChart.label.admin" />,
-    color: 'var(--chart-1)',
+    color: "var(--chart-1)",
   },
   other: {
     label: <Trans i18nKey="admin:overview.usersChart.label.other" />,
-    color: 'var(--chart-3)',
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
 
-function forType(userList: AppUser[], type: AppUser['role']) {
+function forType(userList: AppUser[], type: AppUser["role"]) {
   return userList.filter((user) => user.role === type).length;
 }
 
 export function UsersChart(props: { userList: AppUser[] }) {
-  const { t } = useTranslation('admin');
+  const { t } = useTranslation("admin");
   const chartData = useMemo(
     () => [
       {
-        role: 'admin',
-        users: forType(props.userList, 'admin'),
-        fill: 'var(--color-admin)',
+        role: "admin",
+        users: forType(props.userList, "admin"),
+        fill: "var(--color-admin)",
       },
       {
-        role: 'user',
-        users: forType(props.userList, 'user'),
-        fill: 'var(--color-user)',
+        role: "user",
+        users: forType(props.userList, "user"),
+        fill: "var(--color-user)",
       },
     ],
     [props.userList],
@@ -68,7 +67,7 @@ export function UsersChart(props: { userList: AppUser[] }) {
   return (
     <Card className="flex flex-col border-0">
       <CardHeader className="items-center pb-0">
-        <CardTitle>{t('overview.usersChart.title')}</CardTitle>
+        <CardTitle>{t("overview.usersChart.title")}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -91,7 +90,7 @@ export function UsersChart(props: { userList: AppUser[] }) {
             >
               <Label
                 content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
                       <text
                         x={viewBox.cx}
@@ -111,7 +110,7 @@ export function UsersChart(props: { userList: AppUser[] }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          {t('overview.usersChart.users')}
+                          {t("overview.usersChart.users")}
                         </tspan>
                       </text>
                     );
@@ -127,18 +126,18 @@ export function UsersChart(props: { userList: AppUser[] }) {
 }
 
 function OverviewPage() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return (
     <UserPageLayout
       showUserCrumb={false}
       extraCrumbs={[
         {
-          id: 'admin',
-          content: t('breadcrumbs.admin'),
+          id: "admin",
+          content: t("breadcrumbs.admin"),
         },
       ]}
-      pageName={t('pageName.overview')}
+      pageName={t("pageName.overview")}
     >
       <Content />
     </UserPageLayout>
@@ -146,7 +145,7 @@ function OverviewPage() {
 }
 
 function Content() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { usersQueryOptions, clientDataQueryOptions } = Route.useRouteContext();
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
   const { data: userList } = useSuspenseQuery(usersQueryOptions);
@@ -154,7 +153,7 @@ function Content() {
   return (
     <div className="flex h-full w-full grow flex-col gap-2 pl-2">
       <h2 className="text-xl font-semibold">
-        {t('admin:overview.welcome', {
+        {t("admin:overview.welcome", {
           name: appUserName(session.user),
         })}
       </h2>

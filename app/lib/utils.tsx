@@ -1,17 +1,17 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { sha256 } from 'js-sha256';
-import * as Flags from 'country-flag-icons/react/3x2';
-import { type FlagComponent } from 'country-flag-icons/react/1x1';
-import { ReactNode } from 'react';
-import { AppUser } from '@/auth/auth-client';
+import { type ClassValue, clsx } from "clsx";
+import type { FlagComponent } from "country-flag-icons/react/1x1";
+import * as Flags from "country-flag-icons/react/3x2";
+import { sha256 } from "js-sha256";
+import type { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
+import type { AppUser } from "@/auth/auth-client";
 
-const LOCAL_STORAGE_TERMINAL_THEME_KEY = 'terminal-theme';
+const LOCAL_STORAGE_TERMINAL_THEME_KEY = "terminal-theme";
 
 const emojiMap = import.meta.env.APP_LOCALES.reduce<
   Record<string, FlagComponent>
 >((acc, locale) => {
-  const countryCode = locale.split('-')[1];
+  const countryCode = locale.split("-")[1];
   if (!countryCode) return acc;
 
   acc[countryCode] = Flags[countryCode as keyof typeof Flags];
@@ -23,7 +23,7 @@ export function setTerminalTheme(theme: string) {
 }
 
 export function getTerminalTheme() {
-  return localStorage.getItem(LOCAL_STORAGE_TERMINAL_THEME_KEY) || 'mocha';
+  return localStorage.getItem(LOCAL_STORAGE_TERMINAL_THEME_KEY) || "mocha";
 }
 
 export function cn(...inputs: ClassValue[]) {
@@ -35,26 +35,26 @@ export function getGravatarUrl(email: string) {
 }
 
 export function languageEmoji(locale: string): ReactNode {
-  if (locale === 'lol-US') {
-    return '🐱';
+  if (locale === "lol-US") {
+    return "🐱";
   }
 
-  const countryCode = locale.split('-')[1];
-  if (!countryCode) return '';
+  const countryCode = locale.split("-")[1];
+  if (!countryCode) return "";
 
   const Flag = emojiMap[countryCode];
-  if (!Flag) return '';
+  if (!Flag) return "";
 
   return <Flag className="mx-1 size-4 align-middle" />;
 }
 
 export function getLanguageName(languageCode: string, displayLanguage: string) {
-  if (languageCode === 'lol-US') {
-    return 'LOLCAT';
+  if (languageCode === "lol-US") {
+    return "LOLCAT";
   }
 
   const displayNames = new Intl.DisplayNames([displayLanguage], {
-    type: 'language',
+    type: "language",
   });
   return displayNames.of(languageCode) || languageCode;
 }
@@ -69,7 +69,7 @@ export function appUserName(user: AppUser) {
     user.displayUsername ||
     user.username ||
     user.email ||
-    'Unknown'
+    "Unknown"
   );
 }
 

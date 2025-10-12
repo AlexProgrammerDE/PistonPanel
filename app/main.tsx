@@ -1,25 +1,25 @@
+import { broadcastQueryClient } from "@tanstack/query-broadcast-client-experimental";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createRouter as createTanStackRouter,
   deepEqual,
   RouterProvider,
-} from '@tanstack/react-router';
-import ReactDOM from 'react-dom/client';
-import { routeTree } from './routeTree.gen';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { broadcastQueryClient } from '@tanstack/query-broadcast-client-experimental';
-import { ErrorComponent } from '@/components/error-component';
-import { LoadingComponent } from '@/components/loading-component';
-import { NotFoundComponent } from '@/components/not-found-component';
-import '@/lib/i18n';
-import { StrictMode } from 'react';
+} from "@tanstack/react-router";
+import ReactDOM from "react-dom/client";
+import { ErrorComponent } from "@/components/error-component";
+import { LoadingComponent } from "@/components/loading-component";
+import { NotFoundComponent } from "@/components/not-found-component";
+import { routeTree } from "./routeTree.gen";
+import "@/lib/i18n";
 import {
   httpBatchStreamLink,
   httpSubscriptionLink,
   loggerLink,
   retryLink,
   splitLink,
-} from '@trpc/client';
-import { trpc } from '@/lib/trpc';
+} from "@trpc/client";
+import { StrictMode } from "react";
+import { trpc } from "@/lib/trpc";
 
 export function createRouter() {
   const trpcClient = trpc.createClient({
@@ -29,12 +29,12 @@ export function createRouter() {
         retry: (opts) => {
           const code = opts.error.data?.code;
           if (!code) {
-            console.error('No error code found, retrying', opts);
+            console.error("No error code found, retrying", opts);
             return true;
           }
 
-          if (code === 'UNAUTHORIZED' || code === 'FORBIDDEN') {
-            console.log('Retrying due to 401/403 error');
+          if (code === "UNAUTHORIZED" || code === "FORBIDDEN") {
+            console.log("Retrying due to 401/403 error");
             return true;
           }
 
@@ -42,12 +42,12 @@ export function createRouter() {
         },
       }),
       splitLink({
-        condition: (op) => op.type === 'subscription',
+        condition: (op) => op.type === "subscription",
         true: httpSubscriptionLink({
-          url: '/api/trpc',
+          url: "/api/trpc",
         }),
         false: httpBatchStreamLink({
-          url: '/api/trpc',
+          url: "/api/trpc",
         }),
       }),
     ],
@@ -66,18 +66,18 @@ export function createRouter() {
 
   broadcastQueryClient({
     queryClient,
-    broadcastChannel: 'pistonpanel',
+    broadcastChannel: "pistonpanel",
   });
 
   // noinspection JSUnusedGlobalSymbols
   return createTanStackRouter({
     routeTree,
-    defaultPreload: 'intent',
+    defaultPreload: "intent",
     // Since we're using React Query, we don't want loader calls to ever be stale
     // This will ensure that the loader is always called when the route is preloaded or visited
     defaultPreloadStaleTime: 0,
     scrollRestoration: true,
-    scrollRestorationBehavior: 'auto',
+    scrollRestorationBehavior: "auto",
     defaultErrorComponent: ErrorComponent,
     defaultPendingComponent: LoadingComponent,
     defaultNotFoundComponent: NotFoundComponent,
@@ -95,7 +95,7 @@ export function createRouter() {
 
 const router = createRouter();
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   // noinspection JSUnusedGlobalSymbols
   interface Register {
     router: ReturnType<typeof createRouter>;
@@ -103,7 +103,7 @@ declare module '@tanstack/react-router' {
 }
 
 // Render the app
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(

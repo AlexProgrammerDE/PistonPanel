@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Resend } from 'resend';
+import type { ReactNode } from "react";
+import { Resend } from "resend";
 
 export async function sendEmail(
   from: string,

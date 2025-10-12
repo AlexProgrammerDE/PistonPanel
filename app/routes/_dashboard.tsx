@@ -1,21 +1,21 @@
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import {
   createFileRoute,
   Outlet,
   redirect,
   useNavigate,
-} from '@tanstack/react-router';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense, useEffect, useState } from 'react';
-import { authClient } from '@/auth/auth-client';
-import { getTerminalTheme } from '@/lib/utils';
-import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
+} from "@tanstack/react-router";
+import { Suspense, useEffect, useState } from "react";
+import { authClient } from "@/auth/auth-client";
+import { TerminalThemeContext } from "@/components/providers/terminal-theme-context";
+import { getTerminalTheme } from "@/lib/utils";
 
-export const Route = createFileRoute('/_dashboard')({
+export const Route = createFileRoute("/_dashboard")({
   beforeLoad: async (props) => {
     const { data: session } = await authClient.getSession();
     if (session) {
       const clientDataQueryOptions = queryOptions({
-        queryKey: ['client-data'],
+        queryKey: ["client-data"],
         queryFn: async () => {
           const session = await authClient.getSession({
             fetchOptions: {
@@ -24,13 +24,13 @@ export const Route = createFileRoute('/_dashboard')({
           });
 
           if (!session) {
-            throw new Error('Session not found');
+            throw new Error("Session not found");
           }
 
           return session;
         },
       });
-      props.abortController.signal.addEventListener('abort', () => {
+      props.abortController.signal.addEventListener("abort", () => {
         void props.context.queryClient.cancelQueries({
           queryKey: clientDataQueryOptions.queryKey,
         });
@@ -41,9 +41,9 @@ export const Route = createFileRoute('/_dashboard')({
     } else {
       // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw redirect({
-        to: '/auth/$pathname',
+        to: "/auth/$pathname",
         params: {
-          pathname: 'sign-in',
+          pathname: "sign-in",
         },
         search: {
           redirect: props.location.href,
@@ -65,18 +65,18 @@ function OrgSwitchKeybinds() {
 
     const down = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey) {
-        const numberKey = parseInt(e.key);
+        const numberKey = parseInt(e.key, 10);
         if (numberKey > 0 && numberKey <= usedList.length) {
           e.preventDefault();
           void navigate({
-            to: '/org/$org',
+            to: "/org/$org",
             params: { org: usedList[numberKey - 1].slug },
           });
         }
       }
     };
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, [orgList, navigate]);
 
   return null;

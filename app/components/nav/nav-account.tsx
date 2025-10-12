@@ -1,5 +1,8 @@
-'use client';
+"use client";
 
+import { flavorEntries } from "@catppuccin/palette";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import {
   ChevronsUpDown,
   CircleHelpIcon,
@@ -12,7 +15,15 @@ import {
   SunIcon,
   SunMoonIcon,
   VenetianMaskIcon,
-} from 'lucide-react';
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import { Suspense, use } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { authClient } from "@/auth/auth-client";
+import { AboutContext } from "@/components/dialog/about-dialog";
+import { ExternalLink } from "@/components/external-link";
+import { TerminalThemeContext } from "@/components/providers/terminal-theme-context";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,34 +38,23 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
-import { Suspense, use } from 'react';
+} from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { UserAvatar } from "@/components/user-avatar";
 import {
   appUserName,
   getLanguageName,
   languageEmoji,
   runAsync,
   setTerminalTheme,
-} from '@/lib/utils';
-import { toast } from 'sonner';
-import { useNavigate } from '@tanstack/react-router';
-import { flavorEntries } from '@catppuccin/palette';
-import { useTheme } from 'next-themes';
-import { TerminalThemeContext } from '@/components/providers/terminal-theme-context';
-import { AboutContext } from '@/components/dialog/about-dialog';
-import { useTranslation } from 'react-i18next';
-import { UserAvatar } from '@/components/user-avatar';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ExternalLink } from '@/components/external-link';
-import { authClient } from '@/auth/auth-client';
-import { Route } from '@/routes/_dashboard';
-import { useSuspenseQuery } from '@tanstack/react-query';
+} from "@/lib/utils";
+import { Route } from "@/routes/_dashboard";
 
 function SidebarAccountButton() {
   const { clientDataQueryOptions } = Route.useRouteContext();
@@ -136,7 +136,7 @@ function DropdownAccountHeaderSkeleton() {
 }
 
 function DropdownImpersonateButton() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const navigate = useNavigate();
   const { clientDataQueryOptions } = Route.useRouteContext();
   const { data: session } = useSuspenseQuery(clientDataQueryOptions);
@@ -153,7 +153,7 @@ function DropdownImpersonateButton() {
             fetchOptions: {
               onSuccess: async () => {
                 await navigate({
-                  to: '/',
+                  to: "/",
                   replace: true,
                   reloadDocument: true,
                 });
@@ -164,13 +164,13 @@ function DropdownImpersonateButton() {
       }}
     >
       <VenetianMaskIcon />
-      {t('userSidebar.stopImpersonating')}
+      {t("userSidebar.stopImpersonating")}
     </DropdownMenuItem>
   );
 }
 
 export function NavAccount() {
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n } = useTranslation("common");
   const navigate = useNavigate();
   const terminalTheme = use(TerminalThemeContext);
   const { openAbout } = use(AboutContext);
@@ -186,7 +186,7 @@ export function NavAccount() {
           </Suspense>
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
+            side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
@@ -200,7 +200,7 @@ export function NavAccount() {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <PaintRollerIcon />
-                  {t('userSidebar.theme.title')}
+                  {t("userSidebar.theme.title")}
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
@@ -210,15 +210,15 @@ export function NavAccount() {
                     >
                       <DropdownMenuRadioItem value="system">
                         <SunMoonIcon className="mr-1 h-4" />
-                        {t('userSidebar.theme.system')}
+                        {t("userSidebar.theme.system")}
                       </DropdownMenuRadioItem>
                       <DropdownMenuRadioItem value="dark">
                         <MoonIcon className="mr-1 h-4" />
-                        {t('userSidebar.theme.dark')}
+                        {t("userSidebar.theme.dark")}
                       </DropdownMenuRadioItem>
                       <DropdownMenuRadioItem value="light">
                         <SunIcon className="mr-1 h-4" />
-                        {t('userSidebar.theme.light')}
+                        {t("userSidebar.theme.light")}
                       </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>
@@ -227,7 +227,7 @@ export function NavAccount() {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <LaptopMinimalIcon />
-                  {t('userSidebar.terminal.title')}
+                  {t("userSidebar.terminal.title")}
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
@@ -250,7 +250,7 @@ export function NavAccount() {
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <LanguagesIcon />
-                  {t('locale')}
+                  {t("locale")}
                 </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
@@ -263,7 +263,7 @@ export function NavAccount() {
                         ? i18n.options.supportedLngs
                         : []
                       )
-                        .filter((lang) => lang !== 'cimode')
+                        .filter((lang) => lang !== "cimode")
                         .map((lang) => (
                           <DropdownMenuRadioItem key={lang} value={lang}>
                             {languageEmoji(lang)} {getLanguageName(lang, lang)}
@@ -275,7 +275,7 @@ export function NavAccount() {
                       <DropdownMenuItem asChild>
                         <ExternalLink href="https://translate.pistonpanel.com">
                           <HeartHandshakeIcon />
-                          {t('userSidebar.helpTranslate')}
+                          {t("userSidebar.helpTranslate")}
                         </ExternalLink>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
@@ -287,7 +287,7 @@ export function NavAccount() {
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={openAbout}>
                 <CircleHelpIcon />
-                {t('userSidebar.about')}
+                {t("userSidebar.about")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -302,9 +302,9 @@ export function NavAccount() {
                       fetchOptions: {
                         onSuccess: async () => {
                           await navigate({
-                            to: '/auth/$pathname',
+                            to: "/auth/$pathname",
                             params: {
-                              pathname: 'sign-in',
+                              pathname: "sign-in",
                             },
                             replace: true,
                           });
@@ -313,17 +313,17 @@ export function NavAccount() {
                     });
                   };
                   toast.promise(disconnect(), {
-                    loading: t('userSidebar.logOutToast.loading'),
-                    success: t('userSidebar.logOutToast.success'),
+                    loading: t("userSidebar.logOutToast.loading"),
+                    success: t("userSidebar.logOutToast.success"),
                     error: (e) => {
                       console.error(e);
-                      return t('userSidebar.logOutToast.error');
+                      return t("userSidebar.logOutToast.error");
                     },
                   });
                 }}
               >
                 <LogOutIcon />
-                {t('userSidebar.logOut')}
+                {t("userSidebar.logOut")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>

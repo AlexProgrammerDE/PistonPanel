@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next';
-import { useNavigate, useRouter } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useNavigate, useRouter } from "@tanstack/react-router";
 import {
   BugIcon,
   LoaderCircleIcon,
   LogOutIcon,
   RotateCwIcon,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { runAsync } from '@/lib/utils';
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { authClient } from "@/auth/auth-client";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -16,11 +16,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { authClient } from '@/auth/auth-client';
+} from "@/components/ui/card";
+import { runAsync } from "@/lib/utils";
 
 export function ErrorComponent({ error }: { error: Error }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const navigate = useNavigate();
   const router = useRouter();
   const [revalidating, setRevalidating] = useState(false);
@@ -38,7 +38,7 @@ export function ErrorComponent({ error }: { error: Error }) {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [revalidate]);
 
   return (
     <div className="flex size-full grow">
@@ -46,9 +46,9 @@ export function ErrorComponent({ error }: { error: Error }) {
         <CardHeader className="pb-4">
           <CardTitle className="fle-row flex gap-1 text-2xl font-bold">
             <BugIcon className="h-8" />
-            {t('error.page.title')}
+            {t("error.page.title")}
           </CardTitle>
-          <CardDescription>{t('error.page.description')}</CardDescription>
+          <CardDescription>{t("error.page.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="max-w-2xl truncate text-red-500">{error.message}</p>
@@ -62,9 +62,9 @@ export function ErrorComponent({ error }: { error: Error }) {
                   fetchOptions: {
                     onSuccess: async () => {
                       await navigate({
-                        to: '/auth/$pathname',
+                        to: "/auth/$pathname",
                         params: {
-                          pathname: 'sign-in',
+                          pathname: "sign-in",
                         },
                         replace: true,
                       });
@@ -75,7 +75,7 @@ export function ErrorComponent({ error }: { error: Error }) {
             }
           >
             <LogOutIcon className="h-4" />
-            {t('error.page.logOut')}
+            {t("error.page.logOut")}
           </Button>
           <Button onClick={revalidate}>
             {revalidating ? (
@@ -83,7 +83,7 @@ export function ErrorComponent({ error }: { error: Error }) {
             ) : (
               <RotateCwIcon className="h-4" />
             )}
-            {t('error.page.reloadPage')}
+            {t("error.page.reloadPage")}
           </Button>
         </CardFooter>
       </Card>

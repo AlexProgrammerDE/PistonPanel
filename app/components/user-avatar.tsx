@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn, getGravatarUrl } from '@/lib/utils';
-import * as React from 'react';
+import * as React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn, getGravatarUrl } from "@/lib/utils";
 
 const cache = new Map<string, true>();
 
@@ -27,11 +27,11 @@ export const UserAvatar = React.memo(
     const [isError, setIsError] = React.useState(isErrorCached(props.email));
 
     return (
-      <Avatar className={cn('rounded-lg', props.className)}>
+      <Avatar className={cn("rounded-lg", props.className)}>
         {!isError && (
           <AvatarImage
             onLoadingStatusChange={(e) => {
-              if (e === 'error') {
+              if (e === "error") {
                 markErrorCached(props.email);
                 setIsError(true);
               }
