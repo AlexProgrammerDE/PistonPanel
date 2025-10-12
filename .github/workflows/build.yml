@@ -2,6 +2,7 @@ name: 'Build and Test'
 
 on:
   - push
+  - pull_request
 
 jobs:
   test:
@@ -14,20 +15,29 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: 'Setup node'
-        uses: actions/setup-node@v5
-        with:
-          node-version: lts/*
-
-      - name: 'Install pnpm'
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
           version: latest
+          run_install: false
 
-      - name: 'Install pnpm packages'
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run typecheck
         run: |
-          pnpm install --prefer-offline --frozen-lockfile
+          pnpm typecheck
 
-      - name: 'Build pnpm packages'
+      - name: Run check
+        run: |
+          pnpm check
+
+      - name: Build project
         run: |
           pnpm build
