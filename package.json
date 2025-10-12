@@ -4,7 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "typecheck": "tsc --noEmit",
     "generate-routes": "tsr generate",
     "watch:routes": "tsr watch",
     "watch:ts": "tsc-watch",
@@ -15,10 +14,9 @@
     "build": "vite build && tsc --noEmit",
     "serve": "vite preview",
     "start": "vite",
-    "lint": "eslint app/",
-    "fix": "npm-run-all2 fix:prettier fix:eslint",
-    "fix:prettier": "prettier --write .",
-    "fix:eslint": "eslint --fix app/",
+    "typecheck": "tsc --noEmit",
+    "fix": "biome check --write --unsafe",
+    "check": "biome check",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
@@ -96,7 +94,7 @@
     "zod-i18n-map": "^2.27.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
+    "@biomejs/biome": "2.2.5",
     "@react-email/components": "^0.5.0",
     "@tailwindcss/postcss": "^4.0.15",
     "@tanstack/eslint-plugin-query": "^5.68.0",
@@ -117,7 +115,6 @@
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
     "autoprefixer": "^10.4.21",
-    "biome": "^0.3.3",
     "cross-env": "^10.0.0",
     "drizzle-kit": "^0.31.0",
     "globals": "^16.0.0",
@@ -131,7 +128,6 @@
     "tsc-watch": "^7.0.0",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.28.0",
     "vite-tsconfig-paths": "^5.1.4",
     "zod": "^4.0.0"
   },
