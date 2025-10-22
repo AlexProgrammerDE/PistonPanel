@@ -4,11 +4,11 @@ import { AnsiHtml } from "fancy-ansi/react";
 import React, {
   type CSSProperties,
   use,
+  useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { useTranslation } from "react-i18next";
 import { TerminalThemeContext } from "@/components/providers/terminal-theme-context";
 import { ScrollArea } from "./ui/scroll-area";
 
@@ -76,23 +76,28 @@ type TerminalLine = TerminalLineBase & {
   hash: string;
 };
 
-export const TerminalComponent = (_props: { scope: {} }) => {
-  const { t } = useTranslation("common");
+export const TerminalComponent = () => {
   const [gotPrevious, _setGotPrevious] = useState(false);
   const [entries, _setEntries] = useState<TerminalLine[]>([]);
   const terminalTheme = use(TerminalThemeContext);
   const paneRef = useRef<HTMLDivElement>(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
-  const selectedTheme = flavorEntries.find(
-    (entry) => entry[0] === terminalTheme.value,
-  )?.[1];
+  const fallbackTheme = flavorEntries[0]?.[1];
+  const selectedTheme =
+    flavorEntries.find((entry) => entry[0] === terminalTheme.value)?.[1] ??
+    fallbackTheme;
 
-  const handleScroll = () => {
-    if (paneRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = paneRef.current;
+  const handleScroll = useCallback(() => {
+    const pane = paneRef.current;
+    if (pane) {
+      const { scrollTop, scrollHeight, clientHeight } = pane;
       setIsAtBottom(scrollTop + clientHeight >= scrollHeight - 1);
     }
-  };
+  }, []);
+
+  if (!selectedTheme) {
+    throw new Error("No terminal themes available");
+  }
 
   useEffect(() => {
     const pane = paneRef.current;

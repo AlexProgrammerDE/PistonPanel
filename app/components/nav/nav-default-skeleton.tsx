@@ -5,12 +5,17 @@ import {
   SidebarMenuSkeleton,
 } from "../ui/sidebar";
 
+const NAV_SKELETON_KEYS = Array.from(
+  { length: 5 },
+  (_, index) => `nav-skeleton-${index}`,
+);
+
 export function NavDefaultSkeleton() {
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <SidebarMenuItem key={index}>
+        {NAV_SKELETON_KEYS.map((placeholderKey) => (
+          <SidebarMenuItem key={placeholderKey}>
             <SidebarMenuSkeleton showIcon />
           </SidebarMenuItem>
         ))}

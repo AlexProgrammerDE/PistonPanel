@@ -30,6 +30,7 @@ function RouteComponent() {
   return (
     <ScrollArea className="relative h-dvh w-full px-4">
       <svg className="fill-muted-foreground/5 absolute top-0 right-0 bottom-0 left-0 z-[-1] h-dvh w-dvw">
+        <title>{t("title")}</title>
         <defs>
           <pattern
             id="circuitPattern"

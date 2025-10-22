@@ -1,6 +1,10 @@
 import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
 import { siteBaseUrl, siteName } from "~/config";
 import { sendEmail } from "~/email/backend";
+import { getEnvVar } from "~/env";
+
+const emailFrom = getEnvVar("EMAIL_FROM");
+const emailReplyTo = getEnvVar("EMAIL_REPLY_TO");
 
 interface BaseEmailParams {
   user: {
@@ -42,9 +46,9 @@ export const authEmails = {
   async sendPasswordReset({ user, url }: EmailWithUrlParams) {
     const name = user.name || user.email.split("@")[0];
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       user.email,
-      process.env.EMAIL_REPLY_TO!,
+      emailReplyTo,
       `Your password reset request for ${siteName}`,
       EmailTemplate({
         action: "Reset Password",
@@ -69,9 +73,9 @@ export const authEmails = {
   async sendEmailVerification({ user, url }: EmailWithUrlParams) {
     const name = user.name || user.email.split("@")[0];
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       user.email,
-      process.env.EMAIL_REPLY_TO!,
+      emailReplyTo,
       `Verify your email address for ${siteName}`,
       EmailTemplate({
         action: "Verify Email",
@@ -93,10 +97,10 @@ export const authEmails = {
   async sendChangeEmailVerification({ user, url }: EmailWithUrlParams) {
     const name = user.name || user.email.split("@")[0];
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       user.email,
-      process.env.EMAIL_REPLY_TO!,
-      "Your email change verification for ${siteName}",
+      emailReplyTo,
+      `Your email change verification for ${siteName}`,
       EmailTemplate({
         action: "Change Email",
         content: (
@@ -120,9 +124,9 @@ export const authEmails = {
   async sendDeleteAccountVerification({ user, url }: EmailWithUrlParams) {
     const name = user.name || user.email.split("@")[0];
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       user.email,
-      process.env.EMAIL_REPLY_TO!,
+      emailReplyTo,
       `Your account deletion request for ${siteName}`,
       EmailTemplate({
         action: "Delete Account",
@@ -147,9 +151,9 @@ export const authEmails = {
   async sendTwoFactorOTP({ user, otp }: OTPEmailParams) {
     const name = user.name || user.email.split("@")[0];
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       user.email,
-      process.env.EMAIL_REPLY_TO!,
+      emailReplyTo,
       `Your verification code for ${siteName}`,
       EmailTemplate({
         content: (
@@ -172,9 +176,9 @@ export const authEmails = {
   async sendEmailOTP({ email, otp, type }: EmailOTPParams) {
     if (type === "sign-in") {
       await sendEmail(
-        process.env.EMAIL_FROM!,
+        emailFrom,
         email,
-        process.env.EMAIL_REPLY_TO!,
+        emailReplyTo,
         `Your sign-in code for ${siteName}`,
         EmailTemplate({
           content: (
@@ -193,9 +197,9 @@ export const authEmails = {
       );
     } else if (type === "email-verification") {
       await sendEmail(
-        process.env.EMAIL_FROM!,
+        emailFrom,
         email,
-        process.env.EMAIL_REPLY_TO!,
+        emailReplyTo,
         `Your verification code for ${siteName}`,
         EmailTemplate({
           content: (
@@ -214,9 +218,9 @@ export const authEmails = {
       );
     } else if (type === "forget-password") {
       await sendEmail(
-        process.env.EMAIL_FROM!,
+        emailFrom,
         email,
-        process.env.EMAIL_REPLY_TO!,
+        emailReplyTo,
         `Your password reset code for ${siteName}`,
         EmailTemplate({
           content: (
@@ -244,9 +248,9 @@ export const authEmails = {
     organization,
   }: InvitationEmailParams) {
     await sendEmail(
-      process.env.EMAIL_FROM!,
+      emailFrom,
       email,
-      process.env.EMAIL_REPLY_TO!,
+      emailReplyTo,
       `You have been invited to join an organization on ${siteName}`,
       EmailTemplate({
         action: "Join Organization",

@@ -20,10 +20,17 @@ function LoadingSkeleton() {
 }
 
 export function LoadingComponent() {
+  const skeletonPlaceholders = React.useMemo(() => {
+    return Array.from(
+      { length: 10 },
+      (_, index) => `loading-skeleton-${index}`,
+    );
+  }, []);
+
   return (
     <div className="flex size-full grow flex-col gap-4 p-4">
-      {Array.from({ length: 10 }).map((_, index) => (
-        <LoadingSkeleton key={index} />
+      {skeletonPlaceholders.map((placeholderKey) => (
+        <LoadingSkeleton key={placeholderKey} />
       ))}
     </div>
   );

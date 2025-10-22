@@ -162,14 +162,19 @@ export default function CommandInput() {
       };
     }
 
-    if (completionStateNew.receivedCompletions?.length > 0) {
+    const completions = completionStateNew.receivedCompletions;
+    const activeIndex = completionStateNew.index;
+    if (
+      completions !== null &&
+      completions.length > 0 &&
+      activeIndex !== null
+    ) {
       const split = completionStateNew.lastWritten.split(" ");
-      split[split.length - 1] =
-        completionStateNew.receivedCompletions?.[
-          completionStateNew.index!
-        ].suggestion;
-
-      element.value = split.join(" ");
+      const nextCompletion = completions[activeIndex];
+      if (nextCompletion) {
+        split[split.length - 1] = nextCompletion.suggestion;
+        element.value = split.join(" ");
+      }
     }
 
     setCompletionState(completionStateNew);

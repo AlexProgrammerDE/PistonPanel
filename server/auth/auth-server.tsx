@@ -25,6 +25,7 @@ import { siteBaseUrl, siteName } from "~/config";
 import { db } from "~/db";
 import * as authSchema from "~/db/auth-schema";
 import * as schema from "~/db/schema";
+import { getEnvVar } from "~/env";
 
 const disableSignUp = true;
 
@@ -54,18 +55,18 @@ export const auth = betterAuth({
   socialProviders: {
     google: {
       disableSignUp,
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: getEnvVar("NEXT_PUBLIC_GOOGLE_CLIENT_ID"),
+      clientSecret: getEnvVar("GOOGLE_CLIENT_SECRET"),
     },
     microsoft: {
       disableSignUp,
-      clientId: process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID!,
-      clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
+      clientId: getEnvVar("NEXT_PUBLIC_MICROSOFT_CLIENT_ID"),
+      clientSecret: getEnvVar("MICROSOFT_CLIENT_SECRET"),
     },
     discord: {
       disableSignUp,
-      clientId: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID!,
-      clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+      clientId: getEnvVar("NEXT_PUBLIC_DISCORD_CLIENT_ID"),
+      clientSecret: getEnvVar("DISCORD_CLIENT_SECRET"),
     },
   },
   databaseHooks: {
