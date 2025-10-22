@@ -8,13 +8,21 @@ import type { AppUser } from "@/auth/auth-client";
 
 const LOCAL_STORAGE_TERMINAL_THEME_KEY = "terminal-theme";
 
+const flagsByCountry = new Map<string, FlagComponent>(
+  Object.entries(Flags) as [string, FlagComponent][],
+);
+
 const emojiMap = import.meta.env.APP_LOCALES.reduce<
   Record<string, FlagComponent>
 >((acc, locale) => {
   const countryCode = locale.split("-")[1];
   if (!countryCode) return acc;
 
-  acc[countryCode] = Flags[countryCode as keyof typeof Flags];
+  const flag = flagsByCountry.get(countryCode);
+  if (flag) {
+    acc[countryCode] = flag;
+  }
+
   return acc;
 }, {});
 

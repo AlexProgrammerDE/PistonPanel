@@ -64,8 +64,20 @@ function Content() {
   const { t } = useTranslation("common");
   const { auditLogQueryOptions } = Route.useRouteContext();
   const { data: auditLog } = useSuspenseQuery(auditLogQueryOptions);
+  const hasEntries = auditLog.entry.length > 0;
 
   return (
-    <div className="container flex h-full w-full grow flex-col gap-4"></div>
+    <div className="container flex h-full w-full grow flex-col gap-4">
+      <div className="grid grid-cols-3 gap-4 text-sm font-medium">
+        <span>{t("auditLog.user")}</span>
+        <span>{t("auditLog.action")}</span>
+        <span>{t("auditLog.timestamp")}</span>
+      </div>
+      {!hasEntries ? (
+        <p className="text-sm text-muted-foreground">
+          {t("auditLog.filterPlaceholder")}
+        </p>
+      ) : null}
+    </div>
   );
 }
