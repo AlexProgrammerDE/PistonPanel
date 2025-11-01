@@ -1,6 +1,7 @@
 import { AuthView } from "@daveyplate/better-auth-ui";
 import { createFileRoute } from "@tanstack/react-router";
 import { HeartHandshakeIcon } from "lucide-react";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "@/components/external-link";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ function RouteComponent() {
   const { pathname } = Route.useParams();
   const { t, i18n } = useTranslation("login");
   const searchParams: Record<string, string> = Route.useSearch();
+  const patternId = useId();
 
   return (
     <ScrollArea className="relative h-dvh w-full px-4">
@@ -33,7 +35,7 @@ function RouteComponent() {
         <title>{t("title")}</title>
         <defs>
           <pattern
-            id="circuitPattern"
+            id={patternId}
             x="0"
             y="0"
             width="600"
@@ -48,7 +50,7 @@ function RouteComponent() {
           y="0"
           width="100%"
           height="100%"
-          fill="url(#circuitPattern)"
+          fill={`url(#${patternId})`}
         />
       </svg>
       <main className="flex min-h-dvh w-full flex-col">
