@@ -14,10 +14,6 @@
       "!build",
       "!out",
       "!postcss.config.mjs",
-      "!app/components/ui",
-      "!app/components/data-table",
-      "!app/generated",
-      "!app/routeTree.gen.ts",
       "!src-tauri",
       "!protos",
       "!shared-modules",
@@ -30,6 +26,13 @@
     "indentWidth": 2
   },
   "linter": {
+    "includes": [
+      "**",
+      "!app/generated/**",
+      "!app/routeTree.gen.ts",
+      "!src/components/ui/**",
+      "!src/components/data-table/**"
+    ],
     "enabled": true,
     "rules": {
       "recommended": true,
