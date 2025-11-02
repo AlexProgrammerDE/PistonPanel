@@ -30,8 +30,8 @@
       "**",
       "!app/generated/**",
       "!app/routeTree.gen.ts",
-      "!src/components/ui/**",
-      "!src/components/data-table/**"
+      "!app/components/ui/**",
+      "!app/components/data-table/**"
     ],
     "enabled": true,
     "rules": {
