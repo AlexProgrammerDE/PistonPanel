@@ -98,7 +98,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.3.4",
     "@hono/node-server": "^1.18.1",
-    "@react-email/components": "^0.5.0",
+    "@react-email/components": "^1.0.0",
     "@tailwindcss/postcss": "^4.0.15",
     "@tanstack/react-router": "^1.114.27",
     "@tanstack/router-cli": "^1.114.27",
