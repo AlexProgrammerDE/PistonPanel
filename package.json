@@ -96,7 +96,7 @@
     "zod-i18n-map": "^2.27.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.6",
+    "@biomejs/biome": "2.3.7",
     "@hono/node-server": "^1.18.1",
     "@react-email/components": "^1.0.0",
     "@tailwindcss/postcss": "^4.0.15",
