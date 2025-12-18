@@ -128,7 +128,7 @@
     "tw-animate-css": "^1.3.4",
     "typescript": "^5.8.2",
     "vite": "^7.1.12",
-    "vite-tsconfig-paths": "^5.1.4",
+    "vite-tsconfig-paths": "^6.0.0",
     "zod": "^4.0.0"
   },
   "lint-staged": {
