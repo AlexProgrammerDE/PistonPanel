@@ -1,3 +1,7 @@
+Archived for now because I lack time and interest in working on this. Maybe in the future I'll try to get this back up working.
+
+---
+
 <img align="right" src="https://github.com/AlexProgrammerDE/PistonPanel/blob/main/public/logo.png?raw=true" height="150" width="150">
 
 <a href="https://github.com/AlexProgrammerDE/PistonPanel/actions/workflows/build.yml"><img src="https://github.com/AlexProgrammerDE/PistonPanel/actions/workflows/build.yml/badge.svg?branch=main" alt="Test"></a>
